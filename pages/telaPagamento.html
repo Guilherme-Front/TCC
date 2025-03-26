@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/telaPagamento.css">
+    <title>Tela de Pagamento | Pet Insight</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-txt">
+            <a href="../pages/TelaPrincipal.html"><img class="header-img" src="../img/pet.png" alt="Imagem da Logo"></a>
+        </div>
+        <a href="../pages/telaPerfil.html">
+            <img class="user" src="../img/user.png" alt="usuário">
+        </a>
+    </header>
+
+    <div class="voltar">
+        <a href="../pages/InformacaoProduto.html">
+            <img class="botao-voltar" src="../img/voltar.png" alt="botao-voltar" />
+        </a>
+
+        <h2>Escolha a forma de pagamento</h2>
+    </div>
+
+    <main>
+        <aside>
+            <ul>
+                <li class="item">
+                    <button class="item-button">
+                        <p class="texto">Pix</p><img class="pix" src="../img/logo-pix-954x339.png" alt="pix">
+                    </button>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="item">
+                    <button class="item-button">
+                        <p class="texto">Crédito</p>
+                    </button>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="item">
+                    <button class="item-button">
+                        <p class="texto">Débito</p>
+                    </button>
+                </li>
+            </ul>
+        </aside>
+
+        <section>
+            <div class="dados">
+                <div class="dados-pagamento">
+                    <p class="texto">Selecione uma forma de pagamento</p>
+                </div>
+
+                <div class="resumo">
+                    <div class="txt-resumo-pagamento">
+                        <h2 class="texto">Resumo</h2>
+                        <p class="texto">Valor da compra:<strong>R$200,00</strong></p>
+                        <p class="texto">Valor do frete:<strong>R$30,00</strong></p>
+                        <p class="texto" id="txt-subtotal">Subtotal:<strong>R$30,00</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="finish-button">
+                <button>Finalizar compra</button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/pagamento.js" defer></script>
+    <script src="../js/tema.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela Principal | Pet Insight</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel='stylesheet'
+    href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+  <link rel="stylesheet" href="../css/stylePrincipal.css">
+</head>
+
+<body class="fl-body">
+  <header class="header">
+    <div class="header_container">
+      <div class="header-titulo">
+        <img class="header-img" src="../img/pet.png" alt="Imagem da Logo">
+      </div>
+
+      <div class="search">
+        <label for="search">
+          <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui">
+        </label>
+      </div>
+
+      <div class="header-link-tema">
+        <a class="header-entrar" href="./telaPerfil.html">Entrar |</a>
+        <a class="header-cadastro" href="./Cadastro.html">Cadastro</a>
+
+        <a class="header-link-none" href="#"><i class="fi fi-ss-shopping-cart car" aria-label="car"></i></a>
+
+        <button class="header-button" id="button-tema" type="submit" aria-label="tema"><img class="header-tema"
+            src="../img/tema.png" alt="Foto Mudança de Tema"></button>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav_wrap">
+      <a class="nav-link" href="#">Quem Somos</a>
+      <a class="nav-link" href="../pages/TelaProdutos.html">Produtos</a>
+      <a class="nav-link" href="#">Cuidados</a>
+      <a class="nav-link" href="../pages/CuriosidadesGeral.html">Curiosidades</a>
+      <a class="nav-link" href="../pages/Faq.html">Suporte</a>
+    </div>
+  </nav>
+
+
+  <main>
+    <section class="TL_carrosel">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="../img/cat.jpg" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../img/dog.jpg" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="../img/cat-resposta.png" alt="Third slide">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev"
+          aria-label="sla">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next"
+          aria-label="sla">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+      </div>
+    </section>
+
+    <article class="tl_paragrafo">
+      <p class="tl-p">Aqui você pode adquirir informações essenciais para ajudá-lo a conhecer melhor o seu amigo e
+        proporcionar a ele uma vida mais feliz e saudável.</p>
+    </article>
+
+    <section class="carousel-3">
+      <div class="swiper-container-novo" id="carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="cart-gatos">
+              <div class="cart-img">
+                <img class="cart-cat-img" src="../img/cat-card.png" alt="Imagem do Gatinho">
+              </div>
+              <div class="cart-info">
+                <h4 class="cart-titulo-gatos">Gatos</h4>
+                <p class="cart-p-gatos">Descubra hábitos curiosos dos felinos e dicas para uma vida saudável.</p>
+              </div>
+              <div class="cart-button">
+                <a href="../pages/InfoGatos.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="cart-gatos">
+              <div class="cart-img">
+                <img class="cart-cat-img" src="../img/pastor.jpg" alt="Imagem do Cachorrinho">
+              </div>
+              <div class="cart-info">
+                <h4 class="cart-titulo-dog">Cachorros</h4>
+                <p class="cart-p-gatos">Como cuidar do seu melhor amigo e mantê-lo ativo, saudável e feliz.</p>
+              </div>
+              <div class="cart-button">
+                <a href="../pages/InfoDogs.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="cart-gatos">
+              <div class="cart-img">
+                <img class="cart-cat-img" src="../img/ham-card.png" alt="Imagem do Hamster">
+              </div>
+              <div class="cart-info">
+                <h4 class="cart-titulo-ham">Hamsters</h4>
+                <p class="cart-p-gatos">Dicas para um ambiente confortável e alimentação adequada.</p>
+              </div>
+              <div class="cart-button">
+                <a href="../pages/InfoHamsters.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="cart-gatos">
+              <div class="cart-img">
+                <img class="cart-cat-img" src="../img/coelho-card.jpeg" alt="Imagem do Hamster">
+              </div>
+              <div class="cart-info">
+                <h4 class="cart-titulo-coelho">Coelhos</h4>
+                <p class="cart-p-gatos">Dicas para um ambiente confortável e alimentação adequada.</p>
+              </div>
+              <div class="cart-button">
+                <a href="../pages/InfoCoelhos.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="cart-gatos">
+              <div class="cart-img">
+                <img class="cart-cat-img" src="../img/pi-card.jpeg" alt="Imagem do Hamster">
+              </div>
+              <div class="cart-info">
+                <h4 class="cart-titulo-PI">Porquinho da India</h4>
+                <p class="cart-p-gatos">Dicas para um ambiente confortável e alimentação adequada.</p>
+              </div>
+              <div class="cart-button">
+                <a href="../pages/InfoPorquinho.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="prev-btn" onclick="moveCarousel('prev')"><img id="prev-tema" src="../img/angulo-esquerdo.png"
+          alt="Imagem Setinha Esquerda" aria-label="prev"></button>
+      <button class="next-btn" onclick="moveCarousel('next')"><img id="next-tema" src="../img/angulo-direito.png"
+          alt="Imagem Setinha Direita" aria-label="next"></button>
+    </section>
+
+    <section class="marca">
+      <div class="titulo_marca">
+        <h2>Nossas marcas e parcerias</h2>
+        <p class="p-marca">Nossos produtos são de altíssima qualidade, provenientes das melhores empresas.</p>
+      </div>
+
+      <div class="marcas">
+        <img class="img-size" src="../img/Beeps.png" alt="Imagem da marca Beeps">
+        <img class="img-size" src="../img/Pedigree.png" alt="Imagem da marca Pedigree">
+        <img class="img-size" src="../img/Whiskas.png" alt="Imagem da marca Whiskas">
+        <img class="img-size" src="../img/Pet-Love.png" alt="Imagem da marca Pet Love">
+        <img class="img-size" src="../img/CasaTosador.png" alt="Imagem da marca Casa do Tosador">
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/scriptPrincipal.js"></script>
+  <script src="../js/tema.js"></script>
+</body>
+
+<footer class="footer">
+  <div class="container">
+    <div class="coluna">
+      <div class="h5-rede">
+        <h5>Nossas Redes Sociais</h5>
+      </div>
+
+      <div class="icon-rede">
+        <img src="../img/whatsapp.png" alt="Imagem do Whatsap" class="img-zap">
+        <img src="../img/facebook.png" alt="Imagem do Facebook" class="img-face">
+        <img src="../img/instagram.png" alt="Imagem do Instagram" class="img-insta">
+      </div>
+    </div>
+
+    <div class="coluna">
+      <div class="titulo_pag">
+        <h5>Faça sua compra com segurança</h5>
+      </div>
+      <p class="p-pag">Para maior segurança na realização da sua compra, temos parceria com o Mercado Pago, a líder em
+        pagamentos online, garantindo uma experiência segura e confiável.</p>
+
+      <div class="marcas">
+        <img src="../img/MercadoPago.png" alt="" class="img-pag">
+      </div>
+    </div>
+
+    <div class="coluna">
+      <div class="links">
+        <a class="links-footer" href="#">Quem Somos</a>
+        <a class="links-footer" href="#">Promoções</a>
+        <a class="links-footer" href="../pages/FaleConosco.html">Fale Conosco</a>
+      </div>
+    </div>
+
+    <div class="coluna">
+      <div class="cont">
+        <p>Contato</p>
+        <p>Estr. da Baronesa, 1695 - Jardim Angela, São Paulo - SP, 04941-175</p>
+        <p>11 99999-9999</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</html>

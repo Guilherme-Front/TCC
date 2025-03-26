@@ -1,0 +1,319 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Início FAQ Header */ 
+
+.header {
+    margin-top: -130px;
+    margin-bottom: -130px;
+}
+
+.header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 900px;
+}
+
+.header-img {
+    width: 350px;
+    height: auto;
+    margin-left: -53px;
+}
+
+.header-entrar {
+    position: relative;
+    text-decoration: none;
+    color: #38C08F; /* Cor do texto */
+    font-size: 18px;
+    padding-bottom: 5px; /* Ajuste para a linha ficar mais distante */
+}
+
+.header-entrar::after {
+    content: "";
+    position: absolute;
+    background-color:  #38C08F;
+    left: 0;
+    bottom: 0; /* Controla a posição da linha */
+    width: 0; /* Começa sem largura */
+    height: 1px; /* Espessura da linha */
+    transition: width 0.3s ease-in-out; /* Animação suave */
+}
+
+.header-entrar:hover::after {
+    width: 85%; /* A linha se expande completamente */
+}
+
+.header-cadastro {
+    position: relative;
+    text-decoration: none;
+    color: #38C08F; /* Cor do texto */
+    font-size: 18px;
+    padding-bottom: 5px; /* Ajuste para a linha ficar mais distante */
+}
+
+.header-cadastro::after {
+    content: "";
+    position: absolute;
+    background-color:  #38C08F;
+    left: 0;
+    bottom: 0; /* Controla a posição da linha */
+    width: 0; /* Começa sem largura */
+    height: 1px; /* Espessura da linha */
+    transition: width 0.3s ease-in-out; /* Animação suave */
+}
+
+.header-cadastro:hover::after {
+    width: 100%; /* A linha se expande completamente */
+}
+
+.header-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.header-tema {
+    margin-left: 40px;
+    margin-bottom: -10px;
+    width: 35px;
+}
+
+/* Fim FAQ Header */ 
+
+/* Início Perguntas Frequentes */
+
+.faq-body{
+    height: 980px;
+}
+
+.faq-flex {
+    display: flex;
+    background-color: #94debf;
+}
+
+.faq-h1 {
+    margin: 10px 0 20px 90px;
+    cursor: default;
+}
+
+.faq-titulo {
+    font-size: 28px;
+}
+
+.faq-paragrafo {
+    margin: 0 0 0 90px;
+    font-size: 18px;
+    cursor: default;
+}
+
+.faq-p {
+    max-width: 70%;
+    margin: 30px 0 20px 0;
+}
+
+.faq-image {
+    margin: 70px 0 0 0;
+}
+
+.faq--cat {
+    width: 200px;
+}
+
+.faq-perguntas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    height: 280px;
+}
+
+.faq-respostas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-question {
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    width: 800px;
+    background-color: #F4F4F4;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: start;
+    cursor: pointer;
+}
+
+.faq-questions {
+    display: block;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 800px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #F4F4F4;
+    border: none;
+    text-align: start;
+    cursor: pointer;
+}
+
+.faq-message {
+    display: none;
+    margin-left: 5px;
+    margin-top: 10px;
+    border: 2px solid #e8e8e8;
+    width: 760px;
+    padding: 5px;
+}
+
+.faq-messages {
+    display: none;
+    overflow: hidden;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #e8e8e8;
+    width: 760px;
+    padding: 5px;
+}
+
+.faq-FL {
+    background-color: #BD5532;
+    width: 150px;
+    height: 35px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 23%;
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    margin-left: 340px;
+}
+
+.faq-FL:hover {
+    background-color: #8e3315;
+    transition: 0.8s;
+}
+
+.faq-button{
+    width: 100%;
+    display: flex;
+}
+
+/* Fim Perguntas Frequentes */
+
+/* Inicio Fale Conosco */
+
+.fl-flex {
+    display: flex;
+    background-color: #94debf;
+    /* #ebedc0 */
+}
+
+.fl-perguntas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    height: 250px;
+}
+
+.fl-h1 {
+    margin: -30px 0 20px 90px;
+    cursor: default;
+}
+
+.fl-titulo {
+    font-size: 30px;
+}
+
+.fl-paragrafo {
+    margin: 0 0 0 90px;
+    font-size: 18px;
+    cursor: default;
+}
+
+.fl-p {
+    max-width: 60%;
+    margin: 30px 0 20px 0;
+}
+
+.fl-image {
+    margin: 50px 0 0 0;
+}
+
+.fl--cat {
+    width: 200px;
+}
+
+.fl-dados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.fl-campos {
+    font-size: 18px
+}
+
+.fl-inp {
+    width: 350px;
+    height: 40px;
+    border: none;
+    background-color: #EAE9E9;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.fl-inp::placeholder {
+    color: #A4A4A4;
+    font-size: 16px;
+}
+
+.fl-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fl-next {
+    background-color: #BD5532;
+    width: 150px;
+    height: 40px;
+    border: none;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.fl-next:hover {
+    background-color: #8e3315;
+    transition: 0.8s;
+}
+
+textarea {
+    padding: 10px !important;
+    max-width: 350px;
+    min-width: 350px;
+    max-height: 250px;
+    min-height: 200px;
+}
+
+/* Fim Fale Conosco */

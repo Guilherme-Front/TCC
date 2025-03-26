@@ -1,0 +1,404 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Inicio Login */
+
+.voltar{
+    color: rgb(37, 37, 37);
+    margin-left: -230px;
+    display: flex;
+    position: fixed;
+    font-size: 25px;
+}
+
+.voltar:hover{
+    transition: 0.8s;
+    transform: scale(1.1);
+}
+
+.login_dog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    background-image: url('../img/dog.jpg');
+    backdrop-filter: blur(20px);
+    background-size: cover; /* Faz a imagem cobrir toda a área da tela */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background-position: center; /* Centraliza a imagem no fundo */
+}
+
+.login-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 500px; /* Defina um tamanho adequado */
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.login-border {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 610px;
+    padding: 20px;
+}
+
+.login-titulo {
+    margin: 20px 0 110px;
+    font-size: 35px;
+    cursor: default;
+}
+
+.login-label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-right: 250px;
+    font-size: 18px;
+}
+
+.login-input {
+    margin: -50px 0 250px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.input {
+    width: 300px;
+    height: 35px;
+    border: none;
+    padding: 10px;
+    background-color: #F3F3F3;
+}
+
+.input:hover {
+    background-color: #F3F3F3;
+}
+
+.input:focus{
+    border: rgb(134, 134, 134) solid 2px;
+    outline: none;
+    border-radius: 2px;
+}
+
+.input::placeholder {
+    color: #a2a2a2;
+    font-size: 16px;
+}
+
+.login-link {
+    margin: -240px 0 100px 160px;
+}
+
+.login-a {
+    color: #38C08F;
+    text-decoration: none;
+}
+
+.login-a:hover {
+    text-decoration: underline;
+}
+
+.login-botao {
+    margin: -60px 0 20px;
+}
+
+.botao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    height: 38px;
+    margin-left: 5px;
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    background-color: #BD5532;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background-color: #8e3315;
+    transition: 0.8s;
+}
+
+.login-p {
+    margin: 0 0 20px;
+    font-size: 17px;
+    cursor: default;
+}
+
+.login-cadastro {
+    text-decoration: none;
+    color: #38C08F;
+    font-weight: 600;
+}
+
+.login-cadastro:hover {
+    text-decoration: underline;
+}
+
+.login-resto {
+    margin: 30px 0 0 0;
+    cursor: default;
+}
+
+.login-conect{
+    cursor: default;
+}
+
+.login-images {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.login-icon {
+    width: 30px;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    transition: 0.8s;
+}
+
+.login-icon:hover{
+    transform: scale(1.1);
+}
+
+/* Fim Login */
+
+/* Inicio Cadastro */ 
+
+.cadastro_cat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    background-image: url('../img/cat.jpg');
+    backdrop-filter: blur(20px);
+    background-size: cover; /* Faz a imagem cobrir toda a área da tela */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background-position: center; /* Centraliza a imagem no fundo */
+}
+
+.cadastro-voltar{
+    color: rgb(37, 37, 37);
+    margin-top: -15px;
+    margin-left: -225px;
+    display: flex;
+    position: fixed;
+    font-size: 25px;
+}
+
+.cadastro-voltar:hover{
+    transition: 0.8s;
+    transform: scale(1.1);
+}
+
+.cadastro-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 500px; /* Defina um tamanho adequado */
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.cadastro-border {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 650px;
+    padding: 20px;
+}
+
+.cadastro-titulo {
+    margin: 10px 0 20px 0;
+    font-size: 30px;
+    cursor: default;
+}
+
+.cadastro-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+.cadastro-required {
+    color: rgb(255, 0, 0);   
+}
+
+.cadastro-input {
+    margin: 15px 0 160px;
+    border-radius: 3px;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+}
+
+.input-cadastro {
+    width: 300px;
+    height: 35px;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #F3F3F3;
+    font-size: 16px;
+}
+
+.input-cadastro:hover {
+    background-color: #F3F3F3;
+}
+
+.input-cadastro:focus{
+    border: rgb(134, 134, 134) solid 2px;
+    outline: none;
+    border-radius: 3px;
+}
+
+input[name="Data"] {
+    appearance: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cadastro-botao {
+    margin: -135px 0 30px 0;
+}
+
+.botao-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    height: 35px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #BD5532;
+    cursor: pointer;
+}
+
+.botao-cadastro:hover {
+    background-color: #8e3315;
+}
+
+.cadastro-p {
+    margin: -10px 0 0;
+    font-size: 17px;
+    cursor: default;
+}
+
+/* Fim Cadastro */
+
+/* Inicio Senha/Redefinir */
+
+.senha-border {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 550px;
+    padding: 20px;
+}
+
+.redefinir-border {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 590px;
+    padding: 20px;
+}
+
+.senha-titulo {
+    margin: 120px 0 50px 0;
+    font-size: 30px;
+    cursor: default;
+}
+
+.senha-input {
+    margin: 0 0 360px 0;
+    border-radius: 3px;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+}
+
+.botao-senha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    height: 35px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #BD5532;
+    cursor: pointer;
+    margin: -150px 0 0;
+
+}
+
+.botao-senha:hover {
+    background-color: #8e3315;
+}
+
+.botao-redefinir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    height: 35px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #BD5532;
+    cursor: pointer;
+    margin: -150px 0 0;
+
+}
+
+.botao-redefinir:hover {
+    background-color: #8e3315;
+}
+
+.senha-span {
+    display: flex;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #8B8B8B;
+    cursor: default;
+}
+
+/* Fim Senha/Redefinir */
