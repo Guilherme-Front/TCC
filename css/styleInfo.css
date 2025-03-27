@@ -8,22 +8,23 @@
 /* Início Header */
 
 .header {
-    margin-top: -130px;
+    margin-top: -90px;
     margin-bottom: -130px;
+    height: 350px;
 }
 
 .header_container {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-left: -150px;
+    margin-left: 50px;
 }
 
 .header-img {
-    width: 350px;
+    width: 120px;
     height: auto;
-    margin-bottom: 35px;
-    margin-left: 50px;
+    margin-top: 100px;
+    margin-bottom: 130px;
 }
 
 .header-entrar {

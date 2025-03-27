@@ -649,7 +649,7 @@ function ativarModoClaro() {
   if (tipo) tipo.forEach(item => item.style.color = "#82371e");
 
   const products = document.querySelectorAll(".produtos");
-  if (products) products.forEach(item => item.style.backgroundColor = "#f9fadf");
+  if (products) products.forEach(item => item.style.backgroundColor = "#cecfc1");
 
   const product = document.querySelectorAll(".produto");
   if (product) product.forEach(item => item.style.backgroundColor = "rgb(255, 255, 255)");
@@ -660,11 +660,11 @@ function ativarModoClaro() {
   const produtosP = document.querySelectorAll(".produtos");
   produtosP.forEach(produto => {
     produto.addEventListener('mouseover', () => {
-      mudarBoxShadow('rgba(255, 0, 0, 0.5)', produto);
+      mudarBoxShadow('rgba(58, 58, 58, 0.3');
     });
 
     produto.addEventListener('mouseout', () => {
-      mudarBoxShadow('rgba(0, 0, 0, 0.1)', produto);
+      mudarBoxShadow('rgba(0, 0, 0, 0.1)');
     });
   });
 
@@ -672,8 +672,6 @@ function ativarModoClaro() {
   function mudarBoxShadow(cor, produto) {
     produto.style.boxShadow = `0 3px 10px 10px ${cor}`;
   }
-
-
   /* Fim Tela Produtos */
 
   /* Início Info Gatos */
