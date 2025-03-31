@@ -245,7 +245,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .cart-titulo-gatos {
     margin-top: 10px;
-    margin-right: 170px;
+    margin-right: 157px;
     cursor: default;
 }
 
@@ -253,6 +253,7 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-left: 10px;
     margin-top: 10px;
     font-size: 17px;
+    max-width: 90%;
     cursor: default;
 }
 
@@ -297,25 +298,25 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .cart-titulo-dog {
     margin-top: 10px;
-    margin-right: 125px;
+    margin-right: 110px;
     cursor: default;
 }
 
 .cart-titulo-ham {
     margin-top: 10px;
-    margin-right: 130px;
+    margin-right: 115px;
     cursor: default;
 }
 
 .cart-titulo-coelho {
     margin-top: 10px;
-    margin-right: 145px;
+    margin-right: 132px;
     cursor: default;
 }
 
 .cart-titulo-PI {
     margin-top: 10px;
-    margin-right: 25px;
+    margin-right: 12px;
     cursor: default;
 }
 
@@ -540,4 +541,190 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-left: 100px;
     color: white;
     cursor: default;
+}
+
+
+/* Responsividade */
+
+@media screen and (max-width: 400px) {
+    .header {
+        margin-top: -80px;
+        margin-left: -50px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 120px;
+        height: 25px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 12px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 50px;
+        margin-bottom: 110px;
+        margin-right: -5px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 12px;
+    }
+
+    .car {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+
+    .header-button {
+        margin-left: -20px;
+    }
+
+    .header-tema {
+        width: 25px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        margin-right: 10px;
+        gap: 15px;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 200px;
+    }
+
+    /* Fim carrousel */
+
+    .tl_paragrafo {}
+
+    .tl-p {
+        font-size: 18px;
+        max-width: 82%;
+    }
+
+    /* Fim paragrafo */
+
+    .cart-gatos {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100px;
+        height: 160px;
+        gap: 30px;
+    }
+
+    .cart-cat-img {
+        width: 100px;
+        height: 50px;
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+    }
+    
+    .cart-titulo-gatos {
+        margin-top: -25px;
+        margin-right: 53px;
+        font-size: 10px;
+        cursor: default;
+    }
+    
+    .cart-p-gatos {
+        margin-left: 5px;
+        margin-top: -5px;
+        font-size: 10px;
+        max-width: 85%;
+        cursor: default;
+    }
+    
+    .cart-titulo-dog {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 35px;
+        cursor: default;
+    }
+    
+    .cart-titulo-ham {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 38px;
+        cursor: default;
+    }
+    
+    .cart-titulo-coelho {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 45px;
+        cursor: default;
+    }
+    
+    .cart-titulo-PI {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: -2px;
+        cursor: default;
+    }
+    
+    .cart-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -45px;
+    }
+    
+    .cart-next {
+        background-color: #BD5532;
+        width: 90px;
+        height: 15px;
+        border: none;
+        border-radius: 3px;
+        font-weight: 600;
+        font-size: 10px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .prev-btn {
+        margin-left: -215px;
+        z-index: 9999;
+    }
+
+    #prev-tema {
+        width: 20px;
+    }
+
+    #next-tema {
+        width: 20px;
+    }
+
+    .next-btn {
+        margin-right: -210px;
+        z-index: 9999;
+    }
+
+    #carousel {
+        margin-left: -50px;
+        width: 230px;
+    }
+    /* Fim informações */
+
+    .marca {
+        margin-top: 270px;
+    }
+
+    .titulo_marca {
+        color: black;
+    }
 }
