@@ -383,7 +383,7 @@ input[type="search"]::-webkit-search-cancel-button {
     justify-content: center;
     padding: 30px;
     background-color: rgba(255, 110, 62, 0.702);
-    height: 540px;
+    height: 500px;
 }
 
 .titulo_marca {
@@ -391,7 +391,8 @@ input[type="search"]::-webkit-search-cancel-button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: -50px;
+    margin-bottom: 30px;
     color: white;
     cursor: default;
 }
@@ -408,6 +409,27 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .img-size {
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.img-size-whiskas {
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.img-size-love {
+    margin-left: 70px;
+    margin-top: 20px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.img-size-casa {
     margin-left: 70px;
     margin-top: 20px;
     width: 180px;
@@ -543,19 +565,25 @@ input[type="search"]::-webkit-search-cancel-button {
     cursor: default;
 }
 
-
 /* Responsividade */
 
 @media screen and (max-width: 400px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     .header {
         margin-top: -80px;
-        margin-left: -50px;
         height: 300px;
     }
 
     .TL-inp {
-        width: 120px;
+        width: 130px;
         height: 25px;
+        margin-right: 50px;
+        margin-left: -50px;
     }
 
     .TL-inp::placeholder {
@@ -564,13 +592,15 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .header-link-tema {
         margin-right: -20px;
+        margin-left: -60px;
         margin-bottom: 5px;
     }
 
     .header-img {
         width: 50px;
         margin-bottom: 110px;
-        margin-right: -5px;
+        margin-right: 35px;
+        margin-left: -50px;
     }
 
     .header-entrar,
@@ -579,7 +609,7 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .car {
-        font-size: 20px;
+        font-size: 18px;
         margin-left: 20px;
     }
 
@@ -588,13 +618,13 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .header-tema {
-        width: 25px;
+        margin-right: 15px;
+        width: 23px;
     }
 
     /* Fim header */
 
     .nav_wrap {
-        margin-right: 10px;
         gap: 15px;
     }
 
@@ -610,37 +640,42 @@ input[type="search"]::-webkit-search-cancel-button {
 
     /* Fim carrousel */
 
-    .tl_paragrafo {}
-
     .tl-p {
-        font-size: 18px;
+        font-size: 13px;
         max-width: 82%;
     }
 
     /* Fim paragrafo */
+    .carousel-3 {
+        margin-left: -8px;
+    }
+
+    .swiper-wrapper {
+        gap: 3px;
+    }
 
     .cart-gatos {
         margin-top: 15px;
         margin-bottom: 15px;
-        width: 100px;
+        width: 120px;
         height: 160px;
         gap: 30px;
     }
 
     .cart-cat-img {
-        width: 100px;
+        width: 120px;
         height: 50px;
         border-radius: 10px 10px 0 0;
         object-fit: cover;
     }
-    
+
     .cart-titulo-gatos {
         margin-top: -25px;
-        margin-right: 53px;
+        margin-right: 70px;
         font-size: 10px;
         cursor: default;
     }
-    
+
     .cart-p-gatos {
         margin-left: 5px;
         margin-top: -5px;
@@ -648,42 +683,42 @@ input[type="search"]::-webkit-search-cancel-button {
         max-width: 85%;
         cursor: default;
     }
-    
+
     .cart-titulo-dog {
         font-size: 10px;
         margin-top: -25px;
-        margin-right: 35px;
+        margin-right: 52px;
         cursor: default;
     }
-    
+
     .cart-titulo-ham {
         font-size: 10px;
         margin-top: -25px;
-        margin-right: 38px;
+        margin-right: 54px;
         cursor: default;
     }
-    
+
     .cart-titulo-coelho {
         font-size: 10px;
         margin-top: -25px;
-        margin-right: 45px;
+        margin-right: 60px;
         cursor: default;
     }
-    
+
     .cart-titulo-PI {
         font-size: 10px;
         margin-top: -25px;
-        margin-right: -2px;
+        margin-right: 12px;
         cursor: default;
     }
-    
+
     .cart-button {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: -45px;
     }
-    
+
     .cart-next {
         background-color: #BD5532;
         width: 90px;
@@ -697,8 +732,9 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .prev-btn {
-        margin-left: -215px;
+        margin-left: -210px;
         z-index: 9999;
+        margin-top: 40px;
     }
 
     #prev-tema {
@@ -710,21 +746,137 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .next-btn {
+        margin-top: 40px;
         margin-right: -210px;
         z-index: 9999;
     }
 
     #carousel {
-        margin-left: -50px;
-        width: 230px;
+        overflow: hidden;
+        margin-left: 15px;
+        width: 275px;
     }
+
     /* Fim informações */
 
     .marca {
-        margin-top: 270px;
+        height: 350px;
     }
 
     .titulo_marca {
-        color: black;
+        margin-top: 20px;
+    }
+
+    .marcas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+    }
+
+    .p-marca {
+        font-size: 15px;
+    }
+
+    .img-size {
+        width: 70px;
+        margin-left: 110px;
+    }
+
+    .img-size-casa {
+        margin-left: 70px;
+        margin-right: 70px;
+        margin-top: 35px;
+        width: 80px;
+        border-radius: 10px;
+    }
+
+    .img-size-whiskas {
+        width: 70px;
+        margin-left: 10px;
+        margin-top: 30px;
+    }
+
+    .img-size-zee {
+        margin-top: 27px;
+        margin-left: -80px;
+        width: 60px;
+    }
+
+    .img-size-love {
+        margin-left: 170px;
+        width: 60px;
+    }
+
+    /* Fim Informações */
+
+    .container {
+        margin-left: 5px;
+    }
+
+    h5 {
+        font-size: 8px;
+    }
+
+    .nr {
+        margin-top: 10px;
+        margin-left: 60px;
+    }
+
+    .h5-rede,
+    .icon-rede {
+        margin-left: 30px;
+        gap: 8px;
+    }
+
+    .titulo_pag {
+        margin-top: 50px;
+        margin-left: -70px;
+    }
+
+    .p-pag {
+        font-size: 9px;
+        margin-right: 180px;
+        margin-left: -90px;
+        max-width: 40%;
+    }
+
+    .img-pag {
+        margin-top: -30px;
+        width: 90px;
+        margin-left: -74px;
+    }
+
+    .links {
+        margin-top: -130px;
+        margin-left: -230px;
+    }
+
+    .links-footer {
+        font-size: 10px;
+    }
+
+    .cont {
+        margin-top: -40px;
+    }
+
+    .cont p {
+        margin-left: -180px;
+        font-size: 10px;
+        width: 75px;
+    }
+
+    .img-zap {
+        margin-left: 15px;
+        width: 20px;
+    }
+
+    .img-face {
+        width: 20px;
+
+    }
+
+    .img-insta {
+        width: 20px;
+
     }
 }

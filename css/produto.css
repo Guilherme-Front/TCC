@@ -529,3 +529,112 @@ main{
 .carousel-indicators .active {
     background-color: rgb(54, 54, 54) !important; 
 }
+
+@media screen and (max-width: 400px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 130px;
+        height: 25px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 12px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 50px;
+        margin-bottom: 110px;
+        margin-right: 35px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 12px;
+    }
+
+    .car {
+        font-size: 18px;
+        margin-left: 20px;
+    }
+
+    .header-button {
+        margin-left: -20px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 23px;
+    }
+
+    /* Fim header */
+
+    .info h2 {
+        font-size: 15px;
+        margin-left: 90px;
+    }
+    
+    .preço {
+        margin-left: 90px;
+        font-size: 15px;
+        
+    }
+    
+    .p-information {
+        margin-left: 90px;
+        max-width: 50%;
+    }
+
+    .quantidade-box label {
+        font-size: 12px;
+        margin-right: 20px;
+        margin-top: -3px;
+    }
+
+    .quantidade-box {
+        margin-right: 200px;
+    }
+
+    .input-add {
+        width: 25px;
+    }
+    
+    .button-add {
+        width: 25px;
+    }
+    
+    .button-add2 {
+        width: 25px;
+    }
+
+    .try-car {
+        width: 30px;
+        margin-left: 50px;
+        margin-top: -10px;
+    }
+
+    .button-comprar {
+        width: 75px;
+        height: 30px;
+        margin-right: 200px;
+        font-size: 10px;
+    }
+}
