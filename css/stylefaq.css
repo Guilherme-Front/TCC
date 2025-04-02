@@ -321,3 +321,134 @@ textarea {
 }
 
 /* Fim Fale Conosco */
+
+@media screen and (max-width: 400px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        margin-bottom: -150px;
+        height: 300px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: 170px;
+        margin-top: 18px;
+    }
+
+    .header-img {
+        width: 50px;
+        margin-bottom: 80px;
+        margin-right: 10px;
+        margin-left: -70px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 12px;
+    }
+
+    .header-entrar {
+        margin-left: -50px;
+    }
+
+    /* Fim header */
+
+    .fl-flex {
+        height: 210px;
+    }
+
+    .faq-titulo {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        margin-left: -70px;
+        font-size: 15px;
+    }
+
+    .faq-p {
+        margin-left: -68px;
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .fl-p {
+        margin-bottom: 30px;
+        margin-left: -68px;
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .fl--cat {
+        margin-top: 30px;
+        margin-right: 50px;
+        width: 90px;
+    }
+
+    .faq--cat {
+        margin-top: 90px;
+        margin-right: 50px;
+        width: 100px;
+    }
+
+    .faq-button {
+        margin-left: -630px;
+    }
+
+    .faq-FL {
+        width: 100px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    .faq-question {
+        font-size: 13px;
+        width: 350px;
+    }
+
+    .faq-questions {
+        font-size: 13px;
+        width: 350px;
+    }
+
+    .faq-message {
+        font-size: 13px;
+        width: 340px;
+    }
+
+    .faq-messages {
+        font-size: 13px;
+        width: 340px;
+    }
+
+    .inp-fl {
+        font-size: 15px;
+    }
+
+    .fl-inp {
+        width: 300px;
+    }
+
+    .fl-inp::placeholder {
+        width: 300px;
+        font-size: 15px;
+    }
+
+    textarea {
+        min-width: 300px;
+        max-width: 300px;
+        min-height: 170px;
+        max-height: 250px;
+        overflow-x: hidden;
+    }
+
+    .fl-next {
+        width: 100px;
+        height: 30px;
+        font-size: 18px;
+    }
+}
