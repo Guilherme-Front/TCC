@@ -62,7 +62,7 @@ function ativarModoEscuro() {
     .forEach((item) => (item.style.color = "white"));
 
   const marca = document.querySelector(".marca");
-  if (marca) marca.style.backgroundColor = 'rgba(255, 110, 62)';
+  if (marca) marca.style.backgroundColor = "rgba(255, 110, 62)";
 
   const headerTema = document.querySelector(".header-tema");
   if (headerTema) headerTema.src = "../img/modo-escuro.png";
@@ -190,7 +190,7 @@ function ativarModoEscuro() {
   if (petT) petT.style.color = "white";
 
   const petP = document.querySelectorAll(".pet-p");
-  if (petP) petP.forEach(item => item.style.color = "white");
+  if (petP) petP.forEach((item) => (item.style.color = "white"));
   /* Fim Pet Info */
 
   /* Início Pagamento */
@@ -296,40 +296,44 @@ function ativarModoEscuro() {
   if (bv) bv.style.color = "white";
 
   const dados = document.querySelectorAll(".dados");
-  if (dados) dados.forEach(item => item.style.color = "white");
+  if (dados) dados.forEach((item) => (item.style.color = "white"));
 
   const enviar = document.querySelectorAll(".enviar-foto");
-  if (enviar) enviar.forEach(item => item.style.color = "white");
+  if (enviar) enviar.forEach((item) => (item.style.color = "white"));
 
   const perfilD = document.querySelectorAll(".perfilD");
-  if (perfilD) perfilD.forEach(item => item.style.backgroundColor = "#3f3e3e");
+  if (perfilD)
+    perfilD.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
 
   /* Fim Pagamento */
 
   /* Início Tela Produtos */
   const circulo = document.querySelectorAll(".circulo");
-  if (circulo) circulo.forEach(item => item.style.backgroundColor = "#3f3e3e");
+  if (circulo)
+    circulo.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
 
   const tipo = document.querySelectorAll(".tipo");
-  if (tipo) tipo.forEach(item => item.style.color = "white");
+  if (tipo) tipo.forEach((item) => (item.style.color = "white"));
 
   const products = document.querySelectorAll(".produtos");
-  if (products) products.forEach(item => item.style.backgroundColor = "#212121");
+  if (products)
+    products.forEach((item) => (item.style.backgroundColor = "#212121"));
 
   const product = document.querySelectorAll(".produto");
-  if (product) product.forEach(item => item.style.backgroundColor = "#3f3e3e");
+  if (product)
+    product.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
 
   const desc = document.querySelectorAll(".descricao");
-  if (desc) desc.forEach(item => item.style.color = "white");
+  if (desc) desc.forEach((item) => (item.style.color = "white"));
 
   const produtosP = document.querySelectorAll(".produto");
-  produtosP.forEach(produto => {
-    produto.addEventListener('mouseover', () => {
-      mudarBoxShadow('rgba(58, 58, 58, 0.3)', produto); // Muda para vermelho no hover
+  produtosP.forEach((produto) => {
+    produto.addEventListener("mouseover", () => {
+      mudarBoxShadow("rgba(58, 58, 58, 0.3)", produto); // Muda para vermelho no hover
     });
 
-    produto.addEventListener('mouseout', () => {
-      mudarBoxShadow('rgba(0, 0, 0, 0.1)', produto);
+    produto.addEventListener("mouseout", () => {
+      mudarBoxShadow("rgba(0, 0, 0, 0.1)", produto);
     });
   });
 
@@ -450,24 +454,31 @@ function ativarModoEscuro() {
   if (prev) prev.style.color = "white";
 
   const lr = document.querySelectorAll(".label-radio");
-  if (lr) lr.forEach(item => item.style.backgroundColor = "#212121");
+  if (lr) lr.forEach((item) => (item.style.backgroundColor = "#212121"));
 
   const radios = document.querySelectorAll('input[type="radio"]');
-  radios.forEach(radio => {
-    radio.addEventListener('change', function () {
-      document.querySelectorAll('.label-radio').forEach(label => {
-        label.style.border = ''; 
+  radios.forEach((radio) => {
+    radio.addEventListener("change", function () {
+      document.querySelectorAll(".label-radio").forEach((label) => {
+        label.style.border = "";
       });
 
       if (this.checked) {
-        const label = this.nextElementSibling; 
-        label.style.border = '2px solid white';
+        const label = this.nextElementSibling;
+        label.style.border = "2px solid white";
       }
     });
   });
 
   const trycar = document.querySelector(".try-car");
   if (trycar) trycar.src = "../img/adicionar-ao-carrinho.png";
+
+  const petcomentario = document.querySelectorAll(
+    ".txt-comentario p:nth-of-type(3)");
+  if (petcomentario) {
+    petcomentario.forEach(item => item.style.backgroundColor = "#3f3e3e")
+    petcomentario.forEach(item => item.style.color = "white")
+  } 
   /*Fim Info Produtos */
 }
 
@@ -510,7 +521,7 @@ function ativarModoClaro() {
     .forEach((item) => (item.style.color = "black"));
 
   const marca = document.querySelector(".marca");
-  if (marca) marca.style.backgroundColor = '';
+  if (marca) marca.style.backgroundColor = "";
 
   const headerTema = document.querySelector(".header-tema");
   if (headerTema) headerTema.src = "../img/tema.png";
@@ -643,28 +654,35 @@ function ativarModoClaro() {
 
   /* Início Tela Produtos */
   const circulo = document.querySelectorAll(".circulo");
-  if (circulo) circulo.forEach(item => item.style.backgroundColor = "rgb(240, 240, 240)");
+  if (circulo)
+    circulo.forEach(
+      (item) => (item.style.backgroundColor = "rgb(240, 240, 240)")
+    );
 
   const tipo = document.querySelectorAll(".tipo");
-  if (tipo) tipo.forEach(item => item.style.color = "#82371e");
+  if (tipo) tipo.forEach((item) => (item.style.color = "#82371e"));
 
   const products = document.querySelectorAll(".produtos");
-  if (products) products.forEach(item => item.style.backgroundColor = "#cecfc1");
+  if (products)
+    products.forEach((item) => (item.style.backgroundColor = "#cecfc1"));
 
   const product = document.querySelectorAll(".produto");
-  if (product) product.forEach(item => item.style.backgroundColor = "rgb(255, 255, 255)");
+  if (product)
+    product.forEach(
+      (item) => (item.style.backgroundColor = "rgb(255, 255, 255)")
+    );
 
   const desc = document.querySelectorAll(".descricao");
-  if (desc) desc.forEach(item => item.style.color = "black");
+  if (desc) desc.forEach((item) => (item.style.color = "black"));
 
   const produtosP = document.querySelectorAll(".produtos");
-  produtosP.forEach(produto => {
-    produto.addEventListener('mouseover', () => {
-      mudarBoxShadow('rgba(58, 58, 58, 0.3');
+  produtosP.forEach((produto) => {
+    produto.addEventListener("mouseover", () => {
+      mudarBoxShadow("rgba(58, 58, 58, 0.3");
     });
 
-    produto.addEventListener('mouseout', () => {
-      mudarBoxShadow('rgba(0, 0, 0, 0.1)');
+    produto.addEventListener("mouseout", () => {
+      mudarBoxShadow("rgba(0, 0, 0, 0.1)");
     });
   });
 
@@ -688,7 +706,7 @@ function ativarModoClaro() {
   if (color4) color4.style.backgroundColor = "#fafaa9";
 
   const color = document.querySelectorAll(".pet-flex");
-  if (color) color.forEach(item => item.style.backgroundColor = "#fafaa9");
+  if (color) color.forEach((item) => (item.style.backgroundColor = "#fafaa9"));
 
   const color1 = document.querySelector(".pet-info-doenças");
   if (color1) color1.style.backgroundColor = "#fafaa9";
@@ -787,25 +805,32 @@ function ativarModoClaro() {
   const pInfo = document.querySelector(".p-information");
   if (pInfo) pInfo.style.color = "black";
 
-
   const lr = document.querySelectorAll(".label-radio");
-  if (lr) lr.forEach(item => item.style.backgroundColor = "rgb(223, 223, 223)");
+  if (lr)
+    lr.forEach((item) => (item.style.backgroundColor = "rgb(223, 223, 223)"));
 
   const radios = document.querySelectorAll('input[type="radio"]');
-  radios.forEach(radio => {
-    radio.addEventListener('change', function () {
-      document.querySelectorAll('.label-radio').forEach(label => {
-        label.style.border = ''; 
+  radios.forEach((radio) => {
+    radio.addEventListener("change", function () {
+      document.querySelectorAll(".label-radio").forEach((label) => {
+        label.style.border = "";
       });
 
       if (this.checked) {
-        const label = this.nextElementSibling; 
-        label.style.border = '2px solid #353535';
+        const label = this.nextElementSibling;
+        label.style.border = "2px solid #353535";
       }
     });
   });
 
   const trycar = document.querySelector(".try-car");
   if (trycar) trycar.src = "../img/add-cart.png";
+
+  const petcomentario = document.querySelectorAll(
+    ".txt-comentario p:nth-of-type(3)");
+  if (petcomentario) {
+    petcomentario.forEach(item => item.style.backgroundColor = "#EFEFEF")
+    petcomentario.forEach(item => item.style.color = "black")
+  }
   /*Fim Info Produtos */
 }

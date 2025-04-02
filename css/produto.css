@@ -521,6 +521,14 @@ main{
     border-radius: 50%; 
 }
 
+.carousel-control-next {
+    margin-right: -70px;
+}
+
+.carousel-control-prev {
+    margin-left: -70px;
+}
+
 .carousel-indicators button {
     background-color: rgb(156, 156, 156) !important;
     width: 25px !important;
@@ -589,28 +597,31 @@ main{
 
     .info h2 {
         font-size: 15px;
-        margin-left: 90px;
+        margin-left: -175px;
+        margin-top: 890px;
     }
     
     .preço {
-        margin-left: 90px;
+        margin-left: -175px;
         font-size: 15px;
         
     }
     
-    .p-information {
-        margin-left: 90px;
-        max-width: 50%;
+    #p-informacao {
+        margin-left: -175px;
+        max-width: 25%;
+        font-size: 12px;
     }
-
+    
     .quantidade-box label {
         font-size: 12px;
-        margin-right: 20px;
-        margin-top: -3px;
+        margin-right: 10px;
+        margin-top: -7px;
     }
-
+    
     .quantidade-box {
-        margin-right: 200px;
+        margin-top: -120px;
+        margin-right: 365px;
     }
 
     .input-add {
@@ -626,15 +637,86 @@ main{
     }
 
     .try-car {
-        width: 30px;
-        margin-left: 50px;
-        margin-top: -10px;
+        width: 40px;
+        margin-left: -180px;
+        margin-top: -395px;
     }
-
+    
     .button-comprar {
         width: 75px;
         height: 30px;
-        margin-right: 200px;
+        margin-left: -440px;
+        margin-bottom: 730px;
         font-size: 10px;
+    }
+
+    .botao-voltar {
+        margin-left: 10px;
+    }
+
+    /* carousel */
+
+    .carousel-inner {
+        margin-top: -35px;
+        margin-left: 435px;
+    }
+
+    .carousel-item img {
+        object-fit: contain;
+        height: 120px;
+        margin-top: 30px;
+        margin-left: -90px;
+    }
+
+    .carrousel-item active {
+        max-width: 100px;
+    }
+
+    .carousel-control-prev {
+        margin-top: -190px;
+        margin-left: 330px;
+    }
+
+    .carousel-control-next {
+        margin-top: -190px;
+        margin-right: -370px;
+    }
+    
+    .txt-descricao {
+        margin-left: 100px;
+    }
+
+    .txt-descricao h2 {
+        font-size: 23px;
+    }
+    
+    .descricao {
+        margin-left: 35px;
+    }
+
+    .txt-avaliação h2 {
+        font-size: 21px;
+    }
+
+    .comentario {
+        margin-left: -235px;
+        width: 150px;
+    }
+
+    .img-comentario img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .txt-comentario p:nth-of-type(3) {
+        width: 300px;
+    }
+
+    .txt-comentario p {
+        margin-left: 5px;
+    }
+
+    #tamanho-mobile {
+        font-size: 15px;
     }
 }
