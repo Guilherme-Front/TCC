@@ -272,3 +272,93 @@ input {
 .alterar-dados:hover {
     background-color: #8e3315;
 }
+@media screen and (max-width: 400px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        margin-top: -40px;
+        margin-left: 60px;
+        height: 250px;
+    }
+
+    .header-img {
+        width: 60px;
+        margin-bottom: 110px;
+        margin-right: 45px;
+        margin-left: -20px;
+    }
+
+    .botao-voltar {
+        width: 20px;
+    }
+
+    .minha-conta {
+        font-size: 23px;
+    }
+
+    .carrinho-compras {
+        width: 30px;
+        margin-top: 5px;
+    }
+
+    .gato {
+        width: 50px;
+        height: 50px;
+        margin-left: 5px;
+    }
+
+    .enviar-foto {
+        margin-left: 1px;
+        font-size: 10px;
+    }
+
+    label {
+        font-size: 13px;
+        margin-left: 6px;
+    }
+
+    input {
+        margin-left: 5px;
+        width: 115px;
+    }
+
+    input::placeholder {
+        font-size: 13px;
+    }
+
+    .section-mobile {
+        margin-left: 160px;
+    }
+
+    .dados-pessoais {
+        display: inline;
+    }
+
+    .alterar-dados {
+        width: 130px;
+        margin-bottom: -80px;
+        margin-left: -180px;
+        font-size: 13px;
+    }
+
+    nav.menu-lateral {
+        width: 40px;
+    }
+
+    nav.menu-lateral.expandir{
+        width: 190px;
+    }
+
+    .txt-link {
+        font-size: 12px;
+    }
+
+    .icons-img {
+        margin-top: 5px;
+        width: 20px;
+    }
+}

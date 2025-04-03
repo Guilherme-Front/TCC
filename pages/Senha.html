@@ -16,18 +16,18 @@
 <body class="cadastro_cat">
     <section>
         <main>
-            <div class="cadastro-content">
+            <div class="cadastro-content" id="senha-content">
                 <div class="senha-border">
                     <h1 class="senha-titulo">Criar Senha</h1>
 
                     <!-- Formulário com método POST e ação para o script PHP -->
                     <form action="../php/senha.php" method="POST">
                         <div class="senha-input">
-                            <label class="cadastro-label" for="senha">Senha</label>
+                            <label class="cadastro-label" id="senha-label" for="senha">Senha</label>
                             <input class="input" type="password" name="senha" id="pass" placeholder="Digite sua senha"
                                 required minlength="6" maxlength="6">
 
-                            <label class="cadastro-label" for="vSenha">Confirme sua Senha</label>
+                            <label class="cadastro-label" id="senha-label" for="vSenha">Confirme sua Senha</label>
                             <input class="input" type="password" name="confirmar_senha" id="password"
                                 placeholder="Digite novamente sua senha" required minlength="6" maxlength="6">
                         </div>

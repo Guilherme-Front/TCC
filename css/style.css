@@ -325,6 +325,7 @@ input[name="Data"] {
     width: 450px;
     height: 550px;
     padding: 20px;
+    margin-top: -90px;
 }
 
 .redefinir-border {
@@ -364,8 +365,7 @@ input[name="Data"] {
     font-weight: bold;
     background-color: #BD5532;
     cursor: pointer;
-    margin: -150px 0 0;
-
+    margin-top: -280px;
 }
 
 .botao-senha:hover {
@@ -402,3 +402,124 @@ input[name="Data"] {
 }
 
 /* Fim Senha/Redefinir */
+
+@media screen and (max-width: 400px) {
+    .login-content {
+        width: 350px;
+        height: 500px;
+    }
+
+    .login-titulo{
+        font-size: 25px;
+        margin-top: 5px;
+    }
+
+    .login-input {
+        margin-top: -70px;
+    }
+
+    .login-label {
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    .input {
+        width: 280px;
+    }
+    .input::placeholder {
+        font-size: 13px;
+    }
+
+    .login-a {
+        font-size: 13px;
+        margin-right: 10px;
+    }
+
+    .botao {
+        font-size: 18px;
+        height: 30px;
+        width: 280px;
+    }
+
+    .login-p, .login-cadastro, .login-resto, .login-conect {
+        font-size: 13px;
+    }
+
+    .login-icon {
+        width: 25px;
+    }
+
+    /* Fim login */
+
+    .cadastro-content {
+        width: 350px;
+        height: 600px;
+    }
+
+    .cadastro-titulo {
+        font-size: 25px;
+        margin-top: -20px;
+    }
+
+    .cadastro-label {
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    .input-cadastro {
+        margin-left: 10px;
+        width: 280px;
+    }
+    .input-cadastro::placeholder {
+        font-size: 13px;
+    }
+
+    .botao-cadastro {
+        font-size: 18px;
+        margin-left: 10px;
+        height: 30px;
+        width: 280px;
+    }
+
+    .cadastro-p {
+        font-size: 13px;
+    }
+
+    /* Fim cadastro */
+
+    .senha-titulo {
+        font-size: 25px;
+    }
+
+    .botao-redefinir {
+        font-size: 18px;
+        height: 30px;
+        width: 280px;
+    }
+
+    #redefinir-content {
+        height: 520px;
+    }
+
+    .senha-span {
+        margin-left: 5px
+    }
+
+    #Emailsenha, #Senha, #senhaC {
+        margin-left: 0;
+    }
+
+    .botao-senha {
+        font-size: 18px;
+        height: 30px;
+        width: 280px;
+    }
+    
+    #senha-label {
+        margin-left: 1px;
+    }
+
+    #senha-content {
+        height: 420px;
+    }
+}
