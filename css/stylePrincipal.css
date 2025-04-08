@@ -192,8 +192,6 @@ input[type="search"]::-webkit-search-cancel-button {
     /* Define a altura máxima */
     width: 110vh;
     /* Mantém a proporção */
-    object-fit: cover;
-    /* Corta a imagem para preencher */
 }
 
 .carousel-control-prev-icon,
@@ -650,7 +648,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .carousel-3 {
         height: 250px;
     }
-    
+
     .swiper-wrapper {
         margin-bottom: 20px;
         margin-top: 45px;
@@ -658,15 +656,14 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .cart-gatos {
-        margin-top: 15px;
         margin-bottom: 15px;
-        width: 150px;
+        width: 200px;
         height: 200px;
         gap: 30px;
     }
 
     .cart-cat-img {
-        width: 150px;
+        width: 200px;
         height: 70px;
         margin-top: -30px;
         border-radius: 10px 10px 0 0;
@@ -675,44 +672,44 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .cart-titulo-gatos {
         margin-top: -25px;
-        margin-right: 90px;
-        font-size: 13px;
+        margin-right: 135px;
+        font-size: 15px;
         cursor: default;
     }
 
     .cart-p-gatos {
         margin-left: 5px;
         margin-top: -5px;
-        font-size: 13px;
-        max-width: 85%;
+        font-size: 15px;
+        max-width: 90%;
         cursor: default;
     }
 
     .cart-titulo-dog {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: -25px;
-        margin-right: 63px;
+        margin-right: 108px;
         cursor: default;
     }
 
     .cart-titulo-ham {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: -25px;
-        margin-right: 67px;
+        margin-right: 110px;
         cursor: default;
     }
 
     .cart-titulo-coelho {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: -25px;
-        margin-right: 75px;
+        margin-right: 120px;
         cursor: default;
     }
 
     .cart-titulo-PI {
-        font-size: 13px;
+        font-size: 15px;
         margin-top: -25px;
-        margin-right: 11px;
+        margin-right: 45px;
         cursor: default;
     }
 
@@ -725,40 +722,40 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .cart-next {
         background-color: #BD5532;
-        width: 120px;
-        height: 20px;
+        width: 150px;
+        height: 25px;
         border: none;
         border-radius: 3px;
         font-weight: 600;
-        font-size: 12px;
+        font-size: 15px;
         color: white;
         cursor: pointer;
     }
 
     .prev-btn {
-        margin-left: -100px;
+        margin-left: -150px;
         z-index: 9999;
         margin-top: 40px;
     }
 
     #prev-tema {
-        width: 20px;
+        width: 25px;
     }
 
     #next-tema {
-        width: 20px;
+        width: 25px;
     }
 
     .next-btn {
         margin-top: 40px;
-        margin-right: -100px;
+        margin-right: -160px;
         z-index: 9999;
     }
 
     #carousel {
         overflow: hidden;
         margin-left: 15px;
-        width: 530px;
+        width: 670px;
     }
 
     /* Fim informações */
@@ -814,7 +811,11 @@ input[type="search"]::-webkit-search-cancel-button {
     /* Fim Informações */
 
     .container {
-        margin-left: 5px;
+        display: flex;
+        flex-direction: row; /* ou row, dependendo do layout */
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
     }
 
     h5 {
@@ -1048,9 +1049,8 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .prev-btn {
-        margin-left: -120px;
+        left: 230px;
         z-index: 9999;
-        margin-top: 40px;
     }
 
     #prev-tema {
@@ -1062,8 +1062,7 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .next-btn {
-        margin-top: 40px;
-        margin-right: -120px;
+        right: 230px;
         z-index: 9999;
     }
 
@@ -1126,9 +1125,13 @@ input[type="search"]::-webkit-search-cancel-button {
     /* Fim Informações */
 
     .container {
-        margin-left: 5px;
+        display: flex;
+        flex-direction: row; /* ou row, dependendo do layout */
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
     }
-
+    
     h5 {
         font-size: 11px;
     }
@@ -1147,6 +1150,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .titulo_pag {
         margin-top: 53px;
         margin-left: -70px;
+        max-width: 30%;
     }
 
     .p-pag {
@@ -1258,7 +1262,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .nav_wrap {
         gap: 15px;
     }
-    
+
     .nav-link {
         margin-top: 5px;
         font-size: 11px;
@@ -1361,7 +1365,7 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .prev-btn {
-        margin-left: -210px;
+        margin-left: -200px;
         z-index: 9999;
         margin-top: 40px;
     }
@@ -1510,4 +1514,3 @@ input[type="search"]::-webkit-search-cancel-button {
 
     }
 }
-
