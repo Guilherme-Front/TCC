@@ -1286,6 +1286,10 @@ input[type="search"]::-webkit-search-cancel-button {
     .swiper-wrapper {
         gap: 3px;
     }
+    
+    .swiper-slide {
+        margin-left: -5px
+    }
 
     .cart-gatos {
         margin-top: 15px;
