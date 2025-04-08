@@ -186,24 +186,3 @@ hr {
 .botao-voltar:hover{
     background-color: #8e3315;
 }
-
-
-@media screen and (max-width: 400px) {
-    html,
-    body {
-        overflow-x: hidden;
-    }
-
-    header {
-        margin-top: -40px;
-        margin-left: 60px;
-        height: 250px;
-    }
-
-    img.logo {
-        width: 50px;
-        margin-bottom: 110px;
-        margin-right: 45px;
-        margin-left: -20px;
-    }
-}

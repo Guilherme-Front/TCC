@@ -188,62 +188,62 @@ hr {
     background-color: #8e3315;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 431px) {
 
     html,
     body {
         overflow-x: hidden;
     }
 
-    .header {
-        margin-top: -80px;
-        height: 300px;
+    header {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        height: auto;
     }
 
     .header-img {
         width: 60px;
         margin-bottom: -20px;
         margin-right: 35px;
-        margin-left: 40px;
+        margin-left: 45px;
     }
     
     .user {
         margin-bottom: -10px;
-        margin-right: 80px;
+        margin-right: -10px;
         width: 25px;
     }
 
     /* Fim header */
 
     .titulo {
-        font-size: 10px;
-        margin-left: 574px;
-        margin-top: 30px;
+        font-size: 9px;
+        margin-left: 594px;
+        margin-top: 50px;
         margin-bottom: -20px;
     }
     
     .pedido {
         font-size: 15px;
-        margin-left: -15px;
+        margin-left: 3px;
         margin-bottom: -15px;
         margin-top: -15px;
     }
 
     .espaço-produtos {
-        width: 330px;
-        height: auto;
-        margin-left: -70px;
+        width: 400px;
+        height: 550px;
     }
     
     .espaco {
-        width: 285px;
-        margin-left: 10px;
+        width: 320px;
+        margin-left: 40px;
         height: 90px;
     }
 
     .size-product {
         width: 50px;
-        margin-right: 195px;
+        margin-right: 228px;
     }
 
     .dolado {
@@ -271,16 +271,17 @@ hr {
     .valor-red {
         font-size: 10px;
         margin-left: 210px;
+        margin-top: 2px;
     }
 
     .txt-informacoes {
         font-size: 15px;
-        margin-left: -40px;
+        margin-left: -60px;
         margin-bottom: 230px;
     }
 
     .dados {
-        font-size: 8px;
+        font-size: 9px;
         margin-left: -85px;
     }
 
@@ -290,12 +291,13 @@ hr {
 
     hr {
         margin-left: 10px;
-        height: 120px;
+        height: 125px;
     }
 
     .info-valor {
         font-size: 8px;
         margin-left: -50px;
+        margin-top: 50px;
     }
 
     .valor-info {
@@ -315,6 +317,6 @@ hr {
         font-size: 15px;
         width: 100px;
         height: 35px;
-        margin-left: 105px;
+        margin-left: 155px;
     }
 }

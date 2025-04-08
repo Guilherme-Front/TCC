@@ -198,7 +198,7 @@
 
 .cadastro-voltar{
     color: rgb(37, 37, 37);
-    margin-top: -15px;
+    margin-top: -45px;
     margin-left: -225px;
     display: flex;
     position: fixed;
@@ -403,7 +403,7 @@ input[name="Data"] {
 
 /* Fim Senha/Redefinir */
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 431px) {
     .login-content {
         width: 350px;
         height: 500px;
@@ -411,7 +411,8 @@ input[name="Data"] {
 
     .login-titulo{
         font-size: 25px;
-        margin-top: 5px;
+        margin-top: 25px;
+        margin-bottom: 90px;
     }
 
     .login-input {
@@ -449,6 +450,12 @@ input[name="Data"] {
         width: 25px;
     }
 
+    .voltar {
+        margin-top: 10px;
+        font-size: 20px;
+        margin-left: -160px;
+    }
+
     /* Fim login */
 
     .cadastro-content {
@@ -483,6 +490,11 @@ input[name="Data"] {
 
     .cadastro-p {
         font-size: 13px;
+    }
+
+    .cadastro-voltar {
+        font-size: 20px;
+        margin-left: -160px;
     }
 
     /* Fim cadastro */

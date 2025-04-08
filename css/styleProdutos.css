@@ -311,7 +311,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Responsividade */
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 431px) {
     html,
     body {
         overflow-x: hidden;

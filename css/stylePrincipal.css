@@ -190,7 +190,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .carousel-inner img {
     height: 350px;
     /* Define a altura máxima */
-    width: auto;
+    width: 110vh;
     /* Mantém a proporção */
     object-fit: cover;
     /* Corta a imagem para preencher */
@@ -566,8 +566,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Responsividade */
-
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 1025px) {
 
     html,
     body {
@@ -580,7 +579,638 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .TL-inp {
+        width: 300px;
+        height: 25px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 16px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 100px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 18px;
+    }
+
+    .car {
+        font-size: 30px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 32px;
+        margin-bottom: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 50px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 18px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 300px;
+    }
+
+    /* Fim carrousel */
+
+    .tl-p {
+        font-size: 23px;
+        max-width: 65%;
+    }
+
+    /* Fim paragrafo */
+    .carousel-3 {
+        height: 250px;
+    }
+    
+    .swiper-wrapper {
+        margin-bottom: 20px;
+        margin-top: 45px;
+        gap: 3px;
+    }
+
+    .cart-gatos {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 150px;
+        height: 200px;
+        gap: 30px;
+    }
+
+    .cart-cat-img {
+        width: 150px;
+        height: 70px;
+        margin-top: -30px;
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+    }
+
+    .cart-titulo-gatos {
+        margin-top: -25px;
+        margin-right: 90px;
+        font-size: 13px;
+        cursor: default;
+    }
+
+    .cart-p-gatos {
+        margin-left: 5px;
+        margin-top: -5px;
+        font-size: 13px;
+        max-width: 85%;
+        cursor: default;
+    }
+
+    .cart-titulo-dog {
+        font-size: 13px;
+        margin-top: -25px;
+        margin-right: 63px;
+        cursor: default;
+    }
+
+    .cart-titulo-ham {
+        font-size: 13px;
+        margin-top: -25px;
+        margin-right: 67px;
+        cursor: default;
+    }
+
+    .cart-titulo-coelho {
+        font-size: 13px;
+        margin-top: -25px;
+        margin-right: 75px;
+        cursor: default;
+    }
+
+    .cart-titulo-PI {
+        font-size: 13px;
+        margin-top: -25px;
+        margin-right: 11px;
+        cursor: default;
+    }
+
+    .cart-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -30px;
+    }
+
+    .cart-next {
+        background-color: #BD5532;
+        width: 120px;
+        height: 20px;
+        border: none;
+        border-radius: 3px;
+        font-weight: 600;
+        font-size: 12px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .prev-btn {
+        margin-left: -100px;
+        z-index: 9999;
+        margin-top: 40px;
+    }
+
+    #prev-tema {
+        width: 20px;
+    }
+
+    #next-tema {
+        width: 20px;
+    }
+
+    .next-btn {
+        margin-top: 40px;
+        margin-right: -100px;
+        z-index: 9999;
+    }
+
+    #carousel {
+        overflow: hidden;
+        margin-left: 15px;
+        width: 530px;
+    }
+
+    /* Fim informações */
+
+    .marca {
+        height: 350px;
+    }
+
+    .titulo_marca {
+        margin-top: 20px;
+        margin-bottom: -20px;
+    }
+
+    .marcas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+    }
+
+    .p-marca {
+        font-size: 18px;
+    }
+
+    .img-size {
+        width: 110px;
+        margin-left: 150px;
+    }
+
+    .img-size-casa {
+        margin-left: 180px;
+        margin-top: 40px;
         width: 130px;
+        border-radius: 10px;
+    }
+
+    .img-size-whiskas {
+        width: 120px;
+        margin-left: 30px;
+        margin-top: 35px;
+    }
+
+    .img-size-zee {
+        margin-top: 27px;
+        margin-left: 30px;
+        width: 100px;
+    }
+
+    .img-size-love {
+        margin-left: 280px;
+        width: 110px;
+    }
+
+    /* Fim Informações */
+
+    .container {
+        margin-left: 5px;
+    }
+
+    h5 {
+        font-size: 13px;
+    }
+
+    .nr {
+        margin-top: 15px;
+        margin-left: 37px;
+    }
+
+    .h5-rede,
+    .icon-rede {
+        margin-left: 10px;
+        gap: 10px;
+    }
+
+    .titulo_pag {
+        margin-top: 65px;
+        margin-left: -70px;
+    }
+
+    .p-pag {
+        font-size: 13px;
+        margin-right: 180px;
+        margin-left: -80px;
+        max-width: 45%;
+    }
+
+    .img-pag {
+        margin-top: -30px;
+        width: 140px;
+        margin-left: 70px;
+    }
+
+    .links {
+        margin-top: -125px;
+        margin-left: -320px;
+    }
+
+    .links-footer {
+        font-size: 14px;
+    }
+
+    .cont {
+        margin-top: -40px;
+    }
+
+    .cont p {
+        margin-left: -130px;
+        font-size: 13px;
+        width: 110px;
+    }
+
+    .img-zap {
+        margin-left: 15px;
+        width: 30px;
+    }
+
+    .img-face {
+        width: 30px;
+
+    }
+
+    .img-insta {
+        width: 30px;
+
+    }
+}
+
+@media screen and (max-width: 821px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 230px;
+        height: 25px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 15px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 70px;
+        margin-bottom: 110px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 15px;
+    }
+
+    .car {
+        font-size: 21px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -20px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 26px;
+        margin-bottom: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 30px;
+    }
+
+    .nav-link {
+        font-size: 15px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 250px;
+    }
+
+    /* Fim carrousel */
+
+    .tl-p {
+        font-size: 20px;
+        max-width: 75%;
+    }
+
+    /* Fim paragrafo */
+
+    .swiper-wrapper {
+        gap: 3px;
+    }
+
+    .cart-gatos {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 120px;
+        height: 160px;
+        gap: 30px;
+    }
+
+    .cart-cat-img {
+        width: 120px;
+        height: 50px;
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+    }
+
+    .cart-titulo-gatos {
+        margin-top: -25px;
+        margin-right: 70px;
+        font-size: 10px;
+        cursor: default;
+    }
+
+    .cart-p-gatos {
+        margin-left: 5px;
+        margin-top: -5px;
+        font-size: 10px;
+        max-width: 85%;
+        cursor: default;
+    }
+
+    .cart-titulo-dog {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 52px;
+        cursor: default;
+    }
+
+    .cart-titulo-ham {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 54px;
+        cursor: default;
+    }
+
+    .cart-titulo-coelho {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 60px;
+        cursor: default;
+    }
+
+    .cart-titulo-PI {
+        font-size: 10px;
+        margin-top: -25px;
+        margin-right: 12px;
+        cursor: default;
+    }
+
+    .cart-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -45px;
+    }
+
+    .cart-next {
+        background-color: #BD5532;
+        width: 90px;
+        height: 15px;
+        border: none;
+        border-radius: 3px;
+        font-weight: 600;
+        font-size: 10px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .prev-btn {
+        margin-left: -120px;
+        z-index: 9999;
+        margin-top: 40px;
+    }
+
+    #prev-tema {
+        width: 20px;
+    }
+
+    #next-tema {
+        width: 20px;
+    }
+
+    .next-btn {
+        margin-top: 40px;
+        margin-right: -120px;
+        z-index: 9999;
+    }
+
+    #carousel {
+        overflow: hidden;
+        margin-left: 15px;
+        width: 420px;
+    }
+
+    /* Fim informações */
+
+    .marca {
+        height: 350px;
+    }
+
+    .titulo_marca {
+        margin-top: 10px;
+        margin-bottom: -20px;
+    }
+
+    .marcas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+    }
+
+    .p-marca {
+        font-size: 15px;
+    }
+
+    .img-size {
+        width: 100px;
+        margin-left: 120px;
+    }
+
+    .img-size-casa {
+        margin-left: 160px;
+        margin-top: 40px;
+        width: 120px;
+        border-radius: 10px;
+    }
+
+    .img-size-whiskas {
+        width: 100px;
+        margin-left: 30px;
+        margin-top: 35px;
+    }
+
+    .img-size-zee {
+        margin-top: 27px;
+        margin-left: 0px;
+        width: 90px;
+    }
+
+    .img-size-love {
+        margin-left: 220px;
+        width: 100px;
+    }
+
+    /* Fim Informações */
+
+    .container {
+        margin-left: 5px;
+    }
+
+    h5 {
+        font-size: 11px;
+    }
+
+    .nr {
+        margin-top: 15px;
+        margin-left: 50px;
+    }
+
+    .h5-rede,
+    .icon-rede {
+        margin-left: -10px;
+        gap: 10px;
+    }
+
+    .titulo_pag {
+        margin-top: 53px;
+        margin-left: -70px;
+    }
+
+    .p-pag {
+        font-size: 11px;
+        margin-right: 180px;
+        margin-left: -80px;
+        max-width: 45%;
+    }
+
+    .img-pag {
+        margin-top: -30px;
+        width: 110px;
+        margin-left: -5px;
+    }
+
+    .links {
+        margin-top: -120px;
+        margin-left: -230px;
+    }
+
+    .links-footer {
+        font-size: 11px;
+    }
+
+    .cont {
+        margin-top: -30px;
+    }
+
+    .cont p {
+        margin-left: -130px;
+        font-size: 10px;
+        width: 75px;
+    }
+
+    .img-zap {
+        margin-left: 15px;
+        width: 20px;
+    }
+
+    .img-face {
+        width: 20px;
+
+    }
+
+    .img-insta {
+        width: 20px;
+
+    }
+}
+
+@media screen and (max-width: 431px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 115px;
         height: 25px;
         margin-right: 50px;
         margin-left: -50px;
@@ -599,7 +1229,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .header-img {
         width: 50px;
         margin-bottom: 110px;
-        margin-right: 35px;
+        margin-right: 45px;
         margin-left: -50px;
     }
 
@@ -620,6 +1250,7 @@ input[type="search"]::-webkit-search-cancel-button {
     .header-tema {
         margin-right: 15px;
         width: 23px;
+        margin-bottom: 3px;
     }
 
     /* Fim header */
@@ -627,8 +1258,9 @@ input[type="search"]::-webkit-search-cancel-button {
     .nav_wrap {
         gap: 15px;
     }
-
+    
     .nav-link {
+        margin-top: 5px;
         font-size: 11px;
     }
 
@@ -646,9 +1278,6 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     /* Fim paragrafo */
-    .carousel-3 {
-        margin-left: -8px;
-    }
 
     .swiper-wrapper {
         gap: 3px;
@@ -861,7 +1490,7 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .cont p {
-        margin-left: -180px;
+        margin-left: -188px;
         font-size: 10px;
         width: 75px;
     }
@@ -881,3 +1510,4 @@ input[type="search"]::-webkit-search-cancel-button {
 
     }
 }
+

@@ -538,7 +538,7 @@ main{
     background-color: rgb(54, 54, 54) !important; 
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 431px) {
 
     html,
     body {

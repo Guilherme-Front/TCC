@@ -1,75 +1,78 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Header */
-header{
+header {
     display: flex;
     justify-content: space-between;
     padding: 25px 50px;
     align-items: center;
 }
 
-.logo{
+.logo {
     width: 110px;
     margin-top: -10px;
 }
-.user{
+
+.user {
     width: 35px;
     transition: all 0.3s ease;
     filter: brightness(0.4);
 }
 
-.user:hover{
+.user:hover {
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
 
 /* Fim Header */
 
-main{
+main {
     padding: 0 40px;
     display: flex;
     justify-content: center;
 }
 
-section{
+section {
     height: 100svh;
 }
 
-.txt-carrinho{
+.txt-carrinho {
     display: flex;
     padding: 30px 0;
     align-items: center;
 }
 
-.txt-carrinho h1{
+.txt-carrinho h1 {
     font-size: 25px;
     cursor: default;
     margin-right: 10px;
 }
 
-.txt-carrinho img{
+.txt-carrinho img {
     width: 35px;
     height: auto;
 }
 
 /* Títulos */
 
-.txt-dados{
+.txt-dados {
     display: flex;
     justify-content: space-between;
     width: auto;
     gap: 155px;
+    cursor: default;
 }
 
-.txt-descricao{
+.txt-descricao {
     width: 450px;
+    cursor: default;
 }
 
-.todos{
+.todos {
     display: flex;
     padding: 0 10px;
     margin-bottom: 10px;
@@ -80,26 +83,25 @@ section{
 
 /* Container - pedido */
 
-.pedido-container{
-    overflow-y: scroll; 
+.pedido-container {
     padding-right: 10px;
     height: 270px;
     width: 1200px;
-    border: 1px solid rgb(231, 231, 231);
+    overflow-x: hidden;   
+    overflow-y: auto; 
 }
 
-.pedido{
+.pedido {
     height: 130px;
     background-color: rgb(245, 245, 245);
     align-items: center;
     display: flex;
-    margin-left: 10px;
-    margin-top: 10px;
-    min-width: 1150px;
-    max-width: 1200px;
+    margin-bottom: 10px;
+    width: 1200px;
+    border: 1px solid rgb(231, 231, 231);
 }
 
-.img-produto{
+.img-produto {
     display: flex;
     width: 210px;
     justify-content: center;
@@ -107,33 +109,34 @@ section{
     height: 180px;
 }
 
-.img-produto img{
+.img-produto img {
     width: 130px;
 }
 
-.descricao-total{
+.descricao-total {
     flex-direction: row;
     display: flex;
 }
-.descricao{
+
+.descricao {
     display: flex;
     flex-direction: column;
     cursor: default;
     width: 240px;
 }
 
-.descricao h3{
+.descricao h3 {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 30px;
 }
 
-.descricao p{
+.descricao p {
     font-size: 17px;
     font-weight: 500;
 }
 
-.informacoes{
+.informacoes {
     display: flex;
     flex-direction: row;
     white-space: nowrap;
@@ -141,14 +144,14 @@ section{
     width: 570px;
 }
 
-.quantidade{
+.quantidade {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 15px;
-} 
+}
 
-.button-add{
+.button-add {
     font-size: 18px;
     border: none;
     background: none;
@@ -156,7 +159,7 @@ section{
     color: rgb(117, 117, 117);
 }
 
-.button-add2{
+.button-add2 {
     font-size: 18px;
     border: none;
     background: none;
@@ -164,7 +167,7 @@ section{
     color: rgb(117, 117, 117);
 }
 
-.input-add{
+.input-add {
     font-size: 20px;
     border: none;
     background: none;
@@ -173,15 +176,15 @@ section{
     font-weight: 600;
     color: black;
     cursor: default;
-} 
+}
 
-.subtotal{
+.subtotal {
     display: flex;
     align-items: center;
     font-size: 18px;
     width: 200px;
     justify-content: center;
-} 
+}
 
 .dados {
     display: flex;
@@ -189,22 +192,23 @@ section{
     justify-content: space-between;
     gap: 180px;
     font-size: 17px;
+    cursor: default;
 }
 
-.button-excluir{
+.button-excluir {
     height: 130px;
     display: flex;
     justify-content: center;
 }
 
-.excluir{
+.excluir {
     background: none;
     cursor: pointer;
     border: none;
     margin-left: 80px;
 }
 
-.excluir img{
+.excluir img {
     height: 20px;
 }
 
@@ -212,14 +216,14 @@ section{
 
 /* Opções finais */
 
-.cart-actions{
+.cart-actions {
     padding-top: 10px;
     display: flex;
     justify-content: space-between;
     width: 1210px;
 }
 
-.button-limpar{
+.button-limpar {
     border: none;
     background: transparent;
     font-size: 17px;
@@ -227,7 +231,7 @@ section{
     cursor: pointer;
 }
 
-.total{
+.total {
     font-size: 18px;
     background-color: rgb(243, 243, 243);
     padding: 10px;
@@ -235,7 +239,7 @@ section{
     cursor: default;
 }
 
-.fechar-tela{
+.fechar-tela {
     padding: 10px;
     font-size: 17px;
     border: none;
@@ -246,11 +250,11 @@ section{
     transition: 0.8s;
 }
 
-.fechar-tela:hover{
+.fechar-tela:hover {
     background-color: #4b4746;
 }
 
-.finalizar-pedido{
+.finalizar-pedido {
     padding: 10px;
     width: 150px;
     font-size: 17px;
@@ -262,6 +266,219 @@ section{
     transition: 0.8s;
 }
 
-.finalizar-pedido:hover{
+.finalizar-pedido:hover {
     background-color: #a64b2d;
+}
+
+input[readonly] {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    pointer-events: none; 
+}
+
+@media (max-width: 431px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body,
+    main {
+        width: 100%;
+        max-width: 400px;
+        overflow-x: hidden;
+    }
+
+    header {
+        width: 100%;
+        margin-top: 15px;
+        box-sizing: border-box;
+        padding: 13px 13px;
+    }
+
+    .logo {
+        width: 95px;
+    }
+
+    .user {
+        width: 28px;
+    }
+
+    .txt-carrinho {
+        padding: 8px 13px;
+        margin-bottom: 18px;
+    }
+
+    .txt-carrinho h1 {
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+    .txt-carrinho img {
+        width: 28px;
+        height: auto;
+    }
+
+    .txt-descricao {
+        width: 90px;
+        font-size: 17px;
+    }
+
+    .todos {
+        display: flex;
+        padding: 0 15px;
+    }
+
+    .txt-dados {
+        gap: 0;
+        white-space: nowrap;
+        font-size: 17px;
+    }
+
+    section {
+        width: 400px;
+        height: auto;
+        margin-top: 40px;
+        overflow: hidden;
+    }
+
+    .pedido-container {
+        width: 100%;
+        padding: 0 15px;
+        height: 250px;
+        overflow-x: hidden;   
+        overflow-y: auto; 
+    }
+
+    .pedido {
+        height: 90px;
+        width: 370px;
+    }
+
+    .img-produto {
+        width: 80px;
+        height: 70px;
+    }
+
+    .img-produto img {
+        width: 70px;
+    }
+
+    .txt-dados {
+        width: 400px;
+        display: none;
+    }
+
+    div.descricao {
+        display: flex;
+        flex-direction: column;
+        cursor: default;
+        width: 110px;
+    }
+
+    .descricao h3 {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .descricao p {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .informacoes {
+        gap: 0;
+        width: 120px;
+    }
+
+    .quantidade {
+        margin-left: 0;
+    }
+
+    .button-add {
+        font-size: 13px;
+    }
+
+    .button-add2 {
+        font-size: 13px;
+    }
+
+    .input-add {
+        font-size: 15px;
+        width: 30px;
+    }
+
+    .dados {
+        gap: 18px;
+        font-size: 15px;
+        margin-left: 30px;
+    }
+
+    .dados p:nth-of-type(2) {
+        display: none;
+    }
+
+    .button-excluir {
+        height: 70px;
+    }
+
+    .excluir {
+        margin-left: 30px;
+    }
+
+    .excluir img {
+        height: 16px;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .pedido-container,
+    .cart-actions {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px 15px;
+    }
+
+    .button-limpar {
+        font-size: 15px;
+    }
+
+    .total {
+        font-size: 15px;
+        padding: 6px;
+    }
+
+    .fechar-tela {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .finalizar-pedido {
+        padding: 2px;
+        width: 125px;
+        font-size: 15px;
+    }
+    
+    button,
+    a {
+        background: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus,
+    a:focus {
+        outline: none;
+    }
+
+    button:active,
+    a:active {
+        background: none;
+    }
+
+    
+    
 }
