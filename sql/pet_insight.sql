@@ -1,3 +1,4 @@
+-- Active: 1743995705901@@127.0.0.1@3306
 -- criar banco
 DROP DATABASE if EXISTS pet_insight;
 
@@ -7,12 +8,11 @@ USE pet_insight;
 
 -- tabela cliente
  
-CREATE TABLE cliente (
+	CREATE TABLE cliente (
 	id_cliente	INT 		NOT NULL AUTO_INCREMENT,
 	id_telefone	INT		NOT NULL,
 	nome 			VARCHAR	(60)	NOT NULL,	
-	email 		VARCHAR	(20)	NOT NULL UNIQUE,
-	cpf			VARCHAR 	(11)	NOT NULL UNIQUE,
+	email 		VARCHAR	(90)	NOT NULL UNIQUE,
 	datNasc		DATE				NOT NULL,	
 	PRIMARY	KEY	(id_cliente)
 	);
@@ -20,17 +20,17 @@ CREATE TABLE cliente (
 -- tabela senha
 
 CREATE TABLE senha (
-	id_senha	INT NOT NULL AUTO_INCREMENT,
-	id_cliente INT NOT NULL,
-	senha 	VARCHAR 	(16)	NOT NULL,
+	id_senha			INT 				NOT NULL AUTO_INCREMENT,
+	id_cliente 		INT 			NOT NULL,
+	senha 			VARCHAR 	(16)	NOT NULL,
 	PRIMARY KEY (id_senha)
 	);
 	
 -- tabela endereço
 	
-CREATE TABLE endereco (
-	id_endereco	INT		NOT NULL AUTO_INCREMENT,
-	id_cliente	INT		NOT NULL,
+	CREATE TABLE endereco (
+	id_endereco	INT				NOT NULL AUTO_INCREMENT,
+	id_cliente	INT				NOT NULL,
 	cep			VARCHAR	(8)	NOT NULL,
 	bairro		VARCHAR	(60)	NOT NULL,
 	uf				VARCHAR	(2)	NOT NULL,
@@ -41,34 +41,148 @@ CREATE TABLE endereco (
 	PRIMARY	KEY	(id_endereco)
 	);
 	
-CREATE TABLE telefone (
+	CREATE TABLE telefone (
 	id_telefone	INT		NOT NULL AUTO_INCREMENT,
-	numero		INT		(9) NOT null,
+	numero		VARCHAR		(11) NOT null,
 	ddd			INT		(2) NOT NULL, 
 	PRIMARY KEY (id_telefone)
 	);
 	
-CREATE TABLE produto (
-	id_produto 	INT 							NOT NULL AUTO_INCREMENT,
-	id_cliente 	INT 							NOT NULL,
-	tipo			VARCHAR	(30)				NOT NULL,
-	descricao	VARCHAR 	(60) 				NOT NULL,
-	valor			DECIMAL 	(10, 2)		NOT NULL,
+	CREATE TABLE produto (
+	id_produto 		INT 							NOT NULL AUTO_INCREMENT,
+	id_cliente 		INT 							NOT NULL,
+	tipo				ENUM("Racões", "Medicamentos", "Higiene", "Brinquedos", "Acessórios")				NOT NULL,
+	descricaoMenor	VARCHAR 	(60) 				NOT NULL,
+	descricaoMaior VARCHAR (200)				NOT NULL,
+	valor				DECIMAL 	(10, 2)			NOT NULL,
+	quantidade 		INT(10) 						NOT NULL,
+	marca				VARCHAR(30)					NOT	NULL,
 	PRIMARY KEY (id_produto)
 	);
-
-CREATE TABLE 
+	
+	CREATE TABLE	pedido	(
+	id_pedido	INT		NOT NULL	AUTO_INCREMENT,
+	id_cliente	INT		NOT NULL,
+	id_produto	INT		NOT NULL,
+	data_pedido	DATETIME	NOT NULL,
+	total			DECIMAL  NOT NULL,
+	PRIMARY KEY (id_pedido)
+	);
+	
+	CREATE TABLE	formaPagamento (
+	id_formaPagamento	INT NOT NULL AUTO_INCREMENT,
+	id_pedido			INT	NOT NULL,
+	tipo	ENUM("pix", "cartão de credito", "boleto bancário") NOT NULL,
+	PRIMARY KEY (id_formaPagamento)
+	);
+	
+	CREATE TABLE itemPedido	(
+	id_itemPedido	INT	NOT NULL AUTO_INCREMENT,
+	id_pedido	INT	NOT NULL,
+	id_produto	INT NOT NULL,
+	quantidade	INT NOT NULL,
+	preco_unitario	DECIMAL (10,2)	NOT NULL,
+	PRIMARY KEY(id_itemPedido)
+	);
+	
+	
 	  
 -- chave estrangeiras
 
+-- id cliente no endereco 
 	ALTER TABLE endereco ADD FOREIGN KEY 	(id_cliente) 	REFERENCES cliente(id_cliente);
-	ALTER TABLE endereco ADD CONSTRAINT 	fk_endereco_01	FOREIGN KEY (id_cliente) 	REFERENCES cliente(id_cliente);
-	
+	ALTER TABLE endereco ADD CONSTRAINT 	fk_endereco_01	FOREIGN KEY (id_cliente) 	REFERENCES cliente(id_cliente)
+	ON DELETE CASCADE;
+
+-- id telefone NO cliente	
 	ALTER TABLE	cliente 	ADD FOREIGN KEY 	(id_telefone)	REFERENCES	telefone(id_telefone);
-	ALTER TABLE	cliente	ADD CONSTRAINT 	fk_cliente_01	FOREIGN KEY	(id_telefone)	REFERENCES	telefone(id_telefone); 
-	
+	ALTER TABLE	cliente	ADD CONSTRAINT 	fk_cliente_01	FOREIGN KEY	(id_telefone)	REFERENCES	telefone(id_telefone)
+	ON DELETE cascade; 
+
+-- id cliente na senha
 	ALTER TABLE senha 	ADD FOREIGN KEY 	(id_cliente )	REFERENCES 	cliente(id_cliente);
-	ALTER TABLE senha 	ADD CONSTRAINT 	fk_senha_01		FOREIGN KEY (id_cliente)		REFERENCES cliente(id_cliente);
-	
+	ALTER TABLE senha 	ADD CONSTRAINT 	fk_senha_01		FOREIGN KEY (id_cliente)		REFERENCES cliente(id_cliente)
+	ON DELETE cascade;
+
+-- id cliente NO produto
 	ALTER TABLE produto ADD FOREIGN KEY 	(id_cliente) 	REFERENCES 	cliente(id_cliente);
-	ALTER TABLE produto 	ADD CONSTRAINT 	fk_produto_01	FOREIGN KEY (id_cliente)		REFERENCES cliente(id_cliente);
+	ALTER TABLE produto 	ADD CONSTRAINT 	fk_produto_01	FOREIGN KEY (id_cliente)		REFERENCES cliente(id_cliente)
+	ON DELETE cascade;
+	
+-- id cliente NO pedido
+	ALTER TABLE pedido	ADD FOREIGN KEY 	(id_cliente) 	REFERENCES cliente(id_cliente);
+	ALTER TABLE pedido 	ADD CONSTRAINT 	fk_pedido_01	FOREIGN KEY (id_cliente)	REFERENCES cliente(id_cliente)
+	ON DELETE cascade;
+	
+-- id produto NO pedido
+	ALTER TABLE pedido	ADD FOREIGN KEY 	(id_produto)	REFERENCES produto(id_produto);
+	ALTER TABLE pedido	ADD CONSTRAINT 	fk_pedido_02	FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+	ON DELETE cascade;	
+	
+-- id pedido na forma de pagamento
+	ALTER TABLE formaPagamento	ADD FOREIGN KEY 	(id_pedido)	REFERENCES pedido(id_pedido);
+	ALTER TABLE formaPagamento	ADD CONSTRAINT 	fk_formaPagamento_01	FOREIGN KEY (id_pedido)	REFERENCES pedido(id_pedido)
+	ON DELETE cascade; 
+	
+-- id pedido NO item pedido	
+	ALTER TABLE itemPedido	ADD FOREIGN KEY 	(id_pedido)	REFERENCES pedido(id_pedido);
+	ALTER TABLE itemPedido	ADD CONSTRAINT 	fk_itemPedido_01	FOREIGN KEY (id_pedido)	REFERENCES pedido(id_pedido)
+	ON DELETE cascade; 
+	
+-- id produto NO item pedido 
+	ALTER TABLE itemPedido	ADD FOREIGN KEY	(id_produto)	REFERENCES produto(id_produto);
+	ALTER TABLE itemPedido	ADD CONSTRAINT 	fk_itemPedido_02	FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
+	ON DELETE CASCADE;	
+	
+-- inserts de teste
+	
+-- telefone
+	INSERT INTO telefone (numero, ddd) VALUES
+	(999876543, 11),
+	(998765432, 21),
+	(997654321, 31);
+	
+-- cliente
+	INSERT INTO cliente (id_telefone, nome, email, datNasc) VALUES
+	(1, 'João Silva', 'joao.silva@email.com', '1985-03-15'),
+	(2, 'Maria Oliveira', 'maria.oliveira@email.com', '1990-07-22'),
+	(3, 'Pedro Costa', 'pedro.costa@email.com', '1983-11-05');
+	
+-- senha
+	INSERT INTO senha (id_cliente, senha) VALUES
+	(1, 'senha1234'),
+	(2, 'password2025'),
+	(3, 'pedro1990');
+	
+-- endereco
+	INSERT INTO endereco (id_cliente, cep, bairro, uf, rua, cidade, complemento, numero)
+	VALUES
+	(1, '12345000', 'Centro', 'SP', 'Rua A', 'São Paulo', 'Apto 101', 123),
+	(2, '23456000', 'Zona Norte', 'RJ', 'Rua B', 'Rio de Janeiro', 'Casa 10', 456),
+	(3, '34567000', 'Zona Sul', 'MG', 'Rua C', 'Belo Horizonte', 'Casa 5', 789);
+
+-- produto
+	INSERT INTO produto (id_cliente, tipo, descricaoMenor, descricaoMaior, valor, quantidade, marca) VALUES
+	(1, 'Rações', 'Ração para cachorro', 'Ração premium para cachorros de pequeno porte', 45.99, 100, 'PetFood'),
+	(2, 'Brinquedos', 'Bola para cães', 'Bola de borracha resistente', 12.50, 50, 'PetPlay'),
+	(3, 'Higiene', 'Shampoo para pets', 'Shampoo hidratante para pelagem', 20.00, 30, 'PetCare');
+	
+-- pedido
+	INSERT INTO pedido (id_cliente, id_produto, data_pedido, total) VALUES
+	(1, 1, '2025-03-25 14:30:00', 45.99),
+	(2, 2, '2025-03-25 15:00:00', 12.50),
+	(3, 3, '2025-03-25 16:15:00', 20.00);
+	
+
+-- forma pagamento
+	INSERT INTO formaPagamento (id_pedido, tipo) VALUES
+	(1, 'Cartão de Crédito'),
+	(2, 'Boleto Bancário'),
+	(3, 'Pix');
+
+-- item pedido
+	INSERT INTO itemPedido (id_pedido, id_produto, quantidade, preco_unitario) VALUES
+	(1, 1, 2, 45.99),
+	(2, 2, 1, 12.50),
+	(3, 3, 3, 20.00);
+
