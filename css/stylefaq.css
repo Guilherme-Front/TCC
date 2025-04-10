@@ -322,6 +322,272 @@ textarea {
 
 /* Fim Fale Conosco */
 
+@media screen and (max-width: 1025px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        margin-bottom: -150px;
+        height: 320px;
+    }
+
+    .header-link-tema {
+        margin-right: -80px;
+        margin-left: 170px;
+        margin-top: 18px;
+    }
+
+    .header-img {
+        width: 90px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-right: 10px;
+        margin-left: -150px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 17px;
+    }
+
+    .header-entrar {
+        margin-left: 120px;
+    }
+
+    /* Fim header */
+
+    .fl-flex {
+        height: 210px;
+    }
+
+    .faq-titulo {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        margin-left: -30px;
+        font-size: 21px;
+    }
+
+    .faq-p {
+        margin-left: -28px;
+        max-width: 80%;
+        font-size: 18px;
+    }
+
+    .fl-p {
+        margin-bottom: 30px;
+        margin-left: -30px;
+        max-width: 80%;
+        font-size: 18px;
+    }
+
+    .fl--cat {
+        margin-top: -20px;
+        margin-right: 100px;
+        width: 160px;
+    }
+
+    .faq--cat {
+        margin-top: 30px;
+        margin-right: 150px;
+        width: 170px;
+    }
+
+    .faq-button {
+        margin-left: -335px;
+    }
+
+    .faq-FL {
+        width: 120px;
+        height: 30px;
+        font-size: 14px;
+        margin-left: 355px;
+    }
+
+    .faq-question {
+        font-size: 17px;
+        width: 650px;
+    }
+
+    .faq-questions {
+        font-size: 17px;
+        width: 650px;
+    }
+
+    .faq-message {
+        font-size: 16px;
+        width: 630px;
+    }
+
+    .faq-messages {
+        font-size: 16px;
+        width: 630px;
+    }
+
+    .inp-fl {
+        font-size: 18px;
+    }
+
+    .fl-inp {
+        width: 350px;
+    }
+
+    .fl-inp::placeholder {
+        font-size: 16px;
+    }
+
+    textarea {
+        min-width: 350px;
+        max-width: 350px;
+        min-height: 170px;
+        max-height: 300px;
+    }
+
+    .fl-next {
+        width: 120px;
+        height: 35px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 821px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        margin-bottom: -150px;
+        height: 300px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: 170px;
+        margin-top: 18px;
+    }
+
+    .header-img {
+        width: 80px;
+        margin-bottom: 80px;
+        margin-right: 10px;
+        margin-left: -107px;
+    }
+
+    #pet-img {
+        margin-top: 100px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 17px;
+    }
+
+    .header-entrar {
+        margin-left: 120px;
+    }
+
+    /* Fim header */
+
+    .fl-flex {
+        height: 210px;
+    }
+
+    .faq-titulo {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        margin-left: -50px;
+        font-size: 18px;
+    }
+
+    .faq-p {
+        margin-left: -48px;
+        max-width: 80%;
+        font-size: 15px;
+    }
+
+    .fl-p {
+        margin-bottom: 30px;
+        margin-left: -48px;
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    .fl--cat {
+        margin-top: 0;
+        margin-left: 30px;
+        margin-right: 130px;
+        width: 150px;
+    }
+
+    .faq--cat {
+        margin-top: 50px;
+        margin-right: 150px;
+        width: 150px;
+    }
+
+    .faq-button {
+        margin-left: -425px;
+    }
+
+    .faq-FL {
+        width: 120px;
+        height: 30px;
+        font-size: 14px;
+        margin-left: 355px;
+    }
+
+    .faq-question {
+        font-size: 15px;
+        width: 535px;
+    }
+
+    .faq-questions {
+        font-size: 15px;
+        width: 535px;
+    }
+
+    .faq-message {
+        font-size: 14px;
+        width: 520px;
+    }
+
+    .faq-messages {
+        font-size: 14px;
+        width: 520px;
+    }
+
+    .inp-fl {
+        font-size: 18px;
+    }
+
+    .fl-inp {
+        width: 350px;
+    }
+
+    .fl-inp::placeholder {
+        font-size: 16px;
+    }
+
+    textarea {
+        min-width: 350px;
+        max-width: 350px;
+        min-height: 170px;
+        max-height: 300px;
+    }
+
+    .fl-next {
+        width: 120px;
+        height: 30px;
+        font-size: 20px;
+    }
+}
+
 @media screen and (max-width: 431px) {
 
     html,
@@ -342,10 +608,10 @@ textarea {
     }
 
     .header-img {
-        width: 50px;
+        width: 60px;
         margin-bottom: 80px;
         margin-right: 10px;
-        margin-left: -70px;
+        margin-left: -80px;
     }
 
     .header-entrar,
@@ -403,6 +669,7 @@ textarea {
         width: 100px;
         height: 30px;
         font-size: 13px;
+        margin-left: 355px;
     }
 
     .faq-question {
