@@ -1,21 +1,26 @@
 <?php
-include "conn.php";
-/*
-nome completo
-email
-telefone
-data_nasc
-*/
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+include 'conn.php';
 
-$senha = $_POST["senha"];
-$vSenha = $_POST["vSenha"];
+$senha = $_POST['senha'];
+$confirmar = $_POST['confirmar_senha'];
 
-
-echo "Senha: " . ($senha) . "<br>";
-echo "Confirme sua senha: " . ($vSenha) . "<br>";
-
-
-} else {
-    header("location: index.html");
+if ($senha !== $confirmar) {
+    die('Senhas não coincidem');
 }
+
+$hash = password_hash($senha, PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("INSERT INTO senha (senha) VALUES (?)");
+$stmt->bind_param("s", $hash);
+$stmt->execute();
+
+if ($stmt->affected_rows > 0) {
+    header("Location: ../pages/Index.html");
+    exit;
+} else {
+    echo "Erro ao cadastrar senha.";
+}
+
+$stmt->close();
+$conn->close();
+?>

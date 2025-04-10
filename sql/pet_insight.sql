@@ -1,4 +1,4 @@
--- Active: 1743995705901@@127.0.0.1@3306
+-- Active: 1744163446012@@127.0.0.1@3306@pet_insight
 -- criar banco
 DROP DATABASE if EXISTS pet_insight;
 
@@ -16,7 +16,7 @@ USE pet_insight;
 	datNasc		DATE				NOT NULL,	
 	PRIMARY	KEY	(id_cliente)
 	);
-	
+		
 -- tabela senha
 
 CREATE TABLE senha (
