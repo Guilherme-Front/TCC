@@ -12,19 +12,12 @@ body {
 header {
     display: flex;
     justify-content: center;
-    padding: 13px;
+    margin-top: 5px;
     align-items: center;
 }
 
-.logo-txt{
-    margin-top: -130px;
-}
-
-.header-img {
-    width: 120px;
-    height: auto;
-    margin-top: 120px;
-    margin-bottom: 170px;
+.logo {
+    height: 75px;
 }
 
 /* Fim Header */
@@ -41,7 +34,7 @@ main {
     width: 35px;
     transition: all 0.3s ease;
     display: inline-block;
-
+    filter: brightness(0.4);
 }
 
 .carrinho-compras:hover {
@@ -53,7 +46,6 @@ main {
     gap: 20px;
     align-items: center;
     padding: 13px;
-    margin-top: -170px;
     margin-bottom: 10px;
 }
 
@@ -106,7 +98,7 @@ nav.menu-lateral {
 }
 
 aside {
-    width: 280px;
+    width: 40px;
 }
 
 nav.menu-lateral:hover {
@@ -124,9 +116,7 @@ ul li.ativo {
 
 .item-menu.ativo:hover {
     background-color: rgb(206, 206, 206);
-    /* Mesma cor do ativo */
     color: #fff;
-    /* Mesma cor do ativo */
 }
 
 ul li.item-menu:hover {
@@ -187,7 +177,6 @@ ul li.item-menu a .txt-link {
     opacity: 1;
 }
 
-
 ul li.item-menu a .icon>img {
     font-size: 30px;
     margin-left: 9px;
@@ -208,7 +197,6 @@ ul li.item-menu-logoff a .icon>img {
 .boas-vindas {
     padding: 15px;
     margin-top: 10px;
-
 }
 
 .img-txt {
@@ -219,7 +207,8 @@ ul li.item-menu-logoff a .icon>img {
 .enviar-foto {
     padding: 5px;
     margin-top: 2px;
-    margin-left: 10px;
+    margin-left: 14px;
+    text-align: left;
     border: none;
     background: none;
     cursor: pointer;
@@ -227,14 +216,21 @@ ul li.item-menu-logoff a .icon>img {
 }
 
 section {
-    padding: 5px 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 55px;
+}
 
+.perfil {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .dados-pessoais {
     display: flex;
     gap: 50px;
-    align-items: end;
 }
 
 .dados {
@@ -267,98 +263,347 @@ input {
     transition: 0.8s;
     font-weight: 600;
     font-size: 16px;
+    border-radius: 2px;
+    margin-top: 48px;
+    margin-left: 67px;
 }
 
 .alterar-dados:hover {
     background-color: #8e3315;
 }
-@media screen and (max-width: 400px) {
+
+button,
+a {
+    background: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+a:focus {
+    outline: none;
+}
+
+button:active,
+a:active {
+    background: none;
+}
+
+/* 821px */
+@media screen and (max-width: 821px) {
 
     html,
-    body {
-        overflow-x: hidden;
+    body,
+    main {
+        width: 100%;
+        max-width: 821px;
+    }
+    
+    section {
+        width: 100%;
     }
 
-    header {
-        margin-top: -40px;
-        margin-left: 60px;
-        height: 250px;
-    }
-
-    .header-img {
-        width: 60px;
-        margin-bottom: 110px;
-        margin-right: 45px;
-        margin-left: -20px;
-    }
-
-    .botao-voltar {
-        width: 20px;
+    .logo {
+        height: 55px;
     }
 
     .minha-conta {
         font-size: 23px;
     }
-
-    .carrinho-compras {
-        width: 30px;
-        margin-top: 5px;
+    
+    .carrinho {
+        display: flex;
+        width: 100%;
+        justify-content: end;
     }
 
-    .gato {
-        width: 50px;
-        height: 50px;
-        margin-left: 5px;
-    }
-
-    .enviar-foto {
-        margin-left: 1px;
-        font-size: 10px;
-    }
-
-    label {
-        font-size: 13px;
-        margin-left: 6px;
-    }
-
-    input {
-        margin-left: 5px;
-        width: 115px;
-    }
-
-    input::placeholder {
-        font-size: 13px;
-    }
-
-    .section-mobile {
-        margin-left: 160px;
+    img.carrinho-compras {
+        width: 28px;
     }
 
     .dados-pessoais {
-        display: inline;
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        width: 450px;
+    }
+
+    .dados{
+        width: 184px;
+    }
+
+    aside{
+        margin-top: 10px;
+    }
+    
+    .gato {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    label {
+        margin-bottom: 3px;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    input {
+        padding: 5px 6px;
+        border-radius: 3px;
+        background-color: white;
+        border: 1px solid rgb(160, 160, 160);
+        width: 170px;
+        font-size: 14px;
     }
 
     .alterar-dados {
-        width: 130px;
-        margin-bottom: -80px;
-        margin-left: -180px;
-        font-size: 13px;
+        height: 30px;
+        width: 120px;
+        font-size: 15px;
+        margin-top: 38px;
+        margin-left: 63px;
+    }
+
+    div.img-txt {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    img.botao-voltar {
+        width: 20px;
     }
 
     nav.menu-lateral {
         width: 40px;
+        height: 385px;
     }
 
-    nav.menu-lateral.expandir{
-        width: 190px;
+    nav.menu-lateral:hover {
+        width: 200px;
     }
 
-    .txt-link {
-        font-size: 12px;
+    ul li.item-menu a .icon>img {
+        font-size: 10px;
+        margin-left: 5px;
     }
 
-    .icons-img {
-        margin-top: 5px;
+    ul li.item-menu-logoff a .icon>img {
+        font-size: 10px;
+        margin-left: 4px;
+    }
+
+    img.icons-img {
+        width: 23px;
+    }
+
+    ul li.item-menu a {
+        font-size: 14px;
+        padding: 17px 3px;
+        line-height: 23px;
+    }
+
+    ul li.item-menu-logoff a {
+        line-height: 23px;
+    }
+
+}
+
+@media screen and (max-width: 431px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body,
+    main {
+        width: 100%;
+        max-width: 400px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    header {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    main {
+        height: 480px;
+    }
+
+    section {
+        width: 100%;
+        transition: margin-left 0.3s ease;
+        margin-left: 10px;
+        margin-top: 70px;
+    }
+    
+    .menu-expandido section {
+        margin-left: 120px;
+    }
+
+    .logo {
+        height: 50px;
+    }
+
+    .minha-conta {
+        font-size: 20px;
+    }
+
+    .voltar {
+        display: flex;
+        gap: 10px;
+        padding: 10px;
+        margin-bottom: 5px;
+        width: 400px;
+    }
+
+    .carrinho {
+        display: flex;
+        width: 100%;
+        justify-content: end;
+    }
+
+    img.carrinho-compras {
+        width: 28px;
+        background: transparent;
+        background-color: none;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .carrinho-compras:active {
+        transform: scale(0.95);
+    }
+
+    .dados-pessoais {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 184px;
+    }
+
+    .perfil{
+        display: flex;
+        justify-content: center;
+        width: 184px;
+    }
+    .dados{
+        width: 184px;
+    }
+
+    aside{
+        margin-top: 20px;
+    }
+    .gato {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .boas-vindas {
+        padding: 15px 0;
+        margin-top: 10px;
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+    .enviar-foto {
+        padding: 0;
+        margin-top: 2px;
+        margin-left: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        text-align: left;
+        white-space: nowrap;
+        color: rgb(116, 116, 116);
+    }
+
+    label {
+        margin-bottom: 3px;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    input {
+        padding: 4px 6px;
+        border-radius: 3px;
+        background-color: white;
+        border: 1px solid rgb(160, 160, 160);
+        width: 170px;
+        font-size: 13px;
+    }
+
+    .alterar-dados {
+        height: 30px;
+        width: 100px;
+        border: none;
+        background-color: #BD5532;
+        color: white;
+        cursor: pointer;
+        transition: 0.8s;
+        font-weight: 600;
+        font-size: 13px;
+        border-radius: 2px;
+        margin-top: 15px;
+        margin-left: 70px;
+    }
+
+    div.img-txt {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    img.botao-voltar {
         width: 20px;
     }
+
+    nav.menu-lateral {
+        width: 40px;
+        position: relative;
+        margin-left: -20px;
+        height: 385px;
+    }
+
+    nav.menu-lateral:hover {
+        width: 160px;
+    }
+
+    ul li.item-menu a .icon>img {
+        font-size: 10px;
+        margin-left: 5px;
+    }
+
+    ul li.item-menu-logoff a .icon>img {
+        font-size: 10px;
+        margin-left: 4px;
+    }
+
+    img.icons-img {
+        width: 23px;
+    }
+
+    ul li.item-menu a {
+        font-size: 14px;
+        padding: 17px 3px;
+        line-height: 23px;
+    }
+
+    ul li.item-menu-logoff a {
+        line-height: 23px;
+    }
+
+    .menu-lateral {
+        left: -200px;
+        transition: left 0.3s ease;
+      }
+      
+      body.menu-expandido .menu-lateral {
+        left: 0;
+      }
 }

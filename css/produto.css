@@ -538,6 +538,386 @@ main{
     background-color: rgb(54, 54, 54) !important; 
 }
 
+@media screen and (max-width: 1025px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 230px;
+        height: 30px;
+        margin-right: 50px;
+        margin-left: -50px;
+        margin-top: 15px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 17px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    .header-img {
+        width: 110px;
+        margin-bottom: 110px;
+        margin-right: 35px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 21px;
+    }
+
+    .car {
+        font-size: 30px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+        margin-bottom: 5px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 35px;
+    }
+
+    /* Fim header */
+
+    .botao-voltar {
+        width: 30px;
+    }
+
+    .info h2 {
+        font-size: 23px;
+        margin-left: -45px;
+    }
+    
+    .preço {
+        margin-left: -45px;
+        font-size: 21px;
+        
+    }
+    
+    #p-informacao {
+        margin-left: -45px;
+        max-width: 100%;
+        font-size: 21px;
+        margin-bottom: -80px;
+    }
+
+    .compra-qtde {
+        margin-top: 100px;
+    }
+    
+    .quantidade-box label {
+        font-size: 18px;
+    }
+    
+    .quantidade-box {
+        margin-right: 40px;
+        margin-bottom: -70px;
+    }
+
+    .input-add {
+        width: 35px;
+    }
+    
+    .button-add {
+        width: 35px;
+    }
+    
+    .button-add2 {
+        width: 35px;
+    }
+
+    .try-car {
+        width: 50px;
+        margin-left: 15px;
+        margin-top: 62px;
+    }
+    
+    .button-comprar {
+        width: 105px;
+        height: 35px;
+        margin-left: -144px;
+        margin-top: 70px;
+        font-size: 15px;
+    }
+
+    .botao-voltar {
+        margin-left: 10px;
+    }
+
+    /* carousel */
+
+    .carousel-inner img {
+        height: 250px;
+    }
+
+    .carousel-inner {
+        margin-left: 50px;
+    }
+
+
+    .carousel-control-prev {
+        margin-top: -62px;
+        margin-left: -10px;
+    } 
+
+    .carousel-control-next {
+        margin-top: -60px;
+        margin-right: -110px;
+    }  
+    
+    .txt-descricao {
+        margin-left: 35px;
+    }
+
+    .txt-descricao h2 {
+        font-size: 28px;
+    }
+    
+    .descricao {
+        margin-left: 35px;
+    }
+
+    .sobre h3 {
+        font-size: 25px;
+    }
+    
+    .descricao p {
+        font-size: 23px;
+    }
+
+    .txt-avaliação h2 {
+        font-size: 26px;
+    }
+
+    .comentario {
+        margin-left: -235px;
+        width: 150px;
+    }
+
+    .img-comentario img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .txt-comentario p:nth-of-type(3) {
+        width: 900px;
+    }
+
+    .txt-comentario p {
+        margin-left: 5px;
+    }
+
+    #tamanho-mobile {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 821px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 230px;
+        height: 25px;
+        margin-right: 50px;
+        margin-left: -50px;
+        margin-top: 10px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 14px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    .header-img {
+        width: 80px;
+        margin-bottom: 110px;
+        margin-right: 35px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 15px;
+    }
+
+    .car {
+        font-size: 23px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: -20px;
+        margin-bottom: 5px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 27px;
+    }
+
+    /* Fim header */
+
+    .info h2 {
+        font-size: 21px;
+        margin-left: -45px;
+    }
+    
+    .preço {
+        margin-left: -45px;
+        font-size: 18px;
+        
+    }
+    
+    #p-informacao {
+        margin-left: -45px;
+        max-width: 100%;
+        font-size: 20px;
+        margin-bottom: -80px;
+    }
+
+    .compra-qtde {
+        margin-top: 100px;
+    }
+    
+    .quantidade-box label {
+        font-size: 15px;
+    }
+    
+    .quantidade-box {
+        margin-right: 40px;
+        margin-bottom: -70px;
+    }
+
+    .input-add {
+        width: 30px;
+    }
+    
+    .button-add {
+        width: 30px;
+    }
+    
+    .button-add2 {
+        width: 30px;
+    }
+
+    .try-car {
+        width: 40px;
+        margin-left: 45px;
+        margin-top: 62px;
+    }
+    
+    .button-comprar {
+        width: 90px;
+        height: 35px;
+        margin-left: -130px;
+        margin-top: 70px;
+        font-size: 15px;
+    }
+
+    .botao-voltar {
+        margin-left: 10px;
+    }
+
+    /* carousel */
+
+    .carousel-indicators button {
+        margin-top: -100px;
+    }
+
+
+    .carousel-inner img {
+        object-fit: contain;
+        height: 180px;
+    }
+
+    .carousel-inner {
+        margin-left: 50px;
+    }
+
+
+    .carousel-control-prev {
+        margin-top: -123px;
+        margin-left: 10px;
+    }
+
+    .carousel-control-next {
+        margin-top: -130px;
+        margin-right: -100px;
+    } 
+    
+    .txt-descricao {
+        margin-left: 35px;
+    }
+
+    .txt-descricao h2 {
+        font-size: 25px;
+    }
+    
+    .descricao {
+        margin-left: 35px;
+    }
+
+    .txt-avaliação h2 {
+        font-size: 23px;
+    }
+
+    .comentario {
+        margin-left: -235px;
+        width: 150px;
+    }
+
+    .img-comentario img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .txt-comentario p:nth-of-type(3) {
+        width: 700px;
+    }
+
+    .txt-comentario p {
+        margin-left: 5px;
+    }
+
+    #tamanho-mobile {
+        font-size: 17px;
+    }
+}
+
 @media screen and (max-width: 431px) {
 
     html,
@@ -637,9 +1017,9 @@ main{
     }
 
     .try-car {
-        width: 40px;
+        width: 35px;
         margin-left: -180px;
-        margin-top: -395px;
+        margin-top: -360px;
     }
     
     .button-comprar {
