@@ -311,6 +311,135 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Responsividade */
 
+@media screen and (max-width: 1025px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -90px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 300px;
+        height: 30px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 16px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 100px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 18px;
+    }
+
+    .car {
+        font-size: 30px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 32px;
+        margin-bottom: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 50px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 18px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 300px;
+    }
+
+    /* Fim carrousel */
+    
+    .categorias {
+        gap: 70px;
+    }
+    
+    .circulo {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .tipo {
+        margin-left: 2px;
+        font-size: 16px;
+    }
+    
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto;
+        gap: 45px;
+        margin-left: 8px;
+    }
+    
+    .produtos {
+        height: 620px;
+    }
+    
+    .produto {
+        width: 200px;
+        height: 240px;
+    }
+    
+    .img-produto img {
+        margin-top: 10px;
+        width: 120px;
+        height: 100px;
+    }
+    
+    .produto p:first-of-type {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    
+    .produto p:last-of-type {
+        font-size: 17px;
+        margin-top: 15px;
+        margin-right: 10px;
+    }
+
+    .fl-body {
+
+        height: 800px;
+    }
+}
+
 @media screen and (max-width: 821px) {
 
     html,
