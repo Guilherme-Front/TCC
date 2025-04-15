@@ -727,6 +727,245 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 50px;
 }
 
+@media screen and (max-width: 1025px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+
+    .header {
+        margin-top: -80px;
+        height: 340px;
+    }
+
+    .TL-inp {
+        width: 300px;
+        height: 30px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 17px;
+    }
+
+    .header-link-tema {
+        margin-right: 0;
+        margin-left: -60px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 100px;
+        margin-bottom: 120px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 18px;
+    }
+
+    .car {
+        font-size: 28px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: 0;
+    }
+
+    .header-tema {
+        margin-right: 0;
+        width: 31px;
+        margin-bottom: 3px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 50px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+    }
+
+    /* Fim nav */
+
+    .pet-flex-container {
+        max-width: 100%;
+    }
+
+    .pet-flex {
+        max-width: 100%;
+    }
+
+    .pet-titulo {
+        margin-top: 10px;
+        margin-bottom: 40px;
+        font-size: 27px;
+        margin-left: 70px;
+    }
+
+    .pet-paragrafo {
+        margin-top: 0;
+    }
+
+    .pet-paragrafo img {
+        display: none;
+    }
+    
+    h3 {
+        margin-left: -50px;
+        font-size: 23px;
+    }
+
+    .pet-p1 {
+        margin-left: -50px;
+        font-size: 23px;
+        max-width: 600px;
+    }
+
+    .pet-info-curiosidade {
+        height: 2120px;
+    }
+
+    .pet-info-alimentação {
+        height: 4360px;
+    }
+
+    .pet-info-doenças {
+        height: 2470px;
+    }
+
+    .pet-info-vacinas {
+        height: 1570px;
+    }
+
+    .indent {
+        margin-left: -42px;
+        font-size: 20px;
+    }
+
+    ul li {
+        margin-left: -75px;
+        font-size: 20px;
+    }
+
+    .table-bordered {
+        width: 600px;
+        margin-left: -50px;
+        margin-bottom: 35px;
+    }
+
+    tr th {
+        font-size: 16px;
+    }
+
+    td {
+        font-size: 16px;
+    }
+
+    /* fim gatos */
+
+    .pet-dog-curiosidade {
+        height: 1730px;
+    }
+
+    .pet-dog-alimentação {
+        height: 3090px;
+    }
+
+    .pet-dog-doenças {
+        height: 1670px;
+    }
+
+    .pet-dog-vacinas {
+        height: 1950px;
+    }
+
+    /* Fim dog */
+
+    .pet-ham-curiosidade {
+        height: 1800px;  
+    }
+    
+    .pet-ham-alimentação {
+        height: 2250px; 
+    }
+    
+    .pet-ham-doenças {
+        height: 520px;
+    }
+    
+    .pet-ham-vacinas {
+        height: 560px;
+    }
+
+    .ul {
+        margin-left: 15px;
+    }
+
+    /* fim ham */
+
+    .pet-coelhos-curiosidade {
+        height: 1790px;
+    }
+    
+    .pet-coelhos-alimentação {
+        height: 3320px;
+    }
+
+    .ul-coelho {
+        margin-left: 25px;
+        margin-bottom: 50px;
+        font-size: 18px;
+    }
+
+    
+    .pet-coelhos-doenças {
+        height: 1235px;
+    }
+    
+    .pet-coelhos-vacinas {
+        height: 300px;
+    }
+    
+
+    #table-coelhos {
+        width: 650px;
+        margin-bottom: 35px;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+
+    /* fim coelho */
+
+    .pet-porquinho-curiosidade {
+        height: 2080px;
+    }
+    
+    .pet-porquinho-alimentação {
+        height: 2250px;
+    }
+
+    .ul-porquinho {
+        margin-left: 25px;
+    }
+    
+    .pet-porquinho-doenças {
+        height: 480px;
+    }
+    
+    .pet-porquinho-vacinas {
+        height: 560px;
+    }
+}
+
 @media screen and (max-width: 821px) {
 
     html,
@@ -758,7 +997,7 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .header-img {
-        width: 70px;
+        width: 80px;
         margin-bottom: 110px;
         margin-right: 45px;
         margin-left: -50px;
@@ -766,11 +1005,11 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .header-entrar,
     .header-cadastro {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .car {
-        font-size: 21px;
+        font-size: 25px;
         margin-left: 30px;
     }
 
@@ -780,7 +1019,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
     .header-tema {
         margin-right: 15px;
-        width: 26px;
+        width: 28px;
         margin-bottom: 3px;
     }
 
