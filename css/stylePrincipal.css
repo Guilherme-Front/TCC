@@ -564,6 +564,332 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* Responsividade */
+@media screen and (max-width: 1367px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 450px;
+        height: 35px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 18px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -120px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 120px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 32px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 34px;
+        margin-top: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 100px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 350px;
+    }
+
+    .next-btn {
+        margin-right: -30px;
+    }
+
+    /* Fim carrousel */
+
+    .marca {
+        height: 350px;
+    }
+
+    .marcas {
+        margin-left: 50px;
+    }
+
+    .titulo_marca {
+        margin-top: -10px;
+        margin-bottom: 20px;
+        margin-left: 100px;
+    }
+
+    .p-marca {
+        font-size: 21px;
+    }
+
+    .img-size {
+        width: 140px;
+    }
+
+    .img-size-casa {
+        width: 170px;
+    }
+
+    .img-size-whiskas {
+        width: 150px;
+        
+    }
+
+    .img-size-zee {
+        width: 130px;
+    }
+
+    .img-size-love {
+        width: 140px;
+    }
+
+    /* Fim Informações */
+
+    .container {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        height: 350px;
+    }
+
+    .nr {
+        margin-top: -18px;
+    }
+
+    .titulo_pag {
+        margin-top: 60px;
+        margin-left: 20px;
+    } 
+
+    .img-pag {
+        margin-top: -50px;
+        width: 180px;
+        margin-left: -30px;
+    } 
+
+    .links {
+        margin-top: -160px;
+    }
+
+    .cont {
+        margin-top: -80px;
+    }
+
+    .cont p {
+        margin-right: 20px;
+        margin-left: -20px;
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 1281px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 450px;
+        height: 35px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 18px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -120px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 120px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 32px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 34px;
+        margin-top: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 100px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    /* Fim nav */
+
+    .carousel-inner img {
+        height: 350px;
+    }
+
+    .prev-btn {
+        margin-left: -120px;
+        z-index: 9999;
+    }
+
+    .next-btn {
+        margin-right: -150px;
+        z-index: 9999;
+    }
+
+    #carousel {
+        width: 850px;
+    }
+
+    /* Fim carrousel */
+
+    .marca {
+        height: 350px;
+    }
+
+    .marcas {
+        margin-left: 20px;
+    }
+
+    .titulo_marca {
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+
+    .p-marca {
+        font-size: 21px;
+    }
+
+    .img-size {
+        width: 120px;
+    }
+
+    .img-size-casa {
+        width: 150px;
+    }
+
+    .img-size-whiskas {
+        width: 130px;
+        
+    }
+
+    .img-size-zee {
+        width: 110px;
+    }
+
+    .img-size-love {
+        width: 120px;
+    }
+
+    /* Fim Informações */
+
+    .container {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .nr {
+        margin-top: -18px;
+    }
+
+    .titulo_pag {
+        margin-top: 60px;
+        margin-left: 20px;
+    } 
+
+    .img-pag {
+        margin-top: -50px;
+        width: 180px;
+        margin-left: -30px;
+    } 
+
+    .links {
+        margin-top: -160px;
+    }
+
+    .cont {
+        margin-top: -80px;
+    }
+
+    .cont p {
+        margin-right: 20px;
+        margin-left: -20px;
+        font-size: 17px;
+    }
+}
+
 @media screen and (max-width: 1025px) {
 
     html,
