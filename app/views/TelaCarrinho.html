@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/carrinho.css">
+
+    <!-- Logo na aba do site  -->
+    <link rel="icon" type="image/x-icon" href="../img/favicon-32x32.png">
+    <title>Tela de Carrinho</title>
+</head>
+
+<body>
+    <header>
+        <a href="../pages/TelaPrincipal.html">
+            <img class="logo" src="../img/Pet insight.png" alt="logo"></a>
+        <a href="../pages/telaPerfil.html">
+            <img class="user" src="../img/user.png" alt="usuário">
+        </a>
+    </header>
+
+    <main>
+        <section>
+            <div class="txt-carrinho">
+                <h1>Carrinho de compras</h1>
+                <img src="../img/carrinho.png" alt="">
+            </div>
+
+            <div class="todos">
+                <div class="txt-descricao">
+                    <p>Descrição</p>
+                </div>
+
+                <div class="txt-dados">
+                    <p class="txt-quantidade">Quantidade</p>
+                    <p>Preço unitário</p>
+                    <p>Subtotal</p>
+                </div>
+            </div>
+
+            <div class="pedido-container">
+                <div class="pedido">
+                    <div class="img-produto">
+                        <img src="../img/casinha.png" alt="casinha">
+                    </div>
+
+                    <div class="descricao-total">
+                        <div class="descricao">
+                            <h3>Casinha de cachorro</h3>
+                            <p>Em estoque</p>
+                        </div>
+
+                        <div class="informacoes">
+
+                            <div class="quantidade">
+                                <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
+                            </div>
+
+                            <div class="dados">
+                                <p>R$ 79,99</p>
+                                <p>R$ 79,99</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-excluir">
+                        <button class="excluir" type="button"><img src="../img/x-button.png" alt="excluir"></button>
+                    </div>
+                </div>
+
+                <div class="pedido">
+                    <div class="img-produto">
+                        <img src="../img/casinha.png" alt="casinha">
+                    </div>
+
+                    <div class="descricao-total">
+                        <div class="descricao">
+                            <h3>Casinha de cachorro</h3>
+                            <p>Em estoque</p>
+                        </div>
+
+                        <div class="informacoes">
+
+                            <div class="quantidade">
+                                <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
+                            </div>
+
+                            <div class="dados">
+                                <p>R$ 79,99</p>
+                                <p>R$ 79,99</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-excluir">
+                        <button class="excluir" type="button"><img src="../img/x-button.png" alt="excluir"></button>
+                    </div>
+                </div>
+
+                <div class="pedido">
+                    <div class="img-produto">
+                        <img src="../img/casinha.png" alt="casinha">
+                    </div>
+
+                    <div class="descricao-total">
+                        <div class="descricao">
+                            <h3>Casinha de cachorro</h3>
+                            <p>Em estoque</p>
+                        </div>
+
+                        <div class="informacoes">
+
+                            <div class="quantidade">
+                                <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
+                            </div>
+
+                            <div class="dados">
+                                <p>R$ 79,99</p>
+                                <p>R$ 79,99</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-excluir">
+                        <button class="excluir" type="button"><img src="../img/x-button.png" alt="excluir"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <button class="button-limpar" type="button">Limpar carrinho</button>
+
+                <p class="total"><strong>Total:</strong> R$ 199,99</p>
+            </div>
+
+            <div class="cart-actions">
+                <button class="fechar-tela">Escolher mais produtos</button>
+                <button class="finalizar-pedido">Finalizar compra</button>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        function alterarQuantidade(botao, valor) {
+            let input = botao.closest('.pedido').querySelector('.quantidade-produto');
+            let quantidade = parseInt(input.value) + valor;
+            if (quantidade >= 1) {
+                input.value = quantidade;
+            }
+        }
+    </script>
+</body>
+
+</html>

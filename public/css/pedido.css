@@ -1,0 +1,738 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 34px 0 13px;
+    align-items: center;
+}
+
+.logo-txt {
+    margin-left: -40px;
+    margin-top: -130px;
+    cursor: default;
+}
+
+.header-img {
+    width: 120px;
+    height: auto;
+    margin-top: 120px;
+    margin-left: 140px;
+}
+
+.user {
+    width: 35px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    filter: brightness(0.4);
+    margin-right: 50px;
+}
+
+.user:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.titulo {
+    margin-top: 20px;
+    margin-right: 785px;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: default;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.espaço-produtos {
+    margin-top: 50px;
+    width: 1000px;
+    height: 650px;
+    background-color: #F6F6F6;
+    cursor: default;
+}
+
+.pedido {
+    font-size: 23px;
+    padding: 30px;
+}
+
+.espaco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-top: 10px;
+    width: 800px;
+    height: 150px;
+    background-color: #EAEAEA;
+}
+
+.size-product {
+    width: 100px;
+    margin-right: 600px;
+    background-color: white;
+}
+
+.dolado {
+    position: absolute;
+    margin-bottom: 90px;
+    margin-right: 340px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.spam {
+    position: absolute;
+    margin-right: 320px;
+}
+.spam1 {
+    position: absolute;
+    margin-top: 70px;
+    margin-right: 320px;
+}
+
+.valor {
+    position: absolute;
+    margin-left: 400px;
+}
+
+.valor-red {
+    position: absolute;
+    color: red;
+    margin-left: 600px;
+}
+
+.informacoes {
+    display: flex;
+    padding: 50px;
+    margin-bottom: -20px;
+    margin-left: 50px;
+}
+
+.txt-informacoes{
+    border-bottom: 2px solid;
+    margin-bottom: 150px;
+}
+
+.dados {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: -140px;
+}
+
+.info {
+    margin-top: 15px;
+    text-align: left;
+    display: block; /* ou inline-block */
+}
+
+.valor-info {
+    margin-top: 15px;
+    margin-left: 100px;
+}
+
+.info-valor {
+    margin-top: 48px;
+}
+
+.info-dados {
+    margin-left: 20px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-left: 70px;
+    height: 150px;
+}
+
+.red-valor {
+    text-align: left;
+    position: absolute;
+    color: red;
+    margin-left: 200px;
+    margin-top: -20px;
+    display: block; /* ou inline-block */
+    white-space: nowrap;
+}
+
+.botao-voltar{
+    margin-bottom: 40px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #BD5532;
+    color: white;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: 0.8s;
+    font-size: 18px;
+    width: 100px;
+}
+
+.botao-voltar:hover{
+    background-color: #8e3315;
+}
+
+/* Para 1366px ja tava bom, não foi feito!!*/
+
+@media screen and (max-width: 1367px) {
+
+    hr {
+        margin-left: 135px;
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 1281px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        margin-top: 0px;
+        margin-bottom: -10px;
+        height: auto;
+    }
+
+    .header-img {
+        width: 110px;
+        margin-bottom: -20px;
+        margin-right: 35px;
+        margin-left: 150px;
+    }
+    
+    .user {
+        margin-bottom: 0px;
+        margin-right: 100px;
+        width: 40px;
+    }
+
+    /* Fim header */
+
+    .titulo {
+        font-size: 14px;
+        margin-left: 162px;
+        margin-top: 50px;
+        margin-bottom: -20px;
+    }
+    
+    .pedido {
+        font-size: 23px;
+        margin-left: 0px;
+        margin-bottom: -15px;
+        margin-top: -15px;
+    }
+
+    .espaço-produtos {
+        width: 850px;
+        height: 600px;
+        
+    }
+    
+    .espaco {
+        width: 770px;
+        margin-left: 40px;
+        height: 120px;
+        position: relative;
+    }
+
+    .size-product {
+        width: 85px;
+        margin-right: 600px;
+    }
+
+    .dolado {
+        margin-top: 30px;
+        margin-right: 380px;
+        font-size: 18px;
+    }
+    
+    .spam {
+        font-size: 17px;
+        margin-right: 348px;
+    }
+    
+    .spam1 {
+        font-size: 17px;
+        margin-right: 343px;
+        margin-top: 60px;
+    }
+
+    .valor {
+        font-size: 17px;
+        margin-right: 0px;
+    }
+
+    .valor-red {
+        font-size: 16px;
+        margin-left: 600px;
+        margin-top: 2px;
+    }
+
+    .txt-informacoes {
+        font-size: 23px;
+        margin-left: -55px;
+        margin-top: -10px;
+        margin-bottom: 230px;
+    }
+
+    .dados {
+        font-size: 16px;
+        margin-left: -132px;
+    }
+
+    .info-dados {
+        margin-left: 5px;
+    }
+
+    hr {
+        margin-left: 120px;
+        height: 160px;
+    }
+
+    .info-valor {
+        font-size: 16px;
+        margin-left: -50px;
+        margin-top: 50px;
+    }
+
+    .valor-info {
+        margin-left: 85px;
+    }
+
+    .red-valor {
+        margin-top: -18px;
+        margin-left: 200px;
+        position: relative;
+    }
+
+    .flex-button {
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+
+    .botao-voltar {
+        margin-bottom: 50px;
+        font-size: 20px;
+        width: 130px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        margin-top: 0px;
+        margin-bottom: -10px;
+        height: auto;
+    }
+
+    .header-img {
+        width: 100px;
+        margin-bottom: -20px;
+        margin-right: 35px;
+        margin-left: 150px;
+    }
+    
+    .user {
+        margin-bottom: 0px;
+        margin-right: 100px;
+        width: 35px;
+    }
+
+    /* Fim header */
+
+    .titulo {
+        font-size: 12px;
+        margin-left: 280px;
+        margin-top: 50px;
+        margin-bottom: -20px;
+    }
+    
+    .pedido {
+        font-size: 20px;
+        margin-left: 0px;
+        margin-bottom: -15px;
+        margin-top: -15px;
+    }
+
+    .espaço-produtos {
+        width: 700px;
+        height: 600px;
+        overflow-y: hidden;
+    }
+    
+    .espaco {
+        width: 625px;
+        margin-left: 40px;
+        height: 120px;
+    }
+
+    .size-product {
+        width: 75px;
+        margin-right: 450px;
+    }
+
+    .dolado {
+        margin-top: 40px;
+        margin-right: 250px;
+        font-size: 15px;
+    }
+    
+    .spam {
+        font-size: 14px;
+        margin-right: 224px;
+    }
+    
+    .spam1 {
+        font-size: 14px;
+        margin-right: 221px;
+        margin-top: 50px;
+    }
+
+    .valor {
+        font-size: 14px;
+        margin-right: 170px;
+    }
+
+    .valor-red {
+        font-size: 13px;
+        margin-left: 400px;
+        margin-top: 2px;
+    }
+
+    .txt-informacoes {
+        font-size: 20px;
+        margin-left: -55px;
+        margin-bottom: 230px;
+    }
+
+    .dados {
+        font-size: 14px;
+        margin-left: -115px;
+    }
+
+    .info-dados {
+        margin-left: 5px;
+    }
+
+    hr {
+        margin-left: 70px;
+        height: 150px;
+    }
+
+    .info-valor {
+        font-size: 13px;
+        margin-left: -50px;
+        margin-top: 50px;
+    }
+
+    .valor-info {
+        margin-left: 85px;
+    }
+
+    .red-valor {
+        margin-top: -18px;
+        margin-left: 200px;
+    }
+
+    .flex-button {
+        margin-top: -120px;
+    }
+
+    .botao-voltar {
+        font-size: 15px;
+        width: 100px;
+        height: 35px;
+        margin-left: 310px;
+    }
+}
+
+@media screen and (max-width: 821px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        height: auto;
+    }
+
+    .header-img {
+        width: 80px;
+        margin-bottom: -20px;
+        margin-right: 35px;
+        margin-left: 100px;
+    }
+    
+    .user {
+        margin-bottom: 0px;
+        margin-right: 80px;
+        width: 35px;
+    }
+
+    /* Fim header */
+
+    .titulo {
+        font-size: 11px;
+        margin-left: 415px;
+        margin-top: 50px;
+        margin-bottom: -20px;
+    }
+    
+    .pedido {
+        font-size: 18px;
+        margin-left: 0px;
+        margin-bottom: -15px;
+        margin-top: -15px;
+    }
+
+    .espaço-produtos {
+        width: 550px;
+        height: 560px;
+        overflow-y: hidden;
+    }
+    
+    .espaco {
+        width: 470px;
+        margin-left: 40px;
+        height: 100px;
+    }
+
+    .size-product {
+        width: 65px;
+        margin-right: 350px;
+    }
+
+    .dolado {
+        margin-top: 50px;
+        margin-right: 170px;
+        font-size: 13px;
+    }
+    
+    .spam {
+        font-size: 13px;
+        margin-right: 141px;
+    }
+    
+    .spam1 {
+        font-size: 13px;
+        margin-right: 138px;
+        margin-top: 40px;
+    }
+
+    .valor {
+        font-size: 14px;
+        margin-right: 290px;
+    }
+
+    .valor-red {
+        font-size: 13px;
+        margin-left: 250px;
+        margin-top: 2px;
+    }
+
+    .txt-informacoes {
+        font-size: 18px;
+        margin-left: -55px;
+        margin-bottom: 230px;
+    }
+
+    .dados {
+        font-size: 12px;
+        margin-left: -105px;
+    }
+
+    .info-dados {
+        margin-left: 5px;
+    }
+
+    hr {
+        margin-left: 40px;
+        height: 140px;
+    }
+
+    .info-valor {
+        font-size: 11px;
+        margin-left: -50px;
+        margin-top: 50px;
+    }
+
+    .valor-info {
+        margin-left: 65px;
+    }
+
+    .red-valor {
+        margin-top: -15px;
+        margin-left: 120px;
+    }
+
+    .flex-button {
+        margin-top: -120px;
+    }
+
+    .botao-voltar {
+        font-size: 15px;
+        width: 100px;
+        height: 35px;
+        margin-left: 245px;
+    }
+}
+
+@media screen and (max-width: 431px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        margin-top: 10px;
+        margin-bottom: -10px;
+        height: auto;
+    }
+
+    .header-img {
+        width: 60px;
+        margin-bottom: -20px;
+        margin-right: 35px;
+        margin-left: 45px;
+    }
+    
+    .user {
+        margin-bottom: -10px;
+        margin-right: -10px;
+        width: 25px;
+    }
+
+    /* Fim header */
+
+    .titulo {
+        font-size: 9px;
+        margin-left: 594px;
+        margin-top: 50px;
+        margin-bottom: -20px;
+    }
+    
+    .pedido {
+        font-size: 15px;
+        margin-left: 3px;
+        margin-bottom: -15px;
+        margin-top: -15px;
+    }
+
+    .espaço-produtos {
+        width: 400px;
+        height: 550px;
+    }
+    
+    .espaco {
+        width: 320px;
+        margin-left: 40px;
+        height: 90px;
+    }
+
+    .size-product {
+        width: 50px;
+        margin-right: 228px;
+    }
+
+    .dolado {
+        margin-top: 50px;
+        margin-right: 70px;
+        font-size: 11px;
+    }
+    
+    .spam {
+        font-size: 11px;
+        margin-right: 47px;
+    }
+    
+    .spam1 {
+        font-size: 12px;
+        margin-right: 38px;
+        margin-top: 40px;
+    }
+
+    .valor {
+        font-size: 11px;
+        margin-right: 290px;
+    }
+
+    .valor-red {
+        font-size: 10px;
+        margin-left: 210px;
+        margin-top: 2px;
+    }
+
+    .txt-informacoes {
+        font-size: 15px;
+        margin-left: -60px;
+        margin-bottom: 230px;
+    }
+
+    .dados {
+        font-size: 9px;
+        margin-left: -85px;
+    }
+
+    .info-dados {
+        margin-left: 5px;
+    }
+
+    hr {
+        margin-left: 10px;
+        height: 125px;
+    }
+
+    .info-valor {
+        font-size: 8px;
+        margin-left: -50px;
+        margin-top: 50px;
+    }
+
+    .valor-info {
+        margin-left: 65px;
+    }
+
+    .red-valor {
+        margin-top: -12px;
+        margin-left: 80px;
+    }
+
+    .flex-button {
+        margin-top: -120px;
+    }
+
+    .botao-voltar {
+        font-size: 15px;
+        width: 100px;
+        height: 35px;
+        margin-left: 155px;
+    }
+}
