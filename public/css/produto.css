@@ -1,17 +1,21 @@
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-p, h2, h3, li{
+p,
+h2,
+h3,
+li {
     cursor: default;
 }
 
@@ -181,7 +185,7 @@ input[type="search"] {
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-    font-size: 30px; 
+    font-size: 30px;
 }
 
 .TL-inp::placeholder {
@@ -189,16 +193,16 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 16px;
 }
 
-main{
+main {
     background-color: rgb(248, 248, 248);
-    min-height: 100vh; 
-    width: 100%; 
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
 }
 
-.Produto{
+.Produto {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,21 +210,21 @@ main{
     height: 380px;
 }
 
-.voltar{
+.voltar {
     display: flex;
     align-items: center;
     padding: 13px;
     background-color: rgb(255, 255, 255);
 }
 
-.botao-voltar{
+.botao-voltar {
     width: 25px;
     filter: brightness(0.4);
     margin-top: 10px;
     margin-left: 27px;
 }
 
-.img-produto{
+.img-produto {
     width: 450px;
     height: 320px;
     display: flex;
@@ -228,68 +232,69 @@ main{
     align-items: center;
     border-right: 1px solid rgb(187, 187, 187);
 }
-.foto{
+
+.foto {
     width: auto;
     height: 250px;
     margin-bottom: 40px;
 }
 
-.info{
+.info {
     margin-left: 35px;
 }
 
-.preço{
+.preço {
     font-size: 20px;
     font-weight: bold;
     color: rgb(165, 9, 9);
     margin-top: 5px;
 }
 
-.info p:nth-of-type(2){
+.info p:nth-of-type(2) {
     font-size: 18px;
     color: rgb(68, 68, 68);
     margin-top: 25px;
     width: 500px;
 }
 
-.info h2{
+.info h2 {
     font-size: 25px;
 }
 
-.tamanho{
+.tamanho {
     display: flex;
     flex-direction: row;
     width: 800px;
     justify-content: space-between;
 }
 
-.input-radio{
+.input-radio {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.tamanho p{
+.tamanho p {
     font-size: 18px;
     margin-top: 25px;
     margin-bottom: 20px;
     font-weight: 500;
 }
 
-.quantidade-box{
+.quantidade-box {
     margin-top: 25px;
     align-items: center;
     display: flex;
     justify-content: end;
 }
 
-.quantidade-box label{
+.quantidade-box label {
     font-size: 20px;
     font-weight: 600;
     margin-right: 25px;
 }
 
-.input-add{
+.input-add {
     font-size: 20px;
     font-weight: 600;
     width: 30px;
@@ -300,11 +305,11 @@ main{
     background-color: #ebebeb;
 }
 
-.button-add{
+.button-add {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #d3d3d3; 
+    background-color: #d3d3d3;
     width: 30px;
     border: none;
     height: 30px;
@@ -316,8 +321,8 @@ main{
 }
 
 
-.button-add2{
-    background-color: #d3d3d3; 
+.button-add2 {
+    background-color: #d3d3d3;
     width: 30px;
     border: none;
     height: 30px;
@@ -331,14 +336,14 @@ main{
     display: flex;
 }
 
-.compra{
+.compra {
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.add-carrinho{
+.add-carrinho {
     border: none;
     background-color: transparent;
     display: flex;
@@ -346,17 +351,17 @@ main{
     margin-left: 200px;
 }
 
-.add-carrinho img{
+.add-carrinho img {
     height: 50px;
     opacity: 0.9;
     transition: .8s;
 }
 
-.add-carrinho img:hover{
+.add-carrinho img:hover {
     transform: scale(1.05);
 }
 
-.button-comprar{
+.button-comprar {
     width: 200px;
     height: 50px;
     border: none;
@@ -369,28 +374,28 @@ main{
     cursor: pointer;
 }
 
-.button-comprar:hover{
+.button-comprar:hover {
     background-color: #8e3315;
 }
 
-.compra-qtde{
+.compra-qtde {
     justify-content: end;
     display: flex;
     flex-direction: column;
 }
 
-.descricao-container{
+.descricao-container {
     background-color: rgb(241, 241, 241);
     padding: 20px 40px 50px;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
-.descricao-container h2{
+.descricao-container h2 {
     border-bottom: 3px solid #707070;
     margin-top: 20px;
 }
 
-.descricao{
+.descricao {
     display: flex;
     flex-direction: row;
     margin-top: 50px;
@@ -398,31 +403,31 @@ main{
     gap: 150px;
 }
 
-.txt-descricao{
+.txt-descricao {
     width: 100px;
     font-size: 15px;
     margin-left: 200px;
 }
 
-.txt-descricao h2{
+.txt-descricao h2 {
     font-size: 28px;
 }
 
-.sobre{
+.sobre {
     width: 800px;
 }
 
-.descricao-container p{
+.descricao-container p {
     font-size: 18px;
 }
 
-.descricao-container h3{
+.descricao-container h3 {
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: 600;
 }
 
-.avaliação{
+.avaliação {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -431,7 +436,7 @@ main{
     background-color: rgb(75, 62, 62);
 }
 
-.txt-avaliação{
+.txt-avaliação {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -439,9 +444,9 @@ main{
     margin-top: 15px;
 }
 
-.comentarios{    
+.comentarios {
     width: auto;
-    margin-left: 250px; 
+    margin-left: 250px;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
@@ -449,33 +454,33 @@ main{
     margin-bottom: 40px;
 }
 
-.img-comentario img{
+.img-comentario img {
     height: 100px;
     width: 100px;
     border-radius: 100px;
     object-fit: cover;
 }
 
-.img-comentario{
+.img-comentario {
     height: 130px;
     width: 115px;
 }
 
-.comentario{
+.comentario {
     display: flex;
 }
 
-.txt-comentario{
+.txt-comentario {
     margin-top: 10px;
 }
 
-.txt-comentario p:nth-of-type(1){
+.txt-comentario p:nth-of-type(1) {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: -8px;
 }
 
-.txt-comentario p:nth-of-type(3){
+.txt-comentario p:nth-of-type(3) {
     font-size: 18px;
     background-color: #EFEFEF;
     padding: 10px;
@@ -485,7 +490,7 @@ main{
     color: #1C1C1C;
 }
 
-.txt-comentario p:nth-of-type(2){
+.txt-comentario p:nth-of-type(2) {
     text-align: right;
     margin-bottom: 5px;
     font-size: 18px;
@@ -493,8 +498,8 @@ main{
 
 /* Carrossel */
 .carousel {
-    width: 350px;  
-    height: 300px; 
+    width: 350px;
+    height: 300px;
     margin-right: 150px;
     margin-bottom: 30px;
 }
@@ -505,20 +510,20 @@ main{
 }
 
 .carousel-item img {
-    width: 100%;  
-    height: 100%; 
-    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    filter: invert(100%); 
+    filter: invert(100%);
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-    background-color: rgba(0, 0, 0,); 
-    border-radius: 50%; 
+    background-color: rgba(0, 0, 0, );
+    border-radius: 50%;
 }
 
 .carousel-control-next {
@@ -535,7 +540,342 @@ main{
 }
 
 .carousel-indicators .active {
-    background-color: rgb(54, 54, 54) !important; 
+    background-color: rgb(54, 54, 54) !important;
+}
+
+/* Responsivo */
+
+@media screen and (max-width: 1367px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 350px;
+        height: 30px;
+        margin-right: 50px;
+        margin-left: -50px;
+        margin-top: 15px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 17px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    .header-img {
+        width: 110px;
+        margin-bottom: 110px;
+        margin-right: 35px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 30px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+        margin-bottom: 5px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 35px;
+    }
+
+    /* Fim header */
+
+    .Produto {
+        width: 100%;
+    }
+
+    .botao-voltar {
+        width: 30px;
+    }
+
+    .info h2 {
+        font-size: 25px;
+        margin-left: -15px;
+    }
+
+    .preço {
+        margin-left: -15px;
+        font-size: 23px;
+    }
+
+    #p-informacao {
+        margin-left: -15px;
+        max-width: 100%;
+        font-size: 23px;
+        margin-bottom: -80px;
+    }
+
+    .compra-qtde {
+        margin-top: 100px;
+    }
+
+    .quantidade-box label {
+        font-size: 21px;
+    }
+
+    .quantidade-box {
+        margin-right: 2px;
+        margin-bottom: -70px;
+    }
+
+    .input-add {
+        width: 35px;
+    }
+
+    .button-add {
+        width: 35px;
+    }
+
+    .button-add2 {
+        width: 35px;
+    }
+
+    .try-car {
+        width: 50px;
+        margin-left: 50px;
+        margin-top: 62px;
+    }
+
+    .button-comprar {
+        width: 150px;
+        height: 40px;
+        margin-left: -144px;
+        margin-top: 70px;
+        font-size: 15px;
+    }
+
+    .txt-descricao {
+        margin-left: 130px;
+    }
+
+    .txt-descricao h2 {
+        font-size: 28px;
+    }
+
+    .descricao {
+        margin-left: 130px;
+    }
+
+    .sobre h3 {
+        font-size: 25px;
+    }
+
+    .descricao p {
+        font-size: 23px;
+    }
+
+    .comentario {
+        margin-left: -60px;
+        width: 150px;
+    }
+
+    #tamanho-mobile {
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 1281px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 300px;
+        height: 35px;
+        margin-right: 50px;
+        margin-left: -50px;
+        margin-top: 15px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 18px;
+    }
+
+    .header-link-tema {
+        margin-right: -20px;
+        margin-left: -60px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
+
+    .header-img {
+        width: 110px;
+        margin-bottom: 110px;
+        margin-right: 35px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 30px;
+        margin-left: 50px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+        margin-bottom: 5px;
+    }
+
+    .header-tema {
+        margin-right: 15px;
+        width: 35px;
+    }
+
+    /* Fim header */
+
+    .Produto {
+        width: 100%;
+    }
+
+    .botao-voltar {
+        width: 30px;
+    }
+
+    .info h2 {
+        font-size: 25px;
+        margin-left: -15px;
+    }
+
+    .preço {
+        margin-left: -15px;
+        font-size: 23px;
+    }
+
+    #p-informacao {
+        margin-left: -15px;
+        max-width: 100%;
+        font-size: 23px;
+        margin-bottom: -80px;
+    }
+
+    .compra-qtde {
+        margin-top: 100px;
+    }
+
+    .quantidade-box label {
+        font-size: 18px;
+    }
+
+    .quantidade-box {
+        margin-right: 40px;
+        margin-bottom: -70px;
+    }
+
+    .input-add {
+        width: 35px;
+    }
+
+    .button-add {
+        width: 35px;
+    }
+
+    .button-add2 {
+        width: 35px;
+    }
+
+    .try-car {
+        width: 50px;
+        margin-left: 50px;
+        margin-top: 62px;
+    }
+
+    .button-comprar {
+        width: 105px;
+        height: 35px;
+        margin-left: -144px;
+        margin-top: 70px;
+        font-size: 15px;
+    }
+
+    .botao-voltar {
+        margin-left: 10px;
+    }
+
+    /* carousel */
+
+    .carousel-inner img {
+        height: 250px;
+    }
+
+    .carousel-inner {
+        margin-left: -20px;
+    }
+
+
+    .carousel-control-prev {
+        margin-top: -62px;
+        margin-left: -80px;
+    }
+
+    .carousel-control-next {
+        margin-top: -60px;
+        margin-right: -60px;
+    }  
+
+    .txt-descricao {
+        margin-left: 130px;
+    }
+
+    .txt-descricao h2 {
+        font-size: 28px;
+    }
+
+    .descricao {
+        margin-left: 130px;
+    }
+
+    .sobre h3 {
+        font-size: 25px;
+    }
+
+    .descricao p {
+        font-size: 23px;
+    }
+
+    .comentario {
+        margin-left: -100px;
+        width: 150px;
+    }
+
+    #tamanho-mobile {
+        margin-left: 10px;
+    }
 }
 
 @media screen and (max-width: 1025px) {
@@ -606,13 +946,13 @@ main{
         font-size: 23px;
         margin-left: -45px;
     }
-    
+
     .preço {
         margin-left: -45px;
         font-size: 21px;
-        
+
     }
-    
+
     #p-informacao {
         margin-left: -45px;
         max-width: 100%;
@@ -623,11 +963,11 @@ main{
     .compra-qtde {
         margin-top: 100px;
     }
-    
+
     .quantidade-box label {
         font-size: 18px;
     }
-    
+
     .quantidade-box {
         margin-right: 40px;
         margin-bottom: -70px;
@@ -636,11 +976,11 @@ main{
     .input-add {
         width: 35px;
     }
-    
+
     .button-add {
         width: 35px;
     }
-    
+
     .button-add2 {
         width: 35px;
     }
@@ -650,7 +990,7 @@ main{
         margin-left: 15px;
         margin-top: 62px;
     }
-    
+
     .button-comprar {
         width: 105px;
         height: 35px;
@@ -677,13 +1017,13 @@ main{
     .carousel-control-prev {
         margin-top: -62px;
         margin-left: -10px;
-    } 
+    }
 
     .carousel-control-next {
         margin-top: -60px;
         margin-right: -110px;
-    }  
-    
+    }
+
     .txt-descricao {
         margin-left: 35px;
     }
@@ -691,7 +1031,7 @@ main{
     .txt-descricao h2 {
         font-size: 28px;
     }
-    
+
     .descricao {
         margin-left: 35px;
     }
@@ -699,7 +1039,7 @@ main{
     .sobre h3 {
         font-size: 25px;
     }
-    
+
     .descricao p {
         font-size: 23px;
     }
@@ -709,7 +1049,7 @@ main{
     }
 
     .comentario {
-        margin-left: -235px;
+        margin-left: -215px;
         width: 150px;
     }
 
@@ -795,13 +1135,13 @@ main{
         font-size: 21px;
         margin-left: -45px;
     }
-    
+
     .preço {
         margin-left: -45px;
         font-size: 18px;
-        
+
     }
-    
+
     #p-informacao {
         margin-left: -45px;
         max-width: 100%;
@@ -812,11 +1152,11 @@ main{
     .compra-qtde {
         margin-top: 100px;
     }
-    
+
     .quantidade-box label {
         font-size: 15px;
     }
-    
+
     .quantidade-box {
         margin-right: 40px;
         margin-bottom: -70px;
@@ -825,11 +1165,11 @@ main{
     .input-add {
         width: 30px;
     }
-    
+
     .button-add {
         width: 30px;
     }
-    
+
     .button-add2 {
         width: 30px;
     }
@@ -839,7 +1179,7 @@ main{
         margin-left: 45px;
         margin-top: 62px;
     }
-    
+
     .button-comprar {
         width: 90px;
         height: 35px;
@@ -877,8 +1217,8 @@ main{
     .carousel-control-next {
         margin-top: -130px;
         margin-right: -100px;
-    } 
-    
+    }
+
     .txt-descricao {
         margin-left: 35px;
     }
@@ -886,13 +1226,21 @@ main{
     .txt-descricao h2 {
         font-size: 25px;
     }
-    
+
     .descricao {
         margin-left: 35px;
     }
 
+    .sobre h3 {
+        font-size: 25px;
+    }
+
+    .descricao p {
+        font-size: 18px;
+    }
+
     .txt-avaliação h2 {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .comentario {
@@ -980,25 +1328,25 @@ main{
         margin-left: -175px;
         margin-top: 890px;
     }
-    
+
     .preço {
         margin-left: -175px;
         font-size: 15px;
-        
+
     }
-    
+
     #p-informacao {
         margin-left: -175px;
         max-width: 25%;
         font-size: 12px;
     }
-    
+
     .quantidade-box label {
         font-size: 12px;
         margin-right: 10px;
         margin-top: -7px;
     }
-    
+
     .quantidade-box {
         margin-top: -120px;
         margin-right: 365px;
@@ -1007,21 +1355,21 @@ main{
     .input-add {
         width: 25px;
     }
-    
+
     .button-add {
         width: 25px;
     }
-    
+
     .button-add2 {
         width: 25px;
     }
 
     .try-car {
-        width: 35px;
+        width: 30px;
         margin-left: -180px;
-        margin-top: -360px;
+        margin-top: -358px;
     }
-    
+
     .button-comprar {
         width: 75px;
         height: 30px;
@@ -1061,7 +1409,7 @@ main{
         margin-top: -190px;
         margin-right: -370px;
     }
-    
+
     .txt-descricao {
         margin-left: 100px;
     }
@@ -1069,9 +1417,17 @@ main{
     .txt-descricao h2 {
         font-size: 23px;
     }
-    
+
     .descricao {
         margin-left: 35px;
+    }
+
+    .sobre h3 {
+        font-size: 18px;
+    }
+
+    .descricao p {
+        font-size: 15px;
     }
 
     .txt-avaliação h2 {

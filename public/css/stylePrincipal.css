@@ -654,7 +654,10 @@ input[type="search"]::-webkit-search-cancel-button {
     .titulo_marca {
         margin-top: -10px;
         margin-bottom: 20px;
+<<<<<<< HEAD:public/css/stylePrincipal.css
         margin-left: 100px;
+=======
+>>>>>>> 764ac30136d9ff5349b4f7cac0301c4285750f6d:css/stylePrincipal.css
     }
 
     .p-marca {
