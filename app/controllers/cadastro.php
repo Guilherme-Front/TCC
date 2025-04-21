@@ -24,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['mensagem'] = "Erro ao cadastrar cliente: " . mysqli_error($conn);
         $_SESSION['cadastro_concluido'] = false; // Marca que o cadastro falhou
-        header("Location: ../pages/Index.html"); // Redireciona para a página de cadastro
+        header("Location: ../pages/Login.html"); // Redireciona para a página de cadastro
         exit();
     }
 
 } else {
-    header("Location: ../views/Index.html");
+    header("Location: ../views/Login.html");
     exit();
 }
 ?>

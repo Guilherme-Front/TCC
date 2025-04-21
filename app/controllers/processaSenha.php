@@ -27,7 +27,7 @@ $stmt->execute();
 if ($stmt->affected_rows > 0) {
     echo "Senha cadastrada com sucesso.";
     $_SESSION['cadastro_concluido'] = false; // Marca que o cadastro foi concluído
-    header("Location: ../views/Index.html"); // Redireciona para a página de login
+    header("Location: ../views/Login.html"); // Redireciona para a página de login
     exit();
 } else {
     echo "Erro ao cadastrar senha: " . $stmt->error;

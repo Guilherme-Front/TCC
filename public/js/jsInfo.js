@@ -1,21 +1,21 @@
-let currentIndex = 0;
+let currentLogin = 0;
         const items = document.querySelectorAll('.carousel-item');
         const totalItems = items.length;
         const carousel = document.querySelector('.carousel');
         const itemHeight = items[0].clientHeight;
 
         function moveCarousel() {
-            currentIndex++;
+            currentLogin++;
 
-            if (currentIndex >= totalItems) {
-                currentIndex = 0; // Volta para o primeiro item
+            if (currentLogin >= totalItems) {
+                currentLogin = 0; // Volta para o primeiro item
             }
 
             updateCarousel();
         }
 
         function updateCarousel() {
-            const offset = -currentIndex * itemHeight;
+            const offset = -currentLogin * itemHeight;
             carousel.style.transform = `translateY(${offset}px)`;
         }
 

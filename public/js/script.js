@@ -196,7 +196,7 @@ function SenhaIgual() {
         Password.style.border = '1px solid red';
     } else {
         // Se as senhas coincidem
-        redirection("Você finalizou o cadastro. Agora faça o login", "Index.html");
+        redirection("Você finalizou o cadastro. Agora faça o login", "Login.html");
         Pass.style.border = '1px solid lime';
         Password.style.border = '1px solid lime';
         return; 
@@ -246,7 +246,7 @@ function SenhasC() {
         Csenhas.style.border = '1px solid red';
     } else {
         // Se as senhas coincidirem
-        redirection("Você redefiniu sua senha. Agora faça o login", "Index.html");
+        redirection("Você redefiniu sua senha. Agora faça o login", "Login.html");
         senhas.style.border = '1px solid lime';
         Csenhas.style.border = '1px solid lime';
         return; 

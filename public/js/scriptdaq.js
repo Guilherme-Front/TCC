@@ -16,9 +16,9 @@ const buttons = document.querySelectorAll('.faq-questions');
 const messages = document.querySelectorAll('.faq-messages');
 
 // Adiciona eventos de clique em cada botão
-buttons.forEach((buttons, index) => {
+buttons.forEach((buttons, Login) => {
     buttons.addEventListener('click', () => {
-        const msg = messages[index]; // Obtem a mensagem correspondente pelo índice
+        const msg = messages[Login]; // Obtem a mensagem correspondente pelo índice
         // Alterna a visibilidade da mensagem
         if (msg.style.display === 'none' || !msg.style.display) {
             msg.style.display = 'block'; // Mostra a mensagem

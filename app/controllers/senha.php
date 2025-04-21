@@ -4,7 +4,7 @@ session_start();
 // Verifica se o cadastro foi concluído
 if (!isset($_SESSION['cadastro_concluido']) || $_SESSION['cadastro_concluido'] !== true) {
     // Redireciona para a página de cadastro se o cadastro não foi concluído
-    header("Location: ../views/Index.html");
+    header("Location: ../views/Login.html");
     exit();
 }
 ?>
