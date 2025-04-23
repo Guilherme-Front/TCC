@@ -727,6 +727,981 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 50px;
 }
 
+@media screen and (max-width: 1367px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 450px;
+        height: 35px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 18px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -120px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 120px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 32px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 36px;
+        margin-top: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 100px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    /* fim nav */
+
+    .icon-cat-black {
+        position: absolute;
+        width: 45px;
+        margin-left: 520px;
+        margin-top: -55px;
+    }
+
+    .icon-cat {
+        position: absolute;
+        width: 45px;
+        margin-left: 750px;
+        margin-top: -55px;
+    }
+    
+    .icon-cat-pe {
+        position: absolute;
+        width: 45px;
+        margin-left: 400px;
+        margin-top: -50px;
+    }
+    
+    .icon-love {
+        position: absolute;
+        width: 45px;
+        margin-left: 460px;
+        margin-top: -50px;
+    }
+    
+    .icon-cat-sleep {
+        position: absolute;
+        width: 50px;
+        margin-left: 420px;
+        margin-top: -50px;
+    }
+    
+    .icon-cat-visao {
+        position: absolute;
+        width: 50px;
+        margin-left: 360px;
+        margin-top: -50px;
+    }
+    
+    .icon-milk {
+        position: absolute;
+        width: 50px;
+        margin-left: 670px;
+        margin-top: -50px;
+    }
+
+    .pet-info-curiosidade {
+        height: 1920px;
+    }
+
+    .pet-info-alimentação {
+        height: 4000px;
+    }
+
+    .pet-info-doenças {
+        height: 1700px;
+    }
+
+    .pet-info-vacinas {
+        height: 1250px;
+    } 
+
+    .pet-paragrafo {
+        margin-top: 0;
+    }
+
+    .indent {
+        margin-left: -42px;
+        font-size: 20px;
+    }
+
+    ul li {
+        margin-left: -75px;
+        font-size: 23px;
+    }
+
+    .table-bordered {
+        width: 650px;
+        margin-left: 50px;
+        margin-bottom: 35px;
+    }
+
+    tr th {
+        font-size: 18px;
+    }
+
+    td {
+        font-size: 18px;
+    }
+
+    .pet-img {
+        margin-top: -295px;
+        margin-left: 950px;
+    }
+
+    .image {
+        width: 350px;
+    }
+
+    .carousel-container {
+        width: 300px;
+        height: 500px;
+        margin-left: 1000px;
+        margin-top: -2750px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+    /* fim gatos */
+
+    .pet-dog-curiosidade {
+        height: 1570px;
+    }
+
+    .pet-dog-alimentação {
+        height: 2550px;
+    }
+
+    .pet-dog-doenças {
+        height: 1180px;
+    }
+
+    .pet-dog-vacinas {
+        height: 1570px;
+    }
+
+    .image-dog {
+        margin-top: -35px;
+        width: 350px;
+        margin-left: 10px;
+    }
+    
+    .icon-dog {
+        position: absolute;
+        width: 45px;
+        margin-left: 220px;
+        margin-top: -52px;
+    }
+    
+    .icon-dog-sonho {
+        position: absolute;
+        width: 45px;
+        margin-left: 380px;
+        margin-top: -50px;
+    }
+    
+    .icon-dog-sono {
+        position: absolute;
+        width: 45px;
+        margin-left: 400px;
+        margin-top: -52px;
+    }
+    
+    .icon-latido {
+        position: absolute;
+        width: 45px;
+        margin-left: 480px;
+        margin-top: -55px;
+    }
+    
+    .icon-fogos {
+        position: absolute;
+        width: 45px;
+        margin-left: 650px;
+        margin-top: -47px;
+    }
+
+    .carousel-container-dog {
+        width: 300px;
+        height: 500px;
+        margin-left: 980px;
+        margin-top: -1290px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    /* Fim dog */
+
+    .pet-ham-curiosidade {
+        height: 1570px;  
+    }
+    
+    .pet-ham-alimentação {
+        height: 1880px; 
+    }
+    
+    .pet-ham-doenças {
+        height: 400px;
+    }
+    
+    .pet-ham-vacinas {
+        height: 560px;
+    }
+
+    .image-ham {
+        margin-top: -10px;
+        width: 350px;
+    }
+    
+    .icon-frio {
+        position: absolute;
+        width: 45px;
+        margin-left: 350px;
+        margin-top: -52px;
+    }
+    
+    .icon-ham {
+        position: absolute;
+        width: 45px;
+        margin-left: 520px;
+        margin-top: -50px;
+    }
+    
+    .icon-cego {
+        position: absolute;
+        width: 45px;
+        margin-left: 350px;
+        margin-top: -52px;
+    }
+    
+    .icon-feliz {
+        position: absolute;
+        width: 45px;
+        margin-left: 580px;
+        margin-top: -50px;
+    }
+    
+    .icon-bochecha {
+        position: absolute;
+        width: 45px;
+        margin-left: 580px;
+        margin-top: -53px;
+    }
+    
+    .carousel-container-ham {
+        width: 300px;
+        height: 500px;
+        margin-left: 980px;
+        margin-top: -630px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    .ul {
+        margin-left: 70px;
+    }
+
+    /* fim ham */
+
+    .pet-coelhos-curiosidade {
+        height: 1600px;
+    }
+    
+    .pet-coelhos-alimentação {
+        height: 2880px;
+    }
+
+    .ul-coelho {
+        margin-left: 70px;
+        margin-bottom: 50px;
+        font-size: 20px;
+    }
+
+    .pet-coelhos-doenças {
+        height: 900px;
+    }
+    
+    .pet-coelhos-vacinas {
+        height: 400px;
+    }
+
+    .image-coelho {
+        margin-top: -8px;
+        width: 350px;
+    }
+    
+    .icon-fezes {
+        position: absolute;
+        width: 45px;
+        margin-left: 450px;
+        margin-top: -45px;
+    }
+    
+    .icon-coelho {
+        position: absolute;
+        width: 45px;
+        margin-left: 540px;
+        margin-top: -57px;
+    }
+    
+    .icon-dentes {
+        position: absolute;
+        width: 45px;
+        margin-left: 550px;
+        margin-top: -52px;
+    }
+    
+    .icon-visao {
+        position: absolute;
+        width: 45px;
+        margin-left: 530px;
+        margin-top: -53px;
+    }
+    
+    .icon-olhos {
+        position: absolute;
+        width: 45px;
+        margin-left: 420px;
+        margin-top: -54px;
+    }
+    
+    .carousel-container-coelhos {
+        width: 300px;
+        height: 500px;
+        margin-left: 1000px;
+        margin-top: -1850px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    #table-coelhos {
+        width: 650px;
+        margin-bottom: 35px;
+        margin-left: 200px;
+        margin-top: 30px;
+    }
+
+    /* fim coelho */
+
+    .pet-porquinho-curiosidade {
+        height: 1820px;
+    }
+    
+    .pet-porquinho-alimentação {
+        height: 2020px;
+    }
+
+    .ul-porquinho {
+        margin-left: 70px;
+    }
+    
+    .pet-porquinho-doenças {
+        height: 480px;
+    }
+    
+    .pet-porquinho-vacinas {
+        height: 430px;
+    }
+
+    .image-porquinho {
+        margin-top: -3px;
+        width: 350px;
+    }
+    
+    .icon-porquinho {
+        position: absolute;
+        width: 70px;
+        margin-left: 340px;
+        margin-top: -60px;
+    }
+    
+    .icon-comunicar {
+        position: absolute;
+        width: 45px;
+        margin-left: 340px;
+        margin-top: -57px;
+    }
+    
+    .icon-casal {
+        position: absolute;
+        width: 45px;
+        margin-left: 310px;
+        margin-top: -47px;
+    }
+    
+    .icon-cresce {
+        position: absolute;
+        width: 45px;
+        margin-left: 310px;
+        margin-top: -53px;
+    }
+    
+    .icon-aberto {
+        position: absolute;
+        width: 45px;
+        margin-left: 480px;
+        margin-top: -50px;
+    }
+    .icon-vive {
+        position: absolute;
+        width: 45px;
+        margin-left: 420px;
+        margin-top: -55px;
+    }
+}
+
+@media screen and (max-width: 1281px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .header {
+        margin-top: -80px;
+        height: 300px;
+    }
+
+    .TL-inp {
+        width: 450px;
+        height: 35px;
+        margin-right: 50px;
+        margin-left: -50px;
+    }
+
+    .TL-inp::placeholder {
+        font-size: 18px;
+    }
+
+    .header-link-tema {
+        margin-right: -10px;
+        margin-left: -120px;
+        margin-bottom: 5px;
+    }
+
+    .header-img {
+        width: 120px;
+        margin-bottom: 125px;
+        margin-right: 45px;
+        margin-left: -50px;
+    }
+
+    .header-entrar,
+    .header-cadastro {
+        font-size: 20px;
+    }
+
+    .car {
+        font-size: 32px;
+        margin-left: 30px;
+    }
+
+    .header-button {
+        margin-left: -10px;
+    }
+
+    .header-tema {
+        margin-right: -20px;
+        width: 36px;
+        margin-top: 1px;
+    }
+
+    /* Fim header */
+
+    .nav_wrap {
+        gap: 100px;
+    }
+
+    .nav-link {
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    /* Fim nav */
+
+    .pet-flex-container {
+        max-width: 100%;
+    }
+
+    .pet-flex {
+        max-width: 100%;
+    }
+
+    .pet-titulo {
+        margin-top: 10px;
+        margin-bottom: 40px;
+        font-size: 27px;
+        margin-left: 70px;
+    }
+
+    .pet-paragrafo {
+        margin-top: 0;
+    }
+
+    .icon-cat-black {
+        position: absolute;
+        width: 45px;
+        margin-left: 420px;
+        margin-top: -55px;
+    }
+
+    .icon-cat {
+        position: absolute;
+        width: 45px;
+        margin-left: 620px;
+        margin-top: -55px;
+    }
+    
+    .icon-cat-pe {
+        position: absolute;
+        width: 45px;
+        margin-left: 300px;
+        margin-top: -50px;
+    }
+    
+    .icon-love {
+        position: absolute;
+        width: 45px;
+        margin-left: 360px;
+        margin-top: -50px;
+    }
+    
+    .icon-cat-sleep {
+        position: absolute;
+        width: 50px;
+        margin-left: 320px;
+        margin-top: -50px;
+    }
+    
+    .icon-cat-visao {
+        position: absolute;
+        width: 50px;
+        margin-left: 280px;
+        margin-top: -50px;
+    }
+    
+    .icon-milk {
+        position: absolute;
+        width: 50px;
+        margin-left: 560px;
+        margin-top: -50px;
+    }
+    
+    h3 {
+        margin-left: -50px;
+        font-size: 25px;
+    }
+
+    .pet-p1 {
+        margin-left: -50px;
+        font-size: 25px;
+    }
+
+    .pet-info-curiosidade {
+        height: 2260px;
+    }
+
+    .pet-info-alimentação {
+        height: 4650px;
+    }
+
+    .pet-info-doenças {
+        height: 2140px;
+    }
+
+    .pet-info-vacinas {
+        height: 1450px;
+    }
+
+    .indent {
+        margin-left: -42px;
+        font-size: 20px;
+    }
+
+    ul li {
+        margin-left: -75px;
+        font-size: 23px;
+    }
+
+    .table-bordered {
+        width: 650px;
+        margin-left: -50px;
+        margin-bottom: 35px;
+    }
+
+    tr th {
+        font-size: 18px;
+    }
+
+    td {
+        font-size: 18px;
+    }
+
+    .pet-img {
+        margin-top: -295px;
+        margin-left: 850px;
+    }
+
+    .image {
+        width: 350px;
+    }
+
+    .carousel-container {
+        width: 300px;
+        height: 500px;
+        margin-left: 870px;
+        margin-top: -2750px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+    /* fim gatos */
+
+    .pet-dog-curiosidade {
+        height: 1830px;
+    }
+
+    .pet-dog-alimentação {
+        height: 3310px;
+    }
+
+    .pet-dog-doenças {
+        height: 1450px;
+    }
+
+    .pet-dog-vacinas {
+        height: 1750px;
+    }
+
+    .image-dog {
+        margin-top: -35px;
+        width: 350px;
+        margin-left: 10px;
+    }
+    
+    .icon-dog {
+        position: absolute;
+        width: 45px;
+        margin-left: 150px;
+        margin-top: -52px;
+    }
+    
+    .icon-dog-sonho {
+        position: absolute;
+        width: 45px;
+        margin-left: 300px;
+        margin-top: -50px;
+    }
+    
+    .icon-dog-sono {
+        position: absolute;
+        width: 45px;
+        margin-left: 320px;
+        margin-top: -52px;
+    }
+    
+    .icon-latido {
+        position: absolute;
+        width: 45px;
+        margin-left: 390px;
+        margin-top: -55px;
+    }
+    
+    .icon-fogos {
+        position: absolute;
+        width: 45px;
+        margin-left: 540px;
+        margin-top: -47px;
+    }
+
+    .carousel-container-dog {
+        width: 300px;
+        height: 500px;
+        margin-left: 890px;
+        margin-top: -1290px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    /* Fim dog */
+
+    .pet-ham-curiosidade {
+        height: 1880px;  
+    }
+    
+    .pet-ham-alimentação {
+        height: 2410px; 
+    }
+    
+    .pet-ham-doenças {
+        height: 480px;
+    }
+    
+    .pet-ham-vacinas {
+        height: 560px;
+    }
+
+    .image-ham {
+        margin-top: -10px;
+        width: 350px;
+    }
+    
+    .icon-frio {
+        position: absolute;
+        width: 45px;
+        margin-left: 280px;
+        margin-top: -52px;
+    }
+    
+    .icon-ham {
+        position: absolute;
+        width: 45px;
+        margin-left: 420px;
+        margin-top: -50px;
+    }
+    
+    .icon-cego {
+        position: absolute;
+        width: 45px;
+        margin-left: 270px;
+        margin-top: -52px;
+    }
+    
+    .icon-feliz {
+        position: absolute;
+        width: 45px;
+        margin-left: 480px;
+        margin-top: -50px;
+    }
+    
+    .icon-bochecha {
+        position: absolute;
+        width: 45px;
+        margin-left: 490px;
+        margin-top: -53px;
+    }
+    
+    .carousel-container-ham {
+        width: 300px;
+        height: 500px;
+        margin-left: 880px;
+        margin-top: -630px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    .ul {
+        margin-left: 15px;
+    }
+
+    /* fim ham */
+
+    .pet-coelhos-curiosidade {
+        height: 1920px;
+    }
+    
+    .pet-coelhos-alimentação {
+        height: 3550px;
+    }
+
+    .ul-coelho {
+        margin-left: 25px;
+        margin-bottom: 50px;
+        font-size: 20px;
+    }
+
+    .pet-coelhos-doenças {
+        height: 1100px;
+    }
+    
+    .pet-coelhos-vacinas {
+        height: 400px;
+    }
+
+    .image-coelho {
+        margin-top: -8px;
+        width: 350px;
+    }
+    
+    .icon-fezes {
+        position: absolute;
+        width: 45px;
+        margin-left: 370px;
+        margin-top: -45px;
+    }
+    
+    .icon-coelho {
+        position: absolute;
+        width: 45px;
+        margin-left: 440px;
+        margin-top: -57px;
+    }
+    
+    .icon-dentes {
+        position: absolute;
+        width: 45px;
+        margin-left: 450px;
+        margin-top: -52px;
+    }
+    
+    .icon-visao {
+        position: absolute;
+        width: 45px;
+        margin-left: 420px;
+        margin-top: -53px;
+    }
+    
+    .icon-olhos {
+        position: absolute;
+        width: 45px;
+        margin-left: 330px;
+        margin-top: -54px;
+    }
+    
+    .carousel-container-coelhos {
+        width: 300px;
+        height: 500px;
+        margin-left: 890px;
+        margin-top: -1850px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    #table-coelhos {
+        width: 650px;
+        margin-bottom: 35px;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+
+    /* fim coelho */
+
+    .pet-porquinho-curiosidade {
+        height: 2210px;
+    }
+    
+    .pet-porquinho-alimentação {
+        height: 2420px;
+    }
+
+    .ul-porquinho {
+        margin-left: 25px;
+    }
+    
+    .pet-porquinho-doenças {
+        height: 480px;
+    }
+    
+    .pet-porquinho-vacinas {
+        height: 520px;
+    }
+
+    .image-porquinho {
+        margin-top: -3px;
+        width: 350px;
+    }
+    
+    .icon-porquinho {
+        position: absolute;
+        width: 70px;
+        margin-left: 270px;
+        margin-top: -60px;
+    }
+    
+    .icon-comunicar {
+        position: absolute;
+        width: 45px;
+        margin-left: 270px;
+        margin-top: -57px;
+    }
+    
+    .icon-casal {
+        position: absolute;
+        width: 45px;
+        margin-left: 230px;
+        margin-top: -47px;
+    }
+    
+    .icon-cresce {
+        position: absolute;
+        width: 45px;
+        margin-left: 250px;
+        margin-top: -53px;
+    }
+    
+    .icon-aberto {
+        position: absolute;
+        width: 45px;
+        margin-left: 390px;
+        margin-top: -50px;
+    }
+    .icon-vive {
+        position: absolute;
+        width: 45px;
+        margin-left: 330px;
+        margin-top: -55px;
+    }
+}
+
 @media screen and (max-width: 1025px) {
 
     html,
