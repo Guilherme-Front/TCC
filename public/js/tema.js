@@ -42,10 +42,10 @@ function ativarModoEscuro() {
   if (carousel3) carousel3.style.backgroundColor = "#212121";
 
   const prevTema = document.querySelector("#prev-tema");
-  if (prevTema) prevTema.src = "../img/angulo-esquerdo-tema.png";
+  if (prevTema) prevTema.src = "../../public/img/angulo-esquerdo-tema.png";
 
   const nextTema = document.querySelector("#next-tema");
-  if (nextTema) nextTema.src = "../img/angulo-direito-tema.png";
+  if (nextTema) nextTema.src = "../../public/img/angulo-direito-tema.png";
 
   document
     .querySelectorAll(".cart-gatos")
@@ -65,7 +65,7 @@ function ativarModoEscuro() {
   if (marca) marca.style.backgroundColor = "rgba(255, 110, 62)";
 
   const headerTema = document.querySelector(".header-tema");
-  if (headerTema) headerTema.src = "../img/modo-escuro.png";
+  if (headerTema) headerTema.src = "../../public/img/modo-escuro.png";
   /* Fim Tela Principal */
 
   /* Início Cadastro */
@@ -195,7 +195,7 @@ function ativarModoEscuro() {
 
   /* Início Pagamento */
   const seta = document.querySelector(".botao-voltar");
-  if (seta) seta.src = "../img/desfazer.png";
+  if (seta) seta.src = "../../public/img/desfazer.png";
 
   const formaP = document.querySelectorAll(".item-button");
   if (formaP)
@@ -211,22 +211,22 @@ function ativarModoEscuro() {
   if (dadosP) dadosP.style.backgroundColor = "#3f3e3e";
 
   const carrinho = document.querySelector(".carrinho-compras");
-  if (carrinho) carrinho.src = "../img/carrinho-de-compras.png";
+  if (carrinho) carrinho.src = "../../public/img/carrinho-de-compras.png";
 
   const menu = document.querySelector(".menu-lateral");
   if (menu) menu.style.backgroundColor = "#212121";
 
   const file = document.querySelector("#file");
-  if (file) file.src = "../img/usuario-do-arquivo.png";
+  if (file) file.src = "../../public/img/usuario-do-arquivo.png";
 
   const order = document.querySelector("#order");
-  if (order) order.src = "../img/historico-de-pedidos.png";
+  if (order) order.src = "../../public/img/historico-de-pedidos.png";
 
   const mapa = document.querySelector("#mapa");
-  if (mapa) mapa.src = "../img/sugestao.png";
+  if (mapa) mapa.src = "../../public/img/sugestao.png";
 
   const home = document.querySelector("#house");
-  if (home) home.src = "../img/map-marker.png";
+  if (home) home.src = "../../public/img/map-marker.png";
 
   /* Início Hover Inicial Dados */
   var greyI = document.querySelectorAll(".item-menu.ativo");
@@ -471,7 +471,7 @@ function ativarModoEscuro() {
   });
 
   const trycar = document.querySelector(".try-car");
-  if (trycar) trycar.src = "../img/adicionar-ao-carrinho.png";
+  if (trycar) trycar.src = "../../public/img/adicionar-ao-carrinho.png";
 
   const petcomentario = document.querySelectorAll(
     ".txt-comentario p:nth-of-type(3)");
@@ -501,10 +501,10 @@ function ativarModoClaro() {
   if (carousel3) carousel3.style.backgroundColor = "#f5f5f5";
 
   const prevTema = document.querySelector("#prev-tema");
-  if (prevTema) prevTema.src = "../img/angulo-esquerdo.png";
+  if (prevTema) prevTema.src = "../../public/img/angulo-esquerdo.png";
 
   const nextTema = document.querySelector("#next-tema");
-  if (nextTema) nextTema.src = "../img/angulo-direito.png";
+  if (nextTema) nextTema.src = "../../public/img/angulo-direito.png";
 
   document
     .querySelectorAll(".cart-gatos")
@@ -524,7 +524,7 @@ function ativarModoClaro() {
   if (marca) marca.style.backgroundColor = "";
 
   const headerTema = document.querySelector(".header-tema");
-  if (headerTema) headerTema.src = "../img/tema.png";
+  if (headerTema) headerTema.src = "../../public/img/tema.png";
   /* Fim Tela Principal */
 
   /* Início Cadastro */
@@ -824,7 +824,7 @@ function ativarModoClaro() {
   });
 
   const trycar = document.querySelector(".try-car");
-  if (trycar) trycar.src = "../img/add-cart.png";
+  if (trycar) trycar.src = "../../public/img/add-cart.png";
 
   const petcomentario = document.querySelectorAll(
     ".txt-comentario p:nth-of-type(3)");
