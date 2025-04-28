@@ -65,7 +65,7 @@
                 </div>
             </div>
         </main>
-    </section>
+    </section>  
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="../../public/js/script.js"></script>

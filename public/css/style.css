@@ -160,6 +160,11 @@
     cursor: default;
 }
 
+.login-fb{
+    background: none;
+    border: none;
+}
+
 .login-images {
     display: flex;
     align-items: center;

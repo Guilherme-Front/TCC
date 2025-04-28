@@ -31,10 +31,8 @@
     position: relative;
     text-decoration: none;
     color: #38C08F;
-    /* Cor do texto */
     font-size: 18px;
     padding-bottom: 5px;
-    /* Ajuste para a linha ficar mais distante */
 }
 
 .header-entrar::after {
@@ -106,6 +104,17 @@
     text-decoration: none;
 }
 
+img.user-img{
+    width: 35px;
+}
+
+.header-button-logout{
+    border: none;
+    background: none;
+    margin-left: 15px;
+    font-size: 18px;
+    color: rgb(92, 0, 0);
+}
 .car {
     margin-left: 40px;
     color: black;
