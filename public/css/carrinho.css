@@ -260,8 +260,8 @@ section {
     font-size: 17px;
     border: none;
     cursor: pointer;
-    background-color: #BD5532;
-    color: white;
+    background-color: #7d6962;
+    color: rgb(0, 0, 0);
     border-radius: 2px;
     transition: 0.8s;
 }

@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fale Conosco | Pet Insight</title>
 
-    <link rel="stylesheet" href="../../public/css/stylefaq.css">
+    <link rel="stylesheet" href="../../public/css/stylefaq.css?v=<?= time() ?>">
 
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -16,15 +23,31 @@
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../views/Index.html"><img class="header-img" 
-                    id="pet-img" src="../../public/img/Pet insight.png"
-                        alt="Imagem da Logo"></a>
+                <a href="../controllers/Index.php"><img class="header-img" id="pet-img"
+                        src="../../public/img/Pet insight.png" alt="Imagem da Logo"></a>
             </div>
 
-            <div class="header-link-tema">
-                <a class="header-entrar" href="../views/Login.html">Entrar |</a>
-                <a class="header-cadastro" href="../views/Cadastro.html">Cadastro</a>
-            </div>
+
+            <?php if (isset($_SESSION['id_cliente'])): ?>
+
+                <div class="user-info">
+                    <a class="header-link-none" href="../views/TelaPerfil.html">
+                        <img class="user-img" src="../../public/img/user.png" alt="">
+                    </a>
+
+                    <form method="post" action="../controllers/logout.php" style="display:inline;">
+                        <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
+                    </form>
+                </div>
+
+            <?php else: ?>
+
+                <div class="header-link-tema">
+                    <a class="header-entrar" href="../views/Login.html">Entrar |</a>
+                    <a class="header-cadastro" href="../views/Cadastro.html">Cadastro</a>
+                </div>
+            <?php endif; ?>
+
         </div>
     </header>
 

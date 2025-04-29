@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+// Verifica se o usuário está autenticado
+if (!isset($_SESSION['id_cliente'])) {
+
+    // Usuário não está autenticado, redireciona para o login
+    header('Location: ../views/Login.html');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,9 +27,9 @@
 
 <body>
     <header>
-        <a href="../views/Index.html">
+        <a href="../controllers/Index.php">
             <img class="logo" src="../../public/img/Pet insight.png" alt="logo"></a>
-        <a href="../views/telaPerfil.html">
+        <a href="../controllers/telaPerfil.php">
             <img class="user" src="../../public/img/user.png" alt="usuário">
         </a>
     </header>
@@ -141,8 +155,8 @@
             </div>
 
             <div class="cart-actions">
-                <a href="../views/TelaProdutos.html"><button aria-label="botao" class="fechar-tela">Escolher mais produtos</button></a
-                <button class="finalizar-pedido">Finalizar compra</button>
+                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais produtos</button></a
+                <button type="submit" class="finalizar-pedido">Finalizar compra</button>
             </div>
 
         </section>

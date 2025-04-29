@@ -25,7 +25,7 @@
         <main>
             <div class="cadastro-content">
                 <div class="cadastro-border">
-                    <a href="../views/Index.html"><i class="fi fi-ss-undo cadastro-voltar"
+                    <a href="../controllers/Index.php"><i class="fi fi-ss-undo cadastro-voltar"
                             aria-label="nda"></i></a>
 
                     <h1 class="cadastro-titulo">Cadastre-se</h1>
@@ -70,12 +70,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="../../public/js/script.js"></script>
     <script src="../../public/js/tema.js"></script>
-</body>
 
-</html>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="../../public/js/script.js"></script>
-<script src="../../public/js/tema.js"></script>
+    <script>
+        
+    </script>
 </body>
 
 </html>

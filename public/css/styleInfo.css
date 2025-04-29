@@ -112,6 +112,18 @@
     /* Ajuste o tamanho conforme necessário */
 }
 
+img.user-img{
+    width: 35px;
+}
+
+.header-button-logout{
+    border: none;
+    background: none;
+    margin-left: 15px;
+    font-size: 18px;
+    color: rgb(92, 0, 0);
+}
+
 .header-tema {
     margin-left: 40px;
     margin-bottom: 3px;

@@ -1,5 +1,5 @@
 <?php
-include 'conn.php';
+include '../controllers/conn.php';
 session_start();
 
 $id_cliente = $_SESSION['id_cliente'] ?? null;

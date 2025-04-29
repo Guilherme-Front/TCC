@@ -41,7 +41,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
       <div class="header-link-tema">
         <?php if (isset($_SESSION['id_cliente'])): ?>
           <!-- Ícone de usuário e carrinho (usuário logado) -->
-          <a class="header-link-none" href="../views/TelaPerfil.html">
+          <a class="header-link-none" href="../controllers/TelaPerfil.php">
             <img class="user-img" src="../../public/img/user.png" alt="">
           </a>
 
@@ -49,7 +49,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
           </form>
 
-          <a class="header-link-none" href="../views/TelaCarrinho.html">
+          <a class="header-link-none" href="../controllers/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
 
@@ -59,7 +59,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
           <a class="header-entrar" href="../views/Login.html">Entrar |</a>
           <a class="header-cadastro" href="../controllers/telaCadastro.php">Cadastro</a>
 
-          <a class="header-link-none" href="../views/TelaCarrinho.html">
+          <a class="header-link-none" href="../controllers/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
         <?php endif; ?>
@@ -76,10 +76,10 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   <nav>
     <div class="nav_wrap">
       <a class="nav-link" href="#">Quem Somos</a>
-      <a class="nav-link" href="../views/TelaProdutos.html">Produtos</a>
+      <a class="nav-link" href="../controllers/TelaProdutos.php">Produtos</a>
       <a class="nav-link" href="#">Cuidados</a>
-      <a class="nav-link" href="../views/CuriosidadesGeral.html">Curiosidades</a>
-      <a class="nav-link" href="../views/Faq.html">Suporte</a>
+      <a class="nav-link" href="../controllers/CuriosidadesGeral.php">Curiosidades</a>
+      <a class="nav-link" href="../controllers/Faq.php">Suporte</a>
     </div>
   </nav>
 
@@ -126,7 +126,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                 <p class="cart-p-gatos">Descubra hábitos curiosos dos felinos e dicas para uma vida saudável.</p>
               </div>
               <div class="cart-button">
-                <a href="../views/InfoGatos.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+                <a href="../controllers/InfoGatos.php"><button type="submit" class="cart-next">Saiba Mais</button></a>
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                 <p class="cart-p-gatos">Como cuidar do seu melhor amigo e mantê-lo ativo, saudável e feliz.</p>
               </div>
               <div class="cart-button">
-                <a href="../views/InfoDogs.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+                <a href="../controllers/InfoDogs.php"><button type="submit" class="cart-next">Saiba Mais</button></a>
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                 <p class="cart-p-gatos">Cuidados com o seu amiguinho e como mantê-lo saudável e feliz.</p>
               </div>
               <div class="cart-button">
-                <a href="../views/InfoHamsters.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+                <a href="../controllers/InfoHamsters.php"><button type="submit" class="cart-next">Saiba Mais</button></a>
               </div>
             </div>
           </div>
@@ -168,7 +168,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                 <p class="cart-p-gatos">Dicas de como cuidar do seu amigo e mantê-lo saudável e feliz.</p>
               </div>
               <div class="cart-button">
-                <a href="../views/InfoCoelhos.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+                <a href="../controllers/InfoCoelhos.php"><button type="submit" class="cart-next">Saiba Mais</button></a>
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                 <p class="cart-p-gatos">Como cuidar do seu amigo peludo e mantê-lo ativo, saudável e feliz.</p>
               </div>
               <div class="cart-button">
-                <a href="../views/InfoPorquinho.html"><button type="submit" class="cart-next">Saiba Mais</button></a>
+                <a href="../controllers/InfoPorquinho.php"><button type="submit" class="cart-next">Saiba Mais</button></a>
               </div>
             </div>
           </div>

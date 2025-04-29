@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,7 +17,7 @@
 
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="../../public/css/styleInfo.css">
+    <link rel="stylesheet" href="../../public/css/styleInfo.css?v=<?= time() ?>">
 
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -20,7 +27,7 @@
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../../public/img/Index.html"><img class="header-img" src="../../public/img/Pet insight.png"
+                <a href="../controllers/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
                         alt="Imagem da Logo"></a>
             </div>
 
@@ -31,13 +38,33 @@
             </div>
 
             <div class="header-link-tema">
-                <a class="header-entrar" href="../views/Login.html">Entrar |</a>
-                <a class="header-cadastro" href="../views/Cadastro.html">Cadastro</a>
+                <?php if (isset($_SESSION['id_cliente'])): ?>
+                    <!-- Ícone de usuário e carrinho (usuário logado) -->
+                    <a class="header-link-none" href="../controllers/TelaPerfil.php">
+                        <img class="user-img" src="../../public/img/user.png" alt="">
+                    </a>
 
-                <a class="header-link-none" href="../views/TelaCarrinho.html"><i class="fi fi-ss-shopping-cart car" aria-label="car"></i></a>
+                    <form method="post" action="../controllers/logout.php" style="display:inline;">
+                        <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
+                    </form>
 
-                <button class="header-button" id="button-tema" type="submit" aria-label="tema"><img class="header-tema"
-                        src="../../public/img/tema.png" alt="Foto Mudança de Tema"></button>
+                    <a class="header-link-none" href="../controllers/TelaCarrinho.php">
+                        <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
+                    </a>
+
+                <?php else: ?>
+                    <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
+                    <a class="header-entrar" href="../views/Login.html">Entrar |</a>
+                    <a class="header-cadastro" href="../controllers/telaCadastro.php">Cadastro</a>
+
+                    <a class="header-link-none" href="../controllers/TelaCarrinho.php">
+                        <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
+                    </a>
+                <?php endif; ?>
+
+                <button class="header-button" id="button-tema" type="submit" aria-label="tema">
+                    <img class="header-tema" src="../../public/img/tema.png" alt="Foto Mudança de Tema">
+                </button>
             </div>
         </div>
     </header>
@@ -45,10 +72,10 @@
     <nav>
         <div class="nav_wrap">
             <a class="nav-link" href="#">Quem Somos</a>
-            <a class="nav-link" href="../views/InformacaoProduto.html">Produtos</a>
+            <a class="nav-link" href="../controllers/telaProdutos.php">Produtos</a>
             <a class="nav-link" href="#">Cuidados</a>
-            <a class="nav-link" href="../views/CuriosidadesGeral.html">Curiosidades</a>
-            <a class="nav-link" href="../views/FaleConosco.html">Suporte</a>
+            <a class="nav-link" href="../controllers/CuriosidadesGeral.php">Curiosidades</a>
+            <a class="nav-link" href="../controllers/Faq.php">Suporte</a>
         </div>
     </nav>
 
@@ -323,7 +350,7 @@
             </div>
 
         </section>
-        
+
         <section class="pet-porquinho-curiosidade">
             <div class="pet-flex-container">
                 <div class="pet-container-porquinho">

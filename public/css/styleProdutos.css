@@ -94,6 +94,18 @@
     margin-bottom: 5px;
 }
 
+img.user-img{
+    width: 35px;
+}
+
+.header-button-logout{
+    border: none;
+    background: none;
+    margin-left: 15px;
+    font-size: 18px;
+    color: rgb(92, 0, 0);
+}
+
 .header-link-tema {
     display: flex;
     align-items: center;
