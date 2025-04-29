@@ -35,6 +35,9 @@ function ativarModoEscuro() {
     item.style.setProperty("--after-background-color", "white");
   });
 
+  const tlPa = document.querySelector("main");
+  if (tlPa) tlPa.style.backgroundColor = "#1E1E1E";
+
   const tlP = document.querySelector(".tl-p");
   if (tlP) tlP.style.color = "white";
 
@@ -63,6 +66,9 @@ function ativarModoEscuro() {
 
   const marca = document.querySelector(".marca");
   if (marca) marca.style.backgroundColor = "rgba(255, 110, 62)";
+
+  const userIMG = document.querySelector(".user-img");
+  if (userIMG) userIMG.src = "../../public/img/usuarioBranco.png";
 
   const headerTema = document.querySelector(".header-tema");
   if (headerTema) headerTema.src = "../../public/img/modo-escuro.png";
@@ -193,7 +199,7 @@ function ativarModoEscuro() {
   if (petP) petP.forEach((item) => (item.style.color = "white"));
   /* Fim Pet Info */
 
-  /* Início Pagamento */
+  /* Início Perfil*/
   const seta = document.querySelector(".botao-voltar");
   if (seta) seta.src = "../../public/img/desfazer.png";
 
@@ -283,13 +289,17 @@ function ativarModoEscuro() {
   }
   /* Fim Hover */
 
-  const link = document.querySelectorAll(".txt-link");
-  if (link) link.forEach((item) => (item.style.color = "white"));
+  const links = document.querySelectorAll(".txt-link");
+  if (links.length > 0) {
+    links.forEach((item) => {
+      item.style.color = "white";
+    });
+  }
 
-  const logoff = document.querySelectorAll(".txt-logoff");
-  if (logoff) logoff.forEach((item) => (item.style.color = "white"));
+  const logoff = document.querySelector(".txt-logoff");
+  if (logoff) logoff.style.color = "white";
 
-  const section = document.querySelector(".main");
+  const section = document.querySelector("main");
   if (section) section.style.backgroundColor = "#212121";
 
   const bv = document.querySelector(".boas-vindas");
@@ -305,7 +315,9 @@ function ativarModoEscuro() {
   if (perfilD)
     perfilD.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
 
-  /* Fim Pagamento */
+  const MinhaC = document.querySelector(".minha-conta");
+  if (MinhaC) MinhaC.style.color = "white";
+  /* Fim Perfil */
 
   /* Início Tela Produtos */
   const circulo = document.querySelectorAll(".circulo");
@@ -474,12 +486,77 @@ function ativarModoEscuro() {
   if (trycar) trycar.src = "../../public/img/adicionar-ao-carrinho.png";
 
   const petcomentario = document.querySelectorAll(
-    ".txt-comentario p:nth-of-type(3)");
+    ".txt-comentario p:nth-of-type(3)"
+  );
   if (petcomentario) {
-    petcomentario.forEach(item => item.style.backgroundColor = "#3f3e3e")
-    petcomentario.forEach(item => item.style.color = "white")
-  } 
+    petcomentario.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
+    petcomentario.forEach((item) => (item.style.color = "white"));
+  }
   /*Fim Info Produtos */
+
+  /* Inicio Cadastrar Produtos */
+  const voltaIndex = document.querySelector(".voltar-index");
+  if (voltaIndex) voltaIndex.style.color = "white";
+
+  const containerInfo = document.querySelector(".container-info");
+  if (containerInfo) containerInfo.style.color = "white";
+
+  const spanC = document.querySelector(".spanC");
+  if (spanC) spanC.style.color = "black";
+
+  const style = document.createElement("style");
+  style.textContent = `.txt::placeholder { color: black; }`;
+  document.head.appendChild(style);
+
+  const enviarIMG = document.querySelector(".container-img");
+  if (enviarIMG) enviarIMG.style.backgroundColor = "white";
+  /* Fim Cadastros produtos */
+
+  /* Inicio Tela Pedido */
+  const EspacoP = document.querySelector(".espaço-produtos");
+  if (EspacoP) EspacoP.style.backgroundColor = "#3f3e3e";
+
+  const EspacoT = document.querySelectorAll(".dolado");
+  if (EspacoT) EspacoT.forEach((item) => (item.style.color = "black"));
+
+  const spanT = document.querySelectorAll(".spam");
+  if (spanT) spanT.forEach((item) => (item.style.color = "black"));
+
+  const spanT1 = document.querySelectorAll(".spam1");
+  if (spanT1) spanT1.forEach((item) => (item.style.color = "black"));
+
+  const valorP = document.querySelectorAll(".valor");
+  if (valorP) valorP.forEach((item) => (item.style.color = "black"));
+
+  const user = document.querySelectorAll(".user");
+  if (user)
+    user.forEach((item) => (item.src = "../../public/img/usuarioBranco.png"));
+  /* Fim Tela Pedido */
+
+  /* Inicio Tela Carrinho */
+
+  const dadosC = document.querySelectorAll(".dados");
+  if (dadosC) dadosC.forEach((item) => (item.style.color = "white"));
+
+  const totalP = document.querySelector(".total");
+  if (totalP) totalP.style.backgroundColor = "#3f3e3e";
+
+  const pedidoC = document.querySelectorAll(".pedido");
+  if (pedidoC)
+    pedidoC.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
+
+  const quantC = document.querySelectorAll(".button-add");
+  if (quantC) quantC.forEach((item) => (item.style.color = "white"));
+
+  const quantC2 = document.querySelectorAll(".button-add2");
+  if (quantC2) quantC2.forEach((item) => (item.style.color = "white"));
+
+  const inputC = document.querySelectorAll(".input-add");
+  if (inputC) inputC.forEach((item) => (item.style.color = "white"));
+
+  const carrinhoC = document.querySelector(".carrinhoC");
+  if (carrinhoC) carrinhoC.src = "../../public/img/carrinho-de-compras.png";
+  /* Fim Tela Carrinho */
 }
 
 function ativarModoClaro() {
@@ -493,6 +570,9 @@ function ativarModoClaro() {
     item.style.color = "black";
     item.style.setProperty("--after-background-color", "black");
   });
+
+  const tlPa = document.querySelector("main");
+  if (tlPa) tlPa.style.backgroundColor = "white";
 
   const tlP = document.querySelector(".tl-p");
   if (tlP) tlP.style.color = "black";
@@ -521,7 +601,10 @@ function ativarModoClaro() {
     .forEach((item) => (item.style.color = "black"));
 
   const marca = document.querySelector(".marca");
-  if (marca) marca.style.backgroundColor = "";
+  if (marca) marca.style.removeProperty("background-color");
+
+  const userIMG = document.querySelector(".user-img");
+  if (userIMG) userIMG.src = "../../public/img/user.png";
 
   const headerTema = document.querySelector(".header-tema");
   if (headerTema) headerTema.src = "../../public/img/tema.png";
@@ -827,10 +910,36 @@ function ativarModoClaro() {
   if (trycar) trycar.src = "../../public/img/add-cart.png";
 
   const petcomentario = document.querySelectorAll(
-    ".txt-comentario p:nth-of-type(3)");
+    ".txt-comentario p:nth-of-type(3)"
+  );
   if (petcomentario) {
-    petcomentario.forEach(item => item.style.backgroundColor = "#EFEFEF")
-    petcomentario.forEach(item => item.style.color = "black")
+    petcomentario.forEach((item) => (item.style.backgroundColor = "#EFEFEF"));
+    petcomentario.forEach((item) => (item.style.color = "black"));
   }
   /*Fim Info Produtos */
+
+
+  /* Inicio Tela Carrinho */
+  const dadosC = document.querySelectorAll(".dados");
+  if (dadosC) dadosC.forEach((item) => (item.style.color = "white"));
+
+  const totalP = document.querySelector(".total");
+  if (totalP) totalP.style.backgroundColor = "#3f3e3e";
+
+  const pedidoC = document.querySelectorAll(".pedido");
+  if (pedidoC)
+    pedidoC.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
+
+  const quantC = document.querySelectorAll(".button-add");
+  if (quantC) quantC.forEach((item) => (item.style.color = "white"));
+
+  const quantC2 = document.querySelectorAll(".button-add2");
+  if (quantC2) quantC2.forEach((item) => (item.style.color = "white"));
+
+  const inputC = document.querySelectorAll(".input-add");
+  if (inputC) inputC.forEach((item) => (item.style.color = "white"));
+
+  const carrinhoC = document.querySelector(".carrinhoC");
+  if (carrinhoC) carrinhoC.src = "../../public/img/carrinho-de-compras.png";
+  /* Fim Tela Carrinho */
 }

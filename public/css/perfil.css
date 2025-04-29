@@ -34,14 +34,14 @@ main {
     width: 35px;
     transition: all 0.3s ease;
     display: inline-block;
-    filter: brightness(0.4);
+    /* filter: brightness(0.4); */
 }
 
 .carrinho-compras:hover {
     transform: scale(1.1);
 }
 
-.voltar {
+.voltarP {
     display: flex;
     gap: 20px;
     align-items: center;
@@ -163,13 +163,13 @@ ul li.item-menu-logoff a {
 ul li.item-menu-logoff a .txt-logoff {
     margin-left: 50px;
     transition: 1s;
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 ul li.item-menu a .txt-link {
     margin-left: 50px;
     transition: 1s;
-    opacity: 0;
+    /* opacity: 0; */
 }
 
 .menu-lateral.expandir .txt-link {

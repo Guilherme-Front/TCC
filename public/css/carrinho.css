@@ -20,7 +20,7 @@ header {
 .user {
     width: 35px;
     transition: all 0.3s ease;
-    filter: brightness(0.4);
+    /* filter: brightness(0.4); */
 }
 
 .user:hover {
@@ -87,8 +87,8 @@ section {
     padding-right: 10px;
     height: 270px;
     width: 1200px;
-    overflow-x: hidden;   
-    overflow-y: auto; 
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .pedido {
@@ -260,21 +260,21 @@ section {
     font-size: 17px;
     border: none;
     cursor: pointer;
-    background-color: #7d6962;
-    color: rgb(0, 0, 0);
+    background-color: #BD5532;
+    color: white;
     border-radius: 2px;
     transition: 0.8s;
 }
 
 .finalizar-pedido:hover {
-    background-color: #a64b2d;
+    background-color: #8e3315;
 }
 
 input[readonly] {
     border: none;
     outline: none;
     background-color: transparent;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 @media (max-width: 431px) {
@@ -347,8 +347,8 @@ input[readonly] {
         width: 100%;
         padding: 0 15px;
         height: 250px;
-        overflow-x: hidden;   
-        overflow-y: auto; 
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .pedido {
@@ -462,7 +462,7 @@ input[readonly] {
         width: 125px;
         font-size: 15px;
     }
-    
+
     button,
     a {
         background: none;

@@ -32,7 +32,7 @@ header {
     width: 35px;
     margin-top: 10px;
     transition: all 0.3s ease;
-    filter: brightness(0.4);
+    /* filter: brightness(0.4); */
     margin-right: 50px;
 }
 

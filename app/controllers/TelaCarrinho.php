@@ -18,11 +18,11 @@ if (!isset($_SESSION['id_cliente'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/css/carrinho.css">
+    <link rel="stylesheet" href="../../public/css/carrinho.css?v=<?= time() ?>">
 
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
-    <title>Tela de Carrinho</title>
+    <title>Tela de Carrinho | Pet Insight</title>
 </head>
 
 <body>
@@ -38,7 +38,7 @@ if (!isset($_SESSION['id_cliente'])) {
         <section>
             <div class="txt-carrinho">
                 <h1>Carrinho de compras</h1>
-                <img src="../../public/img/carrinho.png" alt="">
+                <img class="carrinhoC" src="../../public/img/carrinho.png" alt="">
             </div>
 
             <div class="todos">
@@ -155,22 +155,16 @@ if (!isset($_SESSION['id_cliente'])) {
             </div>
 
             <div class="cart-actions">
-                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais produtos</button></a
+                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais produtos</button></a>
+
                 <button type="submit" class="finalizar-pedido">Finalizar compra</button>
             </div>
 
         </section>
     </main>
 
-    <script>
-        function alterarQuantidade(botao, valor) {
-            let input = botao.closest('.pedido').querySelector('.quantidade-produto');
-            let quantidade = parseInt(input.value) + valor;
-            if (quantidade >= 1) {
-                input.value = quantidade;
-            }
-        }
-    </script>
+    <script src="../../public/js/Carrinho.js"></script>
+    <script src="../../public/js/tema.js"></script>
 </body>
 
 </html>

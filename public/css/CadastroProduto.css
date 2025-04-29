@@ -20,7 +20,7 @@ header {
     height: 60px;
 }
 
-.voltar {
+.voltar-index {
     display: flex;
     gap: 20px;
     align-items: center;

@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../public/css/perfil.css" />
 
+  <link rel="stylesheet" href="../../public/css/perfil.css?v=<?= time() ?>">
   <!-- Logo na aba do site  -->
   <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
+
   <title>Tela de Perfil | Pet Insight</title>
 </head>
 
@@ -19,14 +20,14 @@
     </a>
   </header>
 
-  <div class="voltar">
+  <div class="voltarP">
     <a href="../controllers/Index.php">
       <img class="botao-voltar" src="../../public/img/voltar.png" alt="botao-voltar" />
     </a>
     <h2 class="minha-conta">Minha conta</h2>
 
     <div class="carrinho">
-      <a href="../views/TelaCarrinho.html">
+      <a href="../views/TelaCarrinho.php">
         <img class="carrinho-compras" src="../../public/img/carrinho.png" alt="carrinho de compras" />
       </a>
     </div>
@@ -41,35 +42,35 @@
         <ul>
           <li class="item-menu ativo">
             <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário" /></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário" id="file"></span>
               <span class="txt-link">Meus dados</span>
             </a>
           </li>
 
           <li class="item-menu">
             <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/order-history.png" alt="pedidos" /></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/order-history.png" alt="pedidos" id="order"></span>
               <span class="txt-link">Meus pedidos</span>
             </a>
           </li>
 
           <li class="item-menu">
             <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/suggestion.png" alt="suporte" /></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/suggestion.png" alt="suporte" id="mapa"></span>
               <span class="txt-link">Suporte</span>
             </a>
           </li>
 
           <li class="item-menu">
             <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/map-marker-home.png" alt="endereço" /></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/map-marker-home.png" alt="endereço" id="house"></span>
               <span class="txt-link">Endereço</span>
             </a>
           </li>
 
           <li class="item-menu-logoff">
             <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="logoff" /></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="logoff"></span>
               <span class="txt-logoff">Sair da conta</span>
             </a>
           </li>
@@ -118,8 +119,8 @@
 
   </main>
 
+  <script src="../../public/js/tema.js"></script>
   <script src="../../public/js/scriptPerfil.js"></script>
-
 </body>
 
 </html>
