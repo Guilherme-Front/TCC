@@ -739,6 +739,20 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 50px;
 }
 
+/* quem somos */
+
+.quem-somos {
+    margin-top: 20px;
+    height: 503px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
+.quem-somos-container {
+    display: flex;
+}
+
+
 @media screen and (max-width: 1367px) {
 
     html,

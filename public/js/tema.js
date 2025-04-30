@@ -557,6 +557,11 @@ function ativarModoEscuro() {
   const carrinhoC = document.querySelector(".carrinhoC");
   if (carrinhoC) carrinhoC.src = "../../public/img/carrinho-de-compras.png";
   /* Fim Tela Carrinho */
+
+  /* quem somos */
+  const quem = document.querySelector(".quem-somos");
+  if (quem) quem.style.backgroundColor = "#212121";
+  /* fim quem somos */
 }
 
 function ativarModoClaro() {
@@ -942,4 +947,9 @@ function ativarModoClaro() {
   const carrinhoC = document.querySelector(".carrinhoC");
   if (carrinhoC) carrinhoC.src = "../../public/img/carrinho-de-compras.png";
   /* Fim Tela Carrinho */
+
+  /* quem somos */
+  const quem = document.querySelector(".quem-somos");
+  if (quem) quem.style.backgroundColor = "#fafaa9";
+  /* fim quem somos */
 }
