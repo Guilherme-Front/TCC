@@ -41,7 +41,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
       <div class="header-link-tema">
         <?php if (isset($_SESSION['id_cliente'])): ?>
           <!-- Ícone de usuário e carrinho (usuário logado) -->
-          <a class="header-link-none" href="../controllers/TelaPerfil.php">
+          <a class="header-link-none" href="../views/TelaPerfil.php">
             <img class="user-img" src="../../public/img/user.png" alt="">
           </a>
 
@@ -49,7 +49,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
           </form>
 
-          <a class="header-link-none" href="../controllers/TelaCarrinho.php">
+          <a class="header-link-none" href="../views/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
 
@@ -57,9 +57,9 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
         <?php else: ?>
           <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
           <a class="header-entrar" href="../views/Login.html">Entrar |</a>
-          <a class="header-cadastro" href="../controllers/telaCadastro.php">Cadastro</a>
+          <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-          <a class="header-link-none" href="../controllers/TelaCarrinho.php">
+          <a class="header-link-none" href="../views/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
         <?php endif; ?>
@@ -76,10 +76,10 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   <nav>
     <div class="nav_wrap">
       <a class="nav-link" href="../views/QuemSomos.php">Quem Somos</a>
-      <a class="nav-link" href="../controllers/TelaProdutos.php">Produtos</a>
+      <a class="nav-link" href="../views/TelaProdutos.php">Produtos</a>
       <a class="nav-link" href="#">Cuidados</a>
-      <a class="nav-link" href="../controllers/CuriosidadesGeral.php">Curiosidades</a>
-      <a class="nav-link" href="../controllers/Faq.php">Suporte</a>
+      <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
+      <a class="nav-link" href="../views/Faq.php">Suporte</a>
     </div>
   </nav>
 

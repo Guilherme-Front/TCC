@@ -33,7 +33,7 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
             $_SESSION['id_cliente'] = $user['id_cliente'];
             $_SESSION['nome'] = $user['nome'];
         
-            header("Location: ../controllers/index.php");
+            header("Location: ../views/index.php");
 
         } else {
             echo "Senha incorreta.";

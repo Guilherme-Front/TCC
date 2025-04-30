@@ -28,12 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['id_cliente'] = mysqli_insert_id($conn); // Salva o ID do cliente
         $_SESSION['cadastro_concluido'] = true; // Marca o cadastro como concluído
         $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
-        header("Location: ../controllers/senha.php"); // Redireciona para a página de criação de senha
+        header("Location: ../views/senha.php"); // Redireciona para a página de criação de senha
         exit();
     } else {
         $_SESSION['mensagem'] = "Erro ao cadastrar cliente: " . mysqli_error($conn);
         $_SESSION['cadastro_concluido'] = false; // Marca que o cadastro falhou
-        header("Location: ../pages/Login.html"); // Redireciona para a página de cadastro
+        header("Location: ../views/Login.html"); // Redireciona para a página de cadastro
         exit();
     }
 

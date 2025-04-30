@@ -25,7 +25,7 @@
         <main>
             <div class="cadastro-content">
                 <div class="cadastro-border">
-                    <a href="../controllers/Index.php"><i class="fi fi-ss-undo cadastro-voltar"
+                    <a href="../views/Index.php"><i class="fi fi-ss-undo cadastro-voltar"
                             aria-label="nda"></i></a>
 
                     <h1 class="cadastro-titulo">Cadastre-se</h1>

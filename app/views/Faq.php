@@ -23,7 +23,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../controllers/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
+                <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
                         alt="Imagem da Logo"></a>
             </div>
 
@@ -43,7 +43,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 
                 <div class="header-link-tema">
                     <a class="header-entrar" href="../views/Login.html">Entrar |</a>
-                    <a class="header-cadastro" href="../views/Cadastro.html">Cadastro</a>
+                    <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
                 </div>
             <?php endif; ?>
 

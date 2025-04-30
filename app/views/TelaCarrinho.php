@@ -36,9 +36,9 @@ if (!isset($_SESSION['id_cliente'])) {
 
 <body>
     <header>
-        <a href="../controllers/Index.php">
+        <a href="../views/Index.php">
             <img class="logo" src="../../public/img/Pet insight.png" alt="logo"></a>
-        <a href="../controllers/telaPerfil.php">
+        <a href="../views/telaPerfil.php">
             <img class="user" src="../../public/img/user.png" alt="usuário">
         </a>
     </header>
@@ -174,7 +174,7 @@ if (!isset($_SESSION['id_cliente'])) {
             </div>
 
             <div class="cart-actions">
-                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
+                <a href="../views/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
                         produtos</button></a>
 
                 <button type="submit" class="finalizar-pedido">Finalizar compra</button>

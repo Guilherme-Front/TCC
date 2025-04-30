@@ -15,13 +15,13 @@
 <body>
 
   <header> 
-    <a href="../controllers/Index.php">
+    <a href="../views/Index.php">
       <img class="logo" src="../../public/img/Pet insight.png" alt="logo">
     </a>
   </header>
 
   <div class="voltarP">
-    <a href="../controllers/Index.php">
+    <a href="../views/Index.php">
       <img class="botao-voltar" src="../../public/img/voltar.png" alt="botao-voltar" />
     </a>
     <h2 class="minha-conta">Minha conta</h2>
