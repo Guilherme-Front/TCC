@@ -18,7 +18,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel='stylesheet'
     href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-  <link rel="stylesheet" href="../../public/css/styleProdutos.css?v=<?= time() ?>">
+  <link rel="stylesheet" href="../../public/css/styleProdutos.css?v=<?= time()?>">
 
   <!-- Logo na aba do site  -->
   <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -109,33 +109,28 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   <section class="categorias">
 
     <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
+      <div class="circulo"><img src="../../public/img/pet-food (4).png" alt=""></div>
+      <p class="tipo">Ração</p>
     </article>
 
     <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
+      <div class="circulo"><img src="../../public/img/treats.png" alt=""></div>
+      <p class="tipo">Aperitivos</p>
     </article>
 
     <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
+      <div class="circulo"><img src="../../public/img/collar.png" alt=""></div>
+      <p class="tipo">Coleiras</p>
     </article>
 
     <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
+      <div class="circulo"><img src="../../public/img/dog-toy.png" alt=""></div>
+      <p class="tipo">Brinquedos</p>
     </article>
 
     <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
-    </article>
-
-    <article class="categoria">
-      <div class="circulo"></div>
-      <p class="tipo">Tipo</p>
+      <div class="circulo"><img src="../../public/img/shampoo.png" alt=""></div>
+      <p class="tipo">Higiene</p>
     </article>
 
   </section>

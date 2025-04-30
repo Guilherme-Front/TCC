@@ -1,4 +1,4 @@
--- Active: 1745533083981@@127.0.0.1@3306
+-- Active: 1745938207932@@127.0.0.1@3306@pet_insight
 -- criar banco
 DROP DATABASE if EXISTS pet_insight;
 
@@ -46,10 +46,10 @@ CREATE TABLE produto (
     id_cliente INT NOT NULL,
     tipo ENUM(
         "Racões",
-        "Medicamentos",
+        "Aperitivos",
         "Higiene",
         "Brinquedos",
-        "Acessórios"
+        "Coleiras"
     ) NOT NULL,
     descricaoMenor VARCHAR(60) NOT NULL,
     descricaoMaior VARCHAR(200) NOT NULL,

@@ -37,7 +37,7 @@ main {
 }
 
 section {
-    height: 100svh;
+    height: 80svh;
 }
 
 .txt-carrinho {
@@ -65,6 +65,18 @@ section {
     width: auto;
     gap: 155px;
     cursor: default;
+}
+
+#mensagem-vazio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(231, 231, 231);
+    padding: 110px;
+    color: rgb(44, 44, 44);
+    margin-bottom: -188px;
 }
 
 .txt-descricao {
@@ -217,7 +229,7 @@ section {
 /* Opções finais */
 
 .cart-actions {
-    padding-top: 10px;
+    padding-top: 15px;
     display: flex;
     justify-content: space-between;
     width: 1210px;

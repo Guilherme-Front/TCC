@@ -2,6 +2,8 @@
 
 session_start();
 
+echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
+
 // Verifica se o usuário está autenticado
 if (!isset($_SESSION['id_cliente'])) {
 
@@ -23,6 +25,13 @@ if (!isset($_SESSION['id_cliente'])) {
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
     <title>Tela de Carrinho | Pet Insight</title>
+
+    <script>
+        const idCliente = <?= json_encode($_SESSION['id_cliente']) ?>;
+        const carrinhoKey = `carrinho_${idCliente}`;
+        const carrinhoVazioKey = `carrinhoVazio_${idCliente}`;
+    </script>
+
 </head>
 
 <body>
@@ -53,6 +62,10 @@ if (!isset($_SESSION['id_cliente'])) {
                 </div>
             </div>
 
+            <p id="mensagem-vazio" style="display: none; text-align: center; font-size: 18px; margin-top: 20px;">
+                Carrinho vazio
+            </p>
+
             <div class="pedido-container">
                 <div class="pedido">
                     <div class="img-produto">
@@ -69,7 +82,8 @@ if (!isset($_SESSION['id_cliente'])) {
 
                             <div class="quantidade">
                                 <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1"
+                                    readonly>
                                 <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
                             </div>
 
@@ -81,7 +95,8 @@ if (!isset($_SESSION['id_cliente'])) {
                     </div>
 
                     <div class="button-excluir">
-                        <button class="excluir" type="button"><img src="../../public/img/x-button.png" alt="excluir"></button>
+                        <button class="excluir" type="button" onclick="excluirPedido(this)"><img
+                                src="../../public/img/x-button.png" alt="excluir"></button>
                     </div>
                 </div>
 
@@ -100,7 +115,8 @@ if (!isset($_SESSION['id_cliente'])) {
 
                             <div class="quantidade">
                                 <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1"
+                                    readonly>
                                 <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
                             </div>
 
@@ -112,7 +128,8 @@ if (!isset($_SESSION['id_cliente'])) {
                     </div>
 
                     <div class="button-excluir">
-                        <button class="excluir" type="button"><img src="../../public/img/x-button.png" alt="excluir"></button>
+                        <button class="excluir" type="button" onclick="excluirPedido(this)"><img
+                                src="../../public/img/x-button.png" alt="excluir"></button>
                     </div>
                 </div>
 
@@ -131,7 +148,8 @@ if (!isset($_SESSION['id_cliente'])) {
 
                             <div class="quantidade">
                                 <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1" readonly>
+                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1"
+                                    readonly>
                                 <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
                             </div>
 
@@ -143,19 +161,21 @@ if (!isset($_SESSION['id_cliente'])) {
                     </div>
 
                     <div class="button-excluir">
-                        <button class="excluir" type="button"><img src="../../public/img/x-button.png" alt="excluir"></button>
+                        <button class="excluir" type="button" onclick="excluirPedido(this)"><img
+                                src="../../public/img/x-button.png" alt="excluir"></button>
                     </div>
                 </div>
             </div>
 
             <div class="cart-actions">
-                <button class="button-limpar" type="button">Limpar carrinho</button>
+                <button class="button-limpar" type="button" onclick="limparCarrinho()">Limpar carrinho</button>
 
                 <p class="total"><strong>Total:</strong> R$ 199,99</p>
             </div>
 
             <div class="cart-actions">
-                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais produtos</button></a>
+                <a href="../controllers/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
+                        produtos</button></a>
 
                 <button type="submit" class="finalizar-pedido">Finalizar compra</button>
             </div>
