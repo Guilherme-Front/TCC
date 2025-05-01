@@ -31,7 +31,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <?php if (isset($_SESSION['id_cliente'])): ?>
 
                 <div class="user-info">
-                    <a class="header-link-none" href="../views/TelaPerfil.html">
+                    <a class="header-link-none" href="../views/telaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
 

@@ -88,10 +88,10 @@ function salvarEstadoCarrinho() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('carrinhoVazio') === 'true') {
-        document.querySelector('.pedido-container').innerHTML = '';
-        verificarCarrinhoVazio(); // MANTENHA DISTÂNCIA (ativar quando adicionar o produto ao carrinho de compras)
-    }
+    // if (localStorage.getItem('carrinhoVazio') === 'true') {
+    //     document.querySelector('.pedido-container').innerHTML = '';
+    //     verificarCarrinhoVazio(); // MANTENHA DISTÂNCIA (ativar quando adicionar o produto ao carrinho de compras)
+    // }
 
     document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
 

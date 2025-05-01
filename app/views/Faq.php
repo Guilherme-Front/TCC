@@ -30,7 +30,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <?php if (isset($_SESSION['id_cliente'])): ?>
 
                 <div class="user-info">
-                    <a class="header-link-none" href="../views/TelaPerfil.html">
+                    <a class="header-link-none" href="../views/telaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
 
@@ -77,7 +77,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
         <section class="faq-respostas">
 
             <div class="faq-button">
-                <a href="../controllers/FaleConosco.php"><button type="button" class="faq-FL">Fale Conosco</button></a>
+                <a href="../views/FaleConosco.php"><button type="button" class="faq-FL">Fale Conosco</button></a>
             </div>
 
             <button type="submit" class="faq-question">

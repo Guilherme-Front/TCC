@@ -40,7 +40,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <div class="header-link-tema">
                 <?php if (isset($_SESSION['id_cliente'])): ?>
                     <!-- Ícone de usuário e carrinho (usuário logado) -->
-                    <a class="header-link-none" href="../views/telaPerfil.html">
+                    <a class="header-link-none" href="../views/telaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
 
@@ -48,7 +48,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                         <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
                     </form>
 
-                    <a class="header-link-none" href="../views/TelaCarrinho.html">
+                    <a class="header-link-none" href="../views/TelaCarrinho.php">
                         <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
                     </a>
 
@@ -58,7 +58,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                     <a class="header-entrar" href="../views/Login.html">Entrar |</a>
                     <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-                    <a class="header-link-none" href="../views/TelaCarrinho.html">
+                    <a class="header-link-none" href="../views/login.html">
                         <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
                     </a>
                 <?php endif; ?>
