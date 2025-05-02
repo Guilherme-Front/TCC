@@ -1,30 +1,3 @@
-<?php
-session_start();
-require_once '../models/ClienteModel.php';
-
-// VERIFICA SE O USUÁRIO ESTÁ LOGADO
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-// BUSCA OS DADOS DO CLIENTE
-$clienteModel = new ClienteModel();
-$cliente = $clienteModel->buscarPorId($_SESSION['usuario_id']);
-
-// VERIFICA SE OS DADOS FORAM ENCONTRADOS
-if (!$cliente) {
-    echo "Erro: Dados do cliente não encontrados.";
-    exit;
-}
-
-// FORMATA A DATA DE NASCIMENTO SE EXISTIR
-$dataNascimentoFormatada = '';
-if (!empty($cliente['data_nascimento'])) {
-    $data = new DateTime($cliente['data_nascimento']);
-    $dataNascimentoFormatada = $data->format('d/m/Y');
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -96,7 +69,7 @@ if (!empty($cliente['data_nascimento'])) {
           </li>
 
           <li class="item-menu-logoff">
-            <a href="../controllers/Logout.php">
+            <a href="#">
               <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="logoff"></span>
               <span class="txt-logoff">Sair da conta</span>
             </a>
@@ -107,37 +80,42 @@ if (!empty($cliente['data_nascimento'])) {
     </aside>
 
     <section>
-  <div class="perfil">
-    <div class="img-txt">
-        <img class="gato" src="../../public/img/gato.jpg" alt="gato" />
-        <p class="boas-vindas">Olá <strong><?= htmlspecialchars($cliente['nome']) ?>!</strong></p>
-    </div>
 
-    <div class="dados-pessoais">
-      <div class="dados">
-        <label>Nome completo</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['nome']) ?>">
+      <div class="perfil">
 
-        <label>Email</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['email']) ?>">
+        <div class="img-txt">
+          <img class="gato" src="../../public/img/gato.jpg" alt="gato" />
+          <p class="boas-vindas">Olá <strong>Jubiscreuda!</strong></p>
+        </div>
 
-        <label>Senha</label>
-        <input type="password" disabled placeholder="*********">
+        <button class="enviar-foto" type="submit">Enviar foto</button>
+
+        <div class="dados-pessoais">
+
+          <div class="dados">
+            <label>Nome completo</label>
+            <input type="text" disabled placeholder="Jubiscreuda">
+
+            <label>Email</label>
+            <input type="text" disabled placeholder="Jubiscreuda@gmail.com">
+
+            <label>Senha</label>
+            <input type="password" disabled placeholder="*********">
+          </div>
+
+          <div class="dados">
+            <label>Data de nascimento</label>
+            <input type="text" disabled placeholder="00/00/0000">
+
+            <label>Telefone</label>
+            <input type="text" disabled placeholder="11 95455335">
+
+            <button class="alterar-dados">Alterar dados</button>
+          </div>
+        </div>
       </div>
 
-      <div class="dados">
-        <label>Data de nascimento</label>
-        <input type="text" disabled value="<?= $dataNascimentoFormatada ?>">
-
-        <label>Telefone</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?>">
-
-        <button class="alterar-dados">Alterar dados</button>
-      </div>
-    </div>
-  </div>
-</section>
-
+    </section>
 
   </main>
 
