@@ -1,55 +1,44 @@
 <?php
-session_start();
-require_once '../models/ClienteModel.php';
-
-// VERIFICA SE O USUÁRIO ESTÁ LOGADO
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-// BUSCA OS DADOS DO CLIENTE
-$clienteModel = new ClienteModel();
-$cliente = $clienteModel->buscarPorId($_SESSION['usuario_id']);
-
-// VERIFICA SE OS DADOS FORAM ENCONTRADOS
-if (!$cliente) {
-    echo "Erro: Dados do cliente não encontrados.";
-    exit;
-}
-
-// FORMATA A DATA DE NASCIMENTO SE EXISTIR
-$dataNascimentoFormatada = '';
-if (!empty($cliente['data_nascimento'])) {
-    $data = new DateTime($cliente['data_nascimento']);
-    $dataNascimentoFormatada = $data->format('d/m/Y');
-}
+// redireciona todo acesso a esta view para o controller:
+require_once __DIR__ . '/../controllers/PerfilController.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="<?= isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '' ?>">
+
 
   <link rel="stylesheet" href="../../public/css/perfil.css?v=<?= time() ?>">
-  <!-- Logo na aba do site  -->
   <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
 
   <title>Tela de Perfil | Pet Insight</title>
 </head>
 
 <body>
+  <!-- Mensagens de feedback -->
+  <?php if (isset($_SESSION['sucesso'])): ?>
+    <div class="alert alert-success"><?= $_SESSION['sucesso'];
+    unset($_SESSION['sucesso']); ?></div>
+  <?php endif; ?>
 
-  <header> 
-    <a href="../controllers/Index.php">
+  <?php if (isset($_SESSION['erro'])): ?>
+    <div class="alert alert-danger"><?= $_SESSION['erro'];
+    unset($_SESSION['erro']); ?></div>
+  <?php endif; ?>
+
+  <header>
+    <a href="../views/Index.php">
       <img class="logo" src="../../public/img/Pet insight.png" alt="logo">
     </a>
   </header>
 
   <div class="voltarP">
-    <a href="../controllers/Index.php">
-      <img class="botao-voltar" src="../../public/img/voltar.png" alt="botao-voltar" />
+    <a href="../views/Index.php">
+      <img class="botao-voltar" src="../../public/img/voltar.png" alt="botão voltar" />
     </a>
     <h2 class="minha-conta">Minha conta</h2>
 
@@ -61,88 +50,126 @@ if (!empty($cliente['data_nascimento'])) {
   </div>
 
   <main>
-
     <aside>
-
       <nav class="menu-lateral">
-
         <ul>
           <li class="item-menu ativo">
-            <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário" id="file"></span>
+            <a href="perfil.php">
+              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário"
+                  id="file"></span>
               <span class="txt-link">Meus dados</span>
             </a>
           </li>
 
           <li class="item-menu">
-            <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/order-history.png" alt="pedidos" id="order"></span>
+            <a href="pedidos.php">
+              <span class="icon"><img class="icons-img" src="../../public/img/order-history.png" alt="pedidos"
+                  id="order"></span>
               <span class="txt-link">Meus pedidos</span>
             </a>
           </li>
 
           <li class="item-menu">
-            <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/suggestion.png" alt="suporte" id="mapa"></span>
+            <a href="suporte.php">
+              <span class="icon"><img class="icons-img" src="../../public/img/suggestion.png" alt="suporte"
+                  id="mapa"></span>
               <span class="txt-link">Suporte</span>
             </a>
           </li>
 
           <li class="item-menu">
-            <a href="#">
-              <span class="icon"><img class="icons-img" src="../../public/img/map-marker-home.png" alt="endereço" id="house"></span>
+            <a href="enderecos.php">
+              <span class="icon"><img class="icons-img" src="../../public/img/map-marker-home.png" alt="endereço"
+                  id="house"></span>
               <span class="txt-link">Endereço</span>
             </a>
           </li>
 
           <li class="item-menu-logoff">
-            <a href="../controllers/Logout.php">
-              <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="logoff"></span>
+            <a href="../controllers/LogoutController.php>">
+              <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="sair"></span>
               <span class="txt-logoff">Sair da conta</span>
             </a>
           </li>
         </ul>
       </nav>
-
     </aside>
 
     <section>
-  <div class="perfil">
-    <div class="img-txt">
-        <img class="gato" src="../../public/img/gato.jpg" alt="gato" />
-        <p class="boas-vindas">Olá <strong><?= htmlspecialchars($cliente['nome']) ?>!</strong></p>
-    </div>
+      <div class="perfil">
+        <div class="img-txt">
+          <img class="gato" src="../../public/img/gato.jpg" alt="Foto do perfil" />
+          <p class="boas-vindas">Olá
+            <strong>
+              <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
+            </strong>
+          </p>
+        </div>
 
-    <div class="dados-pessoais">
-      <div class="dados">
-        <label>Nome completo</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['nome']) ?>">
+        <form action="../controllers/PerfilController.php" method="post">
+          <input type="hidden" name="csrf_token"
+            value="<?= isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '' ?>">
 
-        <label>Email</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['email']) ?>">
+          <div class="dados-pessoais">
+            <div class="dados">
+              <label for="nome">Nome completo</label>
+              <input type="text" name="nome" id="nome"
+                value="<?= isset($cliente['nome']) ? htmlspecialchars($cliente['nome']) : '' ?>" disabled>
 
-        <label>Senha</label>
-        <input type="password" disabled placeholder="*********">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email"
+                value="<?= isset($cliente['email']) ? htmlspecialchars($cliente['email']) : '' ?>" disabled>
+
+              <label>Senha</label>
+              <div class="password-field">
+                <a href="alterar_senha.php" class="change-password">Alterar senha</a>
+              </div>
+            </div>
+
+            <div class="dados">
+              <label for="data_nascimento">Data de nascimento</label>
+              <input type="text" name="data_nascimento" id="data_nascimento"
+                value="<?= isset($dataNascFormatada) ? htmlspecialchars($dataNascFormatada) : '' ?>" disabled>
+
+              <label for="telefone">Telefone</label>
+              <input type="text" name="telefone" id="telefone"
+                value="<?= isset($cliente['telefone']) ? htmlspecialchars($cliente['telefone']) : '' ?>" disabled>
+
+              <button type="button" class="alterar-dados" id="btn-alterar-dados">Alterar dados</button>
+              <button type="submit" class="alterar-dados" id="btn-salvar-dados" style="display:none;">Salvar
+                alterações</button>
+            </div>
+          </div>
+        </form>
+
       </div>
-
-      <div class="dados">
-        <label>Data de nascimento</label>
-        <input type="text" disabled value="<?= $dataNascimentoFormatada ?>">
-
-        <label>Telefone</label>
-        <input type="text" disabled value="<?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?>">
-
-        <button class="alterar-dados">Alterar dados</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+    </section>
   </main>
 
   <script src="../../public/js/tema.js"></script>
   <script src="../../public/js/scriptPerfil.js"></script>
+
+  <script>
+    // Habilitar edição dos campos ao clicar no botão
+    document.getElementById('btn-alterar-dados').addEventListener('click', function () {
+      // Habilita todos os inputs que estão desabilitados
+      document.querySelectorAll('input[disabled]').forEach(input => {
+        input.disabled = false;
+      });
+
+      // Troca a visibilidade dos botões
+      this.style.display = 'none';
+      document.getElementById('btn-salvar-dados').style.display = 'block';
+    });
+
+    // Validação de data (formatação automática: dd/mm/yyyy)
+    document.querySelector('input[name="data_nascimento"]').addEventListener('input', function (e) {
+      let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+      if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+      if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
+      e.target.value = value;
+    });
+  </script>
 </body>
 
 </html>
