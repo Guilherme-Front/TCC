@@ -36,4 +36,3 @@ if (window.innerWidth <= 400) {
   // Impede que cliques dentro do menu fechem ele
   menu.addEventListener("click", (e) => e.stopPropagation());
 } 
-
