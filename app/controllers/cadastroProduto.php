@@ -1,42 +1,77 @@
 <?php
-
-session_start();
-
 include_once "../controllers/conn.php";
 
-// Receber dados do formulário
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+// 1) Garante UTF-8
+$conn->set_charset('utf8mb4');
 
-// Acessar if quando clicar no botão de cadastrar
-if (!empty($dados['enviar-dados'])) {
-    var_dump($dados);
+if (isset($_POST['enviar-dados'])) {
+    // 2) Coleta e saneamento
+    $nomeProduto = filter_input(INPUT_POST, 'nome_produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $tipoRaw = filter_input(INPUT_POST, 'tipo', FILTER_DEFAULT);
+    $marca = filter_input(INPUT_POST, 'marca', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $estoque = filter_input(INPUT_POST, 'estoque', FILTER_SANITIZE_NUMBER_INT);
+    $descricaoCurta = filter_input(INPUT_POST, 'descricao_curta', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $descricaoDetalhada = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $arquivo = $_FILES['produto_imagens'];
 
-    // Converter preço BRL para float
-    $preco_formatado = str_replace(['R$', '.', ','], ['', '', '.'], $preco_br);
-    $preco = floatval($preco_formatado);
-    // Cadastrar produto no banco de dados
-    $query_produto = "INSERT INTO produto (nome_produto, tipo, desricaoMenor, descricaoMaior, valor, quantidade, marca) VALUES (:nome_produto, :tipo, :descricao_curta, :descricao_detalhada, :preco, :estoque, :marca)";
+    // 3) Validação e normalização do tipo
+    $tiposValidos = ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'];
+    $tipoTrim = trim($tipoRaw);
+    $tipoLower = mb_strtolower($tipoTrim, 'UTF-8');
+    $tiposValidosLower = array_map(fn($v) => mb_strtolower($v, 'UTF-8'), $tiposValidos);
+    $idx = array_search($tipoLower, $tiposValidosLower, true);
 
-    // Preparar QUERY
-    $cad_produto = $conn->prepare($query_produto);
+    $erros = [];
 
-    // Substituir links pelo valor do formulário
-    $cad_produto->bind_Param(':nome_produto', $dados['nome_produto']);
-    $cad_produto->bind_Param(':tipo', $dados['tipo']);
-    $cad_produto->bind_Param(':descricao_curta', $dados['descricao_curta']);
-    $cad_produto->bind_Param(':descricao_detalhada', $dados['descricao_detalhada']);
-    $cad_produto->bind_Param(':preco', $dados['preco']);
-    $cad_produto->bind_Param(':estoque', $dados['estoque']);
-    $cad_produto->bind_Param(':marca', $dados['marca']);
-
-    // Executar QUERY
-    $cad_produto->execute();
-
-    if ($cad_produto->rowCount()) {
-        $_SESSION['msg'] = "<p>Produto cadastrado<p>";
+    if ($idx === false) {
+        $erros[] = "O tipo selecionado é inválido.";
     } else {
-        $_SESSION['msg'] = "<p>Erro: não foi possível cadastrar o produto<p>";
+        $tipo = $tiposValidos[$idx];
     }
-}
 
+    // 4) Validação dos outros campos
+    if ($nomeProduto === '') $erros[] = "O nome do produto é obrigatório.";
+    if ($marca === '') $erros[] = "A marca do produto é obrigatória.";
+    if ($preco === false || $preco === null) $erros[] = "O preço do produto é inválido.";
+    if ($estoque === false || $estoque === null || $estoque < 0) $erros[] = "O estoque do produto é inválido.";
+    if ($descricaoCurta === '') $erros[] = "A descrição curta é obrigatória.";
+    if ($descricaoDetalhada === '') $erros[] = "A descrição detalhada é obrigatória.";
+
+    // 5) Se não houver erros, insere produto
+    if (empty($erros)) {
+        // 5.1) Inserir produto
+        $sql = "INSERT INTO produto
+                    (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior)
+                VALUES (?,?,?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            die("<p style='color:red;'>Erro no prepare(): " . $conn->error . "</p>");
+        }
+
+        $stmt->bind_param(
+            "sssdiss",
+            $nomeProduto,
+            $tipo,
+            $marca,
+            $preco,
+            $estoque,
+            $descricaoCurta,
+            $descricaoDetalhada
+        );
+
+        if (!$stmt->execute()) {
+            die("<p style='color:red;'>Erro no execute(): " . $stmt->error . "</p>");
+        }
+
+        echo "<p style='color:green;'>Produto cadastrado com sucesso!</p>";
+
+
+    } else {
+        foreach ($erros as $e) {
+            echo "<p style='color:red;'>$e</p>";
+        }
+    }
+      
+}
 ?>

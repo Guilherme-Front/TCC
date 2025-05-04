@@ -562,6 +562,23 @@ function ativarModoEscuro() {
   const quem = document.querySelector(".quem-somos");
   if (quem) quem.style.backgroundColor = "#212121";
   /* fim quem somos */
+
+  /* Inicio Cuidados */
+  const cuidadoG = document.querySelector(".cuidados-gato");
+  if (cuidadoG) cuidadoG.style.backgroundColor = "#212121";
+
+  const cuidadoD = document.querySelector(".cuidados-dogs");
+  if (cuidadoD) cuidadoD.style.backgroundColor = "#212121";
+
+  const cuidadoH = document.querySelector(".cuidados-ham");
+  if (cuidadoH) cuidadoH.style.backgroundColor = "#212121";
+
+  const cuidadoC = document.querySelector(".cuidados-coelho");
+  if (cuidadoC) cuidadoC.style.backgroundColor = "#212121";
+
+  const cuidadoP = document.querySelector(".cuidados-porquinho");
+  if (cuidadoP) cuidadoP.style.backgroundColor = "#212121";
+  /* Fim Cuidados */
 }
 
 function ativarModoClaro() {
@@ -952,4 +969,21 @@ function ativarModoClaro() {
   const quem = document.querySelector(".quem-somos");
   if (quem) quem.style.backgroundColor = "#fafaa9";
   /* fim quem somos */
+
+  /* Inicio Cuidados */
+  const cuidadoG = document.querySelector(".cuidados-gato");
+  if (cuidadoG) cuidadoG.style.backgroundColor = "#fafaa9";
+
+  const cuidadoD = document.querySelector(".cuidados-dogs");
+  if (cuidadoD) cuidadoD.style.backgroundColor = "#fafaa9";
+
+  const cuidadoH = document.querySelector(".cuidados-ham");
+  if (cuidadoH) cuidadoH.style.backgroundColor = "#fafaa9";
+
+  const cuidadoC = document.querySelector(".cuidados-coelho");
+  if (cuidadoC) cuidadoC.style.backgroundColor = "#fafaa9";
+
+  const cuidadoP = document.querySelector(".cuidados-porquinho");
+  if (cuidadoP) cuidadoP.style.backgroundColor = "#fafaa9";
+  /* Fim Cuidados */
 }

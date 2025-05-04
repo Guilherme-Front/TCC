@@ -43,9 +43,9 @@ CREATE TABLE endereco (
 
 CREATE TABLE produto (
     id_produto INT NOT NULL AUTO_INCREMENT,
-    id_cliente INT NOT NULL,
+    nome_produto VARCHAR(30) NOT NULL,
     tipo ENUM(
-        "Racões",
+        "Rações",
         "Aperitivos",
         "Higiene",
         "Brinquedos",
@@ -57,6 +57,14 @@ CREATE TABLE produto (
     quantidade INT(10) NOT NULL,
     marca VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_produto)
+);
+
+CREATE TABLE imagem_produto(
+id_imagens INT AUTO_INCREMENT NOT NULL,
+id_produto INT,
+nome_imagem TEXT NOT NULL,
+PRIMARY KEY (id_imagens),
+FOREIGN KEY (id_produto) REFERENCES produto (id_produto)
 );
 
 CREATE TABLE pedido (
@@ -105,12 +113,6 @@ ADD FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente);
 ALTER TABLE senha
 ADD CONSTRAINT fk_senha_01 FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente) ON DELETE cascade;
 
--- id cliente NO produto
-ALTER TABLE produto
-ADD FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente);
-
-ALTER TABLE produto
-ADD CONSTRAINT fk_produto_01 FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente) ON DELETE cascade;
 
 -- id cliente NO pedido
 ALTER TABLE pedido

@@ -752,6 +752,43 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
 }
 
+/* Cuidados */
+
+.cuidados-gato{
+    margin-top: 20px;
+    height: 2470px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
+.cuidados-dogs{
+    margin-top: 20px;
+    height: 2310px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
+.cuidados-ham{
+    margin-top: 20px;
+    height: 1370px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
+.cuidados-coelho{
+    margin-top: 20px;
+    height: 2080px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
+.cuidados-porquinho{
+    margin-top: 20px;
+    height: 1930px;
+    background-color: #fafaa9;
+    cursor: default;
+}
+
 
 @media screen and (max-width: 1367px) {
 
@@ -1225,6 +1262,30 @@ input[type="search"]::-webkit-search-cancel-button {
         width: 45px;
         margin-left: 420px;
         margin-top: -55px;
+    }
+
+    .quem-somos {
+        height: 480px;
+    }
+
+    .cuidados-gato{
+        height: 2570px;
+    }
+    
+    .cuidados-dogs{
+        height: 2420px;
+    }
+    
+    .cuidados-ham{
+        height: 1400px;
+    }
+    
+    .cuidados-coelho{
+        height: 2180px;
+    }
+    
+    .cuidados-porquinho{
+        height: 2030px;
     }
 }
 
@@ -1726,6 +1787,30 @@ input[type="search"]::-webkit-search-cancel-button {
         margin-left: 330px;
         margin-top: -55px;
     }
+
+    .quem-somos {
+        height: 580px;
+    }
+
+    .cuidados-gato{
+        height: 3350px;
+    }
+    
+    .cuidados-dogs{
+        height: 3150px;
+    }
+    
+    .cuidados-ham{
+        height: 1830px;
+    }
+    
+    .cuidados-coelho{
+        height: 2880px;
+    }
+    
+    .cuidados-porquinho{
+        height: 2400px;
+    }
 }
 
 @media screen and (max-width: 1025px) {
@@ -1965,6 +2050,30 @@ input[type="search"]::-webkit-search-cancel-button {
     .pet-porquinho-vacinas {
         height: 560px;
     }
+
+    .quem-somos {
+        height: 654px;
+    }
+
+    .cuidados-gato{
+        height: 3140px;
+    }
+    
+    .cuidados-dogs{
+        height: 2950px;
+    }
+    
+    .cuidados-ham{
+        height: 1700px;
+    }
+    
+    .cuidados-coelho{
+        height: 2710px;
+    }
+    
+    .cuidados-porquinho{
+        height: 2200px;
+    }
 }
 
 @media screen and (max-width: 821px) {
@@ -2203,6 +2312,30 @@ input[type="search"]::-webkit-search-cancel-button {
     .pet-porquinho-vacinas {
         height: 450px;
     }
+
+    .quem-somos {
+        height: 520px;
+    }
+
+    .cuidados-gato{
+        height: 2620px;
+    }
+    
+    .cuidados-dogs{
+        height: 2450px;
+    }
+    
+    .cuidados-ham{
+        height: 1470px;
+    }
+    
+    .cuidados-coelho{
+        height: 2280px;
+    }
+    
+    .cuidados-porquinho{
+        height: 2030px;
+    }
 }
 
 @media screen and (max-width: 431px) {
@@ -2411,5 +2544,29 @@ input[type="search"]::-webkit-search-cancel-button {
     
     .pet-porquinho-vacinas {
         height: 480px;
+    }
+
+    .quem-somos {
+        height: 560px;
+    }
+
+    .cuidados-gato{
+        height: 2770px;
+    }
+    
+    .cuidados-dogs{
+        height: 2650px;
+    }
+    
+    .cuidados-ham{
+        height: 1570px;
+    }
+    
+    .cuidados-coelho{
+        height: 2380px;
+    }
+    
+    .cuidados-porquinho{
+        height: 1970px;
     }
 }

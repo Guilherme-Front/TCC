@@ -77,7 +77,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
     <div class="nav_wrap">
       <a class="nav-link" href="../views/QuemSomos.php">Quem Somos</a>
       <a class="nav-link" href="../views/TelaProdutos.php">Produtos</a>
-      <a class="nav-link" href="#">Cuidados</a>
+      <a class="nav-link" href="../views/Cuidados.php">Cuidados</a>
       <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
       <a class="nav-link" href="../views/Faq.php">Suporte</a>
     </div>
