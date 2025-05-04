@@ -1,68 +1,86 @@
 <?php
-require_once __DIR__ . '/../controllers/conn.php';
+require_once __DIR__ . '/conn.php';
+session_start();
 
-class PerfilController
-{
-    private $conn;
+$id_cliente = $_SESSION['id_cliente'] ?? null;
 
-    public function __construct()
-    {
-        global $conn;
-        $this->conn = $conn;
+// Protege contra acesso não autorizado
+if (!$id_cliente) {
+    header('Location: ../views/Login.html');
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validação CSRF
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        $_SESSION['erro'] = 'Token de segurança inválido!';
+        header('Location: ../controllers/PerfilController.php');
+        exit();
     }
 
-    public function exibirPerfil()
-    {
-        session_start();
-        
-        // Verificação inicial da sessão
-        if (!isset($_SESSION['id_cliente'])) {
-            header('Location: ../views/Login.html');
-            exit();
+    // Coleta dos dados
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $telefone = preg_replace('/\D/', '', $_POST['telefone'] ?? '');
+    $data_nasc = $_POST['data_nascimento'] ?? '';
+
+    // Validação simples
+    if (empty($nome) || empty($email) || empty($data_nasc)) {
+        $_SESSION['erro'] = 'Preencha todos os campos obrigatórios!';
+        header('Location: ../controllers/PerfilController.php');
+        exit();
+    }
+
+    // Converte data para MySQL
+    $data_mysql = null;
+    if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $data_nasc, $matches)) {
+        $data_mysql = "{$matches[3]}-{$matches[2]}-{$matches[1]}";
+    } else {
+        $_SESSION['erro'] = 'Data inválida!';
+        header('Location: ../controllers/PerfilController.php');
+        exit();
+    }
+
+    // Atualiza no banco
+    try {
+        $stmt = $conn->prepare("UPDATE cliente SET nome = ?, email = ?, telefone = ?, datNasc = ? WHERE id_cliente = ?");
+        $stmt->bind_param("ssssi", $nome, $email, $telefone, $data_mysql, $id_cliente);
+
+        if ($stmt->execute()) {
+            $_SESSION['sucesso'] = 'Dados atualizados com sucesso!';
+        } else {
+            $_SESSION['erro'] = 'Erro ao atualizar: ' . $stmt->error;
         }
+    } catch (Exception $e) {
+        $_SESSION['erro'] = 'Erro no banco de dados: ' . $e->getMessage();
+    }
 
-        $id_cliente = $_SESSION['id_cliente'];
-        
-        // Consulta ao banco de dados
-        $query = "SELECT nome, email, telefone, datNasc FROM cliente WHERE id_cliente = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id_cliente);
-        
-        if (!$stmt->execute()) {
-            die("Erro ao executar a consulta: " . $stmt->error);
-        }
-        
-        $result = $stmt->get_result();
+    header('Location: ../controllers/PerfilController.php');
+    exit();
+}
 
-        if ($result->num_rows === 0) {
-            die("Cliente não encontrado!");
-        }
+// --- GET: busca dados e carrega view ---
 
-        $cliente = $result->fetch_assoc();
+// Pega os dados do banco
+$stmt = $conn->prepare("SELECT nome, email, telefone, datNasc FROM cliente WHERE id_cliente = ?");
+$stmt->bind_param("i", $id_cliente);
+$stmt->execute();
+$result = $stmt->get_result();
+$cliente = $result->fetch_assoc();
 
-        // Formatar data
-        $dataNascFormatada = 'Não informada';
-        if (!empty($cliente['datNasc']) && $cliente['datNasc'] != '0000-00-00') {
-            $data = DateTime::createFromFormat('Y-m-d', $cliente['datNasc']);
-            if ($data) {
-                $dataNascFormatada = $data->format('d/m/Y');
-            }
-        }
-
-        // Garantir que todos campos existam
-        $cliente = array_merge([
-            'nome' => 'Não informado',
-            'email' => 'Não informado',
-            'telefone' => 'Não informado',
-            'datNasc' => null
-        ], $cliente);
-
-        // Passar os dados para a view
-        require_once __DIR__ . '/../views/telaPerfil.php';
+// Formata data para o input
+$dataNascFormatada = '';
+if (!empty($cliente['datNasc']) && $cliente['datNasc'] != '0000-00-00') {
+    $data = DateTime::createFromFormat('Y-m-d', $cliente['datNasc']);
+    if ($data) {
+        $dataNascFormatada = $data->format('d/m/Y');
     }
 }
 
-// Uso:
-$controller = new PerfilController();
-$controller->exibirPerfil();
-?>
+// Gera token CSRF se não existir
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Inclui a view com os dados
+require_once __DIR__ . '/../views/telaPerfil.php';

@@ -1,8 +1,3 @@
-<?php
-// redireciona todo acesso a esta view para o controller:
-require_once __DIR__ . '/../controllers/PerfilController.php';
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -99,13 +94,13 @@ require_once __DIR__ . '/../controllers/PerfilController.php';
       <div class="perfil">
         <div class="img-txt">
           <img class="gato" src="../../public/img/gato.jpg" alt="Foto do perfil" />
-          <p class="boas-vindas">Olá
+            <p class="boas-vindas">Olá
             <strong>
               <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
             </strong>
           </p>
         </div>
-
+        <input class="enviar-foto" type="file"></input>
         <form action="../controllers/PerfilController.php" method="post">
           <input type="hidden" name="csrf_token"
             value="<?= isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '' ?>">
