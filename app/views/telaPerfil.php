@@ -1,3 +1,39 @@
+*telaPerfil.php*
+
+<?php
+session_start();
+require_once __DIR__ . '/../controllers/conn.php';
+
+$id_cliente = $_SESSION['id_cliente'] ?? null;
+echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
+
+if (!$id_cliente) {
+    header('Location: Login.html');
+    exit();
+}
+
+// Gera o token CSRF se não existir
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Busca os dados do cliente
+$stmt = $conn->prepare("SELECT nome, email, telefone, datNasc FROM cliente WHERE id_cliente = ?");
+$stmt->bind_param("i", $id_cliente);
+$stmt->execute();
+$result = $stmt->get_result();
+$cliente = $result->fetch_assoc();
+
+// Formata data de nascimento
+$dataNascFormatada = '';
+if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
+    $data = DateTime::createFromFormat('Y-m-d', $cliente['datNasc']);
+    if ($data) {
+        $dataNascFormatada = $data->format('d/m/Y');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -101,9 +137,9 @@
           </p>
         </div>
         <input class="enviar-foto" type="file"></input>
+
         <form action="../controllers/PerfilController.php" method="post">
-          <input type="hidden" name="csrf_token"
-            value="<?= isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '' ?>">
+          <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
           <div class="dados-pessoais">
             <div class="dados">

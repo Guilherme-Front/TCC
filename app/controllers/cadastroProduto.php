@@ -1,77 +1,55 @@
 <?php
-include_once "../controllers/conn.php";
-
-// 1) Garante UTF-8
+include_once "conn.php";
 $conn->set_charset('utf8mb4');
 
-if (isset($_POST['enviar-dados'])) {
-    // 2) Coleta e saneamento
-    $nomeProduto = filter_input(INPUT_POST, 'nome_produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $tipoRaw = filter_input(INPUT_POST, 'tipo', FILTER_DEFAULT);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome = filter_input(INPUT_POST, 'nome_produto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $tipo = filter_input(INPUT_POST, 'tipo', FILTER_DEFAULT);
     $marca = filter_input(INPUT_POST, 'marca', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $preco = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+    $precoStr = filter_input(INPUT_POST, 'preco', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $estoque = filter_input(INPUT_POST, 'estoque', FILTER_SANITIZE_NUMBER_INT);
     $descricaoCurta = filter_input(INPUT_POST, 'descricao_curta', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $descricaoDetalhada = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $arquivo = $_FILES['produto_imagens'];
+    $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    // 3) Validação e normalização do tipo
-    $tiposValidos = ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'];
-    $tipoTrim = trim($tipoRaw);
-    $tipoLower = mb_strtolower($tipoTrim, 'UTF-8');
-    $tiposValidosLower = array_map(fn($v) => mb_strtolower($v, 'UTF-8'), $tiposValidos);
-    $idx = array_search($tipoLower, $tiposValidosLower, true);
-
+    $preco = floatval(str_replace(['R$', '.', ','], ['', '', '.'], $precoStr));
     $erros = [];
 
-    if ($idx === false) {
-        $erros[] = "O tipo selecionado é inválido.";
-    } else {
-        $tipo = $tiposValidos[$idx];
+    if (!$nome || !$tipo || !$marca || $preco <= 0 || $estoque < 0 || !$descricaoCurta || !$descricao) {
+        $erros[] = "Preencha todos os campos corretamente.";
     }
 
-    // 4) Validação dos outros campos
-    if ($nomeProduto === '') $erros[] = "O nome do produto é obrigatório.";
-    if ($marca === '') $erros[] = "A marca do produto é obrigatória.";
-    if ($preco === false || $preco === null) $erros[] = "O preço do produto é inválido.";
-    if ($estoque === false || $estoque === null || $estoque < 0) $erros[] = "O estoque do produto é inválido.";
-    if ($descricaoCurta === '') $erros[] = "A descrição curta é obrigatória.";
-    if ($descricaoDetalhada === '') $erros[] = "A descrição detalhada é obrigatória.";
-
-    // 5) Se não houver erros, insere produto
     if (empty($erros)) {
-        // 5.1) Inserir produto
-        $sql = "INSERT INTO produto
-                    (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior)
-                VALUES (?,?,?,?,?,?,?)";
-        $stmt = $conn->prepare($sql);
-        if (!$stmt) {
-            die("<p style='color:red;'>Erro no prepare(): " . $conn->error . "</p>");
+        $stmt = $conn->prepare("INSERT INTO produto (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssdiss", $nome, $tipo, $marca, $preco, $estoque, $descricaoCurta, $descricao);
+        $stmt->execute();
+        $produto_id = $conn->insert_id;
+
+        if (isset($_FILES['produto_imagens'])) {
+            $total = count($_FILES['produto_imagens']['name']);
+            for ($i = 0; $i < $total && $i < 3; $i++) {
+                if ($_FILES['produto_imagens']['error'][$i] === 0) {
+                    $ext = strtolower(pathinfo($_FILES['produto_imagens']['name'][$i], PATHINFO_EXTENSION));
+                    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) continue;
+
+                    $pasta = "../../public/uploads/imgProdutos/$produto_id/";
+                    if (!is_dir($pasta)) mkdir($pasta, 0777, true);
+
+                    $nomeUnico = uniqid() . ".$ext";
+                    $destino = $pasta . $nomeUnico;
+
+                    if (move_uploaded_file($_FILES['produto_imagens']['tmp_name'][$i], $destino)) {
+                        $relativo = "uploads/imgProdutos/$produto_id/$nomeUnico";
+                        $stmt_img = $conn->prepare("INSERT INTO imagem_produto (id_produto, nome_imagem) VALUES (?, ?)");
+                        $stmt_img->bind_param("is", $produto_id, $relativo);
+                        $stmt_img->execute();
+                    }
+                }
+            }
         }
-
-        $stmt->bind_param(
-            "sssdiss",
-            $nomeProduto,
-            $tipo,
-            $marca,
-            $preco,
-            $estoque,
-            $descricaoCurta,
-            $descricaoDetalhada
-        );
-
-        if (!$stmt->execute()) {
-            die("<p style='color:red;'>Erro no execute(): " . $stmt->error . "</p>");
-        }
-
-        echo "<p style='color:green;'>Produto cadastrado com sucesso!</p>";
-
-
     } else {
-        foreach ($erros as $e) {
-            echo "<p style='color:red;'>$e</p>";
+        foreach ($erros as $erro) {
+            echo "<p style='color:red;'>$erro</p>";
         }
     }
-      
 }
 ?>
