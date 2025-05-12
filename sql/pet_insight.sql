@@ -14,6 +14,7 @@ CREATE TABLE cliente (
     email VARCHAR(90) NOT NULL UNIQUE,
     datNasc DATE NOT NULL,
     telefone VARCHAR(11) NOT NULL,
+    foto VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (id_cliente)
 );
 

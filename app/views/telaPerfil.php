@@ -1,5 +1,3 @@
-*telaPerfil.php*
-
 <?php
 session_start();
 require_once __DIR__ . '/../controllers/conn.php';
@@ -8,13 +6,13 @@ $id_cliente = $_SESSION['id_cliente'] ?? null;
 echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
 
 if (!$id_cliente) {
-    header('Location: Login.html');
-    exit();
+  header('Location: Login.html');
+  exit();
 }
 
 // Gera o token CSRF se não existir
 if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
 // Busca os dados do cliente
@@ -27,10 +25,10 @@ $cliente = $result->fetch_assoc();
 // Formata data de nascimento
 $dataNascFormatada = '';
 if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
-    $data = DateTime::createFromFormat('Y-m-d', $cliente['datNasc']);
-    if ($data) {
-        $dataNascFormatada = $data->format('d/m/Y');
-    }
+  $data = DateTime::createFromFormat('Y-m-d', $cliente['datNasc']);
+  if ($data) {
+    $dataNascFormatada = $data->format('d/m/Y');
+  }
 }
 ?>
 
@@ -117,7 +115,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
           </li>
 
           <li class="item-menu-logoff">
-            <a href="../controllers/LogoutController.php>">
+            <a href="../controllers/logout.php">
               <span class="icon"><img class="icons-img" src="../../public/img/exit.png" alt="sair"></span>
               <span class="txt-logoff">Sair da conta</span>
             </a>
@@ -128,17 +126,31 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
     <section>
       <div class="perfil">
-        <div class="img-txt">
-          <img class="gato" src="../../public/img/gato.jpg" alt="Foto do perfil" />
+        <form action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
+          <div class="img-txt">
+            <?php if (!empty($cliente['foto'])): ?>
+              <!-- Exibe a foto do usuário se cadastrada -->
+              <img class="gato" id="previewFoto"
+                src="../../public/uploads/imgUsuarios/<?= $id_cliente . '/' . htmlspecialchars($cliente['foto'] ?? 'gato.jpg') ?>"
+                data-foto="<?= htmlspecialchars($cliente['foto'] ?? '') ?>" alt="Foto do perfil" />
+            <?php else: ?>
+              <!-- Exibe a imagem padrão caso não tenha foto cadastrada -->
+              <img class="gato" id="previewFoto" alt="Foto do perfil" />
+            <?php endif; ?>
             <p class="boas-vindas">Olá
-            <strong>
-              <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
-            </strong>
-          </p>
-        </div>
-        <input class="enviar-foto" type="file"></input>
+              <strong>
+                <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
+              </strong>
+            </p>
+          </div>
 
-        <form action="../controllers/PerfilController.php" method="post">
+          <!-- Input de foto escondido inicialmente -->
+          <input type="file" name="foto" id="foto" class="enviar-foto" hidden>
+
+          <!-- Botão de enviar foto escondido inicialmente -->
+          <label for="foto" class="enviar-foto" id="btn-enviar-foto" style="display: none;">Enviar foto</label>
+
+
           <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
           <div class="dados-pessoais">
@@ -172,8 +184,9 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
             </div>
           </div>
         </form>
-
       </div>
+
+
     </section>
   </main>
 
@@ -182,6 +195,17 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
   <script>
     // Habilitar edição dos campos ao clicar no botão
+    window.onload = function () {
+      const preview = document.getElementById('previewFoto');
+      const fotoCadastrada = preview.src; // Pega o src da foto (pode ser a foto do usuário ou a padrão)
+
+      // Se a foto cadastrada for a padrão (do gato), exibe ela
+      if (fotoCadastrada.includes('gato.jpg')) {
+        preview.src = '../../public/img/gato.jpg'; // Se não houver foto, mostra a foto padrão
+      }
+    };
+
+    // Habilita a edição dos campos ao clicar no botão
     document.getElementById('btn-alterar-dados').addEventListener('click', function () {
       // Habilita todos os inputs que estão desabilitados
       document.querySelectorAll('input[disabled]').forEach(input => {
@@ -191,6 +215,12 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       // Troca a visibilidade dos botões
       this.style.display = 'none';
       document.getElementById('btn-salvar-dados').style.display = 'block';
+
+      // Alterna a visibilidade do botão de enviar foto
+      const btnEnviarFoto = document.getElementById('btn-enviar-foto');
+      if (btnEnviarFoto.style.display === 'none' || btnEnviarFoto.style.display === '') {
+        btnEnviarFoto.style.display = 'inline-block';  // Exibe o botão de enviar foto
+      }
     });
 
     // Validação de data (formatação automática: dd/mm/yyyy)
@@ -200,7 +230,9 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
       e.target.value = value;
     });
+
   </script>
+
 </body>
 
 </html>

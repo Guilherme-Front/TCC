@@ -11,7 +11,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curiosidades Gerais | Pet Insight</title>
+    <title>Quem Somos| Pet Insight</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -73,7 +73,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
         <div class="nav_wrap">
             <a class="nav-link" href="../views/QuemSomos.php">Quem Somos</a>
             <a class="nav-link" href="../views/telaProdutos.php">Produtos</a>
-            <a class="nav-link" href="#">Cuidados</a>
+            <a class="nav-link" href="../views/Cuidados.php">Cuidados</a>
             <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
             <a class="nav-link" href="../views/Faq.php">Suporte</a>
         </div>

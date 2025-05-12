@@ -116,18 +116,6 @@ img.user-img{
     color: rgb(92, 0, 0);
 }
 
-img.user-img{
-    width: 35px;
-}
-
-.header-button-logout{
-    border: none;
-    background: none;
-    margin-left: 15px;
-    font-size: 18px;
-    color: rgb(92, 0, 0);
-}
-
 .car {
     margin-left: 40px;
     color: black;

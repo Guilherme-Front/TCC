@@ -1,10 +1,8 @@
-*PerfilController.php*
-
 <?php
 require_once __DIR__ . '/conn.php';
 session_start();
 
-// Garante que o cliente está logado
+// Verifica se o cliente está logado
 $id_cliente = $_SESSION['id_cliente'] ?? null;
 if (!$id_cliente) {
     header('Location: ../views/Login.html');
@@ -23,7 +21,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Dados recebidos do formulário
+    // Diretório da imagem do cliente
+    $pastaCliente = '../../public/uploads/imgUsuarios/' . $id_cliente;
+
+    // Cria o diretório se não existir
+    if (!is_dir($pastaCliente)) {
+        mkdir($pastaCliente, 0777, true);
+    }
+
+    // Verifica se uma nova foto foi enviada
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
+        // Consulta a foto antiga
+        $stmt = $conn->prepare("SELECT foto FROM cliente WHERE id_cliente = ?");
+        $stmt->bind_param("i", $id_cliente);
+        $stmt->execute();
+        $stmt->bind_result($fotoAntiga);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Exclui a foto antiga
+        if (!empty($fotoAntiga)) {
+            $caminhoAntigo = $pastaCliente . '/' . $fotoAntiga;
+            if (file_exists($caminhoAntigo)) {
+                unlink($caminhoAntigo);
+            }
+        }
+
+        // Novo nome para a foto
+        $nomeFoto = uniqid() . '-' . basename($_FILES['foto']['name']);
+        $caminhoNovo = $pastaCliente . '/' . $nomeFoto;
+
+        // Move o novo arquivo e atualiza no banco
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminhoNovo)) {
+            $stmt = $conn->prepare("UPDATE cliente SET foto = ? WHERE id_cliente = ?");
+            $stmt->bind_param("si", $nomeFoto, $id_cliente);
+            $stmt->execute();
+            $stmt->close();
+
+            $_SESSION['sucesso'] = "Foto atualizada com sucesso!";
+        } else {
+            $_SESSION['erro'] = "Erro ao salvar a nova foto.";
+        }
+    }
+
+    // Campos do formulário
     $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $telefone = preg_replace('/\D/', '', $_POST['telefone'] ?? '');
@@ -36,8 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Converte data de dd/mm/yyyy para yyyy-mm-dd
-    $data_mysql = null;
+    // Converte a data para formato do MySQL
     if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $data_nasc, $matches)) {
         $data_mysql = "{$matches[3]}-{$matches[2]}-{$matches[1]}";
     } else {
@@ -46,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Atualiza no banco
+    // Atualiza os dados no banco
     try {
         $stmt = $conn->prepare("UPDATE cliente SET nome = ?, email = ?, telefone = ?, datNasc = ? WHERE id_cliente = ?");
         $stmt->bind_param("ssssi", $nome, $email, $telefone, $data_mysql, $id_cliente);
@@ -64,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-// Se alguém acessar esse arquivo via GET, redireciona
+// Acesso indevido via GET
 header('Location: ../views/telaPerfil.php');
 exit();
+?>

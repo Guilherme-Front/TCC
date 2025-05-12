@@ -118,6 +118,18 @@ li {
     text-decoration: none;
 }
 
+img.user-img{
+    width: 35px;
+}
+
+.header-button-logout{
+    border: none;
+    background: none;
+    margin-left: 15px;
+    font-size: 18px;
+    color: rgb(92, 0, 0);
+}
+
 .car {
     margin-left: 40px;
     color: black;
@@ -281,7 +293,7 @@ main {
     font-weight: 500;
 }
 
-.quantidade-box {
+/* .quantidade-box {
     margin-top: 25px;
     align-items: center;
     display: flex;
@@ -292,7 +304,7 @@ main {
     font-size: 20px;
     font-weight: 600;
     margin-right: 25px;
-}
+} */
 
 .input-add {
     font-size: 20px;
@@ -379,9 +391,12 @@ main {
 }
 
 .compra-qtde {
-    justify-content: end;
     display: flex;
-    flex-direction: column;
+    justify-content: end;
+}
+
+.qtde-label{
+    margin-right: 35px;
 }
 
 .descricao-container {

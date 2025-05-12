@@ -49,10 +49,9 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
           </form>
 
-          <a class="header-link-none" href="../views/TelaCarrinho.php">
+          <a class="header-link-none" href="../views/CadastroProduto.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
-
 
         <?php else: ?>
           <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->

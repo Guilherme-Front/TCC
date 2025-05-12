@@ -1,8 +1,26 @@
 <?php
-
 session_start();
 echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
+require_once '../controllers/conn.php';
 
+// Verifica se há um filtro de categoria na URL
+$categoria_filtro = $_GET['categoria'] ?? null;
+
+// Modifica a query para filtrar por categoria se necessário
+$sql = "SELECT p.*, 
+               (SELECT nome_imagem 
+                FROM imagem_produto 
+                WHERE id_produto = p.id_produto 
+                LIMIT 1) AS nome_imagem 
+        FROM produto p";
+
+// Se houver filtro de categoria, adiciona WHERE à query
+if ($categoria_filtro && in_array($categoria_filtro, ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'])) {
+  $sql .= " WHERE p.tipo = '" . $conn->real_escape_string($categoria_filtro) . "'";
+}
+
+$result = $conn->query($sql);
+$produtos = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +36,10 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel='stylesheet'
     href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-  <link rel="stylesheet" href="../../public/css/styleProdutos.css?v=<?= time()?>">
+  <link rel="stylesheet" href="../../public/css/styleProdutos.css?v=<?= time() ?>">
 
   <!-- Logo na aba do site  -->
-  <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" href="<?= $_SERVER['DOCUMENT_ROOT'] ?>/TCC/public/img/favicon-32x32.png">
 </head>
 
 <body class="fl-body">
@@ -68,7 +86,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
           <img class="header-tema" src="../../public/img/tema.png" alt="Foto Mudança de Tema">
         </button>
       </div>
-      
+
     </div>
   </header>
 
@@ -76,7 +94,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
     <div class="nav_wrap">
       <a class="nav-link" href="../views/QuemSomos.php">Quem Somos</a>
       <a class="nav-link" href="../views/TelaProdutos.php">Produtos</a>
-      <a class="nav-link" href="#">Cuidados</a>
+      <a class="nav-link" href="../views/Cuidados.php">Cuidados</a>
       <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
       <a class="nav-link" href="../views/Faq.php">Suporte</a>
     </div>
@@ -108,27 +126,27 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 
   <section class="categorias">
 
-    <article class="categoria">
+    <article class="categoria" data-tipo="Rações" onclick="filtrarProdutos('Rações')">
       <div class="circulo"><img src="../../public/img/pet-food (4).png" alt=""></div>
       <p class="tipo">Ração</p>
     </article>
 
-    <article class="categoria">
+    <article class="categoria" data-tipo="Aperitivos" onclick="filtrarProdutos('Aperitivos')">
       <div class="circulo"><img src="../../public/img/treats.png" alt=""></div>
       <p class="tipo">Aperitivos</p>
     </article>
 
-    <article class="categoria">
+    <article class="categoria" data-tipo="Coleiras" onclick="filtrarProdutos('Coleiras')">
       <div class="circulo"><img src="../../public/img/collar.png" alt=""></div>
       <p class="tipo">Coleiras</p>
     </article>
 
-    <article class="categoria">
+    <article class="categoria" data-tipo="Brinquedos" onclick="filtrarProdutos('Brinquedos')">
       <div class="circulo"><img src="../../public/img/dog-toy.png" alt=""></div>
       <p class="tipo">Brinquedos</p>
     </article>
 
-    <article class="categoria">
+    <article class="categoria" data-tipo="Higiene" onclick="filtrarProdutos('Higiene')">
       <div class="circulo"><img src="../../public/img/shampoo.png" alt=""></div>
       <p class="tipo">Higiene</p>
     </article>
@@ -136,96 +154,58 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
   </section>
 
   <section class="produtos">
-
     <div class="grid-container">
-
-      <article class="produto">
-        <a href="../views/InformacaoProduto.html">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-      <!-- Linha 2 -->
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
-
-      <article class="produto">
-        <a href="#">
-          <div class="img-produto">
-            <img src="../../public/img/casinha.png" alt="casinha de cachorro">
-          </div>
-          <p>Casa para cachorro preto e azul</p>
-          <p>R$ 109,90</p>
-        </a>
-      </article>
+      <?php foreach ($produtos as $produto):
+        // Remove "uploads/imgProdutos/" se existir no nome da imagem
+        $nome_imagem = str_replace('uploads/imgProdutos/', '', $produto['nome_imagem']);
+        $caminho_imagem = "/TCC/public/uploads/imgProdutos/" . $nome_imagem;
+        $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . '/TCC/public/uploads/imgProdutos/' . $nome_imagem;
+      ?>
+        <article class="produto" data-categoria="<?= htmlspecialchars($produto['tipo']) ?>">
+          <a href="InformacaoProduto.php?id=<?= $produto['id_produto'] ?>">
+            <div class="img-produto">
+              <?php if (file_exists($caminho_absoluto)): ?>
+                <img src="<?= $caminho_imagem ?>" alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
+              <?php else: ?>
+                <div class="imagem-padrao">
+                  Imagem não encontrada:<br>
+                  Nome: <?= htmlspecialchars($nome_imagem) ?><br>
+                  Caminho: <?= htmlspecialchars($caminho_absoluto) ?>
+                </div>
+              <?php endif; ?>
+            </div>
+            <p><?= htmlspecialchars($produto['nome_produto']) ?></p>
+            <p>R$ <?= number_format($produto['valor'], 2, ',', '.') ?></p>
+          </a>
+        </article>
+      <?php endforeach; ?>
     </div>
-    </div>
-  </section>
+</section>
+
+  <script>
+    function filtrarProdutos(categoria) {
+      // Atualiza a URL sem recarregar a página
+      window.history.pushState({}, '', `?categoria=${encodeURIComponent(categoria)}`);
+
+      // Filtra os produtos no cliente (opcional - pode remover se preferir recarregar)
+      const produtos = document.querySelectorAll('.produto');
+      produtos.forEach(produto => {
+        const produtoCategoria = produto.getAttribute('data-categoria');
+        if (categoria === 'todos' || produtoCategoria === categoria) {
+          produto.style.display = 'block';
+        } else {
+          produto.style.display = 'none';
+        }
+      });
+
+      // Ou, para recarregar a página com o filtro (comente as linhas acima e descomente esta)
+      // window.location.href = `?categoria=${encodeURIComponent(categoria)}`;
+    }
+  </script>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../../public/js/scriptPrincipal.js"></script>
+  <!-- <script src="../../public/js/TelaProdutos.js"></script> -->
   <script src="../../public/js/tema.js"></script>
 </body>
 
