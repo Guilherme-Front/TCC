@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST['csrf_token'] !== $_SESSION['csrf_token']
     ) {
         $_SESSION['erro'] = 'Token de segurança inválido!';
-        header('Location: ../views/telaPerfil.php');
+        header('Location: ../views/perfil.php');
         exit();
     }
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Verifica se uma nova foto foi enviada
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         // Consulta a foto antiga
         $stmt = $conn->prepare("SELECT foto FROM cliente WHERE id_cliente = ?");
         $stmt->bind_param("i", $id_cliente);
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->fetch();
         $stmt->close();
 
-        // Exclui a foto antiga
+        // Exclui a foto antiga se existir
         if (!empty($fotoAntiga)) {
             $caminhoAntigo = $pastaCliente . '/' . $fotoAntiga;
             if (file_exists($caminhoAntigo)) {
@@ -51,13 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nomeFoto = uniqid() . '-' . basename($_FILES['foto']['name']);
         $caminhoNovo = $pastaCliente . '/' . $nomeFoto;
 
-        // Move o novo arquivo e atualiza no banco
+        // Move o novo arquivo
         if (move_uploaded_file($_FILES['foto']['tmp_name'], $caminhoNovo)) {
             $stmt = $conn->prepare("UPDATE cliente SET foto = ? WHERE id_cliente = ?");
             $stmt->bind_param("si", $nomeFoto, $id_cliente);
             $stmt->execute();
             $stmt->close();
 
+            // Atualiza a sessão com a nova foto
+            $_SESSION['foto_cliente'] = $nomeFoto;
             $_SESSION['sucesso'] = "Foto atualizada com sucesso!";
         } else {
             $_SESSION['erro'] = "Erro ao salvar a nova foto.";
@@ -82,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data_mysql = "{$matches[3]}-{$matches[2]}-{$matches[1]}";
     } else {
         $_SESSION['erro'] = 'Data de nascimento inválida!';
-        header('Location: ../views/telaPerfil.php');
+        header('Location: ../views/perfil.php');
         exit();
     }
 

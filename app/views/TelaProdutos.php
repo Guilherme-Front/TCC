@@ -14,8 +14,8 @@ $sql = "SELECT p.*,
                 LIMIT 1) AS nome_imagem 
         FROM produto p";
 
-// Se houver filtro de categoria, adiciona WHERE à query
-if ($categoria_filtro && in_array($categoria_filtro, ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'])) {
+// Se houver filtro de categoria e não for 'Todos', adiciona WHERE à query
+if ($categoria_filtro && $categoria_filtro !== 'Todos' && in_array($categoria_filtro, ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'])) {
   $sql .= " WHERE p.tipo = '" . $conn->real_escape_string($categoria_filtro) . "'";
 }
 
@@ -126,6 +126,11 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
 
   <section class="categorias">
 
+    <article class="categoria" data-tipo="Todos" onclick="filtrarProdutos('Todos')">
+      <div class="circulo"><img src="../../public/img/tool.png" alt=""></div>
+      <p class="tipo">Todos</p>
+    </article>
+
     <article class="categoria" data-tipo="Rações" onclick="filtrarProdutos('Rações')">
       <div class="circulo"><img src="../../public/img/pet-food (4).png" alt=""></div>
       <p class="tipo">Ração</p>
@@ -160,7 +165,7 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
         $nome_imagem = str_replace('uploads/imgProdutos/', '', $produto['nome_imagem']);
         $caminho_imagem = "/TCC/public/uploads/imgProdutos/" . $nome_imagem;
         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . '/TCC/public/uploads/imgProdutos/' . $nome_imagem;
-      ?>
+        ?>
         <article class="produto" data-categoria="<?= htmlspecialchars($produto['tipo']) ?>">
           <a href="InformacaoProduto.php?id=<?= $produto['id_produto'] ?>">
             <div class="img-produto">
@@ -180,26 +185,23 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
         </article>
       <?php endforeach; ?>
     </div>
-</section>
+  </section>
 
   <script>
     function filtrarProdutos(categoria) {
       // Atualiza a URL sem recarregar a página
-      window.history.pushState({}, '', `?categoria=${encodeURIComponent(categoria)}`);
+      window.history.pushState({}, '', `TelaProdutos.php?categoria=${encodeURIComponent(categoria)}`);
 
-      // Filtra os produtos no cliente (opcional - pode remover se preferir recarregar)
+      // Filtra os produtos no cliente
       const produtos = document.querySelectorAll('.produto');
       produtos.forEach(produto => {
-        const produtoCategoria = produto.getAttribute('data-categoria');
-        if (categoria === 'todos' || produtoCategoria === categoria) {
+        if (categoria === 'Todos') {
           produto.style.display = 'block';
         } else {
-          produto.style.display = 'none';
+          const produtoCategoria = produto.getAttribute('data-categoria');
+          produto.style.display = (produtoCategoria === categoria) ? 'block' : 'none';
         }
       });
-
-      // Ou, para recarregar a página com o filtro (comente as linhas acima e descomente esta)
-      // window.location.href = `?categoria=${encodeURIComponent(categoria)}`;
     }
   </script>
 
