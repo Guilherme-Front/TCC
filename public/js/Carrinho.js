@@ -1,14 +1,3 @@
-function alterarQuantidade(botao, valor) {
-    let pedido = botao.closest('.pedido');
-    let input = pedido.querySelector('.quantidade-produto');
-    let quantidade = parseInt(input.value) + valor;
-    if (quantidade >= 1) {
-        input.value = quantidade;
-        atualizarSubtotal(pedido); // Atualiza o subtotal do item
-        atualizarTotalCarrinho(); // Atualiza o total geral
-    }
-}
-
 function atualizarSubtotal(pedido) {
     let precoUnitarioTexto = pedido.querySelector('.dados p:nth-child(1)').innerText;
     let precoUnitario = parseFloat(precoUnitarioTexto.replace('R$ ', '').replace(',', '.'));
@@ -17,19 +6,6 @@ function atualizarSubtotal(pedido) {
     let novoSubtotal = precoUnitario * quantidade;
 
     pedido.querySelector('.dados p:nth-child(2)').innerText = `R$ ${novoSubtotal.toFixed(2).replace('.', ',')}`;
-}
-
-function excluirPedido(botao) {
-    let pedido = botao.closest('.pedido');
-    pedido.remove();
-    atualizarTotalCarrinho();
-    verificarCarrinhoVazio();
-    salvarEstadoCarrinho();
-
-    setTimeout(() => {
-        verificarCarrinhoVazio();
-        salvarEstadoCarrinho();
-    }, 0);
 }
 
 function limparCarrinho() {
@@ -77,31 +53,145 @@ function verificarCarrinhoVazio() {
     }
 }
 
+// Função para carregar os itens do carrinho quando a página é aberta
+        function carregarCarrinho() {
+            const container = document.querySelector('.pedido-container');
+            const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
 
-function salvarEstadoCarrinho() {
-    const container = document.querySelector('.pedido-container');
-    if (container.children.length === 0) {
-        localStorage.setItem('carrinhoVazio', 'true');
-    } else {
-        localStorage.removeItem('carrinhoVazio');
-    }
-}
+            if (carrinho.length === 0) {
+                verificarCarrinhoVazio();
+                return;
+            }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // if (localStorage.getItem('carrinhoVazio') === 'true') {
-    //     document.querySelector('.pedido-container').innerHTML = '';
-    //     verificarCarrinhoVazio(); // MANTENHA DISTÂNCIA (ativar quando adicionar o produto ao carrinho de compras)
-    // }
+            container.innerHTML = ''; // Limpa o container antes de adicionar os itens
 
-    document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
+            carrinho.forEach(produto => {
+                const subtotal = produto.preco * produto.quantidade;
 
-    document.querySelector('.pedido-container')?.addEventListener('click', (event) => {
-        const botao = event.target.closest('.excluir');
-        if (botao) {
-            excluirPedido(botao);
+                const pedidoHTML = `
+            <div class="pedido">
+                <div class="img-produto">
+                    <img src="${produto.imagem}" alt="${produto.nome}">
+                </div>
+
+                <div class="descricao-total">
+                    <div class="descricao">
+                        <h3>${produto.nome}</h3>
+                        <p>Em estoque</p>
+                    </div>
+
+                    <div class="informacoes">
+                        <div class="quantidade">
+                            <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
+                            <input aria-label="inp" class="input-add quantidade-produto" type="text" 
+                                   value="${produto.quantidade}" readonly data-produto-id="${produto.id}">
+                            <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
+                        </div>
+
+                        <div class="dados">
+                            <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                            <p>R$ ${subtotal.toFixed(2).replace('.', ',')}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-excluir">
+                    <button class="excluir" type="button" onclick="excluirPedido(this)" 
+                            data-produto-id="${produto.id}">
+                        <img src="../../public/img/x-button.png" alt="excluir">
+                    </button>
+                </div>
+            </div>
+        `;
+
+                container.insertAdjacentHTML('beforeend', pedidoHTML);
+            });
+
+            atualizarTotalCarrinho();
+            verificarCarrinhoVazio();
         }
-    });
 
-    atualizarTotalCarrinho();
-    verificarCarrinhoVazio();
-});
+        // Modificar a função excluirPedido para remover do localStorage
+        function excluirPedido(botao) {
+            const produtoId = parseInt(botao.getAttribute('data-produto-id'));
+            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+
+            // Filtrar para remover o produto
+            carrinho = carrinho.filter(produto => produto.id !== produtoId);
+
+            // Atualizar localStorage
+            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+
+            // Remover visualmente
+            let pedido = botao.closest('.pedido');
+            pedido.remove();
+
+            atualizarTotalCarrinho();
+            verificarCarrinhoVazio();
+
+            if (carrinho.length === 0) {
+                localStorage.setItem(carrinhoVazioKey, 'true');
+            }
+        }
+
+        // Modificar a função alterarQuantidade para atualizar o localStorage
+        function alterarQuantidade(botao, valor) {
+            let pedido = botao.closest('.pedido');
+            let input = pedido.querySelector('.quantidade-produto');
+            let produtoId = parseInt(input.getAttribute('data-produto-id'));
+            let quantidade = parseInt(input.value) + valor;
+
+            if (quantidade >= 1) {
+                input.value = quantidade;
+
+                // Atualizar no localStorage
+                let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+                const produtoIndex = carrinho.findIndex(p => p.id === produtoId);
+
+                if (produtoIndex !== -1) {
+                    carrinho[produtoIndex].quantidade = quantidade;
+                    localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+                }
+
+                atualizarSubtotal(pedido);
+                atualizarTotalCarrinho();
+            }
+        }
+
+        // Modificar o DOMContentLoaded para carregar o carrinho
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarCarrinho();
+
+            document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
+
+            document.querySelector('.pedido-container')?.addEventListener('click', (event) => {
+                const botao = event.target.closest('.excluir');
+                if (botao) {
+                    excluirPedido(botao);
+                }
+            });
+
+            // Adicionar evento ao botão de finalizar compra
+            document.querySelector('.finalizar-pedido')?.addEventListener('click', function() {
+                // Verificar se o carrinho está vazio
+                const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+                if (carrinho.length === 0) {
+                    alert('Seu carrinho está vazio!');
+                    return;
+                }
+
+                // Redirecionar para a página de checkout
+                window.location.href = '../views/TelaCheckout.php';
+            });
+        });
+
+        // Modificar a função limparCarrinho para limpar o localStorage
+        function limparCarrinho() {
+            localStorage.removeItem(carrinhoKey);
+            localStorage.setItem(carrinhoVazioKey, 'true');
+
+            const container = document.querySelector('.pedido-container');
+            container.innerHTML = '';
+            atualizarTotalCarrinho();
+            verificarCarrinhoVazio();
+        }

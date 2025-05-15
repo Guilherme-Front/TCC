@@ -67,7 +67,7 @@ if (!isset($_SESSION['id_cliente'])) {
             </p>
 
             <div class="pedido-container">
-                <div class="pedido">
+                <!-- <div class="pedido">
                     <div class="img-produto">
                         <img src="../../public/img/casinha.png" alt="casinha">
                     </div>
@@ -97,73 +97,7 @@ if (!isset($_SESSION['id_cliente'])) {
                     <div class="button-excluir">
                         <button class="excluir" type="button" onclick="excluirPedido(this)"><img
                                 src="../../public/img/x-button.png" alt="excluir"></button>
-                    </div>
-                </div>
-
-                <div class="pedido">
-                    <div class="img-produto">
-                        <img src="../../public/img/casinha.png" alt="casinha">
-                    </div>
-
-                    <div class="descricao-total">
-                        <div class="descricao">
-                            <h3>Casinha de cachorro</h3>
-                            <p>Em estoque</p>
-                        </div>
-
-                        <div class="informacoes">
-
-                            <div class="quantidade">
-                                <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1"
-                                    readonly>
-                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
-                            </div>
-
-                            <div class="dados">
-                                <p>R$ 79,99</p>
-                                <p>R$ 79,99</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="button-excluir">
-                        <button class="excluir" type="button" onclick="excluirPedido(this)"><img
-                                src="../../public/img/x-button.png" alt="excluir"></button>
-                    </div>
-                </div>
-
-                <div class="pedido">
-                    <div class="img-produto">
-                        <img src="../../public/img/casinha.png" alt="casinha">
-                    </div>
-
-                    <div class="descricao-total">
-                        <div class="descricao">
-                            <h3>Casinha de cachorro</h3>
-                            <p>Em estoque</p>
-                        </div>
-
-                        <div class="informacoes">
-
-                            <div class="quantidade">
-                                <button class="button-add" onclick="alterarQuantidade(this, -1)">∨</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" value="1"
-                                    readonly>
-                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">∧</button>
-                            </div>
-
-                            <div class="dados">
-                                <p>R$ 79,99</p>
-                                <p>R$ 79,99</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="button-excluir">
-                        <button class="excluir" type="button" onclick="excluirPedido(this)"><img
-                                src="../../public/img/x-button.png" alt="excluir"></button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

@@ -56,7 +56,7 @@ function corrigirCaminhoImagem($nome_imagem)
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
 
-    <title>Produto</title>
+    <title>Informações do Produto | Pet Insight</title>
 </head>
 
 <body>
@@ -236,8 +236,77 @@ function corrigirCaminhoImagem($nome_imagem)
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../public/js/infoProduto.js"></script>
     <script src="../../public/js/tema.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Função para adicionar produto ao carrinho
+            document.querySelector('.add-carrinho')?.addEventListener('click', function() {
+                const idProduto = <?= $id_produto ?>;
+                const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
+                const precoProduto = <?= $produto['valor'] ?>;
+                const quantidade = parseInt(document.getElementById('quantidade').value);
+                const imagemProduto = "<?= !empty($imagens) ? corrigirCaminhoImagem($imagens[0]['nome_imagem']) : '../../public/img/sem-imagem.png' ?>";
+
+                // Criar objeto do produto
+                const produto = {
+                    id: idProduto,
+                    nome: nomeProduto,
+                    preco: precoProduto,
+                    quantidade: quantidade,
+                    imagem: imagemProduto
+                };
+
+                // Adicionar ao carrinho
+                adicionarAoCarrinho(produto);
+            });
+        });
+
+        function adicionarAoCarrinho(produto) {
+            // Verificar se o usuário está logado
+            const idCliente = <?= isset($_SESSION['id_cliente']) ? $_SESSION['id_cliente'] : 'null' ?>;
+
+            if (!idCliente) {
+                alert('Por favor, faça login para adicionar produtos ao carrinho.');
+                window.location.href = '../views/Login.html';
+                return;
+            }
+
+            // Obter carrinho atual do localStorage
+            const carrinhoKey = `carrinho_${idCliente}`;
+            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+
+            // Verificar se o produto já está no carrinho
+            const produtoExistenteIndex = carrinho.findIndex(item => item.id === produto.id);
+
+            if (produtoExistenteIndex !== -1) {
+                // Se já existe, apenas atualiza a quantidade
+                carrinho[produtoExistenteIndex].quantidade += produto.quantidade;
+            } else {
+                // Se não existe, adiciona novo produto
+                carrinho.push(produto);
+            }
+
+            // Salvar no localStorage
+            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+            localStorage.removeItem(`carrinhoVazio_${idCliente}`);
+
+            // Feedback para o usuário
+            alert('Produto adicionado ao carrinho!');
+
+            // Opcional: redirecionar para o carrinho
+            // window.location.href = '../views/TelaCarrinho.php';
+        }
+
+        // Função existente para alterar quantidade
+        function alterarQuantidade(valor) {
+            let input = document.getElementById("quantidade");
+            let quantidade = parseInt(input.value) + valor;
+            if (quantidade >= 1) {
+                input.value = quantidade;
+            }
+        }
+    </script>
 </body>
 
 </html>
