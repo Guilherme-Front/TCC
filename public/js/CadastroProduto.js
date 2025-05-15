@@ -81,3 +81,34 @@ form.addEventListener("submit", function (e) {
         .catch(() => alert("Erro ao cadastrar produto!"));
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  // Elementos da descrição curta
+  const descricaoCurta = document.getElementById('descricao-curta');
+  const contadorCurta = document.getElementById('contador-curta');
+  
+  // Elementos da descrição detalhada
+  const descricaoDetalhada = document.getElementById('descricao-detalhada');
+  const contadorDetalhada = document.getElementById('contador-detalhada');
+
+  // Atualizar contador da descrição curta
+  descricaoCurta.addEventListener('input', function() {
+    const caracteresDigitados = this.value.length;
+    contadorCurta.textContent = caracteresDigitados;
+    
+    // Mudar cor se atingir o limite
+    contadorCurta.style.color = caracteresDigitados >= 200 ? 'red' : '#666';
+  });
+
+  // Atualizar contador da descrição detalhada
+  descricaoDetalhada.addEventListener('input', function() {
+    const caracteresDigitados = this.value.length;
+    contadorDetalhada.textContent = caracteresDigitados;
+    
+    // Mudar cor se atingir o limite
+    contadorDetalhada.style.color = caracteresDigitados >= 300 ? 'red' : '#666';
+  });
+
+  // Inicializar contadores
+  contadorCurta.textContent = descricaoCurta.value.length;
+  contadorDetalhada.textContent = descricaoDetalhada.value.length;
+});

@@ -16,7 +16,8 @@ if (!isset($_SESSION['csrf_token'])) {
 }
 
 // Busca os dados do cliente
-$stmt = $conn->prepare("SELECT nome, email, telefone, datNasc FROM cliente WHERE id_cliente = ?");
+// Busca os dados do cliente
+$stmt = $conn->prepare("SELECT nome, email, telefone, datNasc, foto FROM cliente WHERE id_cliente = ?");
 $stmt->bind_param("i", $id_cliente);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -128,28 +129,34 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       <div class="perfil">
         <form action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
           <div class="img-txt">
-            <?php if (!empty($cliente['foto'])): ?>
-              <!-- Exibe a foto do usuário se cadastrada -->
-              <img class="gato" id="previewFoto"
-                src="../../public/uploads/imgUsuarios/<?= $id_cliente . '/' . htmlspecialchars($cliente['foto'] ?? 'gato.jpg') ?>"
-                data-foto="<?= htmlspecialchars($cliente['foto'] ?? '') ?>" alt="Foto do perfil" />
-            <?php else: ?>
-              <!-- Exibe a imagem padrão caso não tenha foto cadastrada -->
-              <img class="gato" id="previewFoto" alt="Foto do perfil" />
-            <?php endif; ?>
-            <p class="boas-vindas">Olá
-              <strong>
-                <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
-              </strong>
-            </p>
+            <div class="foto-container">
+              <?php if (!empty($cliente['foto'])): ?>
+                <!-- Exibe a foto do usuário se cadastrada -->
+                <img class="gato" id="previewFoto"
+                  src="../../public/uploads/imgUsuarios/<?= $id_cliente . '/' . (isset($_SESSION['foto_cliente']) ? $_SESSION['foto_cliente'] : htmlspecialchars($cliente['foto'] ?? 'gato.jpg')) ?>"
+                  alt="Foto do perfil" />
+              <?php else: ?>
+                <!-- Exibe a imagem padrão caso não tenha foto cadastrada -->
+                <img class="gato" id="previewFoto" alt="Foto do perfil" />
+              <?php endif; ?>
+
+              <p class="boas-vindas">Olá
+                <strong>
+                  <?= !empty($cliente['nome']) ? htmlspecialchars($cliente['nome']) : 'Usuário' ?>!
+                </strong>
+              </p>
+            </div>
+
+            <div class="flex-enviar">
+              <!-- Input de foto escondido inicialmente -->
+              <input type="file" name="foto" id="foto" class="enviar-foto" hidden>
+
+              <!-- Botão de enviar foto -->
+              <label for="foto" class="enviar-foto" id="btn-enviar-foto" style="display: none;">Enviar foto</label>
+
+              <!-- Botão de cancelar (será adicionado pelo JavaScript) -->
+            </div>
           </div>
-
-          <!-- Input de foto escondido inicialmente -->
-          <input type="file" name="foto" id="foto" class="enviar-foto" hidden>
-
-          <!-- Botão de enviar foto escondido inicialmente -->
-          <label for="foto" class="enviar-foto" id="btn-enviar-foto" style="display: none;">Enviar foto</label>
-
 
           <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
@@ -163,10 +170,6 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
               <input type="email" name="email" id="email"
                 value="<?= isset($cliente['email']) ? htmlspecialchars($cliente['email']) : '' ?>" disabled>
 
-              <label>Senha</label>
-              <div class="password-field">
-                <a href="alterar_senha.php" class="change-password">Alterar senha</a>
-              </div>
             </div>
 
             <div class="dados">
@@ -229,6 +232,26 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
       if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
       e.target.value = value;
+    });
+
+    // Preview da imagem antes de enviar
+    document.getElementById('foto').addEventListener('change', function (e) {
+      const preview = document.getElementById('previewFoto');
+      const file = e.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+
+          // Mostra um botão para cancelar a alteração da foto
+          const btnCancelarFoto = document.getElementById('btn-cancelar-foto') || createCancelButton();
+          btnCancelarFoto.style.display = 'inline-block';
+        }
+
+        reader.readAsDataURL(file);
+      }
     });
 
   </script>

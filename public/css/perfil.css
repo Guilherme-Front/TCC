@@ -191,30 +191,42 @@ ul li.item-menu-logoff a .icon>img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    margin-top: 30px;
     object-fit: cover;
 }
 
 .boas-vindas {
+    margin-left: 105px;
     padding: 15px;
-    margin-top: 10px;
+    margin-top: -75px;
+    margin-bottom: 30px;
 }
 
 .img-txt {
     display: flex;
-    margin-top: 20px;
+    flex-direction: column;  /* Altera o fluxo para vertical */
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.flex-enviar {
+    display: flex;
+    gap: 10px;
+    width: 100%;
 }
 
 label.enviar-foto {
-    padding: 5px;
-    margin-top: 2px;
-    margin-left: 5px;
+    padding: 2px;
+    margin-top: 5px;
+    margin-left: 13px;
     text-align: left;
     border: none;
     background: none;
     cursor: pointer;
     color: rgb(116, 116, 116);
     background: none;
-    font-family: 15px;
+    font-size: 15px;
+    margin-bottom: -25px;
 }
 
 section {
@@ -267,7 +279,7 @@ input {
     font-size: 16px;
     border-radius: 2px;
     margin-top: 48px;
-    margin-left: 67px;
+    margin-left: 51px;
 }
 
 .alterar-dados:hover {

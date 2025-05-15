@@ -220,7 +220,9 @@ main {
     justify-content: center;
     background-color: rgb(252, 252, 252);
     height: 380px;
+    padding-left: 50px;
 }
+
 
 .voltar {
     display: flex;
@@ -253,6 +255,7 @@ main {
 
 .info {
     margin-left: 35px;
+    width: 600px;
 }
 
 .preço {
@@ -271,6 +274,7 @@ main {
 
 .info h2 {
     font-size: 25px;
+    
 }
 
 .tamanho {
@@ -292,19 +296,6 @@ main {
     margin-bottom: 20px;
     font-weight: 500;
 }
-
-/* .quantidade-box {
-    margin-top: 25px;
-    align-items: center;
-    display: flex;
-    justify-content: end;
-}
-
-.quantidade-box label {
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 25px;
-} */
 
 .input-add {
     font-size: 20px;
@@ -349,10 +340,11 @@ main {
 }
 
 .compra {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
+    gap: 30px;
 }
 
 .add-carrinho {
@@ -360,7 +352,6 @@ main {
     background-color: transparent;
     display: flex;
     cursor: pointer;
-    margin-left: 200px;
 }
 
 .add-carrinho img {
@@ -393,10 +384,11 @@ main {
 .compra-qtde {
     display: flex;
     justify-content: end;
+    margin-top: 50px;
 }
 
 .qtde-label{
-    margin-right: 35px;
+    margin-right: 30px;
 }
 
 .descricao-container {
@@ -433,7 +425,8 @@ main {
 }
 
 .descricao-container p {
-    font-size: 18px;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
 .descricao-container h3 {

@@ -148,6 +148,13 @@ select:active{
     text-align: center;
 }
 
+.contador-caracteres {
+  text-align: right;
+  color: #666;
+  font-size: 14px;
+  margin-top: -13px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -156,7 +163,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 textarea{
-    height: 60px;
     width: 300px;
     text-align: justify;
     padding: 0;
@@ -170,7 +176,7 @@ textarea{
 }
 
 .desc-detalhada{
-    height: 100px;
+    height: 300px;
 }
 
 .cadastrar-button {

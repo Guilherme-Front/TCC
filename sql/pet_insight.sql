@@ -44,7 +44,7 @@ CREATE TABLE endereco (
 
 CREATE TABLE produto (
     id_produto INT NOT NULL AUTO_INCREMENT,
-    nome_produto VARCHAR(30) NOT NULL,
+    nome_produto VARCHAR(100) NOT NULL,
     tipo ENUM(
         "Rações",
         "Aperitivos",
@@ -52,8 +52,8 @@ CREATE TABLE produto (
         "Brinquedos",
         "Coleiras"
     ) NOT NULL,
-    descricaoMenor VARCHAR(60) NOT NULL,
-    descricaoMaior VARCHAR(200) NOT NULL,
+    descricaoMenor VARCHAR(200) NOT NULL,
+    descricaoMaior VARCHAR(500) NOT NULL,
     valor DECIMAL(10, 2) NOT NULL,
     quantidade INT(10) NOT NULL,
     marca VARCHAR(30) NOT NULL,
