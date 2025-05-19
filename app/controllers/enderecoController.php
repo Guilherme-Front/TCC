@@ -33,9 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $numero = isset($_POST['numero']) ? (int)sanitizeInput($_POST['numero']) : null;
     $complemento = isset($_POST['complemento']) ? sanitizeInput($_POST['complemento']) : null;
 
-    // Remove hífen do CEP para armazenamento (12345-678 -> 12345678)
-    $cep = str_replace('-', '', $cep);
-
     // Validações básicas
     $erros = [];
     
@@ -119,4 +116,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     header('Location: ../views/telaPerfil.php');
     exit();
+}
+
+// Adicione esta função no seu código
+function buscarEnderecoPorCEP($cep) {
+    $cep = preg_replace('/[^0-9]/', '', $cep);
+    $url = "https://viacep.com.br/ws/{$cep}/json/";
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    
+    return json_decode($response, true);
+}
+
+// Na validação do CEP, você pode adicionar:
+if (empty($erros)) {
+    $dadosCEP = buscarEnderecoPorCEP($cep);
+    if (isset($dadosCEP['erro'])) {
+        $erros[] = 'CEP não encontrado. Verifique o número digitado.';
+    } else {
+        // Preencha automaticamente os campos se estiverem vazios
+        if (empty($rua)) $rua = $dadosCEP['logradouro'] ?? '';
+        if (empty($bairro)) $bairro = $dadosCEP['bairro'] ?? '';
+        if (empty($cidade)) $cidade = $dadosCEP['localidade'] ?? '';
+    }
 }

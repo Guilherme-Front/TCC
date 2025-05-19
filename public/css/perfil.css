@@ -332,12 +332,12 @@ a:active {
 
 .campo-endereco.cep {
     width: 80px;
-    margin-right: 28px; /* Espaço reduzido apenas entre CEP e Cidade */
+    margin-right: 28px; 
 }
 
 .campo-endereco.cidade {
     flex: 1;
-    margin-right: 5px; /* Espaço reduzido entre Cidade e UF */ 
+    margin-right: 5px; 
 }
 
 .select-uf{

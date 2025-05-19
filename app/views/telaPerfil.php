@@ -203,8 +203,11 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
             <div class="linha-endereco">
               <div class="campo-endereco cep">
                 <label for="cep">CEP</label>
-                <input class="cep" type="text" name="cep" id="cep" placeholder="00000-000"
-                  value="<?= isset($endereco['cep']) ? htmlspecialchars($endereco['cep']) : '' ?>" disabled>
+                <div class="cep-input-group">
+                  <input class="cep" type="text" name="cep" id="cep" placeholder="00000-000"
+                    value="<?= isset($endereco['cep']) ? htmlspecialchars($endereco['cep']) : '' ?>" disabled>
+                </div>
+                <span id="cep-error" class="error-message" style="color:red; display:none;"></span>
               </div>
               <div class="campo-endereco cidade">
                 <label for="cidade">Cidade</label>
@@ -277,10 +280,15 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       const btnAlterarEndereco = document.getElementById('btn-alterar-endereco');
       const btnSalvarEndereco = document.getElementById('btn-salvar-endereco');
       const inputFoto = document.getElementById('foto');
+      const cepInput = document.getElementById('cep');
+      const cepError = document.getElementById('cep-error');
+
+      // Estado para controlar se o CEP é válido
+      let cepValido = false;
 
       // Verificar se a foto padrão está sendo usada
-      if (previewFoto && previewFoto.src.includes('gato.jpg')) {
-        previewFoto.src = '../../public/img/gato.jpg';
+      if (previewFoto && previewFoto.src.includes('user-img.png')) {
+        previewFoto.src = '../../public/img/user-img.png';
       }
 
       // Funções para armazenar valores originais
@@ -294,7 +302,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
           };
         } else if (secao === 'endereco') {
           valoresOriginais.endereco = {
-            cep: document.getElementById('cep').value,
+            cep: cepInput.value,
             cidade: document.getElementById('cidade').value,
             rua: document.getElementById('rua').value,
             bairro: document.getElementById('bairro').value,
@@ -312,7 +320,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
           document.getElementById('data_nascimento').value = valoresOriginais.perfil.data_nascimento;
           document.getElementById('telefone').value = valoresOriginais.perfil.telefone;
         } else if (secao === 'endereco' && valoresOriginais.endereco) {
-          document.getElementById('cep').value = valoresOriginais.endereco.cep;
+          cepInput.value = valoresOriginais.endereco.cep;
           document.getElementById('cidade').value = valoresOriginais.endereco.cidade;
           document.getElementById('rua').value = valoresOriginais.endereco.rua;
           document.getElementById('bairro').value = valoresOriginais.endereco.bairro;
@@ -347,6 +355,21 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
       // Função para resetar formulários
       function resetarFormularios() {
+        // Limpar mensagens de erro do CEP
+        if (cepError) {
+          cepError.textContent = '';
+          cepError.style.display = 'none';
+        }
+
+        // Remover classe de erro
+        const cepGroup = document.querySelector('.cep-input-group');
+        if (cepGroup) {
+          cepGroup.classList.remove('has-error');
+        }
+
+        // Resetar estado de validação
+        cepValido = false;
+
         // Verificar se há alterações não salvas no perfil
         if (btnSalvarDados && btnSalvarDados.style.display === 'block') {
           restaurarValoresOriginais('perfil');
@@ -416,6 +439,20 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       // Evento para alterar endereço
       if (btnAlterarEndereco) {
         btnAlterarEndereco.addEventListener('click', function () {
+          // Limpa erros anteriores ao começar nova edição
+          if (cepError) {
+            cepError.textContent = '';
+            cepError.style.display = 'none';
+          }
+
+          const cepGroup = document.querySelector('.cep-input-group');
+          if (cepGroup) {
+            cepGroup.classList.remove('has-error');
+          }
+
+          // Resetar estado de validação
+          cepValido = false;
+
           armazenarValoresOriginais('endereco');
           const enderecoInputs = document.querySelectorAll('#endereco-section input');
 
@@ -428,39 +465,51 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
           if (btnSalvarEndereco) btnSalvarEndereco.style.display = 'block';
 
           // Foca no primeiro campo (CEP)
-          document.getElementById('cep').focus();
+          if (cepInput) cepInput.focus();
         });
       }
 
       // Evento para salvar endereço (validação antes de enviar)
       if (btnSalvarEndereco) {
-        btnSalvarEndereco.addEventListener('click', function (e) {
+        btnSalvarEndereco.addEventListener('click', async function (e) {
+          e.preventDefault(); // Impede o envio padrão do formulário
+
           let formularioValido = true;
 
-          // Validação do CEP (deve ter 8 dígitos)
-          const cepInput = document.getElementById('cep');
-          const cepValue = cepInput.value.replace(/\D/g, '');
+          // Validação do CEP (deve ter 8 dígitos e ser válido)
+          if (cepInput) {
+            const cepValue = cepInput.value.replace(/\D/g, '');
 
-          if (cepValue.length !== 8) {
-            alert('CEP deve conter 8 dígitos');
-            cepInput.classList.add('campo-invalido');
-            cepInput.focus();
-            formularioValido = false;
-          } else {
-            cepInput.classList.remove('campo-invalido');
+            if (cepValue.length !== 8) {
+              mostrarErroCEP('CEP deve conter 8 dígitos');
+              cepInput.focus();
+              formularioValido = false;
+              cepValido = false;
+            } else if (!cepValido) {
+              // Se o CEP tem 8 dígitos mas não foi validado ainda
+              const valido = await verificarCEP(cepValue);
+              if (!valido) {
+                mostrarErroCEP('CEP inválido ou não encontrado');
+                formularioValido = false;
+                cepValido = false;
+                return;
+              }
+            }
           }
 
           // Validação do número (deve ser numérico e entre 1-9999)
           const numeroInput = document.getElementById('numero');
-          const numeroValue = parseInt(numeroInput.value);
+          if (numeroInput) {
+            const numeroValue = parseInt(numeroInput.value);
 
-          if (!numeroInput.value || isNaN(numeroValue) || numeroValue < 1 || numeroValue > 9999) {
-            alert('Número deve ser um valor entre 1 e 9999');
-            numeroInput.classList.add('campo-invalido');
-            numeroInput.focus();
-            formularioValido = false;
-          } else {
-            numeroInput.classList.remove('campo-invalido');
+            if (!numeroInput.value || isNaN(numeroValue) || numeroValue < 1 || numeroValue > 9999) {
+              alert('Número deve ser um valor entre 1 e 9999');
+              numeroInput.classList.add('campo-invalido');
+              numeroInput.focus();
+              formularioValido = false;
+            } else {
+              numeroInput.classList.remove('campo-invalido');
+            }
           }
 
           // Validação dos campos obrigatórios
@@ -469,24 +518,98 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
           camposObrigatorios.forEach(campo => {
             const input = document.getElementById(campo);
-            if (!input.value.trim()) {
+            if (input && !input.value.trim()) {
               camposVazios.push(campo);
               input.classList.add('campo-invalido');
               formularioValido = false;
-            } else {
+            } else if (input) {
               input.classList.remove('campo-invalido');
             }
           });
 
           if (camposVazios.length > 0) {
             alert('Por favor, preencha todos os campos obrigatórios');
-            document.getElementById(camposVazios[0]).focus();
+            const primeiroCampo = document.getElementById(camposVazios[0]);
+            if (primeiroCampo) primeiroCampo.focus();
           }
 
-          if (!formularioValido) {
-            e.preventDefault();
+          // Se tudo estiver válido, submete o formulário
+          if (formularioValido && cepValido) {
+            document.querySelector('#endereco-section form').submit();
           }
         });
+      }
+
+      // Função para verificar se o CEP é válido
+      async function verificarCEP(cep) {
+        try {
+          const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await response.json();
+          return !data.erro;
+        } catch (error) {
+          console.error('Erro ao verificar CEP:', error);
+          return false;
+        }
+      }
+
+      // Função para buscar e preencher dados do CEP
+      async function buscarCEP(cep) {
+        cep = cep.replace(/\D/g, '');
+
+        if (cep.length !== 8) {
+          mostrarErroCEP('CEP deve conter 8 dígitos');
+          cepValido = false;
+          return false;
+        }
+
+        if (cepInput) cepInput.classList.add('loading');
+        if (cepError) cepError.style.display = 'none';
+
+        try {
+          const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+          const data = await response.json();
+
+          if (data.erro) {
+            throw new Error('CEP não encontrado');
+          }
+
+          // Preenche os campos apenas se existirem
+          const rua = document.getElementById('rua');
+          const bairro = document.getElementById('bairro');
+          const cidade = document.getElementById('cidade');
+
+          if (rua) rua.value = data.logradouro || '';
+          if (bairro) bairro.value = data.bairro || '';
+          if (cidade) cidade.value = data.localidade || '';
+
+          // Marca o CEP como válido
+          cepValido = true;
+
+          // Foca no campo número
+          const numero = document.getElementById('numero');
+          if (numero) numero.focus();
+
+          return true;
+        } catch (error) {
+          console.error('Erro ao buscar CEP:', error);
+          mostrarErroCEP(error.message || 'Erro ao buscar CEP');
+          cepValido = false;
+          return false;
+        } finally {
+          if (cepInput) cepInput.classList.remove('loading');
+        }
+      }
+
+      function mostrarErroCEP(mensagem) {
+        if (cepError) {
+          cepError.textContent = mensagem;
+          cepError.style.display = 'block';
+        }
+        const cepGroup = document.querySelector('.cep-input-group');
+        if (cepGroup) {
+          cepGroup.classList.add('has-error');
+        }
+        cepValido = false;
       }
 
       // Máscaras de entrada
@@ -500,12 +623,25 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
         });
       }
 
-      const inputCEP = document.getElementById('cep');
-      if (inputCEP) {
-        inputCEP.addEventListener('input', function (e) {
+      if (cepInput) {
+        cepInput.addEventListener('input', function (e) {
           let value = e.target.value.replace(/\D/g, '');
           if (value.length > 5) value = value.substring(0, 5) + '-' + value.substring(5, 8);
           e.target.value = value;
+
+          // Limpa o estado de validação quando o usuário edita
+          cepValido = false;
+
+          // Busca automática quando tiver 8 dígitos (9 com hífen)
+          if (value.length === 9) {
+            buscarCEP(value);
+          }
+        });
+
+        cepInput.addEventListener('blur', function () {
+          if (!this.disabled && this.value.length === 9) {
+            buscarCEP(this.value);
+          }
         });
       }
 
@@ -527,13 +663,11 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
         inputFoto.addEventListener('change', function (e) {
           const file = e.target.files[0];
           if (file) {
-            // Verifica se o arquivo é uma imagem
             if (!file.type.match('image.*')) {
               alert('Por favor, selecione um arquivo de imagem');
               return;
             }
 
-            // Verifica o tamanho do arquivo (máximo 2MB)
             if (file.size > 2 * 1024 * 1024) {
               alert('A imagem deve ter no máximo 2MB');
               return;
@@ -552,8 +686,8 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       window.addEventListener('hashchange', verificarHash);
       verificarHash();
     });
-
   </script>
+
 </body>
 
 </html>
