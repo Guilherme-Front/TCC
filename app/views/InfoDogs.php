@@ -17,7 +17,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="../../public/css/styleInfo.css">
+    <link rel="stylesheet" href="../../public/css/styleInfo.css?v=<?= time() ?>">
 
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -31,11 +31,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                         alt="Imagem da Logo"></a>
             </div>
 
-            <div class="search">
-                <label for="search">
-                    <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui">
-                </label>
-            </div>
+            
 
             <div class="header-link-tema">
                 <?php if (isset($_SESSION['id_cliente'])): ?>
@@ -246,24 +242,6 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                             provoca vômitos, anemias, sangue na urina, fraqueza, respiração ofegante e frequência
                             cardíaca elevada. Portanto, alimentos com esses temperos, como o arroz, devem ser evitados.
                         </p>
-                    </div>
-
-
-                    <div class="carousel-container-dog">
-                        <div class="carousel">
-                            <div class="carousel-item item1">
-                                <img class="img-carousel" src="../../public/img/guabi-natural.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item2">
-                                <img class="img-carousel" src="../../public/img/img-racao.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item3">
-                                <img class="img-carousel" src="../../public/img/guabi-natural.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item4">
-                                Item 4
-                            </div>
-                        </div>
                     </div>
                 </div>
         </section>

@@ -34,7 +34,6 @@ main {
     width: 35px;
     transition: all 0.3s ease;
     display: inline-block;
-    /* filter: brightness(0.4); */
 }
 
 .carrinho-compras:hover {
@@ -187,11 +186,10 @@ ul li.item-menu-logoff a .icon>img {
     margin-left: 9px;
 }
 
-.gato {
+img.gato {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    margin-top: 30px;
+    border-radius: 50%;  
     object-fit: cover;
 }
 
@@ -204,8 +202,7 @@ ul li.item-menu-logoff a .icon>img {
 
 .img-txt {
     display: flex;
-    flex-direction: column;  /* Altera o fluxo para vertical */
-    margin-top: 25px;
+    flex-direction: column;
     margin-bottom: 25px;
 }
 
@@ -233,7 +230,11 @@ section {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 55px;
+    align-items: center;
+}
+
+.perfil-section{
+    margin-top: 40px;
 }
 
 .perfil {
@@ -302,6 +303,109 @@ a:active {
     background: none;
 }
 
+/* Tela de endereco */
+
+.dados-endereco {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.linha-endereco {
+    display: flex;
+    gap: 5px; 
+}
+
+.campo-endereco {
+    display: flex;
+    flex-direction: column;
+}
+.campo-endereco.rua {
+    margin-right: 10px;
+}
+
+.campo-endereco.bairro {
+    margin-right: 10px;
+}
+
+.campo-endereco.cep {
+    width: 80px;
+    margin-right: 28px; /* Espaço reduzido apenas entre CEP e Cidade */
+}
+
+.campo-endereco.cidade {
+    flex: 1;
+    margin-right: 5px; /* Espaço reduzido entre Cidade e UF */ 
+}
+
+.select-uf{
+    width: 40px;
+    padding: 6px 8px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgb(160, 160, 160);
+    font-size: 15px;
+    margin-right: 210px;
+}
+
+.input-txt {
+    width: 100%; 
+}
+
+.campo-endereco label {
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.campo-endereco input {
+    width: 250px; 
+    padding: 6px 8px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgb(160, 160, 160);
+    font-size: 15px;
+}
+
+.campo-endereco input.numero {
+    width: 50px;
+    text-align: center;
+}
+
+.campo-endereco input.cep {
+    width: 80px;
+    text-align: center;
+}
+
+.select-uf {
+    width: 60px;
+}
+
+.botoes-endereco {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#btn-salvar-endereco{
+    height: 30px;
+    width: 150px;
+    border: none;
+    background-color: #BD5532;
+    color: white;
+    cursor: pointer;
+    transition: 0.8s;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 2px;
+    margin-top: 48px;
+    margin-left: 51px;
+}
+
+#btn-salvar-endereco:hover{
+    background-color: #8e3315;
+}
+
 /* 821px */
 @media screen and (max-width: 821px) {
 
@@ -311,7 +415,7 @@ a:active {
         width: 100%;
         max-width: 821px;
     }
-    
+
     section {
         width: 100%;
     }
@@ -323,7 +427,7 @@ a:active {
     .minha-conta {
         font-size: 23px;
     }
-    
+
     .carrinho {
         display: flex;
         width: 100%;
@@ -341,14 +445,14 @@ a:active {
         width: 450px;
     }
 
-    .dados{
+    .dados {
         width: 184px;
     }
 
-    aside{
+    aside {
         margin-top: 10px;
     }
-    
+
     .gato {
         width: 60px;
         height: 60px;
@@ -454,7 +558,7 @@ a:active {
         margin-left: 10px;
         margin-top: 70px;
     }
-    
+
     .menu-expandido section {
         margin-left: 120px;
     }
@@ -499,25 +603,29 @@ a:active {
         width: 184px;
     }
 
-    .perfil{
+    .perfil {
         display: flex;
         justify-content: center;
         width: 184px;
     }
-    .dados{
+
+    .dados {
         width: 184px;
     }
 
-    aside{
+    aside {
         margin-top: 20px;
     }
+
     .gato {
         width: 60px;
         height: 60px;
         border-radius: 50%;
         object-fit: cover;
+        background-color: grey;
     }
 
+    
     .boas-vindas {
         padding: 15px 0;
         margin-top: 10px;
@@ -615,9 +723,9 @@ a:active {
     .menu-lateral {
         left: -200px;
         transition: left 0.3s ease;
-      }
-      
-      body.menu-expandido .menu-lateral {
+    }
+
+    body.menu-expandido .menu-lateral {
         left: 0;
-      }
+    }
 }

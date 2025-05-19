@@ -67,12 +67,6 @@ function corrigirCaminhoImagem($nome_imagem)
                         alt="Imagem da Logo"></a>
             </div>
 
-            <div class="search">
-                <label for="search">
-                    <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui">
-                </label>
-            </div>
-
             <!-- Login Cadastro e Carrinho -->
 
             <div class="header-link-tema">
@@ -128,10 +122,11 @@ function corrigirCaminhoImagem($nome_imagem)
                     <?php foreach ($imagens as $index => $imagem):
                         $caminho_imagem = corrigirCaminhoImagem($imagem['nome_imagem']);
                         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . $caminho_imagem;
-                    ?>
+                        ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                             <?php if (file_exists($caminho_absoluto)): ?>
-                                <img src="<?= $caminho_imagem ?>" class="d-block w-100" alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
+                                <img src="<?= $caminho_imagem ?>" class="d-block w-100"
+                                    alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
                             <?php else: ?>
                                 <div class="imagem-padrao">
                                     Imagem não encontrada:<br>
@@ -239,9 +234,9 @@ function corrigirCaminhoImagem($nome_imagem)
     <script src="../../public/js/tema.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Função para adicionar produto ao carrinho
-            document.querySelector('.add-carrinho')?.addEventListener('click', function() {
+            document.querySelector('.add-carrinho')?.addEventListener('click', function () {
                 const idProduto = <?= $id_produto ?>;
                 const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
                 const precoProduto = <?= $produto['valor'] ?>;
@@ -262,41 +257,47 @@ function corrigirCaminhoImagem($nome_imagem)
             });
         });
 
-        function adicionarAoCarrinho(produto) {
-            // Verificar se o usuário está logado
-            const idCliente = <?= isset($_SESSION['id_cliente']) ? $_SESSION['id_cliente'] : 'null' ?>;
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('.add-carrinho')?.addEventListener('click', function () {
+                const idProduto = <?= $id_produto ?>;
+                const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
+                const precoProduto = <?= $produto['valor'] ?>;
+                const quantidade = parseInt(document.getElementById('quantidade').value);
+                const imagemProduto = "<?= !empty($imagens) ? corrigirCaminhoImagem($imagens[0]['nome_imagem']) : '../../public/img/sem-imagem.png' ?>";
 
-            if (!idCliente) {
-                alert('Por favor, faça login para adicionar produtos ao carrinho.');
-                window.location.href = '../views/Login.html';
-                return;
-            }
+                const produto = {
+                    id: idProduto,
+                    nome: nomeProduto,
+                    preco: precoProduto,
+                    quantidade: quantidade,
+                    imagem: imagemProduto
+                };
 
-            // Obter carrinho atual do localStorage
-            const carrinhoKey = `carrinho_${idCliente}`;
-            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-
-            // Verificar se o produto já está no carrinho
-            const produtoExistenteIndex = carrinho.findIndex(item => item.id === produto.id);
-
-            if (produtoExistenteIndex !== -1) {
-                // Se já existe, apenas atualiza a quantidade
-                carrinho[produtoExistenteIndex].quantidade += produto.quantidade;
-            } else {
-                // Se não existe, adiciona novo produto
-                carrinho.push(produto);
-            }
-
-            // Salvar no localStorage
-            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-            localStorage.removeItem(`carrinhoVazio_${idCliente}`);
-
-            // Feedback para o usuário
-            alert('Produto adicionado ao carrinho!');
-
-            // Opcional: redirecionar para o carrinho
-            // window.location.href = '../views/TelaCarrinho.php';
-        }
+                // Verificar estoque antes de adicionar
+                fetch('../backend/verificarEstoque.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({
+                        id_produto: idProduto,
+                        quantidade: quantidade
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.disponivel) {
+                            adicionarAoCarrinho(produto);
+                        } else if (data.estoque !== undefined) {
+                            alert(`Estoque insuficiente. Apenas ${data.estoque} unidade(s) disponível(is).`);
+                        } else {
+                            alert('Erro ao verificar estoque.');
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Produto não encontrado no estoque.');
+                    });
+            });
+        });
 
         // Função existente para alterar quantidade
         function alterarQuantidade(valor) {

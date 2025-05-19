@@ -31,12 +31,6 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                         alt="Imagem da Logo"></a>
             </div>
 
-            <div class="search">
-                <label for="search">
-                    <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui">
-                </label>
-            </div>
-
             <div class="header-link-tema">
                 <?php if (isset($_SESSION['id_cliente'])): ?>
                     <!-- Ícone de usuário e carrinho (usuário logado) -->

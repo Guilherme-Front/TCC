@@ -31,11 +31,6 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
         <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
       </div>
 
-      <div class="search">
-        <label for="search">
-          <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui...">
-        </label>
-      </div>
       <!-- Login Cadastro e Carrinho -->
 
       <div class="header-link-tema">

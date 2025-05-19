@@ -17,7 +17,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel="stylesheet" href="../../public/css/styleInfo.css">
+    <link rel="stylesheet" href="../../public/css/styleInfo.css?v=<?= time() ?>">
 
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -29,12 +29,6 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <div class="header-titulo">
                 <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
                         alt="Imagem da Logo"></a>
-            </div>
-
-            <div class="search">
-                <label for="search">
-                    <input type="search" class="TL-inp" name="search" id="search" placeholder="Pesquise aqui">
-                </label>
             </div>
 
             <div class="header-link-tema">
@@ -218,24 +212,6 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
                             ração para pequenos roedores, e não apenas para hamsters, por isso, recomenda-se que você
                             faça uma mistura com outras rações ou mesmo complemente com outros tipos de alimento.
                         </p>
-                    </div>
-
-
-                    <div class="carousel-container-ham">
-                        <div class="carousel">
-                            <div class="carousel-item item1">
-                                <img class="img-carousel" src="../../public/img/guabi-natural.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item2">
-                                <img class="img-carousel" src="../../public/img/img-racao.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item3">
-                                <img class="img-carousel" src="../../public/img/guabi-natural.jpg" alt="">
-                            </div>
-                            <div class="carousel-item item4">
-                                Item 4
-                            </div>
-                        </div>
                     </div>
                 </div>
         </section>

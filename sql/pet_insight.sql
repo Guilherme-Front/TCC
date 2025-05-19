@@ -32,10 +32,9 @@ CREATE TABLE senha (
 CREATE TABLE endereco (
     id_endereco INT NOT NULL AUTO_INCREMENT,
     id_cliente INT NOT NULL,
-    cep VARCHAR(8) NOT NULL,
-    bairro VARCHAR(60) NOT NULL,
-    uf VARCHAR(2) NOT NULL,
+    cep VARCHAR(9) NOT NULL,
     rua VARCHAR(60) NOT NULL,
+    bairro VARCHAR(60) NOT NULL,
     cidade VARCHAR(20) NOT NULL,
     complemento VARCHAR(60) NULL,
     numero INT(3) NULL,
@@ -81,9 +80,9 @@ CREATE TABLE formaPagamento (
     id_formaPagamento INT NOT NULL AUTO_INCREMENT,
     id_pedido INT NOT NULL,
     tipo ENUM(
-        "pix",
-        "cartão de credito",
-        "boleto bancário"
+        "Pix",
+        "Cartão de crédito",
+        "Boleto bancário"
     ) NOT NULL,
     PRIMARY KEY (id_formaPagamento)
 );

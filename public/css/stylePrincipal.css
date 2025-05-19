@@ -17,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    gap: 700px;
     margin-left: 50px;
 }
 
@@ -118,35 +119,14 @@ img.user-img{
 
 .car {
     margin-left: 40px;
+    margin-right: 35px;
     color: black;
     font-size: 30px;
     /* Ajuste o tamanho conforme necessário */
 }
 
 .header-tema {
-    margin-left: 40px;
     width: 35px;
-}
-
-.TL-inp {
-    width: 650px;
-    height: 30px;
-    border: 1px solid rgb(142, 142, 142);
-    padding: 0 10px;
-}
-
-input[type="search"] {
-    outline: none;
-    border-radius: 2px;
-}
-
-input[type="search"]::-webkit-search-cancel-button {
-    font-size: 30px;
-}
-
-.TL-inp::placeholder {
-    color: #A4A4A4;
-    font-size: 16px;
 }
 
 /* Fim Header */
