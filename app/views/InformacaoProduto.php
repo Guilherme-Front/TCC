@@ -128,11 +128,10 @@ function corrigirCaminhoImagem($nome_imagem)
                     <?php foreach ($imagens as $index => $imagem):
                         $caminho_imagem = corrigirCaminhoImagem($imagem['nome_imagem']);
                         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . $caminho_imagem;
-                        ?>
+                    ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                             <?php if (file_exists($caminho_absoluto)): ?>
-                                <img src="<?= $caminho_imagem ?>" class="d-block w-100"
-                                    alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
+                                <img src="<?= $caminho_imagem ?>" class="d-block w-100" alt="<?= htmlspecialchars($produto['nome_produto']) ?>">
                             <?php else: ?>
                                 <div class="imagem-padrao">
                                     Imagem não encontrada:<br>
@@ -185,6 +184,7 @@ function corrigirCaminhoImagem($nome_imagem)
             </div>
             <div class="descricao">
                 <div class="sobre">
+                    <h3>Sobre:</h3>
                     <p><?= $produto['descricaoMaior'] ?></p>
                 </div>
             </div>
@@ -238,13 +238,10 @@ function corrigirCaminhoImagem($nome_imagem)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../public/js/tema.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../public/js/tema.js"></script>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Função para adicionar produto ao carrinho
-            document.querySelector('.add-carrinho')?.addEventListener('click', function () {
+            document.querySelector('.add-carrinho')?.addEventListener('click', function() {
                 const idProduto = <?= $id_produto ?>;
                 const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
                 const precoProduto = <?= $produto['valor'] ?>;

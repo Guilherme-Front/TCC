@@ -93,6 +93,7 @@ input{
     padding: 5px;
     border-color: rgb(197, 197, 197);
     transition: .1s;
+    text-transform: capitalize;
 }
 
 input:focus,

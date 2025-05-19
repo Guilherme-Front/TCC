@@ -16,7 +16,6 @@ if (!isset($_SESSION['csrf_token'])) {
 }
 
 // Busca os dados do cliente
-// Busca os dados do cliente
 $stmt = $conn->prepare("SELECT nome, email, telefone, datNasc, foto FROM cliente WHERE id_cliente = ?");
 $stmt->bind_param("i", $id_cliente);
 $stmt->execute();
@@ -52,12 +51,12 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
   <!-- Mensagens de feedback -->
   <?php if (isset($_SESSION['sucesso'])): ?>
     <div class="alert alert-success"><?= $_SESSION['sucesso'];
-    unset($_SESSION['sucesso']); ?></div>
+                                      unset($_SESSION['sucesso']); ?></div>
   <?php endif; ?>
 
   <?php if (isset($_SESSION['erro'])): ?>
     <div class="alert alert-danger"><?= $_SESSION['erro'];
-    unset($_SESSION['erro']); ?></div>
+                                    unset($_SESSION['erro']); ?></div>
   <?php endif; ?>
 
   <header>
@@ -133,7 +132,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
               <?php if (!empty($cliente['foto'])): ?>
                 <!-- Exibe a foto do usuário se cadastrada -->
                 <img class="gato" id="previewFoto"
-                  src="../../public/uploads/imgUsuarios/<?= $id_cliente . '/' . (isset($_SESSION['foto_cliente']) ? $_SESSION['foto_cliente'] : htmlspecialchars($cliente['foto'] ?? 'gato.jpg')) ?>"
+                  src="../../public/uploads/imgUsuarios/<?= $id_cliente . '/' . (isset($_SESSION['foto_cliente']) ? $_SESSION['foto_cliente'] : htmlspecialchars($cliente['foto'] ?? '../../public/img/gato.jpg')) ?>"
                   alt="Foto do perfil" />
               <?php else: ?>
                 <!-- Exibe a imagem padrão caso não tenha foto cadastrada -->
@@ -198,7 +197,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
   <script>
     // Habilitar edição dos campos ao clicar no botão
-    window.onload = function () {
+    window.onload = function() {
       const preview = document.getElementById('previewFoto');
       const fotoCadastrada = preview.src; // Pega o src da foto (pode ser a foto do usuário ou a padrão)
 
@@ -209,7 +208,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
     };
 
     // Habilita a edição dos campos ao clicar no botão
-    document.getElementById('btn-alterar-dados').addEventListener('click', function () {
+    document.getElementById('btn-alterar-dados').addEventListener('click', function() {
       // Habilita todos os inputs que estão desabilitados
       document.querySelectorAll('input[disabled]').forEach(input => {
         input.disabled = false;
@@ -222,12 +221,12 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       // Alterna a visibilidade do botão de enviar foto
       const btnEnviarFoto = document.getElementById('btn-enviar-foto');
       if (btnEnviarFoto.style.display === 'none' || btnEnviarFoto.style.display === '') {
-        btnEnviarFoto.style.display = 'inline-block';  // Exibe o botão de enviar foto
+        btnEnviarFoto.style.display = 'inline-block'; // Exibe o botão de enviar foto
       }
     });
 
     // Validação de data (formatação automática: dd/mm/yyyy)
-    document.querySelector('input[name="data_nascimento"]').addEventListener('input', function (e) {
+    document.querySelector('input[name="data_nascimento"]').addEventListener('input', function(e) {
       let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
       if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
       if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
@@ -235,14 +234,14 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
     });
 
     // Preview da imagem antes de enviar
-    document.getElementById('foto').addEventListener('change', function (e) {
+    document.getElementById('foto').addEventListener('change', function(e) {
       const preview = document.getElementById('previewFoto');
       const file = e.target.files[0];
 
       if (file) {
         const reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e) {
           preview.src = e.target.result;
 
           // Mostra um botão para cancelar a alteração da foto
@@ -253,7 +252,6 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
         reader.readAsDataURL(file);
       }
     });
-
   </script>
 
 </body>
