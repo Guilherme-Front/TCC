@@ -1,10 +1,10 @@
 <?php 
 session_start();
 
-// Verifica se o cadastro foi concluído
-if (!isset($_SESSION['cadastro_concluido']) || $_SESSION['cadastro_concluido'] !== true) {
-    // Redireciona para a página de cadastro se o cadastro não foi concluído
-    header("Location: ../views/Login.html");
+// Verifica se existem dados temporários de cadastro
+if (!isset($_SESSION['cadastro_temp'])) {
+    // Redireciona para a página de cadastro se não houver dados
+    header("Location: cadastro.php");
     exit();
 }
 ?>
@@ -15,6 +15,7 @@ if (!isset($_SESSION['cadastro_concluido']) || $_SESSION['cadastro_concluido'] !
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Definir Senha | Pet Insight</title>
 </head>
 
@@ -26,7 +27,7 @@ if (!isset($_SESSION['cadastro_concluido']) || $_SESSION['cadastro_concluido'] !
                     <h1 class="senha-titulo">Criar Senha</h1>
 
                     <!-- Formulário para enviar a senha -->
-                    <form action="../controllers/processaSenha.php" method="POST">
+                    <form id="formSenha" method="POST">
                         <div class="senha-input">
                             <label class="cadastro-label" for="senha">Senha</label>
                             <input class="input" type="password" name="senha" id="pass" placeholder="Digite sua senha"
@@ -45,6 +46,69 @@ if (!isset($_SESSION['cadastro_concluido']) || $_SESSION['cadastro_concluido'] !
             </div>
         </main>
     </section>
-</body>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        // Adiciona o evento de submit ao formulário de senha
+        document.getElementById('formSenha').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const senha = document.getElementById('pass').value;
+            const confirmar = document.getElementById('password').value;
+            
+            if (senha !== confirmar) {
+                Toastify({
+                    text: "As senhas não coincidem!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                    }
+                }).showToast();
+                return;
+            }
+            
+            // Envia os dados via AJAX
+            fetch('../controllers/processaSenha.php', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Toastify({
+                        text: data.message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        }
+                    }).showToast();
+                    
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 3000);
+                } else {
+                    Toastify({
+                        text: data.message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                        }
+                    }).showToast();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
 </html>

@@ -1,38 +1,64 @@
 <?php
+header('Content-Type: application/json');
 include '../controllers/conn.php';
 session_start();
 
-$id_cliente = $_SESSION['id_cliente'] ?? null;
-$senha = $_POST['senha'];
-$confirmar = $_POST['confirmar_senha'];
+$response = ['success' => false, 'message' => 'Erro desconhecido'];
 
-// Verifica se o ID do cliente está disponível
-if (!$id_cliente) {
-    die("Erro: id_cliente não encontrado na sessão. Cadastre o cliente primeiro.");
-}
+try {
+    if (!isset($_SESSION['cadastro_temp'])) {
+        throw new Exception("Dados de cadastro não encontrados. Complete o cadastro primeiro.");
+    }
 
-// Verifica se as senhas coincidem
-if ($senha !== $confirmar) {
-    die('Erro: As senhas não coincidem.');
-}
+    if (empty($_POST['senha']) || empty($_POST['confirmar_senha'])) {
+        throw new Exception("Preencha ambos os campos de senha.");
+    }
 
-// Criptografa a senha
-$hash = password_hash($senha, PASSWORD_DEFAULT);
+    if ($_POST['senha'] !== $_POST['confirmar_senha']) {
+        throw new Exception("As senhas não coincidem.");
+    }
 
-// Insere a senha no banco
-$stmt = $conn->prepare("INSERT INTO senha (id_cliente, senha) VALUES (?, ?)");
-$stmt->bind_param("is", $id_cliente, $hash);
-$stmt->execute();
+    // Inicia transação
+    $conn->begin_transaction();
 
-if ($stmt->affected_rows > 0) {
-    echo "Senha cadastrada com sucesso.";
-    $_SESSION['cadastro_concluido'] = false; // Marca que o cadastro foi concluído
-    header("Location: ../views/Login.html"); // Redireciona para a página de login
+    // 1. Insere os dados do cliente
+    $dados = $_SESSION['cadastro_temp'];
+    $stmt = $conn->prepare("INSERT INTO cliente (nome, email, datNasc, telefone) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $dados['nome'], $dados['email'], $dados['data'], $dados['telefone']);
+    
+    if (!$stmt->execute()) {
+        throw new Exception("Erro ao cadastrar cliente: " . $stmt->error);
+    }
+    
+    $id_cliente = $conn->insert_id;
+
+    // 2. Insere a senha
+    $hash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO senha (id_cliente, senha) VALUES (?, ?)");
+    $stmt->bind_param("is", $id_cliente, $hash);
+    
+    if (!$stmt->execute()) {
+        throw new Exception("Erro ao cadastrar senha: " . $stmt->error);
+    }
+
+    // Confirma transação
+    $conn->commit();
+    
+    // Limpa a sessão
+    unset($_SESSION['cadastro_temp']);
+    
+    $response = [
+        'success' => true,
+        'message' => 'Cadastro concluído com sucesso!',
+        'redirect' => '../views/Login.html'
+    ];
+
+} catch (Exception $e) {
+    // Desfaz transação em caso de erro
+    $conn->rollback();
+    $response['message'] = $e->getMessage();
+} finally {
+    echo json_encode($response);
     exit();
-} else {
-    echo "Erro ao cadastrar senha: " . $stmt->error;
 }
-
-$stmt->close();
-$conn->close();
 ?>

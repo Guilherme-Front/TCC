@@ -1,31 +1,92 @@
 /* Inicio Verificação do Botão de Cadastro */
-const NextSenha = document.querySelector('.botao-cadastro');
+/* Inicio Verificação do Cadastro */
 const Name = document.getElementById('Nome');
 const Email = document.getElementById('Email');
 const CPF = document.getElementById('CPF');
 const Telefone = document.getElementById('Telefone');
 const Data = document.getElementById('Data');
 const Campos = [Name, Email, CPF, Telefone, Data];
+const formCadastro = document.getElementById('formCadastro');
 
-if (NextSenha) { 
-    NextSenha.addEventListener("click", Fim_Cadastro);
-} 
+// Adiciona validação nos campos
+if (Name) Name.addEventListener("blur", Feedback);
+if (CPF) CPF.addEventListener("blur", VerificaCPF);
+if (Telefone) Telefone.addEventListener("blur", Verificatel);
+if (Data) Data.addEventListener("blur", Feedback);
+if (Email) Email.addEventListener("blur", () => validateEmailField(Email));
 
-if (Name) {
-    Name.addEventListener("blur", Feedback);
+// Remove o evento de click do botão e usa apenas o submit do formulário
+if (formCadastro) {
+    formCadastro.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validação dos campos antes de enviar
+        let camposVazios = [];
+        Campos.forEach(campo => {
+            if (campo && campo.value.trim() === "") {
+                campo.style.border = '2px solid red';
+                camposVazios.push(campo.name || campo.placeholder);
+            }
+        });
+
+        if (camposVazios.length > 0) {
+            error(`Preencha: ${camposVazios.join(", ")}`, "#D43F3A");
+            return; // Impede o envio se houver campos vazios
+        }
+
+        // Mostrar loading no botão
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = "Cadastrando...";
+
+        // Enviar via AJAX
+        fetch('../controllers/cadastro.php', {
+            method: 'POST',
+            body: new FormData(this)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro no servidor");
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Sucesso: Mostra Toastify e redireciona
+                redirection("Muito bem, agora vamos definir sua senha!", data.redirect);
+            } else {
+                // Erro: Mostra mensagem do servidor
+                error(data.message || "Erro desconhecido", "#D43F3A");
+            }
+        })
+        .catch(err => {
+            error("Falha na conexão", "#D43F3A");
+            console.error(err);
+        })
+        .finally(() => {
+            // Restaura o botão
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Cadastrar";
+            }
+        });
+    });
 }
 
-if (CPF) {
-    CPF.addEventListener("blur", VerificaCPF);
+// Verifica se está na página de senha
+if (window.location.pathname.includes('senha.php')) {
+    // Verifica via AJAX se a sessão de cadastro está ativa
+    fetch('../controllers/verificaSessaoCadastro.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.sessaoAtiva) {
+                window.location.href = 'cadastro.php';
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            window.location.href = 'cadastro.php';
+        });
 }
-
-if (Telefone) {
-    Telefone.addEventListener("blur", Verificatel);
-}
-
-if (Data) {
-    Data.addEventListener("blur", Feedback);
-}
+/* Fim Verificação do Cadastro */
 
 /* Fim Verificação do Botão de Cadastro */
 
@@ -60,25 +121,6 @@ if (Password) {
 }
 
 /* Fim Verificação do Botão de Senha */
-
-/* Inicio Verificação do botão de Senha */
-
-const senhas = document.getElementById('senha');
-const Csenhas = document.getElementById('Csenha');
-const BotaoR = document.getElementsByClassName('botao-redefinir')[0];
-
-
-if (BotaoR) {
-    BotaoR.addEventListener('click', SenhasC);
-}
-
-if (senhas) {
-    senhas.addEventListener('blur', VerificaSenhas);
-}
-
-if (Csenhas) {
-    Csenhas.addEventListener('blur', VerificaCsenhas);
-}
 
 
 /* Funções */
@@ -143,44 +185,44 @@ function Feedback(event) {
     }
 }
 
-function Fim_Cadastro() {
-    let camposVazios = []; // Lista para armazenar os campos vazios
+// function Fim_Cadastro() {
+//     let camposVazios = []; // Lista para armazenar os campos vazios
 
-    Campos.forEach(campo => {
-        if (campo.value.trim() === "") {
-            campo.style.border = '2px solid red'; 
-            camposVazios.push(campo.name); 
-        } else {
-            campo.style.border = '2px solid lime'; 
-        }
-    });
+//     Campos.forEach(campo => {
+//         if (campo.value.trim() === "") {
+//             campo.style.border = '2px solid red'; 
+//             camposVazios.push(campo.name); 
+//         } else {
+//             campo.style.border = '2px solid lime'; 
+//         }
+//     });
 
-    if (camposVazios.length > 0) {
-        error(`Por favor, preencha os seguintes campos: ${camposVazios.join(", ")}`, "linear-gradient(to right, #BD5532, #8e3315)");
-    } else {
-        redirection("Todos os campos estão preenchidos corretamente! Agora vamos definir a sua senha.", "Senha.html", 3000);
-    }    
-}
+//     if (camposVazios.length > 0) {
+//         error(`Por favor, preencha os seguintes campos: ${camposVazios.join(", ")}`, "linear-gradient(to right, #BD5532, #8e3315)");
+//     } else {
+//         redirection("Todos os campos estão preenchidos corretamente! Agora vamos definir a sua senha.", "senha.php", 3000);
+//     }    
+// }
 
-function Fim_Login() {
-    let LoginVazio = []; // Lista para armazenar os campos vazios
+// function Fim_Login() {
+//     let LoginVazio = []; // Lista para armazenar os campos vazios
 
-    Login.forEach(campo => {
-        if (campo.value.trim() === "") {
-            campo.style.border = '2px solid red'; // Borda vermelha para campo vazio
-            LoginVazio.push(campo.name); // Adiciona o nome do campo vazio à lista
-        } else {
-            campo.style.border = '2px solid lime'; // Borda verde para campo preenchido
-        }
-    });
+//     Login.forEach(campo => {
+//         if (campo.value.trim() === "") {
+//             campo.style.border = '2px solid red'; // Borda vermelha para campo vazio
+//             LoginVazio.push(campo.name); // Adiciona o nome do campo vazio à lista
+//         } else {
+//             campo.style.border = '2px solid lime'; // Borda verde para campo preenchido
+//         }
+//     });
 
-    if (LoginVazio.length > 0) {
-        error(`Por favor, preencha os seguintes campos: ${LoginVazio.join(", ")}`, "linear-gradient(to right, #BD5532, #8e3315)");
-    } else {
-        // Caso todos os campos estejam preenchidos corretamente
-        redirection("Todos os campos estão preenchidos corretamente! Agora vamos definir a sua senha.", "cadastro.html", 3000);
-    }    
-}
+//     if (LoginVazio.length > 0) {
+//         error(`Por favor, preencha os seguintes campos: ${LoginVazio.join(", ")}`, "linear-gradient(to right, #BD5532, #8e3315)");
+//     } else {
+//         // Caso todos os campos estejam preenchidos corretamente
+//         redirection("Todos os campos estão preenchidos corretamente! Agora vamos definir a sua senha.", "senha.php", 3000);
+//     }    
+// }
 
 function SenhaIgual() {
     if (Pass.value === "" || Password.value === "") {
@@ -315,10 +357,6 @@ function error(message, color) {
     }).showToast();
 }
 
-if (Email) {
-    Email.addEventListener("blur", () => validateEmailField(Email));
-}
-
 function validateEmailField(Email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(Email.value)) {
@@ -333,3 +371,4 @@ function validateEmailField(Email) {
     }
     return true; // E-mail válido
 }
+

@@ -1,44 +1,42 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 include "../controllers/conn.php";
-session_start();
+session_start(); // Adicione esta linha
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST["Nome"];
-    $email = $_POST["Email"];
-    $telefone = $_POST["Telefone"];
-    $data = $_POST["Data"];
+$response = ['success' => false, 'message' => 'Erro desconhecido'];
 
-    $dataFormatada = date('Y-m-d', strtotime(str_replace('/', '-', $data)));
-
-    // Verifica se o e-mail já está cadastrado
-    $verificaEmail = "SELECT id_cliente FROM cliente WHERE email = '$email'";
-    $resultado = mysqli_query($conn, $verificaEmail);
-
-    if (mysqli_num_rows($resultado) > 0) {
-        echo "E-mail já cadastrado!";
-        exit(); // Encerra o script para não continuar com o cadastro
+try {
+    if ($_SERVER["REQUEST_METHOD"] != "POST") {
+        throw new Exception("Método não permitido");
     }
 
-    // Insere o cliente no banco
-    $sqlCliente = "INSERT INTO cliente(nome, email, datNasc, telefone) 
-                   VALUES ('$nome', '$email', '$dataFormatada', '$telefone')";
-    $resultadoCliente = mysqli_query($conn, $sqlCliente);
-
-    if ($resultadoCliente) {
-        $_SESSION['id_cliente'] = mysqli_insert_id($conn); // Salva o ID do cliente
-        $_SESSION['cadastro_concluido'] = true; // Marca o cadastro como concluído
-        $_SESSION['mensagem'] = "Cadastro realizado com sucesso!";
-        header("Location: ../views/senha.php"); // Redireciona para a página de criação de senha
-        exit();
-    } else {
-        $_SESSION['mensagem'] = "Erro ao cadastrar cliente: " . mysqli_error($conn);
-        $_SESSION['cadastro_concluido'] = false; // Marca que o cadastro falhou
-        header("Location: ../views/Login.html"); // Redireciona para a página de cadastro
-        exit();
+    $email = mysqli_real_escape_string($conn, $_POST['Email'] ?? '');
+    
+    // Verifica e-mail
+    $stmt = $conn->prepare("SELECT id_cliente FROM cliente WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    
+    if ($stmt->get_result()->num_rows > 0) {
+        throw new Exception("E-mail já cadastrado!");
     }
 
-} else {
-    header("Location: ../views/Login.html");
+    // Armazena os dados na SESSÃO ao invés de inserir no banco
+    $_SESSION['cadastro_temp'] = [
+        'nome' => mysqli_real_escape_string($conn, $_POST['Nome'] ?? ''),
+        'email' => $email,
+        'data' => date('Y-m-d', strtotime(str_replace('/', '-', $_POST['Data'] ?? ''))),
+        'telefone' => mysqli_real_escape_string($conn, $_POST['Telefone'] ?? '')
+    ];
+
+    $response = [
+        'success' => true,
+        'redirect' => '../views/senha.php'
+    ];
+} catch (Exception $e) {
+    $response['message'] = $e->getMessage();
+} finally {
+    echo json_encode($response);
     exit();
 }
 ?>
