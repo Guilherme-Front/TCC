@@ -4,7 +4,6 @@ header('Content-Type: text/html; charset=utf-8');
 mb_internal_encoding('UTF-8');
 
 session_start();
-echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
 require_once '../controllers/conn.php';
 $conn->set_charset("utf8mb4");
 
@@ -66,10 +65,6 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
           <a class="header-link-none" href="../views/TelaPerfil.php">
             <img class="user-img" src="../../public/img/user.png" alt="">
           </a>
-
-          <form method="post" action="../controllers/logout.php" style="display:inline;">
-            <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
-          </form>
 
           <a class="header-link-none" href="../views/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
