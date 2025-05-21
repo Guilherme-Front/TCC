@@ -109,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
+        // Restante do seu código de inserção/atualização...
         // Verifica se já existe um endereço para este cliente
         $stmt = $conn->prepare("SELECT id_endereco FROM endereco WHERE id_cliente = ?");
         $stmt->bind_param("i", $id_cliente);
@@ -184,4 +185,17 @@ function buscarEnderecoPorCEP($cep) {
     curl_close($ch);
     
     return json_decode($response, true);
+}
+
+// Na validação do CEP, você pode adicionar:
+if (empty($erros)) {
+    $dadosCEP = buscarEnderecoPorCEP($cep);
+    if (isset($dadosCEP['erro'])) {
+        $erros[] = 'CEP não encontrado. Verifique o número digitado.';
+    } else {
+        // Preencha automaticamente os campos se estiverem vazios
+        if (empty($rua)) $rua = $dadosCEP['logradouro'] ?? '';
+        if (empty($bairro)) $bairro = $dadosCEP['bairro'] ?? '';
+        if (empty($cidade)) $cidade = $dadosCEP['localidade'] ?? '';
+    }
 }
