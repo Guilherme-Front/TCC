@@ -78,10 +78,10 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
 
         <?php else: ?>
           <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
-          <a class="header-entrar" href="../views/Login.html">Entrar |</a>
+          <a class="header-entrar" href="../views/Login.php">Entrar |</a>
           <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-          <a class="header-link-none" href="../views/Login.html">
+          <a class="header-link-none" href="../views/Login.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
         <?php endif; ?>

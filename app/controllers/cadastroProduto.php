@@ -1,6 +1,6 @@
 <?php
 // Configurações de encoding - DEVE SER AS PRIMEIRAS LINHAS
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 
@@ -13,10 +13,9 @@ function clean_input($data) {
     return trim($data);
 }
 
+$response = ['success' => false, 'errors' => []];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // DEBUG: Registrar dados recebidos
-    error_log("Dados recebidos RAW: " . print_r($_POST, true));
-    
     // Processamento dos dados com tratamento especial para UTF-8
     $nome = clean_input($_POST['nome_produto'] ?? '');
     $tipo = clean_input($_POST['tipo'] ?? '');
@@ -30,60 +29,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $preco = floatval(str_replace(',', '.', str_replace('.', '', $precoStr)));
     
     // Validação
-    $erros = [];
-    if (empty($nome)) $erros[] = "Nome do produto é obrigatório";
-    if (empty($tipo)) $erros[] = "Tipo do produto é obrigatório";
-    if ($preco <= 0) $erros[] = "Preço deve ser maior que zero";
-    if ($estoque < 0) $erros[] = "Estoque não pode ser negativo";
+    if (empty($nome)) $response['errors'][] = "Nome do produto é obrigatório";
+    if (empty($tipo)) $response['errors'][] = "Tipo do produto é obrigatório";
+    if ($preco <= 0) $response['errors'][] = "Preço deve ser maior que zero";
+    if ($estoque < 0) $response['errors'][] = "Estoque não pode ser negativo";
+    if (empty($descricaoCurta)) $response['errors'][] = "Descrição curta é obrigatória";
+    if (empty($descricao)) $response['errors'][] = "Descrição detalhada é obrigatória";
 
-    if (empty($erros)) {
-        // Inserção no banco de dados com tratamento UTF-8
-        $stmt = $conn->prepare("INSERT INTO produto (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior) 
-                               VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssdiss", $nome, $tipo, $marca, $preco, $estoque, $descricaoCurta, $descricao);
-        
-        if ($stmt->execute()) {
-            $produto_id = $conn->insert_id;
+    // Validação de imagens
+    if (!isset($_FILES['produto_imagens']) || count($_FILES['produto_imagens']['name']) === 0) {
+        $response['errors'][] = "Pelo menos uma imagem é obrigatória";
+    }
+
+    if (empty($response['errors'])) {
+        try {
+            // Inserção no banco de dados
+            $stmt = $conn->prepare("INSERT INTO produto (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior) 
+                                   VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssdiss", $nome, $tipo, $marca, $preco, $estoque, $descricaoCurta, $descricao);
             
-            // Processamento de imagens (mantido como original)
-            if (isset($_FILES['produto_imagens'])) {
-                $total = count($_FILES['produto_imagens']['name']);
-                for ($i = 0; $i < $total && $i < 3; $i++) {
-                    if ($_FILES['produto_imagens']['error'][$i] === 0) {
-                        $ext = strtolower(pathinfo($_FILES['produto_imagens']['name'][$i], PATHINFO_EXTENSION));
-                        if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])) continue;
+            if ($stmt->execute()) {
+                $produto_id = $conn->insert_id;
+                $response['success'] = true;
+                $response['message'] = "Produto cadastrado com sucesso!";
+                
+                // Processamento de imagens
+                if (isset($_FILES['produto_imagens'])) {
+                    $total = count($_FILES['produto_imagens']['name']);
+                    for ($i = 0; $i < $total && $i < 3; $i++) {
+                        if ($_FILES['produto_imagens']['error'][$i] === 0) {
+                            $ext = strtolower(pathinfo($_FILES['produto_imagens']['name'][$i], PATHINFO_EXTENSION));
+                            if (!in_array($ext, ['jpg', 'jpeg', 'png'])) continue;
 
-                        $pasta = "../../public/uploads/imgProdutos/$produto_id/";
-                        if (!is_dir($pasta)) mkdir($pasta, 0777, true);
+                            $pasta = "../../public/uploads/imgProdutos/$produto_id/";
+                            if (!is_dir($pasta)) mkdir($pasta, 0777, true);
 
-                        $nomeUnico = uniqid() . ".$ext";
-                        $destino = $pasta . $nomeUnico;
+                            $nomeUnico = uniqid() . ".$ext";
+                            $destino = $pasta . $nomeUnico;
 
-                        if (move_uploaded_file($_FILES['produto_imagens']['tmp_name'][$i], $destino)) {
-                            $relativo = "uploads/imgProdutos/$produto_id/$nomeUnico";
-                            $stmt_img = $conn->prepare("INSERT INTO imagem_produto (id_produto, nome_imagem) VALUES (?, ?)");
-                            $stmt_img->bind_param("is", $produto_id, $relativo);
-                            $stmt_img->execute();
+                            if (move_uploaded_file($_FILES['produto_imagens']['tmp_name'][$i], $destino)) {
+                                $relativo = "uploads/imgProdutos/$produto_id/$nomeUnico";
+                                $stmt_img = $conn->prepare("INSERT INTO imagem_produto (id_produto, nome_imagem) VALUES (?, ?)");
+                                $stmt_img->bind_param("is", $produto_id, $relativo);
+                                $stmt_img->execute();
+                            }
                         }
                     }
                 }
+            } else {
+                $response['errors'][] = "Erro ao cadastrar produto: " . $conn->error;
             }
-            
-            // Redirecionamento após sucesso
-            header("Location: lista_produtos.php?sucesso=1");
-            exit();
-        } else {
-            $erros[] = "Erro ao cadastrar produto: " . $conn->error;
+        } catch (Exception $e) {
+            $response['errors'][] = "Erro no servidor: " . $e->getMessage();
         }
     }
-    
-    // Tratamento de erros
-    if (!empty($erros)) {
-        session_start();
-        $_SESSION['erros_cadastro'] = $erros;
-        $_SESSION['dados_formulario'] = $_POST;
-        header("Location: cadastro_produto.php?erro=1");
-        exit();
-    }
 }
+
+echo json_encode($response);
+exit();
 ?>

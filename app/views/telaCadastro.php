@@ -31,7 +31,7 @@
                     <h1 class="cadastro-titulo">Cadastre-se</h1>
 
                     <!-- Formulário com método POST e ação para o script PHP -->
-                    <form action="../controllers/cadastro.php" method="POST">
+                    <form id="formCadastro" method="POST">
                         <div class="cadastro-input">
                             <label class="cadastro-label" for="Nome">Nome Completo <span
                                     class="cadastro-required">*</span></label>
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="cadastro-formas">
-                            <p class="cadastro-p">Já possui conta? <a href="../views/Login.html" class="login-cadastro">Faça
+                            <p class="cadastro-p">Já possui conta? <a href="../views/Login.php" class="login-cadastro">Faça
                                     Login</a></p>
                         </div>
                     </form>
@@ -71,9 +71,6 @@
     <script src="../../public/js/script.js"></script>
     <script src="../../public/js/tema.js"></script>
 
-    <script>
-        
-    </script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ require_once __DIR__ . '/../controllers/conn.php';
 $id_cliente = $_SESSION['id_cliente'] ?? null;
 
 if (!$id_cliente) {
-  header('Location: Login.html');
+  header('Location: Login.php');
   exit();
 }
 
@@ -48,20 +48,35 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="<?= isset($_SESSION['csrf_token']) ? $_SESSION['csrf_token'] : '' ?>">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="../../public/css/perfil.css?v=<?= time() ?>">
   <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
   <title>Tela de Perfil | Pet Insight</title>
 </head>
 
 <body>
-  <?php if (isset($_SESSION['sucesso'])): ?>
-    <div class="alert alert-success"><?= $_SESSION['sucesso'];
-    unset($_SESSION['sucesso']); ?></div>
-  <?php endif; ?>
-
-  <?php if (isset($_SESSION['erro'])): ?>
-    <div class="alert alert-danger"><?= $_SESSION['erro'];
-    unset($_SESSION['erro']); ?></div>
+  <?php if (isset($_SESSION['toast'])): ?>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        Toastify({
+          text: "<?= $_SESSION['toast']['message'] ?>",
+          duration: 3500,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: "<?= $_SESSION['toast']['type'] === 'success' ? 'linear-gradient(to right, #00b09b, #96c93d)' : 'linear-gradient(to right, #ff5f6d, #ffc371)' ?>",
+            borderRadius: "4px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+            fontSize: "14px"
+          },
+          onClick: function() {}
+        }).showToast();
+      });
+    </script>
+    <?php unset($_SESSION['toast']); ?>
   <?php endif; ?>
 
   <header>
@@ -261,6 +276,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
     </section>
   </main>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="../../public/js/tema.js"></script>
   <script src="../../public/js/scriptPerfil.js" <?= time() ?>></script>
 

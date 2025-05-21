@@ -8,7 +8,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
 if (!isset($_SESSION['id_cliente'])) {
 
     // Usuário não está autenticado, redireciona para o login
-    header('Location: ../views/Login.html');
+    header('Location: ../views/Login.php');
     exit;
 }
 

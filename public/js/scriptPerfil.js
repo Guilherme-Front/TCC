@@ -37,3 +37,70 @@ if (window.innerWidth <= 400) {
   menu.addEventListener("click", (e) => e.stopPropagation());
 }
 
+function redirection(message, target) {
+    Toastify({
+        text: message,
+        duration: 3500,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            borderRadius: "4px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+            fontSize: "14px"
+        },
+        onClick: function() {}
+    }).showToast();
+
+    setTimeout(() => {
+        window.location.href = target;
+    }, 3500);
+}
+
+function showToast(message, type) {
+    Toastify({
+        text: message,
+        duration: 3500,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: type === 'success' 
+                ? "linear-gradient(to right, #00b09b, #96c93d)" 
+                : "linear-gradient(to right, #ff5f6d, #ffc371)",
+            borderRadius: "4px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+            fontSize: "14px"
+        },
+        onClick: function() {}
+    }).showToast();
+}
+
+// Função mantida para compatibilidade
+function error(message, color) {
+    showToast(message, 'error');
+}
+
+// Função para exibir mensagens de validação
+function showValidationError(message, elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'validation-error';
+        errorElement.textContent = message;
+        errorElement.style.color = '#ff5f6d';
+        errorElement.style.fontSize = '12px';
+        errorElement.style.marginTop = '5px';
+        
+        // Remove mensagens anteriores
+        const existingError = element.parentNode.querySelector('.validation-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        element.parentNode.appendChild(errorElement);
+    }
+}

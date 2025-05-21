@@ -42,7 +42,7 @@ echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostr
             <?php else: ?>
 
                 <div class="header-link-tema">
-                    <a class="header-entrar" href="../views/Login.html">Entrar |</a>
+                    <a class="header-entrar" href="../views/Login.php">Entrar |</a>
                     <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
                 </div>
             <?php endif; ?>

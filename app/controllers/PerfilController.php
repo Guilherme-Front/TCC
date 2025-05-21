@@ -5,7 +5,11 @@ session_start();
 // Verifica se o cliente está logado
 $id_cliente = $_SESSION['id_cliente'] ?? null;
 if (!$id_cliente) {
-    header('Location: ../views/Login.html');
+    $_SESSION['toast'] = [
+        'message' => 'Você precisa estar logado para acessar esta página!',
+        'type' => 'error'
+    ];
+    header('Location: ../views/Login.php');
     exit();
 }
 
@@ -16,7 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         !isset($_SESSION['csrf_token']) ||
         $_POST['csrf_token'] !== $_SESSION['csrf_token']
     ) {
-        $_SESSION['erro'] = 'Token de segurança inválido!';
+        $_SESSION['toast'] = [
+            'message' => 'Token de segurança inválido!',
+            'type' => 'error'
+        ];
         header('Location: ../views/perfil.php');
         exit();
     }
@@ -60,9 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Atualiza a sessão com a nova foto
             $_SESSION['foto_cliente'] = $nomeFoto;
-            $_SESSION['sucesso'] = "Foto atualizada com sucesso!";
+            $_SESSION['toast'] = [
+                'message' => "Foto atualizada com sucesso!",
+                'type' => 'success'
+            ];
         } else {
-            $_SESSION['erro'] = "Erro ao salvar a nova foto.";
+            $_SESSION['toast'] = [
+                'message' => "Erro ao salvar a nova foto.",
+                'type' => 'error'
+            ];
         }
     }
 
@@ -74,7 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validação básica
     if (empty($nome) || empty($email) || empty($data_nasc)) {
-        $_SESSION['erro'] = 'Preencha todos os campos obrigatórios!';
+        $_SESSION['toast'] = [
+            'message' => 'Preencha todos os campos obrigatórios!',
+            'type' => 'error'
+        ];
         header('Location: ../views/telaPerfil.php');
         exit();
     }
@@ -83,7 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $data_nasc, $matches)) {
         $data_mysql = "{$matches[3]}-{$matches[2]}-{$matches[1]}";
     } else {
-        $_SESSION['erro'] = 'Data de nascimento inválida!';
+        $_SESSION['toast'] = [
+            'message' => 'Data de nascimento inválida!',
+            'type' => 'error'
+        ];
         header('Location: ../views/perfil.php');
         exit();
     }
@@ -93,13 +112,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare("UPDATE cliente SET nome = ?, email = ?, telefone = ?, datNasc = ? WHERE id_cliente = ?");
         $stmt->bind_param("ssssi", $nome, $email, $telefone, $data_mysql, $id_cliente);
         if ($stmt->execute()) {
-            $_SESSION['sucesso'] = 'Dados atualizados com sucesso!';
+            $_SESSION['toast'] = [
+                'message' => 'Dados atualizados com sucesso!',
+                'type' => 'success'
+            ];
         } else {
-            $_SESSION['erro'] = 'Erro ao atualizar: ' . $stmt->error;
+            $_SESSION['toast'] = [
+                'message' => 'Erro ao atualizar: ' . $stmt->error,
+                'type' => 'error'
+            ];
         }
         $stmt->close();
     } catch (Exception $e) {
-        $_SESSION['erro'] = 'Erro ao atualizar o banco de dados.';
+        $_SESSION['toast'] = [
+            'message' => 'Erro ao atualizar o banco de dados.',
+            'type' => 'error'
+        ];
     }
 
     header('Location: ../views/telaPerfil.php');
@@ -107,6 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Acesso indevido via GET
+$_SESSION['toast'] = [
+    'message' => 'Acesso inválido!',
+    'type' => 'error'
+];
 header('Location: ../views/telaPerfil.php');
 exit();
 ?>

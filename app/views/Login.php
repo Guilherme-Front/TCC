@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -18,6 +22,20 @@
 </head>
 
 <body class="login_dog">
+    <?php if (isset($_SESSION['toast'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Mantenha sua função error() original
+                <?php if ($_SESSION['toast']['type'] === 'error'): ?>
+                    error("<?= $_SESSION['toast']['message'] ?>", "linear-gradient(to right, #cd1809, #a01006)");
+                <?php else: ?>
+                    // Para mensagens de sucesso (que redirecionam)
+                    redirection("<?= $_SESSION['toast']['message'] ?>", "../views/Index.php", "linear-gradient(to right, #00b09b, #96c93d)");
+                <?php endif; ?>
+            });
+        </script>
+        <?php unset($_SESSION['toast']); ?>
+    <?php endif; ?>
 
     <!-- Div para o SDK do Facebook -->
     <div id="fb-root"></div>
@@ -59,7 +77,7 @@
                     <form action="../controllers/Processalogin.php" method="POST">
                         <div class="login-input">
                             <label class="login-label" for="">E-mail</label>
-                            <input class="input" type="email" name="email" id="Email" placeholder="Digite seu e-mail"
+                            <input class="input" type="email" name="email" id="email" placeholder="Digite seu e-mail"
                                 required>
 
                             <label class="login-label" for="">Senha</label>
@@ -72,7 +90,7 @@
                         </div>
 
                         <div class="login-botao">
-                            <button name = "submit" class="botao" type="submit">Entrar</button>
+                            <button name="submit" class="botao" type="submit">Entrar</button>
                         </div>
 
                         <div class="login-formas">
@@ -98,7 +116,7 @@
         </section>
 
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-        <!-- <script src="../../public/js/script.js"></script> -->
+        <script src="../../public/js/script.js"></script>
         <script src="../../public/js/tema.js"></script>
 
 </body>

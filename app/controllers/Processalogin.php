@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include_once "../controllers/conn.php";
 
@@ -32,16 +31,42 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
             
             $_SESSION['id_cliente'] = $user['id_cliente'];
             $_SESSION['nome'] = $user['nome'];
-        
-            header("Location: ../views/index.php");
+            
+            // Mensagem de sucesso
+            $_SESSION['toast'] = [
+                'message' => 'Login realizado com sucesso! Bem-vindo, ' . htmlspecialchars($user['nome']) . '! 👋',
+                'type' => 'success'
+            ];
+            
+            header("Location: ../views/Index.php");
+            exit();
 
         } else {
-            echo "Senha incorreta.";
+            // Senha incorreta
+            $_SESSION['toast'] = [
+                'message' => 'Senha incorreta. Tente novamente! 🔒',
+                'type' => 'error'
+            ];
+            header("Location: ../views/Login.php");
+            exit();
         }
     } else {
-        echo "Email não encontrado.";
+        // Email não encontrado
+        $_SESSION['toast'] = [
+            'message' => 'Email não encontrado. Verifique ou cadastre-se! ✉️',
+            'type' => 'error'
+        ];
+        header("Location: ../views/Login.php");
+        exit();
     }
 
 } else {
-    echo "Preencha todos os campos.";
+    // Campos não preenchidos
+    $_SESSION['toast'] = [
+        'message' => 'Por favor, preencha todos os campos! 📝',
+        'type' => 'error'
+    ];
+    header("Location: ../views/Login.php");
+    exit();
 }
+?>
