@@ -23,7 +23,8 @@ if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_tok
 }
 
 // Função para limpar e validar dados
-function sanitizeInput($data) {
+function sanitizeInput($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -31,15 +32,16 @@ function sanitizeInput($data) {
 }
 
 // Função para validar e formatar CEP
-function validarCEP($cep) {
-    // Remove tudo que não for número
+function validarCEP($cep)
+{
+    // Remove todos os caracteres não numéricos
     $cep = preg_replace('/[^0-9]/', '', $cep);
-    
+
     // Verifica se tem 8 dígitos
     if (strlen($cep) !== 8) {
         return false;
     }
-    
+
     return $cep;
 }
 
@@ -50,12 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rua = sanitizeInput($_POST['rua']);
     $bairro = sanitizeInput($_POST['bairro']);
     $cidade = sanitizeInput($_POST['cidade']);
-    $numero = isset($_POST['numero']) ? (int)sanitizeInput($_POST['numero']) : null;
+    $numero = isset($_POST['numero']) ? (int) sanitizeInput($_POST['numero']) : null;
     $complemento = isset($_POST['complemento']) ? sanitizeInput($_POST['complemento']) : null;
 
     // Validações básicas
     $erros = [];
-    
+
     if ($cep === false) {
         $erros[] = 'CEP deve conter exatamente 8 dígitos.';
     }
@@ -81,19 +83,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Se não houver erros, busca o endereço pelo CEP
     if (empty($erros)) {
         $dadosCEP = buscarEnderecoPorCEP($cep);
-        
+
         if (isset($dadosCEP['erro'])) {
             $erros[] = 'CEP não encontrado. Verifique o número digitado.';
         } else {
             // Preenche automaticamente apenas se os campos estiverem vazios
-            if (empty($rua)) $rua = $dadosCEP['logradouro'] ?? '';
-            if (empty($bairro)) $bairro = $dadosCEP['bairro'] ?? '';
-            if (empty($cidade)) $cidade = $dadosCEP['localidade'] ?? '';
-            
+            if (empty($rua))
+                $rua = $dadosCEP['logradouro'] ?? '';
+            if (empty($bairro))
+                $bairro = $dadosCEP['bairro'] ?? '';
+            if (empty($cidade))
+                $cidade = $dadosCEP['localidade'] ?? '';
+
             // Verifica novamente os campos obrigatórios
-            if (empty($rua)) $erros[] = 'Não foi possível obter o logradouro deste CEP. Por favor, preencha manualmente.';
-            if (empty($bairro)) $erros[] = 'Não foi possível obter o bairro deste CEP. Por favor, preencha manualmente.';
-            if (empty($cidade)) $erros[] = 'Não foi possível obter a cidade deste CEP. Por favor, preencha manualmente.';
+            if (empty($rua))
+                $erros[] = 'Não foi possível obter o logradouro deste CEP. Por favor, preencha manualmente.';
+            if (empty($bairro))
+                $erros[] = 'Não foi possível obter o bairro deste CEP. Por favor, preencha manualmente.';
+            if (empty($cidade))
+                $erros[] = 'Não foi possível obter a cidade deste CEP. Por favor, preencha manualmente.';
         }
     }
 
@@ -109,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Restante do seu código de inserção/atualização...
         // Verifica se já existe um endereço para este cliente
         $stmt = $conn->prepare("SELECT id_endereco FROM endereco WHERE id_cliente = ?");
         $stmt->bind_param("i", $id_cliente);
@@ -120,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Atualiza o endereço existente
             $row = $result->fetch_assoc();
             $id_endereco = $row['id_endereco'];
-            
+
             $stmt = $conn->prepare("UPDATE endereco SET 
                                   cep = ?, 
                                   bairro = ?, 
@@ -130,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                   numero = ? 
                                   WHERE id_endereco = ?");
             $stmt->bind_param("sssssii", $cep, $bairro, $rua, $cidade, $complemento, $numero, $id_endereco);
-            
+
             $acao = 'atualizado';
         } else {
             // Insere um novo endereço
@@ -138,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                   (id_cliente, cep, bairro, rua, cidade, complemento, numero) 
                                   VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("isssssi", $id_cliente, $cep, $bairro, $rua, $cidade, $complemento, $numero);
-            
+
             $acao = 'cadastrado';
         }
 
@@ -173,29 +180,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-function buscarEnderecoPorCEP($cep) {
+function buscarEnderecoPorCEP($cep)
+{
     $url = "https://viacep.com.br/ws/{$cep}/json/";
-    
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    
+
     $response = curl_exec($ch);
     curl_close($ch);
-    
-    return json_decode($response, true);
-}
 
-// Na validação do CEP, você pode adicionar:
-if (empty($erros)) {
-    $dadosCEP = buscarEnderecoPorCEP($cep);
-    if (isset($dadosCEP['erro'])) {
-        $erros[] = 'CEP não encontrado. Verifique o número digitado.';
-    } else {
-        // Preencha automaticamente os campos se estiverem vazios
-        if (empty($rua)) $rua = $dadosCEP['logradouro'] ?? '';
-        if (empty($bairro)) $bairro = $dadosCEP['bairro'] ?? '';
-        if (empty($cidade)) $cidade = $dadosCEP['localidade'] ?? '';
-    }
+    return json_decode($response, true);
 }
