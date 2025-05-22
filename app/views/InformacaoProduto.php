@@ -1,6 +1,5 @@
 <?php
 session_start();
-echo "ID do usuário logado: " . ($_SESSION['id_cliente'] ?? 'nenhum'); // Mostra qual usuário está logado
 require_once '../controllers/conn.php'; // Ajuste o caminho conforme sua estrutura
 
 if (!isset($_GET['id'])) {
@@ -75,10 +74,6 @@ function corrigirCaminhoImagem($nome_imagem)
                     <a class="header-link-none" href="../views/TelaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
-
-                    <form method="post" action="../controllers/logout.php" style="display:inline;">
-                        <button type="submit" class="header-button-logout" aria-label="logout">Sair</button>
-                    </form>
 
                     <a class="header-link-none" href="../views/TelaCarrinho.php">
                         <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>

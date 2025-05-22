@@ -82,15 +82,8 @@
 }
 
 img.user-img {
-    width: 35px;
-}
-
-.header-button-logout {
-    border: none;
-    background: none;
-    margin-left: 15px;
-    font-size: 18px;
-    color: rgb(92, 0, 0);
+    width: 33px;
+    margin-bottom: 5px;
 }
 
 .header-link-tema {
@@ -98,6 +91,7 @@ img.user-img {
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    gap: 30px;
 }
 
 .header-link-none {
@@ -232,20 +226,18 @@ img.user-img {
 
 /* Produtos */
 .produtos {
-    background-color: #e5e6e1;
-    height: 750px;
+    background-color: #edeee9;
+    height: auto;
     display: flex;
     justify-content: center;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 340px);
-    /* Altura fixa para cada linha */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 40px 50px; 
     margin-top: 35px;
-    column-gap: 55px;
-    row-gap: 20px;
+    margin-bottom: 35px;
 }
 
 .produto {
@@ -257,8 +249,9 @@ img.user-img {
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinhamento à esquerda */
-    position: relative; /* Permite posicionamento absoluto do preço */
+    align-items: flex-start; 
+    position: relative; 
+    transition: .8s;
 }
 
 .produto:hover {

@@ -113,6 +113,7 @@ li {
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    gap: 30px;
 }
 
 .header-link-none {
@@ -120,7 +121,8 @@ li {
 }
 
 img.user-img{
-    width: 35px;
+    width: 33px;
+    margin-bottom: 5px;
 }
 
 .header-button-logout{

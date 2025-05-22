@@ -78,7 +78,7 @@ session_start();
                     <div class="contador-caracteres"><span id="contador-curta">0</span>/200</div>
 
                     <label>Descrição detalhada</label>
-                    <textarea class="txt" name="descricao" rows="6" maxlength="300"
+                    <textarea class="txt" name="descricao" rows="6" maxlength="500"
                         placeholder="Digite a descrição detalhada..." id="descricao-detalhada" required></textarea>
                     <div class="contador-caracteres"><span id="contador-detalhada">0</span>/500</div>
 

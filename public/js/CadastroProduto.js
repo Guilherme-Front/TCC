@@ -149,7 +149,7 @@ form.addEventListener("submit", function (e) {
             
             // Redirecionar após 3 segundos
             setTimeout(() => {
-                window.location.href = "Index.php";
+                window.location.href = "CadastroProduto.php";
             }, 3000);
         } else {
             if (data.errors && data.errors.length > 0) {
