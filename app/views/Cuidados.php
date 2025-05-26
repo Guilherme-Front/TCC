@@ -30,10 +30,16 @@ session_start();
                         alt="Imagem da Logo"></a>
             </div>
 
-
             <div class="header-link-tema">
-                <?php if (isset($_SESSION['id_cliente'])): ?>
-                    <!-- Ícone de usuário e carrinho (usuário logado) -->
+                <?php if (isset($_SESSION['id_funcionario'])): ?>
+                    
+                    <!-- Funcionário logado - Mostrar perfil e área do funcionário -->
+                    <a class="header-link-none" href="../views/telaFuncionario.php">
+                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                    </a>
+
+                <?php elseif (isset($_SESSION['id_cliente'])): ?>
+                    <!-- Cliente logado - Mostrar perfil e carrinho -->
                     <a class="header-link-none" href="../views/TelaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
@@ -43,7 +49,7 @@ session_start();
                     </a>
 
                 <?php else: ?>
-                    <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
+                    <!-- Usuário não logado - Mostrar opções de login/cadastro -->
                     <a class="header-entrar" href="../views/Login.php">Entrar |</a>
                     <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
@@ -66,6 +72,7 @@ session_start();
             <a class="nav-link" href="../views/Cuidados.php">Cuidados</a>
             <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
             <a class="nav-link" href="../views/Faq.php">Suporte</a>
+
         </div>
     </nav>
 

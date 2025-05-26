@@ -21,12 +21,12 @@ $sql = "SELECT p.*,
 
 // Se houver filtro de categoria e não for 'Todos', adiciona WHERE à query
 if ($categoria_filtro && $categoria_filtro !== 'Todos' && in_array($categoria_filtro, ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'])) {
-    $stmt = $conn->prepare("$sql WHERE p.tipo = ?");
-    $stmt->bind_param("s", $categoria_filtro);
-    $stmt->execute();
-    $result = $stmt->get_result();
+  $stmt = $conn->prepare("$sql WHERE p.tipo = ?");
+  $stmt->bind_param("s", $categoria_filtro);
+  $stmt->execute();
+  $result = $stmt->get_result();
 } else {
-    $result = $conn->query($sql);
+  $result = $conn->query($sql);
 }
 
 $produtos = $result->fetch_all(MYSQLI_ASSOC);
@@ -55,28 +55,32 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
   <header class="header">
     <div class="header_container">
       <div class="header-titulo">
-        <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
-            alt="Imagem da Logo"></a>
+        <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
       </div>
 
       <div class="header-link-tema">
-        <?php if (isset($_SESSION['id_cliente'])): ?>
-          <!-- Ícone de usuário e carrinho (usuário logado) -->
+        <?php if (isset($_SESSION['id_funcionario'])): ?>
+
+          <a class="header-link-none" href="../views/telaFuncionario.php">
+            <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+          </a>
+
+        <?php elseif (isset($_SESSION['id_cliente'])): ?>
+          <!-- Cliente logado - Mostrar perfil e carrinho -->
           <a class="header-link-none" href="../views/TelaPerfil.php">
             <img class="user-img" src="../../public/img/user.png" alt="">
           </a>
 
-          <a class="header-link-none" href="../views/TelaCarrinho.php">
+          <a class="header-link-none" href="../views/telaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
 
-
         <?php else: ?>
-          <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
+          <!-- Usuário não logado - Mostrar opções de login/cadastro -->
           <a class="header-entrar" href="../views/Login.php">Entrar |</a>
           <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-          <a class="header-link-none" href="../views/Login.php">
+          <a class="header-link-none" href="../views/TelaCarrinho.php">
             <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
           </a>
         <?php endif; ?>
@@ -85,7 +89,6 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
           <img class="header-tema" src="../../public/img/tema.png" alt="Foto Mudança de Tema">
         </button>
       </div>
-
     </div>
   </header>
 

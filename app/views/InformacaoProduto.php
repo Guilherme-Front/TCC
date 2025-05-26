@@ -62,25 +62,28 @@ function corrigirCaminhoImagem($nome_imagem)
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
-                        alt="Imagem da Logo"></a>
+                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
             </div>
 
-            <!-- Login Cadastro e Carrinho -->
-
             <div class="header-link-tema">
-                <?php if (isset($_SESSION['id_cliente'])): ?>
-                    <!-- Ícone de usuário e carrinho (usuário logado) -->
+                <?php if (isset($_SESSION['id_funcionario'])): ?>
+
+                    <a class="header-link-none" href="../views/telaFuncionario.php">
+                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                    </a>
+
+                <?php elseif (isset($_SESSION['id_cliente'])): ?>
+                    <!-- Cliente logado - Mostrar perfil e carrinho -->
                     <a class="header-link-none" href="../views/TelaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
 
-                    <a class="header-link-none" href="../views/TelaCarrinho.php">
+                    <a class="header-link-none" href="../views/telaCarrinho.php">
                         <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
                     </a>
 
                 <?php else: ?>
-                    <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
+                    <!-- Usuário não logado - Mostrar opções de login/cadastro -->
                     <a class="header-entrar" href="../views/Login.php">Entrar |</a>
                     <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
@@ -89,13 +92,12 @@ function corrigirCaminhoImagem($nome_imagem)
                     </a>
                 <?php endif; ?>
 
-
-                <button class="header-button" id="button-tema" type="submit" aria-label="tema"><img class="header-tema"
-                        src="../../public/img/tema.png" alt="Foto Mudança de Tema"></button>
+                <button class="header-button" id="button-tema" type="submit" aria-label="tema">
+                    <img class="header-tema" src="../../public/img/tema.png" alt="Foto Mudança de Tema">
+                </button>
             </div>
         </div>
     </header>
-
     <main class="mainInfo">
 
         <div class="voltar">

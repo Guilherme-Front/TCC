@@ -26,7 +26,7 @@ session_start();
     </header>
 
     <div class="voltar-index">
-        <a href="../views/Index.php">
+        <a href="../views/telaFuncionario.php">
             <img class="botao-voltar" src="../../public/img/voltar.png" alt="botao-voltar" />
         </a>
         <h2 class="txt-cadastro">Cadastro de Produto</h2>

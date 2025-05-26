@@ -92,6 +92,22 @@ nav.menu-lateral {
     left: 0;
 }
 
+nav.menu-lateral-fn{
+    width: 55px;
+    height: 340px;
+    background-color: rgb(235, 235, 235);
+    overflow: hidden;
+    transition: .4s;
+    border-radius: 5px;
+    position: absolute;
+    border: 1px solid rgb(224, 224, 224);
+    left: 0;
+}
+
+.menu-lateral-fn.expandir {
+    width: 300px;
+}
+
 .menu-lateral.expandir {
     width: 300px;
 }
@@ -100,7 +116,7 @@ aside {
     width: 40px;
 }
 
-nav.menu-lateral:hover {
+nav.menu-lateral:hover, nav.menu-lateral-fn:hover{
     width: 280px;
 }
 

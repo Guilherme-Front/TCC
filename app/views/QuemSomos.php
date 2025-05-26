@@ -26,30 +26,34 @@ session_start();
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
-                        alt="Imagem da Logo"></a>
+                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
             </div>
 
-
             <div class="header-link-tema">
-                <?php if (isset($_SESSION['id_cliente'])): ?>
-                <!-- Ícone de usuário e carrinho (usuário logado) -->
-                <a class="header-link-none" href="../views/TelaPerfil.php">
-                    <img class="user-img" src="../../public/img/user.png" alt="">
-                </a>
+                <?php if (isset($_SESSION['id_funcionario'])): ?>
 
-                <a class="header-link-none" href="../views/TelaCarrinho.php">
-                    <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
-                </a>
+                    <a class="header-link-none" href="../views/telaFuncionario.php">
+                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                    </a>
+
+                <?php elseif (isset($_SESSION['id_cliente'])): ?>
+                    <!-- Cliente logado - Mostrar perfil e carrinho -->
+                    <a class="header-link-none" href="../views/TelaPerfil.php">
+                        <img class="user-img" src="../../public/img/user.png" alt="">
+                    </a>
+
+                    <a class="header-link-none" href="../views/telaCarrinho.php">
+                        <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
+                    </a>
 
                 <?php else: ?>
-                <!-- Entrar, Cadastro e Carrinho (usuário não logado) -->
-                <a class="header-entrar" href="../views/Login.php">Entrar |</a>
-                <a class="header-cadastro" href="../controllers/telaCadastro.php">Cadastro</a>
+                    <!-- Usuário não logado - Mostrar opções de login/cadastro -->
+                    <a class="header-entrar" href="../views/Login.php">Entrar |</a>
+                    <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-                <a class="header-link-none" href="../views/Login.php">
-                    <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
-                </a>
+                    <a class="header-link-none" href="../views/TelaCarrinho.php">
+                        <i class="fi fi-ss-shopping-cart car" aria-label="car"></i>
+                    </a>
                 <?php endif; ?>
 
                 <button class="header-button" id="button-tema" type="submit" aria-label="tema">

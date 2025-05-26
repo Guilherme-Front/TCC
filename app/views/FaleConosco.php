@@ -20,31 +20,34 @@ session_start();
 
 <body class="fl-body">
     <header class="header">
-        <div class="header_container">
-            <div class="header-titulo">
-                <a href="../views/Index.php"><img class="header-img" id="pet-img"
-                        src="../../public/img/Pet insight.png" alt="Imagem da Logo"></a>
-            </div>
+    <div class="header_container">
+      <div class="header-titulo">
+        <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+      </div>
 
+      <div class="header-link-tema">
+        <?php if (isset($_SESSION['id_funcionario'])): ?>
 
-            <?php if (isset($_SESSION['id_cliente'])): ?>
+          <a class="header-link-none" href="../views/telaFuncionario.php">
+            <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+          </a>
+        
+        <?php elseif (isset($_SESSION['id_cliente'])): ?>
+          <!-- Cliente logado - Mostrar perfil e carrinho -->
+          <a class="header-link-none" href="../views/TelaPerfil.php">
+            <img class="user-img" src="../../public/img/user.png" alt="">
+          </a>
 
-                <div class="user-info">
-                    <a class="header-link-none" href="../views/telaPerfil.php">
-                        <img class="user-img" src="../../public/img/user.png" alt="">
-                    </a>
-                </div>
+        <?php else: ?>
+          <!-- Usuário não logado - Mostrar opções de login/cadastro -->
+          <a class="header-entrar" href="../views/Login.php">Entrar |</a>
+          <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
 
-            <?php else: ?>
+        <?php endif; ?>
 
-                <div class="header-link-tema">
-                    <a class="header-entrar" href="../views/Login.php">Entrar |</a>
-                    <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
-                </div>
-            <?php endif; ?>
-
-        </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
     <main class="fl_body">
         <section class="fl-flex">

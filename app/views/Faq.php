@@ -21,26 +21,30 @@ session_start();
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
-                        alt="Imagem da Logo"></a>
+                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
             </div>
 
-            <?php if (isset($_SESSION['id_cliente'])): ?>
+            <div class="header-link-tema">
+                <?php if (isset($_SESSION['id_funcionario'])): ?>
 
-                <div class="user-info">
-                    <a class="header-link-none" href="../views/telaPerfil.php">
+                    <a class="header-link-none" href="../views/telaFuncionario.php">
+                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                    </a>
+
+                <?php elseif (isset($_SESSION['id_cliente'])): ?>
+                    <!-- Cliente logado - Mostrar perfil e carrinho -->
+                    <a class="header-link-none" href="../views/TelaPerfil.php">
                         <img class="user-img" src="../../public/img/user.png" alt="">
                     </a>
-                </div>
 
-            <?php else: ?>
-
-                <div class="header-link-tema">
+                <?php else: ?>
+                    <!-- Usuário não logado - Mostrar opções de login/cadastro -->
                     <a class="header-entrar" href="../views/Login.php">Entrar |</a>
                     <a class="header-cadastro" href="../views/telaCadastro.php">Cadastro</a>
-                </div>
-            <?php endif; ?>
 
+                <?php endif; ?>
+
+            </div>
         </div>
     </header>
 
