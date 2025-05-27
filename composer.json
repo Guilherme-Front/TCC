@@ -1,5 +1,6 @@
 {
     "require": {
-        "google/apiclient": "^2.18"
+        "google/apiclient": "^2.18",
+        "mercadopago/dx-php": "^2.6"
     }
 }
