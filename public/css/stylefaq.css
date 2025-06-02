@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-left: 70px;
+    margin-left: 100px;
 }
 
 .user-info{
@@ -25,15 +25,6 @@
     align-items: center;
     margin-right: -150px;
     margin-left: 590px;
-}
-
-.header-button-logout{
-    border: none;
-    background: none;
-    margin-left: 15px;
-    font-size: 18px;
-    color: rgb(92, 0, 0);
-    cursor: pointer;
 }
 
 img.user-img{
@@ -107,6 +98,13 @@ img.user-img{
     width: 35px;
 }
 
+.header-link-none{
+    margin-left: 785px;
+}
+
+.header-link-none-fn{
+    margin-left: 640px;
+}
 /* Fim FAQ Header */ 
 
 /* Início Perguntas Frequentes */

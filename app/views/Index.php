@@ -11,6 +11,8 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tela Principal | Pet Insight</title>
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +25,28 @@ session_start();
 </head>
 
 <body class="fl-body">
+  <?php if (isset($_SESSION['toast'])): ?>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($_SESSION['toast']['type'] === 'error'): ?>
+          error("<?= $_SESSION['toast']['message'] ?>", "linear-gradient(to right, #cd1809, #a01006)");
+        <?php else: ?>
+          Toastify({
+            text: "<?= $_SESSION['toast']['message'] ?>",
+            duration: 3500,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+          }).showToast();
+        <?php endif; ?>
+      });
+    </script>
+    <?php unset($_SESSION['toast']); ?>
+  <?php endif; ?>
   <header class="header">
     <div class="header_container">
       <div class="header-titulo">
@@ -35,7 +59,7 @@ session_start();
           <a class="header-link-none" href="../views/telaFuncionario.php">
             <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
           </a>
-        
+
         <?php elseif (isset($_SESSION['id_cliente'])): ?>
           <!-- Cliente logado - Mostrar perfil e carrinho -->
           <a class="header-link-none" href="../views/TelaPerfil.php">
@@ -70,7 +94,6 @@ session_start();
       <a class="nav-link" href="../views/Cuidados.php">Cuidados</a>
       <a class="nav-link" href="../views/CuriosidadesGeral.php">Curiosidades</a>
       <a class="nav-link" href="../views/Faq.php">Suporte</a>
-      
     </div>
   </nav>
 

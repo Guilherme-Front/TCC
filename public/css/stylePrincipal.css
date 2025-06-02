@@ -42,29 +42,23 @@
     background-color: #38C08F;
     left: 0;
     bottom: 0;
-    /* Controla a posição da linha */
     width: 0;
-    /* Começa sem largura */
     height: 1px;
-    /* Espessura da linha */
     transition: width 0.3s ease-in-out;
-    /* Animação suave */
 }
 
 .header-entrar:hover::after {
     width: 85%;
-    /* A linha se expande completamente */
 }
 
 .header-cadastro {
-    left: 5px;
+    left: -18px;
     position: relative;
     text-decoration: none;
     color: #38C08F;
-    /* Cor do texto */
     font-size: 18px;
     padding-bottom: 5px;
-    /* Ajuste para a linha ficar mais distante */
+    margin-left: 15px;
 }
 
 .header-cadastro::after {
@@ -73,18 +67,13 @@
     background-color: #38C08F;
     left: 0;
     bottom: 0;
-    /* Controla a posição da linha */
     width: 0;
-    /* Começa sem largura */
     height: 1px;
-    /* Espessura da linha */
     transition: width 0.3s ease-in-out;
-    /* Animação suave */
 }
 
 .header-cadastro:hover::after {
     width: 100%;
-    /* A linha se expande completamente */
 }
 
 .header-button {
@@ -99,11 +88,15 @@
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    gap: 30px;
+    gap: 10px;
 }
 
-.header-link-none {
+a {
     text-decoration: none;
+}
+
+.header-link-none{
+    margin-right: 30px;
 }
 
 img.user-img{

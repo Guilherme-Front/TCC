@@ -58,16 +58,15 @@ if (isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha']
         $user = $result->fetch_assoc();
 
         if (password_verify($senhaDigitada, $user['senha_hash'])) {
-
             $_SESSION['id_cliente'] = $user['id_cliente'];
             $_SESSION['nome'] = $user['nome'];
 
-            // Mensagem de sucesso
             $_SESSION['toast'] = [
                 'message' => 'Login realizado com sucesso! Bem-vindo, ' . htmlspecialchars($user['nome']) . '! 👋',
                 'type' => 'success'
             ];
 
+            // Redireciona imediatamente
             header("Location: ../views/Index.php");
             exit();
 
