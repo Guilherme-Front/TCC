@@ -47,6 +47,7 @@ function corrigirCaminhoImagem($nome_imagem)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="../../public/css/produto.css?v=<?= time() ?>">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -62,7 +63,8 @@ function corrigirCaminhoImagem($nome_imagem)
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+                <a href="../views/Index.php"><img class="header-img" src="../../public/img/Pet insight.png"
+                        alt="Imagem da Logo"></a>
             </div>
 
             <div class="header-link-tema">
@@ -176,7 +178,6 @@ function corrigirCaminhoImagem($nome_imagem)
             </div>
             <div class="descricao">
                 <div class="sobre">
-                    <h3>Sobre:</h3>
                     <p><?= $produto['descricaoMaior'] ?></p>
                 </div>
             </div>
@@ -227,74 +228,99 @@ function corrigirCaminhoImagem($nome_imagem)
 
     </main>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../public/js/tema.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Função para adicionar produto ao carrinho
-            document.querySelector('.add-carrinho')?.addEventListener('click', function () {
+            // Função para adicionar produto ao carrinho com verificação de estoque
+            document.querySelector('.add-carrinho')?.addEventListener('click', async function () {
                 const idProduto = <?= $id_produto ?>;
                 const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
                 const precoProduto = <?= $produto['valor'] ?>;
                 const quantidade = parseInt(document.getElementById('quantidade').value);
                 const imagemProduto = "<?= !empty($imagens) ? corrigirCaminhoImagem($imagens[0]['nome_imagem']) : '../../public/img/sem-imagem.png' ?>";
+                const idCliente = <?= isset($_SESSION['id_cliente']) ? $_SESSION['id_cliente'] : 'null' ?>;
 
-                // Criar objeto do produto
-                const produto = {
-                    id: idProduto,
-                    nome: nomeProduto,
-                    preco: precoProduto,
-                    quantidade: quantidade,
-                    imagem: imagemProduto
-                };
+                if (!idCliente) {
+                    error("Por favor, faça login para adicionar produtos ao carrinho.", "#e63946");
+                    setTimeout(() => {
+                        window.location.href = '../views/Login.php';
+                    }, 3500);
+                    return;
+                }
 
-                // Adicionar ao carrinho
-                adicionarAoCarrinho(produto);
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector('.add-carrinho')?.addEventListener('click', function () {
-                const idProduto = <?= $id_produto ?>;
-                const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
-                const precoProduto = <?= $produto['valor'] ?>;
-                const quantidade = parseInt(document.getElementById('quantidade').value);
-                const imagemProduto = "<?= !empty($imagens) ? corrigirCaminhoImagem($imagens[0]['nome_imagem']) : '../../public/img/sem-imagem.png' ?>";
-
-                const produto = {
-                    id: idProduto,
-                    nome: nomeProduto,
-                    preco: precoProduto,
-                    quantidade: quantidade,
-                    imagem: imagemProduto
-                };
-
-                // Verificar estoque antes de adicionar
-                fetch('../backend/verificarEstoque.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({
-                        id_produto: idProduto,
-                        quantidade: quantidade
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.disponivel) {
-                            adicionarAoCarrinho(produto);
-                        } else if (data.estoque !== undefined) {
-                            alert(`Estoque insuficiente. Apenas ${data.estoque} unidade(s) disponível(is).`);
-                        } else {
-                            alert('Erro ao verificar estoque.');
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert('Produto não encontrado no estoque.');
+                try {
+                    // Verificar estoque antes de adicionar ao carrinho
+                    const response = await fetch('../controllers/verificaEstoque.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `id_produto=${idProduto}&quantidade=${quantidade}`
                     });
+
+                    const data = await response.json();
+
+                    if (data.erro) {
+                        error(data.erro, "linear-gradient(to right, #cd1809, #a01006)");
+                        return;
+                    }
+
+                    if (!data.disponivel) {
+                        error(`Quantidade indisponível em estoque. Máximo: ${data.estoque}`, "linear-gradient(to right, #cd1809, #a01006)");
+                        return;
+                    }
+
+                    // Criar objeto do produto
+                    const produto = {
+                        id: idProduto,
+                        nome: nomeProduto,
+                        preco: precoProduto,
+                        quantidade: quantidade,
+                        imagem: imagemProduto,
+                        estoque: data.estoque // Armazenamos o estoque atual para validações futuras
+                    };
+
+                    // Adicionar ao carrinho
+                    adicionarAoCarrinho(produto, idCliente);
+
+                } catch (err) {
+                    console.error('Erro ao verificar estoque:', err);
+                    error("Erro ao verificar disponibilidade do produto", "linear-gradient(to right, #cd1809, #a01006)");
+                }
             });
         });
+
+        function adicionarAoCarrinho(produto, idCliente) {
+            const carrinhoKey = `carrinho_${idCliente}`;
+            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+
+            // Verificar se o produto já está no carrinho
+            const produtoExistenteIndex = carrinho.findIndex(item => item.id === produto.id);
+
+            if (produtoExistenteIndex !== -1) {
+                // Verificar se a nova quantidade ultrapassa o estoque
+                const novaQuantidade = carrinho[produtoExistenteIndex].quantidade + produto.quantidade;
+
+                if (novaQuantidade > produto.estoque) {
+                    error(`Quantidade solicitada (${novaQuantidade}) excede o estoque disponível (${produto.estoque})`,
+                        "linear-gradient(to right, #cd1809, #a01006)");
+                    return;
+                }
+
+                carrinho[produtoExistenteIndex].quantidade = novaQuantidade;
+            } else {
+                carrinho.push(produto);
+            }
+
+            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+            localStorage.removeItem(`carrinhoVazio_${idCliente}`);
+
+            // Toast de sucesso e redirecionamento suave
+            redirection("Produto adicionado ao carrinho com sucesso!", "../views/TelaCarrinho.php");
+        }
 
         // Função existente para alterar quantidade
         function alterarQuantidade(valor) {
@@ -303,6 +329,40 @@ function corrigirCaminhoImagem($nome_imagem)
             if (quantidade >= 1) {
                 input.value = quantidade;
             }
+        }
+
+        function redirection(message, target) {
+            Toastify({
+                text: message,
+                close: true,
+                gravity: "top", // `top` ou `bottom`
+                position: "right", // `left`, `center` ou `right`
+                stopOnFocus: true, // Impede o fechamento ao passar o mouse
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                onClick: function () { } // Callback após clicar
+            }).showToast();
+
+            // Redireciona após o tempo do toast
+            setTimeout(() => {
+                window.location.href = target;
+            }, 3500); // Tempo em milissegundos
+        }
+
+        function error(message, color) {
+            Toastify({
+                text: message,
+                duration: 3500,
+                close: true,
+                gravity: "top", // `top` ou `bottom`
+                position: "right", // `left`, `center` ou `right`
+                stopOnFocus: true, // Impede o fechamento ao passar o mouse
+                style: {
+                    background: color,
+                },
+                onClick: function () { }
+            }).showToast();
         }
     </script>
 </body>

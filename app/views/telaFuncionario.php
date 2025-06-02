@@ -29,6 +29,39 @@ if (!empty($funcionario['datNasc']) && $funcionario['datNasc'] !== '0000-00-00')
     $dataNascFormatada = $data->format('d/m/Y');
   }
 }
+
+// Busca todos os produtos cadastrados no banco com a primeira imagem de cada produto
+$produtos = [];
+$sql = "
+SELECT p.id_produto, p.nome_produto, p.quantidade, p.marca, p.valor, p.tipo,
+       (SELECT ip.nome_imagem 
+        FROM imagem_produto ip 
+        WHERE ip.id_produto = p.id_produto 
+        ORDER BY ip.id_imagens ASC LIMIT 1) AS nome_imagem
+FROM produto p
+";
+
+// Verifica se há filtro por categoria na URL
+$categoria_filtro = $_GET['categoria'] ?? 'Todos';
+
+// Adiciona filtro se não for 'Todos'
+if ($categoria_filtro !== 'Todos') {
+  $sql .= " WHERE p.tipo = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $categoria_filtro);
+  $stmt->execute();
+  $result = $stmt->get_result();
+} else {
+  $result = $conn->query($sql);
+}
+
+if ($result) {
+  while ($row = $result->fetch_assoc()) {
+    $produtos[] = $row;
+  }
+} else {
+  echo "Erro na consulta dos produtos: " . $conn->error;
+}
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +165,8 @@ if (!empty($funcionario['datNasc']) && $funcionario['datNasc'] !== '0000-00-00')
               <?php endif; ?>
 
               <p class="boas-vindas">Olá
-                <strong><?= htmlspecialchars($funcionario['nome'] ?? 'Funcionário') ?>!</strong></p>
+                <strong><?= htmlspecialchars($funcionario['nome'] ?? 'Funcionário') ?>!</strong>
+              </p>
             </div>
 
             <div class="flex-enviar">
@@ -169,9 +203,46 @@ if (!empty($funcionario['datNasc']) && $funcionario['datNasc'] !== '0000-00-00')
         </form>
       </div>
 
-      <!-- Seção de Pedidos -->
+      <!-- Seção de Produtos cadastrados -->
       <div class="produtos-cadastrados" id="produtos-cadastrados" style="display:none;">
-        <!-- Conteúdo dos produtos cadastrados será carregado aqui -->
+        <div class="titulo-categoria">
+          <h3>Produtos cadastrados</h3>
+          <select class="opcao" id="filtro-categoria" name="tipo" required>
+            <option value="Todos" <?= ($categoria_filtro === 'Todos') ? 'selected' : '' ?>>Todos</option>
+            <option value="Rações" <?= ($categoria_filtro === 'Rações') ? 'selected' : '' ?>>Rações</option>
+            <option value="Aperitivos" <?= ($categoria_filtro === 'Aperitivos') ? 'selected' : '' ?>>Aperitivos</option>
+            <option value="Coleiras" <?= ($categoria_filtro === 'Coleiras') ? 'selected' : '' ?>>Coleiras</option>
+            <option value="Brinquedos" <?= ($categoria_filtro === 'Brinquedos') ? 'selected' : '' ?>>Brinquedos</option>
+            <option value="Higiene" <?= ($categoria_filtro === 'Higiene') ? 'selected' : '' ?>>Higiene</option>
+          </select>
+        </div>
+
+        <?php foreach ($produtos as $produto):
+          $nome_imagem = str_replace('uploads/imgProdutos/', '', $produto['nome_imagem']);
+          $caminho_imagem = "/TCC/public/uploads/imgProdutos/" . $nome_imagem;
+          $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . '/TCC/public/uploads/imgProdutos/' . $nome_imagem; ?>
+          <div class="produto-info">
+            <div class="box-img">
+              <img src="<?= $caminho_imagem ?>" alt="<?= htmlspecialchars($produto['nome_produto']) ?>" ?>
+            </div>
+            <div class="info-txt">
+              <p><?= htmlspecialchars($produto['nome_produto']) ?></p>
+              <p>Estoque: <?= htmlspecialchars($produto['quantidade']) ?></p>
+            </div>
+            <div class="info-txt-mp">
+              <p>Marca: <?= htmlspecialchars($produto['marca']) ?></p>
+              <p>Preço: R$ <?= number_format($produto['valor'], 2, ',', '.') ?></p>
+            </div>
+            <div class="categoria-txt">
+              <p><?= htmlspecialchars($produto['tipo']) ?></p>
+            </div>
+            <div class="btns">
+              <button type="button">Alterar</button>
+              <button type="button">Excluir</button>
+            </div>
+          </div>
+        <?php endforeach; ?>
+
       </div>
     </section>
   </main>
@@ -182,6 +253,7 @@ if (!empty($funcionario['datNasc']) && $funcionario['datNasc'] !== '0000-00-00')
 
   <script>
 
+    document.documentElement.classList.add('js-enabled');
 
     document.addEventListener('DOMContentLoaded', function () {
       // Objeto para armazenar valores originais
@@ -339,6 +411,27 @@ if (!empty($funcionario['datNasc']) && $funcionario['datNasc'] !== '0000-00-00')
       // Inicialização
       window.addEventListener('hashchange', verificarHash);
       verificarHash();
+    });
+
+    document.getElementById('filtro-categoria').addEventListener('change', function () {
+      const categoria = this.value;
+      const novaUrl = window.location.pathname + '?categoria=' + encodeURIComponent(categoria) + '#produtos-cadastrados';
+
+      // Atualiza a URL sem recarregar (para evitar scroll automático)
+      history.pushState(null, '', novaUrl);
+
+      // Recarrega a página
+      window.location.reload();
+    });
+
+    // Verifica se há categoria na URL ao carregar a página
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoria = urlParams.get('categoria');
+
+      if (categoria) {
+        document.getElementById('filtro-categoria').value = categoria;
+      }
     });
   </script>
 </body>

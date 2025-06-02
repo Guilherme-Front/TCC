@@ -26,7 +26,8 @@ main {
     align-items: stretch;
     background-color: rgb(247, 247, 247);
     display: flex;
-    height: 400px;
+    min-height: 400px;
+    height: auto;
     padding: 20px;
 }
 
@@ -92,7 +93,7 @@ nav.menu-lateral {
     left: 0;
 }
 
-nav.menu-lateral-fn{
+nav.menu-lateral-fn {
     width: 55px;
     height: 340px;
     background-color: rgb(235, 235, 235);
@@ -116,7 +117,8 @@ aside {
     width: 40px;
 }
 
-nav.menu-lateral:hover, nav.menu-lateral-fn:hover{
+nav.menu-lateral:hover,
+nav.menu-lateral-fn:hover {
     width: 280px;
 }
 
@@ -205,7 +207,7 @@ ul li.item-menu-logoff a .icon>img {
 img.gato {
     width: 100px;
     height: 100px;
-    border-radius: 50%;  
+    border-radius: 50%;
     object-fit: cover;
 }
 
@@ -249,7 +251,7 @@ section {
     align-items: center;
 }
 
-.perfil-section{
+.perfil-section {
     margin-top: 40px;
 }
 
@@ -331,13 +333,14 @@ a:active {
 
 .linha-endereco {
     display: flex;
-    gap: 5px; 
+    gap: 5px;
 }
 
 .campo-endereco {
     display: flex;
     flex-direction: column;
 }
+
 .campo-endereco.rua {
     margin-right: 10px;
 }
@@ -348,15 +351,15 @@ a:active {
 
 .campo-endereco.cep {
     width: 80px;
-    margin-right: 28px; 
+    margin-right: 28px;
 }
 
 .campo-endereco.cidade {
     flex: 1;
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
-.select-uf{
+.select-uf {
     width: 40px;
     padding: 6px 8px;
     border-radius: 3px;
@@ -367,7 +370,7 @@ a:active {
 }
 
 .input-txt {
-    width: 100%; 
+    width: 100%;
 }
 
 .campo-endereco label {
@@ -376,7 +379,7 @@ a:active {
 }
 
 .campo-endereco input {
-    width: 250px; 
+    width: 250px;
     padding: 6px 8px;
     border-radius: 3px;
     background-color: white;
@@ -403,7 +406,7 @@ a:active {
     justify-content: flex-end;
 }
 
-#btn-salvar-endereco{
+#btn-salvar-endereco {
     height: 30px;
     width: 150px;
     border: none;
@@ -418,8 +421,136 @@ a:active {
     margin-left: 51px;
 }
 
-#btn-salvar-endereco:hover{
+#btn-salvar-endereco:hover {
     background-color: #8e3315;
+}
+
+/* Sessão de produtos cadastrados */
+
+.produtos-cadastrados {
+    display: flex;
+    border-radius: 5px;
+    border: 1px solid rgb(189, 189, 189);
+    min-height: 400px;
+    width: 850px;
+    margin-left: 140px;
+}
+
+.titulo-categoria {
+    display: flex;
+    background-color: rgb(211, 211, 211);
+    height: 40px;
+    align-items: center;
+    gap: 380px;
+    padding-left: 20px;
+}
+
+select {
+    padding: 3px;
+    width: 100px;
+    border-radius: 3px;
+}
+
+.produto-info {
+    border: 1px solid rgb(189, 189, 189);
+    width: 100%;
+    height: 90px;
+    border-left: none;
+    border-right: none;
+    display: flex;
+    align-items: center;
+}
+
+.box-img {
+    height: 100%;
+    width: 100px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-img img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.info-txt {
+    flex: 2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
+    max-height: 2.4em;
+}
+
+.info-txt-mp {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.categoria-txt {
+    flex: 1;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.btns {
+    flex: 0 0 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btns button {
+    width: 90px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.btns button:first-child {
+    background-color: grey;
+}
+
+.btns button:first-child:hover {
+    background-color: rgb(95, 95, 95);
+}
+
+.btns button:last-child {
+    background-color: red;
+}
+
+.btns button:last-child:hover {
+    background-color: rgb(180, 0, 0);
+}
+
+/* Esconde as seções por padrão */
+section > div {
+  display: none;
+}
+
+/* Depois que o JS carregar, adicionamos uma classe que permite controlar as seções */
+.js-enabled section > div {
+  display: none; /* mantém escondido */
+}
+
+.js-enabled section > div.active {
+  display: block; /* só mostra a ativa */
 }
 
 /* 821px */
@@ -641,7 +772,7 @@ a:active {
         background-color: grey;
     }
 
-    
+
     .boas-vindas {
         padding: 15px 0;
         margin-top: 10px;

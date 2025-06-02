@@ -26,7 +26,9 @@ session_start();
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+                <a href="../views/Index.php">
+                    <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+                </a>
             </div>
 
             <div class="header-link-tema">
@@ -87,7 +89,8 @@ session_start();
                             especialistas qualificados e parcerias de confiança. Nosso objetivo é promover uma melhor
                             qualidade de vida para todos os animais domésticos, oferecendo informações precisas e
                             produtos de excelência.
-
+                        </p>
+                        <p class="pet-p1">
                             Mais do que um site sobre pets, a Pet Insight é um espaço dedicado ao cuidado, à informação
                             e ao bem-estar animal. Disponibilizamos conteúdos confiáveis sobre cães, gatos, coelhos,
                             hamsters e porquinhos-da-índia, com dicas de alimentação, vacinação, curiosidades e saúde.

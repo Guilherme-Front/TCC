@@ -1,23 +1,47 @@
 <?php
-require '../config/db.php'; // adapte conforme seu caminho ao banco
+session_start();
+require_once '../controllers/conn.php'; // Ajuste conforme seu caminho
 
-if (isset($_POST['id_produto']) && isset($_POST['quantidade'])) {
-    $id = (int)$_POST['id_produto'];
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['id_produto']) || !isset($_POST['quantidade'])) {
+        echo json_encode(['erro' => 'Parâmetros inválidos']);
+        exit;
+    }
+
+    $id_produto = (int)$_POST['id_produto'];
     $quantidade = (int)$_POST['quantidade'];
 
-    $stmt = $pdo->prepare("SELECT quantidade FROM produtos WHERE id_produto = ?");
-    $stmt->execute([$id]);
-    $produto = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Verificar se o produto existe e tem estoque suficiente
+    $sql = "SELECT quantidade FROM produto WHERE id_produto = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_produto);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($produto) {
-        if ($produto['quantidade'] >= $quantidade) {
-            echo json_encode(['disponivel' => true]);
-        } else {
-            echo json_encode(['disponivel' => false, 'estoque' => $produto['quantidade']]);
-        }
-    } else {
+    if ($result->num_rows === 0) {
         echo json_encode(['erro' => 'Produto não encontrado']);
+        exit;
+    }
+
+    $produto = $result->fetch_assoc();
+    $estoque = (int)$produto['quantidade'];
+
+    if ($estoque >= $quantidade) {
+        echo json_encode([
+            'disponivel' => true,
+            'estoque' => $estoque
+        ]);
+    } else {
+        echo json_encode([
+            'disponivel' => false,
+            'estoque' => $estoque
+        ]);
     }
 } else {
-    echo json_encode(['erro' => 'Parâmetros inválidos']);
+    echo json_encode(['erro' => 'Método não permitido']);
 }
+
+$conn->close();
+?>
