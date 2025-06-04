@@ -261,7 +261,7 @@ session_start();
       <div class="links">
         <a class="links-footer" href="../views/QuemSomos.php">Quem Somos</a>
         <a class="links-footer" href="#">Promoções</a>
-        <a class="links-footer" href="../views/FaleConosco.html">Fale Conosco</a>
+        <a class="links-footer" href="../views/FaleConosco.php">Fale Conosco</a>
       </div>
     </div>
 

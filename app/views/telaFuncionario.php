@@ -236,8 +236,9 @@ if ($result) {
             <div class="categoria-txt">
               <p><?= htmlspecialchars($produto['tipo']) ?></p>
             </div>
+            <!-- No loop onde os produtos são exibidos, modifique o botão Alterar: -->
             <div class="btns">
-              <button type="button">Alterar</button>
+              <button type="button"><a class="txt-alterar" href="../views/atualizarProduto.php?id=<?= $produto['id_produto'] ?>" class="btn-alterar">Alterar</a></button>
               <button type="button">Excluir</button>
             </div>
           </div>

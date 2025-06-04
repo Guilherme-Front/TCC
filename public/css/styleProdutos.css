@@ -5,7 +5,8 @@
     box-sizing: border-box;
 }
 
-/* Header */
+/* Início Header */
+
 .header {
     margin-top: -90px;
     margin-bottom: -130px;
@@ -51,12 +52,13 @@
 }
 
 .header-cadastro {
-    left: 5px;
+    left: -18px;
     position: relative;
     text-decoration: none;
     color: #38C08F;
     font-size: 18px;
     padding-bottom: 5px;
+    margin-left: 15px;
 }
 
 .header-cadastro::after {
@@ -81,21 +83,25 @@
     margin-bottom: 5px;
 }
 
-img.user-img {
-    width: 33px;
-    margin-bottom: 5px;
-}
-
 .header-link-tema {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    gap: 30px;
+    gap: 10px;
+}
+
+a {
+    text-decoration: none;
 }
 
 .header-link-none {
-    text-decoration: none;
+    margin-right: 30px;
+}
+
+img.user-img {
+    width: 33px;
+    margin-bottom: 5px;
 }
 
 .car {
@@ -110,11 +116,15 @@ img.user-img {
     width: 35px;
 }
 
-/* Nav */
+/* Fim Header */
+
+/* Início nav */
+
 .nav_wrap {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     gap: 100px;
 }
 
@@ -132,14 +142,20 @@ img.user-img {
     background-color: var(--after-background-color, black);
     left: 0;
     bottom: 0;
+    /* Controla a posição da linha */
     width: 0;
+    /* Começa sem largura */
     height: 1px;
+    /* Espessura da linha */
     transition: width 0.3s ease-in-out;
+    /* Animação suave */
 }
 
 .nav-link:hover::after {
     width: 100%;
+    /* A linha se expande completamente */
 }
+
 
 /* Carrossel */
 .TL_carrosel {
@@ -234,8 +250,8 @@ img.user-img {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 40px 50px; 
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px 50px;
     margin-top: 35px;
     margin-bottom: 35px;
 }
@@ -243,14 +259,15 @@ img.user-img {
 .produto {
     background-color: rgb(255, 255, 255);
     width: 235px;
-    height: 300px; /* Altura fixa */
+    height: 300px;
+    /* Altura fixa */
     border-radius: 7px;
     padding: 15px;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
-    position: relative; 
+    align-items: flex-start;
+    position: relative;
     transition: .8s;
 }
 
@@ -271,12 +288,14 @@ img.user-img {
 }
 
 .produto p:first-of-type {
-     font-size: 17px;
+    font-size: 17px;
     margin: 0;
     text-align: left;
     width: 100%;
-    min-height: 60px; /* Altura fixa para o nome */
-    padding-top: 10px; /* Espaço acima do nome (opcional) */
+    min-height: 60px;
+    /* Altura fixa para o nome */
+    padding-top: 10px;
+    /* Espaço acima do nome (opcional) */
 }
 
 .produto p:last-of-type {
@@ -288,9 +307,11 @@ img.user-img {
     margin-bottom: 10px;
     padding-right: 20px;
 }
+
 .produto p:first-of-type {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limita a 2 linhas */
+    -webkit-line-clamp: 2;
+    /* Limita a 2 linhas */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

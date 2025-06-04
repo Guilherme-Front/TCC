@@ -55,7 +55,9 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
   <header class="header">
     <div class="header_container">
       <div class="header-titulo">
-        <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+        <a href="../views/Index.php">
+          <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+        </a>
       </div>
 
       <div class="header-link-tema">

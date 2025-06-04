@@ -494,6 +494,7 @@ select {
     justify-content: center;
     gap: 5px;
     white-space: nowrap;
+    margin-left: 70px;
 }
 
 .categoria-txt {
@@ -510,6 +511,7 @@ select {
     align-items: center;
     justify-content: center;
     gap: 5px;
+    margin-right: 20px;
 }
 
 .btns button {
@@ -525,6 +527,11 @@ select {
 
 .btns button:first-child {
     background-color: grey;
+}
+
+.txt-alterar{
+    color: white;
+    text-decoration: none;
 }
 
 .btns button:first-child:hover {
@@ -552,6 +559,7 @@ section > div {
 .js-enabled section > div.active {
   display: block; /* só mostra a ativa */
 }
+
 
 /* 821px */
 @media screen and (max-width: 821px) {

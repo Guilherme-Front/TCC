@@ -21,13 +21,15 @@ session_start();
     <header class="header">
         <div class="header_container">
             <div class="header-titulo">
-                <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+                <a href="../views/Index.php">
+                    <img class="header-img" src="../../public/img/Pet insight.png" alt="Imagem da Logo">
+                </a>
             </div>
 
             <div class="header-link-tema">
                 <?php if (isset($_SESSION['id_funcionario'])): ?>
 
-                    <a class="header-link-none" href="../views/telaFuncionario.php">
+                    <a class="header-link-none-fn" href="../views/telaFuncionario.php">
                         <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
                     </a>
 

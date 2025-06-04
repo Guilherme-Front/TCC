@@ -32,7 +32,7 @@ session_start();
 
             <div class="header-link-tema">
                 <?php if (isset($_SESSION['id_funcionario'])): ?>
-                    
+
                     <!-- Funcionário logado - Mostrar perfil e área do funcionário -->
                     <a class="header-link-none" href="../views/telaFuncionario.php">
                         <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">

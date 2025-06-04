@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-left: 100px;
+    margin-left: 92px;
 }
 
 .user-info{
@@ -36,7 +36,7 @@ img.user-img{
     height: auto;
     margin-top: 100px;
     margin-bottom: 130px;
-    margin-left: -95px;
+    margin-left: -87px;
 }
 
 .header-entrar {
@@ -45,7 +45,7 @@ img.user-img{
     color: #38C08F; /* Cor do texto */
     font-size: 18px;
     padding-bottom: 5px; /* Ajuste para a linha ficar mais distante */
-    margin-left: 750px;
+    margin-left: 773px;
 }
 
 .header-entrar::after {
@@ -221,6 +221,8 @@ img.user-img{
     margin-bottom: 10px;
     cursor: pointer;
     margin-left: 340px;
+    transition: 0.8s;
+    border-radius: 1.5px;
 }
 
 .faq-FL:hover {
@@ -231,6 +233,10 @@ img.user-img{
 .faq-button{
     width: 100%;
     display: flex;
+}
+
+.faq-button a{
+    margin-left: 18px;
 }
 
 .text {

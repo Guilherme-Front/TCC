@@ -161,12 +161,29 @@ function corrigirCaminhoImagem($nome_imagem)
                         <button class="button-add2" onclick="alterarQuantidade(1)">+</button>
                     </div>
 
+                    <!-- No seu HTML, modifique a seção do botão de comprar -->
                     <div class="compra">
-                        <button class="add-carrinho">
-                            <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
-                        </button>
+                        <?php if (isset($_SESSION['id_funcionario'])): ?>
+                            <!-- Botão para funcionários (só mostra mensagem) -->
+                            <button class="add-carrinho" onclick="mostrarMensagemFuncionario()">
+                                <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
+                            </button>
+                            <button class="button-comprar" onclick="mostrarMensagemFuncionario()">Comprar</button>
 
-                        <a href="#"><button class="button-comprar" type="submit">Comprar</button></a>
+                        <?php elseif (isset($_SESSION['id_cliente'])): ?>
+                            <!-- Botão para clientes logados (funcional) -->
+                            <button class="add-carrinho" onclick="adicionarAoCarrinho()">
+                                <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
+                            </button>
+                            <button class="button-comprar" onclick="comprarAgora()">Comprar</button>
+
+                        <?php else: ?>
+                            <!-- Botão para visitantes (redireciona para login) -->
+                            <button class="add-carrinho" onclick="redirecionarParaLogin()">
+                                <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
+                            </button>
+                            <button class="button-comprar" onclick="redirecionarParaLogin()">Comprar</button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -233,136 +250,109 @@ function corrigirCaminhoImagem($nome_imagem)
     <script src="../../public/js/tema.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Função para adicionar produto ao carrinho com verificação de estoque
-            document.querySelector('.add-carrinho')?.addEventListener('click', async function () {
-                const idProduto = <?= $id_produto ?>;
-                const nomeProduto = "<?= addslashes($produto['nome_produto']) ?>";
-                const precoProduto = <?= $produto['valor'] ?>;
-                const quantidade = parseInt(document.getElementById('quantidade').value);
-                const imagemProduto = "<?= !empty($imagens) ? corrigirCaminhoImagem($imagens[0]['nome_imagem']) : '../../public/img/sem-imagem.png' ?>";
-                const idCliente = <?= isset($_SESSION['id_cliente']) ? $_SESSION['id_cliente'] : 'null' ?>;
 
-                if (!idCliente) {
-                    error("Por favor, faça login para adicionar produtos ao carrinho.", "#e63946");
-                    setTimeout(() => {
-                        window.location.href = '../views/Login.php';
-                    }, 3500);
-                    return;
-                }
-
-                try {
-                    // Verificar estoque antes de adicionar ao carrinho
-                    const response = await fetch('../controllers/verificaEstoque.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `id_produto=${idProduto}&quantidade=${quantidade}`
-                    });
-
-                    const data = await response.json();
-
-                    if (data.erro) {
-                        error(data.erro, "linear-gradient(to right, #cd1809, #a01006)");
-                        return;
-                    }
-
-                    if (!data.disponivel) {
-                        error(`Quantidade indisponível em estoque. Máximo: ${data.estoque}`, "linear-gradient(to right, #cd1809, #a01006)");
-                        return;
-                    }
-
-                    // Criar objeto do produto
-                    const produto = {
-                        id: idProduto,
-                        nome: nomeProduto,
-                        preco: precoProduto,
-                        quantidade: quantidade,
-                        imagem: imagemProduto,
-                        estoque: data.estoque // Armazenamos o estoque atual para validações futuras
-                    };
-
-                    // Adicionar ao carrinho
-                    adicionarAoCarrinho(produto, idCliente);
-
-                } catch (err) {
-                    console.error('Erro ao verificar estoque:', err);
-                    error("Erro ao verificar disponibilidade do produto", "linear-gradient(to right, #cd1809, #a01006)");
-                }
-            });
-        });
-
-        function adicionarAoCarrinho(produto, idCliente) {
-            const carrinhoKey = `carrinho_${idCliente}`;
-            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-
-            // Verificar se o produto já está no carrinho
-            const produtoExistenteIndex = carrinho.findIndex(item => item.id === produto.id);
-
-            if (produtoExistenteIndex !== -1) {
-                // Verificar se a nova quantidade ultrapassa o estoque
-                const novaQuantidade = carrinho[produtoExistenteIndex].quantidade + produto.quantidade;
-
-                if (novaQuantidade > produto.estoque) {
-                    error(`Quantidade solicitada (${novaQuantidade}) excede o estoque disponível (${produto.estoque})`,
-                        "linear-gradient(to right, #cd1809, #a01006)");
-                    return;
-                }
-
-                carrinho[produtoExistenteIndex].quantidade = novaQuantidade;
-            } else {
-                carrinho.push(produto);
-            }
-
-            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-            localStorage.removeItem(`carrinhoVazio_${idCliente}`);
-
-            // Toast de sucesso e redirecionamento suave
-            redirection("Produto adicionado ao carrinho com sucesso!", "../views/TelaCarrinho.php");
-        }
-
-        // Função existente para alterar quantidade
-        function alterarQuantidade(valor) {
-            let input = document.getElementById("quantidade");
-            let quantidade = parseInt(input.value) + valor;
-            if (quantidade >= 1) {
-                input.value = quantidade;
-            }
-        }
-
-        function redirection(message, target) {
+        // Função para mostrar mensagem para funcionários
+        function mostrarMensagemFuncionario() {
             Toastify({
-                text: message,
-                close: true,
-                gravity: "top", // `top` ou `bottom`
-                position: "right", // `left`, `center` ou `right`
-                stopOnFocus: true, // Impede o fechamento ao passar o mouse
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-                onClick: function () { } // Callback após clicar
+                text: "Funcionários não podem realizar compras.",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" }
+            }).showToast();
+        }
+
+        // Função para redirecionar usuários não logados
+        function redirecionarParaLogin() {
+            Toastify({
+                text: "Por favor, faça login para continuar.",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: { background: "linear-gradient(to right, #00b09b, #96c93d)" }
             }).showToast();
 
-            // Redireciona após o tempo do toast
             setTimeout(() => {
-                window.location.href = target;
-            }, 3500); // Tempo em milissegundos
+                window.location.href = '../views/Login.php?redirect=' + encodeURIComponent(window.location.pathname);
+            }, 3500);
         }
 
-        function error(message, color) {
-            Toastify({
-                text: message,
-                duration: 3500,
-                close: true,
-                gravity: "top", // `top` ou `bottom`
-                position: "right", // `left`, `center` ou `right`
-                stopOnFocus: true, // Impede o fechamento ao passar o mouse
-                style: {
-                    background: color,
-                },
-                onClick: function () { }
-            }).showToast();
+        // Função principal para adicionar ao carrinho
+        async function adicionarAoCarrinho() {
+            const btn = document.getElementById('btn-add-carrinho');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processando...';
+
+            try {
+                const idProduto = <?= $id_produto ?>;
+                const quantidade = document.getElementById('quantidade').value;
+
+                const response = await fetch('../controllers/adicionarCarrinho.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id_produto=${idProduto}&quantidade=${quantidade}`
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Erro no servidor');
+                }
+
+                if (result.success) {
+                    Toastify({
+                        text: result.message || "Produto adicionado ao carrinho!",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: { background: "linear-gradient(to right, #00b09b, #96c93d)" }
+                    }).showToast();
+
+                    // Atualizar contador do carrinho se existir
+                    if (typeof atualizarContadorCarrinho === 'function') {
+                        atualizarContadorCarrinho();
+                    }
+                } else {
+                    Toastify({
+                        text: result.message || "Erro ao adicionar ao carrinho",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" }
+                    }).showToast();
+                }
+            } catch (error) {
+                console.error("Erro:", error);
+                Toastify({
+                    text: error.message || "Erro ao processar sua solicitação",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" }
+                }).showToast();
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">';
+            }
+        }
+
+        // Função para compra direta
+        async function comprarAgora() {
+            const btn = document.getElementById('btn-comprar');
+            btn.disabled = true;
+            btn.textContent = 'Processando...';
+
+            try {
+                await adicionarAoCarrinho();
+                window.location.href = '../views/telaCarrinho.php?checkout=true';
+            } catch (error) {
+                console.error("Erro na compra:", error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Comprar';
+            }
         }
     </script>
 </body>

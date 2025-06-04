@@ -45,7 +45,7 @@ header {
     transform: scale(1.1);
 }
 
-.user{
+.user {
     display: flex;
     width: 100%;
     justify-content: end;
@@ -62,25 +62,25 @@ h2 {
     white-space: nowrap;
 }
 
-section{
+section {
     height: 450px;
     display: flex;
     padding: 30px 70px;
 }
 
-.container-info{
+.container-info {
     display: flex;
     flex-direction: row;
     gap: 100px;
 }
 
-.info{
+.info {
     display: flex;
     flex-direction: column;
     font-size: 20px;
 }
 
-.info input{
+.info input {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 15px;
@@ -88,7 +88,7 @@ section{
     border: 1px solid grey;
 }
 
-input{
+input {
     width: 300px;
     padding: 5px;
     border-color: rgb(197, 197, 197);
@@ -100,16 +100,16 @@ input:active,
 textarea:focus,
 textarea:active,
 select:focus,
-select:active{
+select:active {
     outline: none;
     border: 1px solid rgb(34, 34, 34);
 }
-  
+
 .upload-container::before {
     content: "Imagem do produto";
     margin-bottom: 8px;
 }
-  
+
 .upload-box {
     height: 20px;
     display: flex;
@@ -122,11 +122,11 @@ select:active{
     margin-top: 10px;
 }
 
-.upload-container span{
+.upload-container span {
     font-size: 16px;
 }
 
-.container-img{
+.container-img {
     width: 300px;
     height: 160px;
     border: 1px solid;
@@ -135,7 +135,8 @@ select:active{
     margin-top: 15px;
     padding: 5px;
 }
-.opcao{
+
+.opcao {
     padding: 5px;
     border-radius: 3px;
     margin-top: 15px;
@@ -143,26 +144,26 @@ select:active{
     font-size: 15px;
 }
 
-.valor-input{
+.valor-input {
     width: 100px;
     text-align: center;
 }
 
 .contador-caracteres {
-  text-align: right;
-  color: #666;
-  font-size: 14px;
-  margin-top: -13px;
+    text-align: right;
+    color: #666;
+    font-size: 14px;
+    margin-top: -13px;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-textarea{
+textarea {
     width: 400px;
     text-align: justify;
     padding: 0;
@@ -175,7 +176,7 @@ textarea{
     transition: .1s;
 }
 
-.desc-detalhada{
+.desc-detalhada {
     height: 300px;
 }
 
@@ -197,7 +198,7 @@ textarea{
     background-color: #8e3315;
 }
 
-.div-button{
+.div-button {
     display: flex;
     justify-content: end;
 }
@@ -231,10 +232,65 @@ textarea{
     line-height: 25px;
     cursor: pointer;
     display: none;
-    font-size: 20px;
 }
 
 .preview-wrapper:hover .remove-btn {
     display: block;
 }
 
+/* Container principal das imagens */
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* Estilo para cada wrapper de imagem */
+.preview-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilo da imagem preview */
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+/* Botão de remover */
+.remove-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    color: white;
+    font-weight: 400;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
+    display: none;
+    font-size: 20px;
+}
+
+.preview-wrapper:hover .remove-btn {
+    opacity: 1;
+}
+
+.preview-wrapper:hover .preview-img {
+    filter: brightness(0.5);
+}
+
+/* Ajustes para o container de upload */
+.container-img {
+    min-height: 160px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}

@@ -131,7 +131,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'João da Silvas','joaosilva.petinsight@gmail.com','828pet','1997-09-23','11999999999',NULL);
+INSERT INTO `funcionario` VALUES (1,'Admin','admin@petinsight.com','admin','1997-09-23','11999999999',NULL);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
