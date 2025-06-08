@@ -227,7 +227,6 @@ if ($result) {
             </div>
             <div class="info-txt">
               <p><?= htmlspecialchars($produto['nome_produto']) ?></p>
-              <p>Estoque: <?= htmlspecialchars($produto['quantidade']) ?></p>
             </div>
             <div class="info-txt-mp">
               <p>Marca: <?= htmlspecialchars($produto['marca']) ?></p>

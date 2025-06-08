@@ -24,7 +24,7 @@ session_start();
 <body class="login_dog">
     <?php if (isset($_SESSION['toast'])): ?>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 // Mantenha sua função error() original
                 <?php if ($_SESSION['toast']['type'] === 'error'): ?>
                     error("<?= $_SESSION['toast']['message'] ?>", "linear-gradient(to right, #cd1809, #a01006)");
@@ -45,18 +45,18 @@ session_start();
         nonce="YOUR_NONCE"></script>
 
     <script>
-        window.fbAsyncInit = function () {
+        window.fbAsyncInit = function() {
             FB.init({
                 appId: '663378829642885', // Substitua pelo seu App ID do Facebook
-                cookie: true,  // Habilita o uso de cookies
-                xfbml: true,  // Habilita o processamento de tags XFBML
+                cookie: true, // Habilita o uso de cookies
+                xfbml: true, // Habilita o processamento de tags XFBML
                 version: 'v18.0' // Versão do SDK
             });
         };
 
         // Função para fazer login
         function login() {
-            FB.login(function (response) {
+            FB.login(function(response) {
                 if (response.authResponse) {
                     console.log('Usuário logado com sucesso:', response);
                 } else {
@@ -86,7 +86,7 @@ session_start();
                         </div>
 
                         <div class="login-link">
-                            <a href="../views/Redefinir.html" class="login-a">Esqueci minha senha</a>
+                            <a href="../views/Redefinir.php" class="login-a">Esqueci minha senha</a>
                         </div>
 
                         <div class="login-botao">

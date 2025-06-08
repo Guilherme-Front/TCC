@@ -75,7 +75,10 @@ session_start();
         </section>
 
         <section class="faq-respostas">
+            
+        <div class="conteudo">
 
+        </div>
             <div class="faq-button">
                 <a href="../views/FaleConosco.php"><button type="button" class="faq-FL">Fale Conosco</button></a>
             </div>
