@@ -283,6 +283,16 @@ LOCK TABLES `senha` WRITE;
 INSERT INTO `senha` VALUES (1,1,'$2y$10$Mz5vM7UAJqySm7/ojP2Sq.ObK6EPX4xufBQwAzWJWVUNd5pZ4HgQy'),(2,2,'$2y$10$DTMjNjgKxwuwCoTcQTRjO.Rl9QoNy.o471K6d2.6Q9Xle5UcHgOI.'),(3,3,'$2y$10$AyDkk41FO9d0Y0IeJmZ45.EMIpoeg.zaH7AKD924XsUqg5qJO/oIW');
 /*!40000 ALTER TABLE `senha` ENABLE KEYS */;
 UNLOCK TABLES;
+
+CREATE TABLE comentarios (
+    id_comentario INT AUTO_INCREMENT PRIMARY KEY,
+    id_produto INT NOT NULL,
+    id_cliente INT NOT NULL,
+    comentario TEXT NOT NULL,
+    data_comentario DATETIME NOT NULL,
+    FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+);
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

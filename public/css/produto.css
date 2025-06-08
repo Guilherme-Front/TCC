@@ -484,6 +484,157 @@ main {
     background-color: rgb(54, 54, 54) !important;
 }
 
+/* Estilos para a seção de comentários */
+.adicionar-comentario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.adicionar-comentario textarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 870px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 100px;
+    max-height: 100px;
+    margin-bottom: 20px;
+}
+
+.btn-enviar-comentario {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-enviar-comentario:hover {
+    background-color: #45a049;
+}
+
+.aviso-login {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.sem-comentarios {
+    margin-right: 230px;
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+}
+
+.comentario {
+    margin-left: -30px;
+    margin-right: 190px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 1000px;
+}
+
+.comentario .img-comentario img {
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comentario .txt-comentario p:first-child {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comentario .txt-comentario p:nth-child(2) {
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o botão de exclusão */
+.cabecalho-comentario {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.form-excluir-comentario {
+    margin: 0;
+    padding: 0;
+}
+
+.btn-excluir-comentario {
+    background: none;
+    border: none;
+    color: #dc3545;
+    margin-left: -50px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.btn-excluir-comentario:hover {
+    color: #c82333;
+}
+
+.nome-usuario {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.data-comentario {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.texto-comentario {
+    margin-top: 10px;
+}
+
+/* Estilos para o Toastify com botões */
+.toastify-buttons-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.toastify-button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+.toastify-confirm {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.toastify-cancel {
+    background-color: #f44336;
+    color: white;
+}
 /* Responsivo */
 
 @media screen and (max-width: 1367px) {
