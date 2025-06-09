@@ -237,8 +237,15 @@ if ($result) {
             </div>
             <!-- No loop onde os produtos são exibidos, modifique o botão Alterar: -->
             <div class="btns">
-              <button type="button"><a class="txt-alterar" href="../views/atualizarProduto.php?id=<?= $produto['id_produto'] ?>" class="btn-alterar">Alterar</a></button>
-              <button type="button">Excluir</button>
+              <button type="button"><a class="txt-alterar"
+                  href="../controllers/atualizarProduto.php?id=<?= $produto['id_produto'] ?>"
+                  class="btn-alterar">Alterar</a></button>
+              <form method="post" action="../controllers/excluirProduto.php"
+                onsubmit="return confirm('Confirma exclusão?');">
+                <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                <button type="submit">Excluir</button>
+              </form>
+
             </div>
           </div>
         <?php endforeach; ?>
