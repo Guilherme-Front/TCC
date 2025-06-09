@@ -9,8 +9,7 @@ if (!$id_funcionario) {
     exit();
 }
 
-
-// Verifica se o id do produto foi passado por GET
+// Verifica se o id do produto foi passado por POST
 if (!isset($_POST['id_produto']) || empty($_POST['id_produto'])) {
     $_SESSION['toast'] = [
         'message' => 'Produto não especificado.',
@@ -22,19 +21,18 @@ if (!isset($_POST['id_produto']) || empty($_POST['id_produto'])) {
 
 $id_produto = intval($_POST['id_produto']);
 
-// (Opcional) Você pode verificar aqui se o funcionário tem permissão para excluir este produto.
+// Caminho da pasta do produto
+$pastaProduto = __DIR__ . '/../../public/uploads/imgProdutos/' . $id_produto;
 
-// Excluir imagens do produto (se for o caso)
-$stmtImg = $conn->prepare("SELECT nome_imagem FROM imagem_produto WHERE id_produto = ?");
-$stmtImg->bind_param("i", $id_produto);
-$stmtImg->execute();
-$resultImgs = $stmtImg->get_result();
-
-while ($img = $resultImgs->fetch_assoc()) {
-    $caminhoImagem = __DIR__ . '/../../public/uploads/imgProdutos/' . $img['nome_imagem'];
-    if (file_exists($caminhoImagem)) {
-        unlink($caminhoImagem);
+// Excluir arquivos da pasta, se existirem
+if (is_dir($pastaProduto)) {
+    $arquivos = glob($pastaProduto . '/*'); // Pega todos os arquivos da pasta
+    foreach ($arquivos as $arquivo) {
+        if (is_file($arquivo)) {
+            unlink($arquivo); // Exclui cada arquivo
+        }
     }
+    rmdir($pastaProduto); // Remove a pasta vazia
 }
 
 // Excluir imagens do banco
@@ -60,3 +58,4 @@ if ($stmt->execute()) {
 
 header('Location: ../views/telaFuncionario.php#produtos-cadastrados');
 exit();
+?>

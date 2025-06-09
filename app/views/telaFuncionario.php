@@ -237,15 +237,14 @@ if ($result) {
             </div>
             <!-- No loop onde os produtos são exibidos, modifique o botão Alterar: -->
             <div class="btns">
-              <button type="button"><a class="txt-alterar"
-                  href="../controllers/atualizarProduto.php?id=<?= $produto['id_produto'] ?>"
-                  class="btn-alterar">Alterar</a></button>
-              <form method="post" action="../controllers/excluirProduto.php"
-                onsubmit="return confirm('Confirma exclusão?');">
+              <button type="button">
+                <a class="txt-alterar" href="../views/atualizarProduto.php?id=<?= $produto['id_produto'] ?>"
+                  class="btn-alterar">Alterar</a>
+              </button>
+              <form method="post" action="../controllers/excluirProduto.php">
                 <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
-                <button type="submit">Excluir</button>
+                <button type="submit" class="btn-excluir-produto">Excluir</button>
               </form>
-
             </div>
           </div>
         <?php endforeach; ?>
@@ -439,6 +438,53 @@ if ($result) {
       if (categoria) {
         document.getElementById('filtro-categoria').value = categoria;
       }
+
+      document.querySelectorAll('.btn-excluir-produto').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const form = this.closest('form');
+
+          // Criar elemento div para conter a mensagem e os botões
+          const toastContent = document.createElement('div');
+          toastContent.innerHTML = `
+            <div>Deseja realmente excluir este produto?</div>
+            <div class="toastify-buttons-container">
+                <button class="toastify-button toastify-confirm">Sim</button>
+                <button class="toastify-button toastify-cancel">Não</button>
+            </div>
+        `;
+
+          // Criar o Toastify
+          const toast = Toastify({
+            node: toastContent,
+            duration: -1,
+            gravity: "top",
+            position: "right",
+            style: {
+              background: "linear-gradient(to right, rgb(174, 174, 174), rgb(180, 180, 180))",
+              padding: '15px',
+              width: '300px'
+            },
+            onClick: function () { } // Necessário para evitar fechar ao clicar
+          });
+
+          // Mostrar o toast
+          toast.showToast();
+
+          // Adicionar eventos aos botões
+          const toastElement = toast.toastElement;
+          toastElement.querySelector('.toastify-confirm').addEventListener('click', function () {
+            if (form) {
+              form.submit();
+            }
+            toast.hideToast();
+          });
+
+          toastElement.querySelector('.toastify-cancel').addEventListener('click', function () {
+            toast.hideToast();
+          });
+        });
+      });
     });
   </script>
 </body>

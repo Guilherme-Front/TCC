@@ -560,6 +560,31 @@ section > div {
   display: block; /* só mostra a ativa */
 }
 
+/* Estilos para o Toastify com botões */
+.toastify-buttons-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.toastify-button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+}
+
+.toastify-confirm {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.toastify-cancel {
+    background-color: #f44336;
+    color: white;
+}
 
 /* 821px */
 @media screen and (max-width: 821px) {

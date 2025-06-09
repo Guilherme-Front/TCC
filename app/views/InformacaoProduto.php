@@ -470,7 +470,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
         }
 
         // Função para confirmar e excluir comentário
-        // Função para confirmar e excluir comentário
         document.querySelectorAll('.btn-excluir-comentario').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();

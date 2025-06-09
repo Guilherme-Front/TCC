@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo = $_POST['tipo'];
         $marca = trim($_POST['marca']);
         $preco = str_replace(['R$', '.', ','], ['', '', '.'], $_POST['preco']);
-        $estoque = (int)$_POST['estoque'];
+        $estoque = (int) $_POST['estoque'];
         $desc_curta = trim($_POST['descricao_curta']);
         $desc_detalhada = trim($_POST['descricao']);
 
@@ -36,6 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // 1. Imagens existentes (modo edição)
         if ($modo === 'edicao' && !empty($_POST['imagens_existentes'])) {
             $imagensRemovidas = json_decode($_POST['imagens_removidas'] ?? '[]', true);
+
+            // Primeiro: excluir fisicamente as imagens removidas
+            foreach ($imagensRemovidas as $imagemRemovida) {
+                $caminhoCompleto = '../../public/' . $imagemRemovida;
+                if (file_exists($caminhoCompleto)) {
+                    unlink($caminhoCompleto); // Remove o arquivo fisicamente
+                }
+            }
+
+            // Depois: manter apenas as não removidas
             foreach ($_POST['imagens_existentes'] as $imagem) {
                 if (!in_array($imagem, $imagensRemovidas)) {
                     $imagensSalvas[] = $imagem;
@@ -253,175 +263,189 @@ if ($modoEdicao) {
 
     <script>
         // Variáveis globais
-let imagensSelecionadas = []; // Armazena novas imagens selecionadas
-let imagensRemovidas = [];    // Armazena imagens existentes removidas
+        let imagensSelecionadas = []; // Novas imagens selecionadas
+        let imagensRemovidas = [];    // Imagens existentes removidas
 
-// Elementos DOM
-const inputPreco = document.getElementById('preco');
-const inputEstoque = document.getElementById('estoque');
-const fileInput = document.getElementById('fileInput');
-const previewContainer = document.getElementById('preview-container');
-const form = document.getElementById('formProduto');
+        // Elementos DOM
+        const inputPreco = document.getElementById('preco');
+        const inputEstoque = document.getElementById('estoque');
+        const fileInput = document.getElementById('fileInput');
+        const previewContainer = document.getElementById('preview-container');
+        const form = document.getElementById('formProduto');
 
-// Formatação do preço
-inputPreco.addEventListener('input', (e) => {
-    let value = e.target.value.replace(/\D/g, '');
-    if (value === '') {
-        inputPreco.value = 'R$ 0,00';
-        return;
-    }
-    value = (parseInt(value) / 100).toFixed(2);
-    inputPreco.value = 'R$ ' + value.replace('.', ',');
-});
+        // Formatação do preço
+        inputPreco.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value === '') {
+                inputPreco.value = 'R$ 0,00';
+                return;
+            }
+            value = (parseInt(value) / 100).toFixed(2);
+            inputPreco.value = 'R$ ' + value.replace('.', ',');
+        });
 
-// Validação do estoque
-inputEstoque.addEventListener('input', () => {
-    inputEstoque.value = inputEstoque.value.replace(/\D/g, '').slice(0, 4);
-});
+        // Validação do estoque
+        inputEstoque.addEventListener('input', () => {
+            inputEstoque.value = inputEstoque.value.replace(/\D/g, '').slice(0, 4);
+        });
 
-// Função para remover imagens existentes
-function removerImagemExistente(button) {
-    const wrapper = button.parentElement;
-    const imagemInput = wrapper.querySelector('input[name="imagens_existentes[]"]');
-    
-    if (imagemInput) {
-        imagensRemovidas.push(imagemInput.value);
-        document.getElementById('imagens_removidas').value = JSON.stringify(imagensRemovidas);
-    }
-    
-    wrapper.remove();
-}
+        // Remover imagem existente
+        function removerImagemExistente(button) {
+            const wrapper = button.parentElement;
+            const imagemInput = wrapper.querySelector('input[name="imagens_existentes[]"]');
 
-// Função para remover novas imagens
-function removerNovaImagem(index) {
-    imagensSelecionadas.splice(index, 1);
-    atualizarPreview();
-}
+            if (imagemInput) {
+                imagensRemovidas.push(imagemInput.value);
+                document.getElementById('imagens_removidas').value = JSON.stringify(imagensRemovidas);
+            }
 
-// Gerenciamento de novas imagens
-fileInput.addEventListener('change', (e) => {
-    const files = Array.from(e.target.files);
-    const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
-    
-    // Calcula quantas imagens podem ser adicionadas
-    const imagensExistentes = document.querySelectorAll('input[name="imagens_existentes[]"]').length;
-    const slotsDisponiveis = 3 - (imagensExistentes - imagensRemovidas.length + imagensSelecionadas.length);
-    
-    if (files.length > slotsDisponiveis) {
-        error(`Você só pode adicionar mais ${slotsDisponiveis} imagem(ns)`);
-        fileInput.value = '';
-        return;
-    }
-    
-    files.forEach(file => {
-        if (tiposPermitidos.includes(file.type)) {
-            imagensSelecionadas.push(file);
-        } else {
-            error(`Tipo não suportado: ${file.name}`);
+            wrapper.remove();
         }
-    });
-    
-    atualizarPreview();
-    fileInput.value = '';
-});
 
-// Atualiza a visualização das imagens
-function atualizarPreview() {
-    // Mantém as imagens existentes (não removidas)
-    const existingWrappers = Array.from(previewContainer.querySelectorAll('.preview-wrapper'))
-        .filter(wrapper => wrapper.querySelector('input[name="imagens_existentes[]"]'));
-    
-    // Limpa o container e readiciona as existentes
-    previewContainer.innerHTML = '';
-    existingWrappers.forEach(wrapper => previewContainer.appendChild(wrapper));
-    
-    // Adiciona as novas imagens selecionadas
-    imagensSelecionadas.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'preview-wrapper';
-            
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'preview-img';
-            
-            const removeBtn = document.createElement('button');
-            removeBtn.textContent = '×';
-            removeBtn.className = 'remove-btn';
-            removeBtn.onclick = () => removerNovaImagem(index);
-            
-            wrapper.appendChild(img);
-            wrapper.appendChild(removeBtn);
-            previewContainer.appendChild(wrapper);
-        };
-        reader.readAsDataURL(file);
-    });
-}
+        // Remover nova imagem
+        function removerNovaImagem(index) {
+            imagensSelecionadas.splice(index, 1);
+            atualizarPreview();
+        }
 
-// Contadores de caracteres
-document.addEventListener('DOMContentLoaded', function() {
-    const descricaoCurta = document.getElementById('descricao-curta');
-    const contadorCurta = document.getElementById('contador-curta');
-    const descricaoDetalhada = document.getElementById('descricao-detalhada');
-    const contadorDetalhada = document.getElementById('contador-detalhada');
+        // Gerenciar novas imagens
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            const tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
 
-    function atualizarContador(textarea, contador, max) {
-        const caracteres = textarea.value.length;
-        contador.textContent = caracteres;
-        contador.style.color = caracteres >= max ? 'red' : '#666';
-    }
+            const imagensExistentes = Array.from(document.querySelectorAll('input[name="imagens_existentes[]"]'))
+                .filter(input => !imagensRemovidas.includes(input.value)).length;
 
-    descricaoCurta.addEventListener('input', () => 
-        atualizarContador(descricaoCurta, contadorCurta, 200));
-    
-    descricaoDetalhada.addEventListener('input', () => 
-        atualizarContador(descricaoDetalhada, contadorDetalhada, 500));
-    
-    // Inicializar contadores
-    atualizarContador(descricaoCurta, contadorCurta, 200);
-    atualizarContador(descricaoDetalhada, contadorDetalhada, 500);
-});
+            const slotsDisponiveis = 3 - (imagensExistentes - imagensRemovidas.length + imagensSelecionadas.length);
 
-// Validação do formulário
-form.addEventListener('submit', function(e) {
-    const imagensExistentes = document.querySelectorAll('input[name="imagens_existentes[]"]').length;
-    const totalImagens = (imagensExistentes - imagensRemovidas.length) + imagensSelecionadas.length;
-    
-    if (totalImagens === 0) {
-        e.preventDefault();
-        error("Pelo menos uma imagem é obrigatória");
-    }
-});
+            if (files.length > slotsDisponiveis) {
+                error(`Você só pode adicionar mais ${slotsDisponiveis} imagem(ns).`);
+                fileInput.value = '';
+                return;
+            }
 
-// Funções de notificação
-function error(message) {
-    Toastify({
-        text: message,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "right",
-        style: {
-            background: "linear-gradient(to right, #ff416c, #ff4b2b)",
-        },
-        stopOnFocus: true
-    }).showToast();
-}
+            files.forEach(file => {
+                if (tiposPermitidos.includes(file.type)) {
+                    imagensSelecionadas.push(file);
+                } else {
+                    error(`Tipo não suportado: ${file.name}`);
+                }
+            });
 
-function success(message) {
-    Toastify({
-        text: message,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "right",
-        style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-        stopOnFocus: true
-    }).showToast();
-}
+            atualizarPreview();
+            fileInput.value = '';
+        });
+
+        // Atualizar visualização das imagens
+        function atualizarPreview() {
+            // Mantém as imagens existentes (não removidas)
+            const existingWrappers = Array.from(previewContainer.querySelectorAll('.preview-wrapper'))
+                .filter(wrapper => wrapper.querySelector('input[name="imagens_existentes[]"]'));
+
+            previewContainer.innerHTML = '';
+
+            // Reexibir as imagens existentes
+            existingWrappers.forEach(wrapper => previewContainer.appendChild(wrapper));
+
+            // Adicionar as novas imagens
+            imagensSelecionadas.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'preview-wrapper';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-img';
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = '×';
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.onclick = () => removerNovaImagem(index);
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(removeBtn);
+                    previewContainer.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Contadores de caracteres
+        document.addEventListener('DOMContentLoaded', function () {
+            const descricaoCurta = document.getElementById('descricao-curta');
+            const contadorCurta = document.getElementById('contador-curta');
+            const descricaoDetalhada = document.getElementById('descricao-detalhada');
+            const contadorDetalhada = document.getElementById('contador-detalhada');
+
+            function atualizarContador(textarea, contador, max) {
+                const caracteres = textarea.value.length;
+                contador.textContent = caracteres;
+                contador.style.color = caracteres >= max ? 'red' : '#666';
+            }
+
+            descricaoCurta.addEventListener('input', () =>
+                atualizarContador(descricaoCurta, contadorCurta, 200));
+
+            descricaoDetalhada.addEventListener('input', () =>
+                atualizarContador(descricaoDetalhada, contadorDetalhada, 500));
+
+            atualizarContador(descricaoCurta, contadorCurta, 200);
+            atualizarContador(descricaoDetalhada, contadorDetalhada, 500);
+        });
+
+        // Validação do formulário
+        form.addEventListener('submit', function (e) {
+            const imagensExistentes = document.querySelectorAll('input[name="imagens_existentes[]"]').length;
+            const totalImagens = imagensExistentes + imagensSelecionadas.length;
+
+            if (totalImagens === 0) {
+                e.preventDefault();
+                error("Pelo menos uma imagem é obrigatória.");
+                return;
+            }
+
+            // Adicionar novas imagens ao form
+            const imagensContainer = document.getElementById('imagens-container');
+            imagensSelecionadas.forEach((file, index) => {
+                const fileInputHidden = document.createElement('input');
+                fileInputHidden.type = 'hidden';
+                fileInputHidden.name = 'novas_imagens[]';
+                fileInputHidden.files = file; // Aqui só seria válido se fosse FormData diretamente
+                imagensContainer.appendChild(fileInputHidden);
+            });
+        });
+
+        // Função de notificação de erro
+        function error(message) {
+            Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "linear-gradient(to right, #ff416c, #ff4b2b)",
+                },
+                stopOnFocus: true
+            }).showToast();
+        }
+
+        // Função de notificação de sucesso
+        function success(message) {
+            Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                stopOnFocus: true
+            }).showToast();
+        }
+
     </script>
 </body>
 
