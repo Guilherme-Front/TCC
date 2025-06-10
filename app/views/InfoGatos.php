@@ -83,8 +83,9 @@ session_start();
                     </div>
 
                     <div class="pet-paragrafo">
+
+                    <h3>Quantos anos em média vive um gato?</h3>
                         <p class="pet">
-                        <h3>Quantos anos em média vive um gato?</h3>
                         <img class="icon-cat-black" src="../../public/img/gato-preto.png" alt="">
                         </p>
 
@@ -118,7 +119,7 @@ session_start();
 
                         </p>
                         <p class="pet-p1">Os gatos são animais de laços e rotinas, e muitos desenvolvem forte apego com
-                            o
+                            
                             ambiente em que vivem. Mudanças repentinas ou movimentos podem causar estresse nos bichanos,
                             fazendo com que eles levem algum tempo para se adaptar. Por isso, é importante oferecer um
                             local seguro e familiar visando promover o bem-estar emocional e físico do animal.</p>
@@ -139,7 +140,7 @@ session_start();
                             superior. Mas não conseguem ver a cor tão bem como os humanos. Os cientistas acreditam que
                             os gatos veem a erva em tom vermelho.</p>
                         <p class="pet">
-                        <h3>Porque no desenhos os gatos sempre tomam leite?</h3>
+                        <h3>Porque nos desenhos os gatos sempre tomam leite?</h3>
                         <img class="icon-milk" src="../../public/img/tigela-para-animais-de-estimacao.png" alt="">
 
                         </p>

@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações Cachorros | Pet Insight</title>
+    <title>Informações Coelhos | Pet Insight</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -141,9 +141,6 @@ session_start();
                 </div>
             </div>
 
-            <div class="pet-img">
-                <img class="image-coelho" src="../../public/img/coelho-img.png" alt="Imagem do Hamster">
-            </div>
         </section>
 
         <section class="pet-coelhos-alimentação">
@@ -157,108 +154,172 @@ session_start();
                         <p class="pet">
                         <h3>Melhores Rações</h3>
                         </p>
-                        <p class="pet-p1">
-                            A ração deve compor a maior parte de sua dieta. Também conhecida como alimentos extrusados,
-                            esse produto é feito especialmente para os orelhudos. Ofereça diariamente, no mínimo 3 vezes
-                            ao dia.
+                        <div class="pet-p1">
+                            <p>
+                                A ração deve compor a maior parte de sua dieta. Também conhecida como alimentos
+                                extrusados,
+                                esse produto é feito especialmente para os orelhudos. Ofereça diariamente, no mínimo 3
+                                vezes
+                                ao dia.
+                            </p>
+                            <p><strong>
+                                    Abaixo estão as rações com melhor qualidade!
+                                </strong></p>
 
-                            Abaixo estão as rações com melhor qualidade!
-                            <strong>Ração Nutrópica Coelho Filhote</strong>
-                            Essa é uma das rações mais recomendadas para coelhos filhotes, pois contém mais de 30
-                            ingredientes diferentes incluindo alfafa e vários tipos de grãos integrais como aveia,
-                            ervilha, linhaça e trigo, que juntos proporcionam os níveis ideais dos nutrientes
-                            necessários para a saúde, beleza, bem-estar e vitalidade do coelho.
+                            <p>
+                                <strong>Ração Nutrópica Coelho Filhote</strong>
+                                Essa é uma das rações mais recomendadas para coelhos filhotes, pois contém mais de 30
+                                ingredientes diferentes incluindo alfafa e vários tipos de grãos integrais como aveia,
+                                ervilha, linhaça e trigo, que juntos proporcionam os níveis ideais dos nutrientes
+                                necessários para a saúde, beleza, bem-estar e vitalidade do coelho.
+                            </p>
 
-                            <strong>Principais benefícios</strong>
-                        <ul class="ul-coelho">
-                            <li>100% natural</li>
-                            <li>Mais brilho à pelagem, e pele saudável</li>
-                            <li>Mais saúde e vitalidade vai ajudar na disposição do dia a dia</li>
-                            <li>Muito mais saboroso por ser natural</li>
-                        </ul>
-                        </p>
+                            <p>
+                                <strong>Principais benefícios:</strong>
+                            </p>
 
-                        <p class="pet-p1">
-                            <strong>Ração Nutricon Nutrirabbit</strong>
-                            É um alimento completo, extrusado, formulado especificamente para atender às exigências
-                            nutricionais de coelhos de todas as idades. Possui alto valor nutritivo, contendo em sua
-                            fórmula ingredientes de excelente qualidade, além de conter prebiótico e ser enriquecido com
-                            complexos vitamínicos e minerais.
+                            <ul class="ul-coelho">
+                                <li>100% natural</li>
+                                <li>Mais brilho à pelagem, e pele saudável</li>
+                                <li>Mais saúde e vitalidade vai ajudar na disposição do dia a dia</li>
+                                <li>Muito mais saboroso por ser natural</li>
+                            </ul>
+                        </div>
 
-                            <strong>Principais benefícios</strong>
-                        <ul class="ul-coelho">
-                            <li>Alimento completo extrusado para coelhos tradicionais e mini coelhos</li>
-                            <li>Possui alto valor nutritivo</li>
-                            <li>Contém vitamina C proporcionando uma vida mais saudável ao seu coelho</li>
-                        </ul>
-                        </p>
+                        <div class="pet-p1">
 
-                        <p class="pet-p1">
-                            <strong>Ração Megazoo para Coelhos Filhotes</strong>
-                            A ração Megazoo não contém casca de ovo, possui minerais quelatados, glutamina e ômega 3 de
-                            cadeia longa (DHA). Alimento 100% natural à base de alecrim, se destaca como a primeira
-                            ração super premium de coelhos da América Latina – possui um alto controle de qualidade.
+                            <p>
+                                <strong>Ração Nutricon Nutrirabbit</strong>
+                                É um alimento completo, extrusado, formulado especificamente para atender às exigências
+                                nutricionais de coelhos de todas as idades. Possui alto valor nutritivo, contendo em sua
+                                fórmula ingredientes de excelente qualidade, além de conter prebiótico e ser enriquecido
+                                com
+                                complexos vitamínicos e minerais.
+                            </p>
+                            <p>
+                                <strong>Principais benefícios:</strong>
+                            </p>
 
-                            <strong>Principais benefícios</strong>
-                        <ul class="ul-coelho">
-                            <li>Formato mais compacto para desgaste dos dentes</li>
-                            <li>Minerais quelatados</li>
-                            <li>Prebióticos Mos e Fos</li>
-                            <li>Ômega 3 de cadeia longa – DHA</li>
-                            <li>100 % natural antioxidante à base de alecrim</li>
-                        </ul>
-                        </p>
+                            <ul class="ul-coelho">
+                                <li>Alimento completo extrusado para coelhos tradicionais e mini coelhos</li>
+                                <li>Possui alto valor nutritivo</li>
+                                <li>Contém vitamina C proporcionando uma vida mais saudável ao seu coelho</li>
+                            </ul>
+                        </div>
+
+                        <div class="pet-p1">
+
+                            <p>
+                                <strong>Ração Megazoo para Coelhos Filhotes</strong>
+                                A ração Megazoo não contém casca de ovo, possui minerais quelatados, glutamina e ômega 3
+                                de
+                                cadeia longa (DHA). Alimento 100% natural à base de alecrim, se destaca como a primeira
+                                ração super premium de coelhos da América Latina – possui um alto controle de qualidade.
+                            </p>
+                            <p>
+                                <strong>Principais benefícios:</strong>
+                            </p>
+
+                            <ul class="ul-coelho">
+                                <li>Formato mais compacto para desgaste dos dentes</li>
+                                <li>Minerais quelatados</li>
+                                <li>Prebióticos Mos e Fos</li>
+                                <li>Ômega 3 de cadeia longa – DHA</li>
+                                <li>100 % natural antioxidante à base de alecrim</li>
+                            </ul>
+                        </div>
 
                         <p class="pet">
                         <h3>Pode dar comidas além de ração?</h3>
                         </p>
-                        <p class="pet-p1">
-                            Sim! Aqui em baixo estão algumas indicações.
-                            Feno
-                            É essencial para cuidar da alimentação do bichinho já que ajuda o sistema digestivo dos
-                            coelhos. Também deve ser oferecido diariamente. Como tem pouco valor nutricional, não é
-                            necessário se preocupar com porções: deixe seu orelhudo comer à vontade!
+                        <div class="pet-p1">
+                            <p>
+                                Sim! Aqui em baixo estão algumas indicações.
+                                Feno
+                                É essencial para cuidar da alimentação do bichinho já que ajuda o sistema digestivo dos
+                                coelhos. Também deve ser oferecido diariamente. Como tem pouco valor nutricional, não é
+                                necessário se preocupar com porções: deixe seu orelhudo comer à vontade!
+                            </p>
+                            <p>
+                                <strong>Verduras:</strong> as verduras também servem como comida para coelho. Para
+                                animais adultos, o ideal é comer
+                                verduras todos os dias. Mas atenção: nem todas as verduras são benéficas para a saúde
+                                dos peludinhos. Algumas possuem substâncias que podem ser laxantes. O ideal é buscar
+                                vegetais com folhas escuras, que costumam ser mais seguros.
+                            </p>
+                            <p>
+                                <strong>Rúcula:</strong> os orelhudos adoram o sabor amargo e picante da rúcula.
+                            </p>
+                            <p>
+                                <strong>Couve:</strong> ofereça apenas crua e sem tempero.
+                            </p>
+                            <p>
+                                <strong>Legumes:</strong>
+                                os coelhos adoram legumes, mas eles não fazem parte de sua dieta cotidiana. Como legumes
+                                crus possuem uma digestão mais complexa, a ingestão deve ocorrer uma vez a cada dois
+                                dias.
+                            </p>
+                            <p>
+                                <strong>Folhas de brócolis:</strong> evite dar os talos, pois podem causar gases no seu
+                                pet.
+                            </p>
+                            <p>
+                                <strong>Cenouras:</strong> ocasionalmente, os coelhos podem, sim, comer cenoura!
+                            </p>
+                            <p>
+                                <strong>Beterraba:</strong> deverá ser oferecida crua e sempre sem tempero.
+                            </p>
+                            <p>
+                                <strong>Frutas:</strong>
+                                também são sensíveis para os nossos amiguinhos, pois possuem açúcar e carboidratos.
+                                Devem ser oferecidas como petiscos uma ou duas vezes por semana.
+                            </p>
 
-                            <strong>Verduras,</strong>
-                            as verduras também servem como comida para coelho. Para animais adultos, o ideal é comer
-                            verduras todos os dias. Mas atenção: nem todas as verduras são benéficas para a saúde
-                            dos peludinhos. Algumas possuem substâncias que podem ser laxantes. O ideal é buscar
-                            vegetais com folhas escuras, que costumam ser mais seguros.
-                            <strong>Rúcula:</strong> os orelhudos adoram o sabor amargo e picante da rúcula.
-                            <strong>Couve:</strong> ofereça apenas crua e sem tempero.
-
-                            <strong>Legumes,</strong>
-                            os coelhos adoram legumes, mas eles não fazem parte de sua dieta cotidiana. Como legumes
-                            crus possuem uma digestão mais complexa, a ingestão deve ocorrer uma vez a cada dois
-                            dias.
-                            <strong>Folhas de brócolis:</strong> evite dar os talos, pois podem causar gases no seu pet.
-                            <strong>Cenouras:</strong> ocasionalmente, os coelhos podem, sim, comer cenoura!
-                            <strong>Beterraba:</strong> deverá ser oferecida crua e sempre sem tempero.
-
-                            <strong>Frutas,</strong>
-                            também são sensíveis para os nossos amiguinhos, pois possuem açúcar e carboidratos.
-                            Devem ser oferecidas como petiscos uma ou duas vezes por semana.
-                            <strong>Morango:</strong> além dos coelhos adorarem, é uma fruta pequena, o que favorece a
-                            ingestão.
-                            <strong>Manga:</strong> outra fruta que faz sucesso entre os dentuços. Descasque e cuidado
-                            com o
-                            caroço.
-                            <strong>Kiwi:</strong> os coelhos gostam dessa fruta azedinha. Não se esqueça de descascar.
-                        </p>
+                            <p>
+                                <strong>Morango:</strong> além dos coelhos adorarem, é uma fruta pequena, o que favorece
+                                a
+                                ingestão.
+                            </p>
+                            <p>
+                                <strong>Manga:</strong> outra fruta que faz sucesso entre os dentuços. Descasque e
+                                cuidado
+                                com o
+                                caroço.
+                            </p>
+                            <p>
+                                <strong>Kiwi:</strong> os coelhos gostam dessa fruta azedinha. Não se esqueça de
+                                descascar.
+                            </p>
+                        </div>
                         <p class="pet">
                         <h3>Alimentos proibidos para coelhos</h3>
                         </p>
-                        <p class="pet-p1">
-                            Além da carne, existem alguns outros alimentos que entram na lista do que coelho não pode
-                            comer. Alguns deles são:
-                            batata e inhame: esses legumes contêm alto teor de solanina, um elemento tóxico para o
-                            animal. Além disso, são alimentos calóricos para um coelho, por isso, devem ser eliminados
-                            da dieta;
-                            arroz e pão: possuem excesso de carboidratos, que é prejudicial ao sistema digestivo do
-                            coelho. Por isso, são alimentos que não devem estar na dieta do animal;
-                            lácteos: são os alimentos derivados do leite, muito prejudiciais ao sistema digestivo do
+                        <div class="pet-p1">
+                            <p>
+                                Além da carne, existem alguns outros alimentos que entram na lista do que coelho não
+                                pode
+                                comer.
+                            </p>
+                            <p><strong> Alguns deles são:</strong></p>
+                            <p>
+                                <strong>Batata e inhame:</strong> esses legumes contêm alto teor de solanina, um
+                                elemento
+                                tóxico para o
+                                animal. Além disso, são alimentos calóricos para um coelho, por isso, devem ser
+                                eliminados
+                                da dieta;
+                            </p>
+                            <p>
+                                <strong>Arroz e pão:</strong> possuem excesso de carboidratos, que é
+                                prejudicial ao sistema digestivo do
+                                coelho.
+                            </p>
+                            <p>
+                                <strong>lácteos:</strong> são os alimentos derivados do leite, muito prejudiciais ao sistema digestivo do
                             coelho, por isso, não podem ser incorporados à dieta.
-                        </p>
+
+                            </p>
+                        </div>
                     </div>
                 </div>
         </section>

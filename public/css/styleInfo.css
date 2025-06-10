@@ -162,21 +162,21 @@ img.user-img {
 
 .pet-info-curiosidade {
     margin-top: 20px;
-    height: 1820px;
+    height: 1450px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-alimentação {
     margin-top: 20px;
-    height: 3900px;
+    height: 3250px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-doenças {
     margin-top: 20px;
-    height: 1590px;
+    height: 1400px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -197,14 +197,14 @@ img.user-img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .pet-container-alimentação {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .pet-h1 {
@@ -217,6 +217,11 @@ img.user-img {
     text-indent: 50px;
     margin-bottom: 60px;
     margin-top: 20px;
+}
+
+.pet-paragrafo h3 {
+    margin-top: 30px;
+    font-size: 24px;
 }
 
 .ul-space {
@@ -233,6 +238,10 @@ img.user-img {
     margin-top: 20px;
     font-size: 30px;
     color: #b73409;
+}
+
+strong {
+    font-weight: 600;
 }
 
 .pet-paragrafo {
@@ -353,21 +362,21 @@ img.user-img {
 
 .pet-dog-curiosidade {
     margin-top: 20px;
-    height: 1500px;
+    height: 1300px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-dog-alimentação {
     margin-top: 20px;
-    height: 2360px;
+    height: 2130px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-dog-doenças {
     margin-top: 20px;
-    height: 1120px;
+    height: 1250px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -443,14 +452,14 @@ img.user-img {
 
 .pet-ham-curiosidade {
     margin-top: 20px;
-    height: 1500px;
+    height: 1320px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-ham-alimentação {
     margin-top: 20px;
-    height: 1800px;
+    height: 1550px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -531,21 +540,21 @@ img.user-img {
 
 .pet-coelhos-curiosidade {
     margin-top: 20px;
-    height: 1530px;
+    height: 1330px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-coelhos-alimentação {
     margin-top: 20px;
-    height: 2600px;
+    height: 2630px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-coelhos-doenças {
     margin-top: 20px;
-    height: 830px;
+    height: 800px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -624,14 +633,14 @@ img.user-img {
 
 .pet-porquinho-curiosidade {
     margin-top: 20px;
-    height: 1780px;
+    height: 1530px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-porquinho-alimentação {
     margin-top: 20px;
-    height: 1930px;
+    height: 1700px;
     background-color: #fbfbc6;
     cursor: default;
 }

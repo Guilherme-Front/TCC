@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações Cachorros | Pet Insight</title>
+    <title>Informações Hamsters | Pet Insight</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -138,9 +138,6 @@ session_start();
                 </div>
             </div>
 
-            <div class="pet-img">
-                <img class="image-ham" src="../../public/img/imagem-ham.webp" alt="Imagem do Hamster">
-            </div>
         </section>
 
         <section class="pet-ham-alimentação">
@@ -154,42 +151,59 @@ session_start();
                         <p class="pet">
                         <h3>O que não podem comer</h3>
                         </p>
-                        <p class="pet-p1">
-                            <strong>Alimentos ultraprocessados:</strong>
-                            Eles são repletos de gorduras saturadas, conservantes e aromatizantes, sendo bastante
-                            prejudiciais para a espécie.
-                            Além disso, os industrializados contribuem para a sobrecarga de órgãos vitais e para o
-                            surgimento da obesidade e da diabetes.
-
-                            <strong>Frutas cítricas:</strong>
-                            Embora ricas em vitaminas, as frutas ácidas como a laranja, o limão e a tangerina podem
-                            provocar lesões na boca ou no sistema gastrointestinal do hamster quando ingeridas em
-                            excesso. Na dúvida, dê preferência a opções mais seguras, como pera e maçã.
-
-                            <strong>Leite e derivados:</strong>
-                            Assim como ocorre com a maior parte dos mamíferos, o hamster vai perdendo a capacidade de
-                            metabolizar a lactose conforme cresce. Por isso, o leite e seus derivados estão entre os
-                            alimentos prejudiciais para esse roedor.
-                            Aliás, o hamster tem dificuldade de digerir alimentos como leite de caixa, queijos e
-                            iogurtes. Eles podem desencadear diarreias, desconforto abdominal, entre outros problemas
-                            digestivos devido não apenas à lactose, mas também à alta quantidade de gordura. Por isso,
-                            esses itens também são proibidos.
-                        </p>
+                        <div class="pet-p1">
+                            <p>
+                                <strong>Alimentos ultraprocessados:</strong>
+                                Eles são repletos de gorduras saturadas, conservantes e aromatizantes, sendo bastante
+                                prejudiciais para a espécie.
+                                Além disso, os industrializados contribuem para a sobrecarga de órgãos vitais e para o
+                                surgimento da obesidade e da diabetes.
+                            </p>
+                            <p>
+                                <strong>Frutas cítricas:</strong>
+                                Embora ricas em vitaminas, as frutas ácidas como a laranja, o limão e a tangerina podem
+                                provocar lesões na boca ou no sistema gastrointestinal do hamster quando ingeridas em
+                                excesso. Na dúvida, dê preferência a opções mais seguras, como pera e maçã.
+                            </p>
+                            <p>
+                                <strong>Leite e derivados:</strong>
+                                Assim como ocorre com a maior parte dos mamíferos, o hamster vai perdendo a capacidade
+                                de
+                                metabolizar a lactose conforme cresce. Por isso, o leite e seus derivados estão entre os
+                                alimentos prejudiciais para esse roedor.
+                                Aliás, o hamster tem dificuldade de digerir alimentos como leite de caixa, queijos e
+                                iogurtes. Eles podem desencadear diarreias, desconforto abdominal, entre outros
+                                problemas
+                                digestivos devido não apenas à lactose, mas também à alta quantidade de gordura. Por
+                                isso,
+                                esses itens também são proibidos.
+                            </p>
+                        </div>
 
                         <p class="pet">
                         <h3>Alimentos que podem comer</h3>
                         </p>
-                        <p class="pet-p1">
-                            Os hamsters podem se alimentar de outros tipos de alimentos, como:
+                        <div class="pet-p1">
+                            <P>
+                                <strong>
+                                    Os hamsters podem se alimentar de outros tipos de alimentos, como:
+                                </strong>
+                            </P>
 
-                            <strong>Verduras:</strong> brócolis, acelga, repolho, chicória e couve-flor.
-                            <strong>Legumes:</strong> abóbora, cenoura e nabo.
-                            <strong>Frutas:</strong> banana, maçã, morango e pêra.
+                            <p>
+                                <strong>Verduras:</strong> brócolis, acelga, repolho, chicória e couve-flor.
+                            </p>
+                            <p>
+                                <strong>Legumes:</strong> abóbora, cenoura e nabo.
+                            </p>
+                            <p>
+                                <strong>Frutas:</strong> banana, maçã, morango e pêra.
+                            </p>
 
                             No caso das frutas, devemos nos atentar com as que possuem sementes (maçã e pêra,
                             especificamente). Essas sementes contêm uma uma substância chamada cianeto que, se ingerida
                             em excesso, pode levar o hamster à morte.
-                        </p>
+                        </div>
                         <p class="pet">
                         <h3>Melhores Rações</h3>
                         </p>

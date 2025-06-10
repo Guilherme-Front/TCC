@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações Cachorros | Pet Insight</title>
+    <title>Informações Porquinho da Índia | Pet Insight</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -146,9 +146,6 @@ session_start();
                 </div>
             </div>
 
-            <div class="pet-img">
-                <img class="image-porquinho" src="../../public/img/porquinho.jpg" alt="Imagem do Hamster">
-            </div>
         </section>
 
         <section class="pet-porquinho-alimentação">
@@ -177,33 +174,52 @@ session_start();
                         <p class="pet">
                         <h3>O que eles podem comer?</h3>
                         </p>
-                        <p class="pet-p1">
-                            <strong>Feno de capim e de alfafa,</strong>
-                            não se surpreenda ao perceber que o porquinho-da-índia passa o dia todo mastigando. De fato,
-                            o organismo desses pet é “programado” para receber alimentos de maneira contínua, sendo que
-                            o feno é o alimento mais consumido, com papel importante na saúde dos porquinhos.
+                        <div class="pet-p1">
+                            <p>
+                                <strong>Feno de capim e de alfafa: </strong>
+                                não se surpreenda ao perceber que o porquinho-da-índia passa o dia todo mastigando. De
+                                fato,
+                                o organismo desses pet é “programado” para receber alimentos de maneira contínua, sendo
+                                que
+                                o feno é o alimento mais consumido, com papel importante na saúde dos porquinhos.
+                            </p>
+                            <p>
+                                Obtido por meio da desidratação de gramíneas e leguminosas, o feno tem boa durabilidade
+                                e é
+                                muito rico em fibras. Sua ingestão é importante para manter o trânsito intestinal,
+                                evitando
+                                a estase, isto é, a parada dos movimentos do intestino.
+                            </p>
+                            <p>
+                                <strong>Frutas permitidas: </strong>
+                                entre o que porquinho-da-índia pode comer, algumas frutas são permitidas. Nesse caso, o
+                                alimento deve ser oferecido ao porquinho-da-índia entre 2 a 3 vezes por semana. Se
+                                possível,
+                                varie a escolha das frutas a fim de garantir diferentes vitaminas e minerais. As frutas
+                                devem estar sempre bem lavadas e fresquinhas.
+                            </p>
 
-                            Obtido por meio da desidratação de gramíneas e leguminosas, o feno tem boa durabilidade e é
-                            muito rico em fibras. Sua ingestão é importante para manter o trânsito intestinal, evitando
-                            a estase, isto é, a parada dos movimentos do intestino.
+                            <p>
+                                <strong>
+                                    Entre elas estão:
+                                </strong>
+                                pera, caqui, melancia, melão, banana, amora, mamão, morango,
+                                manga e
+                                goiaba.
+                            </p>
 
-                            <strong>Frutas permitidas,</strong>
-                            entre o que porquinho-da-índia pode comer, algumas frutas são permitidas. Nesse caso, o
-                            alimento deve ser oferecido ao porquinho-da-índia entre 2 a 3 vezes por semana. Se possível,
-                            varie a escolha das frutas a fim de garantir diferentes vitaminas e minerais. As frutas
-                            devem estar sempre bem lavadas e fresquinhas.
-
-                            Entre elas estão maçã, pera, caqui, melancia, melão, banana, amora, mamão, morango, manga e
-                            goiaba.
-
-                            <strong>Legumes e verduras,</strong>
-                            as verduras pode ser oferecida diariamente ao porquinho-da-índia. Já os legumes podem entrar
-                            para a dieta dia sim, dia não, ou seja, de três a quatro vezes por semana.
-
-                            Assim como deve ser feito com as frutas, legumes e verduras devem ser fornecidos frescos e
-                            bem lavados. Feito isso, alguns dos melhores alimentos são: abobrinha, abóbora, beterraba,
-                            brócolis, chuchu, couve, cenoura, rúcula, repolho, pepino e tomate.
-                        </p>
+                            <p>
+                                <strong>Legumes e verduras,</strong>
+                                as verduras pode ser oferecida diariamente ao porquinho-da-índia. Já os legumes podem
+                                entrar
+                                para a dieta dia sim, dia não, ou seja, de três a quatro vezes por semana.
+                                Assim como deve ser feito com as frutas, legumes e verduras devem ser fornecidos frescos
+                                e
+                                bem lavados.
+                            </p>
+                            <p><strong>Feito isso, alguns dos melhores alimentos são:</strong> abobrinha, abóbora,
+                                beterraba, brócolis, chuchu, couve, cenoura, rúcula, repolho, pepino e tomate.</p>
+                        </div>
 
                         <p class="pet">
                         <h3>O que não podem comer?</h3>
