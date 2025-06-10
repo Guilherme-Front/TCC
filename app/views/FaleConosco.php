@@ -13,6 +13,9 @@ session_start();
   <title>Fale Conosco | Pet Insight</title>
 
   <link rel="stylesheet" href="../../public/css/stylefaq.css?v=<?= time() ?>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <!-- Toastify CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
   <!-- Logo na aba do site  -->
   <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
@@ -73,24 +76,24 @@ session_start();
     </section>
 
     <section class="fl-dados">
-      <form id="contactForm">
+      <form id="contactForm" action="../controllers/processaContato.php" method="POST">
         <div class="fl-campos">
           <label for="nome" class="inp-fl">Nome Completo
-            <p><input type="text" class="fl-inp" id="nome" placeholder="Digite seu nome" required autocomplete="on"></p>
+            <p><input type="text" class="fl-inp" id="nome" name="nome" placeholder="Digite seu nome" required
+                autocomplete="on"></p>
           </label>
         </div>
 
         <div class="fl-campos">
           <label for="email" class="inp-fl">Email
             <p><input class="fl-inp" type="email" name="email" id="email" placeholder="Digite seu email" required
-                autocomplete="on">
-            </p>
+                autocomplete="on"></p>
           </label>
         </div>
 
         <div class="fl-campos">
           <label for="mensagem" class="inp-fl">Dúvida
-            <p><textarea class="fl-inp" id="mensagem" required placeholder="Digite aqui sua dúvida"
+            <p><textarea class="fl-inp" id="mensagem" name="mensagem" required placeholder="Digite aqui sua dúvida"
                 autocomplete="on"></textarea></p>
           </label>
         </div>
@@ -104,6 +107,107 @@ session_start();
 
   <script src="../../public/js/scriptdaq.js"></script>
   <script src="../../public/js/tema.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Mostrar loader
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
+
+            // Coletar dados do formulário
+            const formData = new FormData(this);
+
+            // Enviar via AJAX
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Resetar botão
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+
+                // Mostrar Toastify
+                Toastify({
+                    text: data.message,
+                    duration: 5000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: data.success ? 
+                            "linear-gradient(to right, #00b09b, #96c93d)" : 
+                            "linear-gradient(to right, #cd1809, #a01006)",
+                        borderRadius: "4px",
+                        fontSize: "16px",
+                        padding: "12px 24px"
+                    }
+                }).showToast();
+
+                // Limpar formulário se sucesso
+                if (data.success) {
+                    contactForm.reset();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+
+                Toastify({
+                    text: "Erro na conexão. Tente novamente.",
+                    duration: 5000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "linear-gradient(to right, #cd1809, #a01006)",
+                        borderRadius: "4px",
+                        fontSize: "16px",
+                        padding: "12px 24px"
+                    }
+                }).showToast();
+            });
+        });
+    }
+
+    <?php if (isset($_SESSION['toast'])): ?>
+        Toastify({
+            text: "<?php echo $_SESSION['toast']['message']; ?>",
+            duration: 5000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "<?php echo $_SESSION['toast']['type'] === 'success' ? 
+                    'linear-gradient(to right, #00b09b, #96c93d)' : 
+                    'linear-gradient(to right, #cd1809, #a01006)' ?>",
+                borderRadius: "4px",
+                fontSize: "16px",
+                padding: "12px 24px"
+            },
+            stopOnFocus: true
+        }).showToast();
+        <?php unset($_SESSION['toast']); ?>
+    <?php endif; ?>
+});
+  </script>
 </body>
 
 </html>
