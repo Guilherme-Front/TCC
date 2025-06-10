@@ -150,9 +150,6 @@ session_start();
                 </div>
             </div>
 
-            <div class="pet-img">
-                <img class="image" src="../../public/img/img-curiosidades.jpg" alt="Imagem do Gato">
-            </div>
         </section>
 
         <section class="pet-info-alimentação">

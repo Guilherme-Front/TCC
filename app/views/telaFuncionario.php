@@ -158,7 +158,7 @@ if ($result) {
             <div class="foto-container">
               <?php if (!empty($funcionario['foto'])): ?>
                 <img class="gato" id="previewFoto"
-                  src="../../public/uploads/imgUsuarios/<?= $id_funcionario . '/' . htmlspecialchars($funcionario['foto'] ?? '') ?>"
+                  src="../../public/uploads/imgFuncionarios/<?= $id_funcionario . '/' . htmlspecialchars($funcionario['foto'] ?? '') ?>"
                   alt="Foto do perfil" />
               <?php else: ?>
                 <img src="../../public/img/user-img.png" class="gato" id="previewFoto" alt="Foto do perfil" />

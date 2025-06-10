@@ -99,9 +99,14 @@ a {
     margin-right: 30px;
 }
 
-img.user-img {
-    width: 33px;
-    margin-bottom: 5px;
+img.user-img{
+    width: 32px;
+    margin-bottom: 6px;
+}
+
+.header-tema {
+    width: 35px;
+    margin-bottom: 1.5px;
 }
 
 .car {
@@ -110,10 +115,6 @@ img.user-img {
     color: black;
     font-size: 30px;
     /* Ajuste o tamanho conforme necessário */
-}
-
-.header-tema {
-    width: 35px;
 }
 
 /* Fim Header */

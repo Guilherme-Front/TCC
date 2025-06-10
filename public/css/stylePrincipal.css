@@ -100,8 +100,13 @@ a {
 }
 
 img.user-img{
-    width: 33px;
-    margin-bottom: 5px;
+    width: 32px;
+    margin-bottom: 6px;
+}
+
+.header-tema {
+    width: 35px;
+    margin-bottom: 1.5px;
 }
 
 .car {
@@ -112,9 +117,6 @@ img.user-img{
     /* Ajuste o tamanho conforme necessário */
 }
 
-.header-tema {
-    width: 35px;
-}
 
 /* Fim Header */
 

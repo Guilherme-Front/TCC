@@ -99,11 +99,6 @@ a {
     margin-right: 30px;
 }
 
-img.user-img {
-    width: 33px;
-    margin-bottom: 5px;
-}
-
 .car {
     margin-left: 40px;
     margin-right: 35px;
@@ -112,8 +107,14 @@ img.user-img {
     /* Ajuste o tamanho conforme necessário */
 }
 
+img.user-img{
+    width: 32px;
+    margin-bottom: 6px;
+}
+
 .header-tema {
     width: 35px;
+    margin-bottom: 1.5px;
 }
 
 .header-button {
@@ -132,10 +133,6 @@ img.user-img {
     color: black;
     font-size: 30px;
     /* Ajuste o tamanho conforme necessário */
-}
-
-.header-tema {
-    width: 35px;
 }
 
 main {

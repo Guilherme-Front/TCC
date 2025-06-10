@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-/* Início FAQ Header */ 
+/* Início FAQ Header */
 
 .header {
     margin-top: -90px;
@@ -20,15 +20,16 @@
     margin-left: 92px;
 }
 
-.user-info{
+.user-info {
     display: flex;
     align-items: center;
     margin-right: -150px;
     margin-left: 590px;
 }
 
-img.user-img{
-    width: 33px;
+img.user-img {
+    width: 35px;
+    margin-bottom: 10px;
 }
 
 .header-img {
@@ -42,48 +43,62 @@ img.user-img{
 .header-entrar {
     position: relative;
     text-decoration: none;
-    color: #38C08F; /* Cor do texto */
+    color: #38C08F;
+    /* Cor do texto */
     font-size: 18px;
-    padding-bottom: 5px; /* Ajuste para a linha ficar mais distante */
+    padding-bottom: 5px;
+    /* Ajuste para a linha ficar mais distante */
     margin-left: 773px;
 }
 
 .header-entrar::after {
     content: "";
     position: absolute;
-    background-color:  #38C08F;
+    background-color: #38C08F;
     left: 0;
-    bottom: 0; /* Controla a posição da linha */
-    width: 0; /* Começa sem largura */
-    height: 1px; /* Espessura da linha */
-    transition: width 0.3s ease-in-out; /* Animação suave */
+    bottom: 0;
+    /* Controla a posição da linha */
+    width: 0;
+    /* Começa sem largura */
+    height: 1px;
+    /* Espessura da linha */
+    transition: width 0.3s ease-in-out;
+    /* Animação suave */
 }
 
 .header-entrar:hover::after {
-    width: 85%; /* A linha se expande completamente */
+    width: 85%;
+    /* A linha se expande completamente */
 }
 
 .header-cadastro {
     position: relative;
     text-decoration: none;
-    color: #38C08F; /* Cor do texto */
+    color: #38C08F;
+    /* Cor do texto */
     font-size: 18px;
-    padding-bottom: 5px; /* Ajuste para a linha ficar mais distante */
+    padding-bottom: 5px;
+    /* Ajuste para a linha ficar mais distante */
 }
 
 .header-cadastro::after {
     content: "";
     position: absolute;
-    background-color:  #38C08F;
+    background-color: #38C08F;
     left: 0;
-    bottom: 0; /* Controla a posição da linha */
-    width: 0; /* Começa sem largura */
-    height: 1px; /* Espessura da linha */
-    transition: width 0.3s ease-in-out; /* Animação suave */
+    bottom: 0;
+    /* Controla a posição da linha */
+    width: 0;
+    /* Começa sem largura */
+    height: 1px;
+    /* Espessura da linha */
+    transition: width 0.3s ease-in-out;
+    /* Animação suave */
 }
 
 .header-cadastro:hover::after {
-    width: 100%; /* A linha se expande completamente */
+    width: 100%;
+    /* A linha se expande completamente */
 }
 
 .header-button {
@@ -98,18 +113,19 @@ img.user-img{
     width: 35px;
 }
 
-.header-link-none{
+.header-link-none {
     margin-left: 785px;
 }
 
-.header-link-none-fn{
+.header-link-none-fn {
     margin-left: 640px;
 }
-/* Fim FAQ Header */ 
+
+/* Fim FAQ Header */
 
 /* Início Perguntas Frequentes */
 
-.faq-body{
+.faq-body {
     height: 980px;
 }
 
@@ -215,12 +231,10 @@ img.user-img{
     border: none;
     font-weight: 600;
     font-size: 16px;
-    margin-left: 23%;
     color: white;
     margin-top: 25px;
     margin-bottom: 10px;
     cursor: pointer;
-    margin-left: 340px;
     transition: 0.8s;
     border-radius: 1.5px;
 }
@@ -230,13 +244,10 @@ img.user-img{
     transition: 0.8s;
 }
 
-.faq-button{
+.faq-button {
     width: 100%;
     display: flex;
-}
-
-.faq-button a{
-    margin-left: 18px;
+    justify-content: start;
 }
 
 .text {
@@ -431,15 +442,10 @@ textarea {
         width: 190px;
     }
 
-    .faq-button {
-        margin-left: -95px;
-    }
-
     .faq-FL {
         width: 130px;
         height: 35px;
         font-size: 16px;
-        margin-left: 355px;
     }
 
     .faq-question {
@@ -565,15 +571,10 @@ textarea {
         width: 190px;
     }
 
-    .faq-button {
-        margin-left: -180px;
-    }
-
     .faq-FL {
         width: 130px;
         height: 35px;
         font-size: 16px;
-        margin-left: 355px;
     }
 
     .faq-question {
@@ -699,15 +700,10 @@ textarea {
         width: 170px;
     }
 
-    .faq-button {
-        margin-left: -335px;
-    }
-
     .faq-FL {
         width: 120px;
         height: 30px;
         font-size: 14px;
-        margin-left: 355px;
     }
 
     .faq-question {
@@ -834,16 +830,6 @@ textarea {
         width: 150px;
     }
 
-    .faq-button {
-        margin-left: -425px;
-    }
-
-    .faq-FL {
-        width: 120px;
-        height: 30px;
-        font-size: 14px;
-        margin-left: 355px;
-    }
 
     .faq-question {
         font-size: 15px;
@@ -964,15 +950,10 @@ textarea {
         width: 100px;
     }
 
-    .faq-button {
-        margin-left: -630px;
-    }
-
     .faq-FL {
         width: 100px;
         height: 30px;
         font-size: 13px;
-        margin-left: 355px;
     }
 
     .faq-question {
