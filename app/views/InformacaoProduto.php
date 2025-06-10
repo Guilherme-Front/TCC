@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                     <?php foreach ($imagens as $index => $imagem):
                         $caminho_imagem = corrigirCaminhoImagem($imagem['nome_imagem']);
                         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . $caminho_imagem;
-                    ?>
+                        ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                             <?php if (file_exists($caminho_absoluto)): ?>
                                 <img src="<?= $caminho_imagem ?>" class="d-block w-100"
@@ -288,7 +288,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
             <?php if (isset($_SESSION['id_cliente'])): ?>
                 <div class="adicionar-comentario">
                     <form method="POST" action="">
-                        <textarea name="comentario" placeholder="Deixe seu comentário sobre o produto..." required></textarea>
+                        <textarea name="comentario" placeholder="Deixe seu comentário sobre o produto..."
+                            required></textarea>
                         <button type="submit" class="btn-enviar-comentario">Enviar Comentário</button>
                     </form>
                 </div>
@@ -326,12 +327,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                                 <div class="cabecalho-comentario">
                                     <div>
                                         <p class="nome-usuario"><?= htmlspecialchars($comentario['nome']) ?></p>
-                                        <p class="data-comentario"><?= date('d/m/Y H:i', strtotime($comentario['data_comentario'])) ?></p>
+                                        <p class="data-comentario">
+                                            <?= date('d/m/Y H:i', strtotime($comentario['data_comentario'])) ?></p>
                                     </div>
                                     <?php if (isset($_SESSION['id_cliente']) && $_SESSION['id_cliente'] == $comentario['id_cliente'] || isset($_SESSION['id_funcionario'])): ?>
                                         <form method="POST" class="form-excluir-comentario">
-                                            <input type="hidden" name="excluir_comentario" value="<?= $comentario['id_comentario'] ?>">
-                                            <button type="submit" class="btn-excluir-comentario" data-comentario-id="<?= $comentario['id_comentario'] ?>">
+                                            <input type="hidden" name="excluir_comentario"
+                                                value="<?= $comentario['id_comentario'] ?>">
+                                            <button type="submit" class="btn-excluir-comentario"
+                                                data-comentario-id="<?= $comentario['id_comentario'] ?>">
                                                 <i class="fi fi-ss-trash"></i>
                                             </button>
                                         </form>
@@ -471,7 +475,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
         // Função para confirmar e excluir comentário
         document.querySelectorAll('.btn-excluir-comentario').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 const comentarioId = this.getAttribute('data-comentario-id');
                 const form = this.closest('form');
@@ -489,30 +493,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                 // Criar o Toastify
                 const toast = Toastify({
                     node: toastContent,
-                    duration: -1,
+                    duration: -1,  // -1 means the toast won't auto-close
                     gravity: "top",
                     position: "right",
                     style: {
-                        background: "linear-gradient(to right,rgb(174, 174, 174),rgb(180, 180, 180))",
+                        background: "linear-gradient(to right, white, white)", // Fixed gradient syntax
                         padding: '15px',
-                        width: '300px'
+                        width: '300px',
+                        border: '1px solid grey',
+                        color: 'black'
                     },
-                    onClick: function() {} // Necessário para evitar fechar ao clicar
+                    onClick: function () { } // Prevents closing when clicked
                 });
 
-                // Mostrar o toast
+                // Show the toast
                 toast.showToast();
 
                 // Adicionar eventos aos botões
                 const toastElement = toast.toastElement;
-                toastElement.querySelector('.toastify-confirm').addEventListener('click', function() {
+                toastElement.querySelector('.toastify-confirm').addEventListener('click', function () {
                     if (form) {
                         form.submit();
                     }
                     toast.hideToast();
                 });
 
-                toastElement.querySelector('.toastify-cancel').addEventListener('click', function() {
+                toastElement.querySelector('.toastify-cancel').addEventListener('click', function () {
                     toast.hideToast();
                 });
             });

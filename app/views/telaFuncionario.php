@@ -396,12 +396,30 @@ if ($result) {
           const file = e.target.files[0];
           if (file) {
             if (!file.type.match('image.*')) {
-              alert('Por favor, selecione um arquivo de imagem');
+              Toastify({
+                text: "Por favor, selecione um arquivo de imagem válido.",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                  background: "linear-gradient(to right, #cd1809, #a01006)"
+                }
+              }).showToast();
               return;
             }
 
             if (file.size > 2 * 1024 * 1024) {
-              alert('A imagem deve ter no máximo 2MB');
+              Toastify({
+                text: "A imagem deve ter no máximo 2MB.",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                  background: "linear-gradient(to right, #cd1809, #a01006)"
+                }
+              }).showToast();
               return;
             }
 
@@ -413,6 +431,7 @@ if ($result) {
           }
         });
       }
+
 
       // Inicialização
       window.addEventListener('hashchange', verificarHash);
@@ -457,18 +476,20 @@ if ($result) {
           // Criar o Toastify
           const toast = Toastify({
             node: toastContent,
-            duration: -1,
+            duration: -1,  // -1 means the toast won't auto-close
             gravity: "top",
             position: "right",
             style: {
-              background: "linear-gradient(to right, rgb(174, 174, 174), rgb(180, 180, 180))",
+              background: "linear-gradient(to right, white, white)", // Fixed gradient syntax
               padding: '15px',
-              width: '300px'
+              width: '300px',
+              border: '1px solid grey',
+              color: 'black'
             },
-            onClick: function () { } // Necessário para evitar fechar ao clicar
+            onClick: function () { } // Prevents closing when clicked
           });
 
-          // Mostrar o toast
+          // Show the toast
           toast.showToast();
 
           // Adicionar eventos aos botões

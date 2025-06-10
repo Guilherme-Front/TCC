@@ -574,28 +574,32 @@ main {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 10px;
+    width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
 }
 
 .form-excluir-comentario {
+    display: flex;
     margin: 0;
     padding: 0;
+    flex: 1; 
 }
 
 .btn-excluir-comentario {
     background: none;
     border: none;
     color: #dc3545;
-    margin-left: -50px;
     cursor: pointer;
     padding: 5px;
     font-size: 1rem;
     transition: color 0.3s;
+    margin-left: 10px; /* Espaçamento entre o texto e o ícone */
 }
 
 .btn-excluir-comentario:hover {
     color: #c82333;
 }
 
+/* Restante do seu CSS permanece igual */
 .nome-usuario {
     font-weight: bold;
     margin-bottom: 5px;

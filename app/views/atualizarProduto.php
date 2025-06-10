@@ -103,7 +103,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
-            echo json_encode(['status' => 'success', 'message' => 'Produto salvo com sucesso!']);
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Produto ' . ($modo === 'edicao' ? 'alterado' : 'cadastrado') . ' com sucesso!'
+            ]);
             exit();
         } catch (Exception $e) {
             $conn->rollback();
@@ -395,27 +398,48 @@ if ($modoEdicao) {
         });
 
         // Validação do formulário
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Validação básica (imagens)
             const imagensExistentes = document.querySelectorAll('input[name="imagens_existentes[]"]').length;
-            const totalImagens = imagensExistentes + imagensSelecionadas.length;
+            const totalImagens = imagensExistentes - imagensRemovidas.length + imagensSelecionadas.length;
 
             if (totalImagens === 0) {
-                e.preventDefault();
                 error("Pelo menos uma imagem é obrigatória.");
                 return;
             }
 
-            // Adicionar novas imagens ao form
-            const imagensContainer = document.getElementById('imagens-container');
-            imagensSelecionadas.forEach((file, index) => {
-                const fileInputHidden = document.createElement('input');
-                fileInputHidden.type = 'hidden';
-                fileInputHidden.name = 'novas_imagens[]';
-                fileInputHidden.files = file; // Aqui só seria válido se fosse FormData diretamente
-                imagensContainer.appendChild(fileInputHidden);
-            });
-        });
+            // Cria um FormData para enviar arquivos via AJAX
+            const formData = new FormData(form);
 
+            // Adiciona as novas imagens ao FormData
+            imagensSelecionadas.forEach((file, index) => {
+                formData.append('novas_imagens[]', file);
+            });
+
+            try {
+                const response = await fetch('', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    success(result.message);
+
+                    // Redireciona após 3 segundos (opcional)
+                    setTimeout(() => {
+                        window.location.href = '../views/telaFuncionario.php';
+                    }, 3000);
+                } else {
+                    error(result.message || "Erro ao salvar o produto.");
+                }
+            } catch (err) {
+                error("Erro na requisição: " + err.message);
+            }
+        });
         // Função de notificação de erro
         function error(message) {
             Toastify({

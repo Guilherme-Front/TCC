@@ -58,7 +58,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 <body>
   <?php if (isset($_SESSION['toast'])): ?>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         Toastify({
           text: "<?= $_SESSION['toast']['message'] ?>",
           duration: 3500,
@@ -72,7 +72,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
             boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
             fontSize: "14px"
           },
-          onClick: function() {}
+          onClick: function () { }
         }).showToast();
       });
     </script>
@@ -148,7 +148,8 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
 
       <!-- Seção de Perfil -->
       <div class="perfil-section" id="perfil-section">
-        <form action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
+        <form id="form-perfil" action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
+
           <div class="img-txt">
             <div class="foto-container">
               <?php if (isset($cliente['foto']) && !empty($cliente['foto'])): ?>
@@ -675,27 +676,71 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       }
 
       // Preview da foto
-      if (inputFoto && previewFoto) {
-        inputFoto.addEventListener('change', function (e) {
-          const file = e.target.files[0];
-          if (file) {
-            if (!file.type.match('image.*')) {
-              alert('Por favor, selecione um arquivo de imagem');
-              return;
-            }
-
-            if (file.size > 2 * 1024 * 1024) {
-              alert('A imagem deve ter no máximo 2MB');
-              return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              previewFoto.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
+      if (!file.type.match('image.*')) {
+        Toastify({
+          text: "Por favor, selecione um arquivo de imagem válido.",
+          duration: 3500,
+          close: true,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #cd1809, #a01006)",
+            borderRadius: "4px",
+            fontSize: "14px"
           }
-        });
+        }).showToast();
+        return;
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        Toastify({
+          text: "A imagem deve ter no máximo 2MB.",
+          duration: 3500,
+          close: true,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #cd1809, #a01006)",
+            borderRadius: "4px",
+            fontSize: "14px"
+          }
+        }).showToast();
+        return;
+      }
+
+
+      // Impedir envio do formulário de perfil se imagem for inválida
+      const formPerfil = document.getElementById('form-perfil');
+      if (!file.type.match('image.*')) {
+        Toastify({
+          text: "Por favor, selecione um arquivo de imagem válido.",
+          duration: 3500,
+          close: true,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            borderRadius: "4px",
+            fontSize: "14px"
+          }
+        }).showToast();
+        return;
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        Toastify({
+          text: "A imagem deve ter no máximo 2MB.",
+          duration: 3500,
+          close: true,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+            borderRadius: "4px",
+            fontSize: "14px"
+          }
+        }).showToast();
+        return;
       }
 
       // Inicialização
