@@ -99,9 +99,14 @@ a {
     margin-right: 30px;
 }
 
-img.user-img {
-    width: 33px;
-    margin-bottom: 5px;
+img.user-img{
+    width: 32px;
+    margin-bottom: 6px;
+}
+
+.header-tema {
+    width: 35px;
+    margin-bottom: 1.5px;
 }
 
 .car {
@@ -109,11 +114,6 @@ img.user-img {
     margin-right: 35px;
     color: black;
     font-size: 30px;
-    /* Ajuste o tamanho conforme necessário */
-}
-
-.header-tema {
-    width: 35px;
 }
 
 /* Fim Header */
@@ -162,28 +162,28 @@ img.user-img {
 
 .pet-info-curiosidade {
     margin-top: 20px;
-    height: 1450px;
+    height: 1550px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-alimentação {
     margin-top: 20px;
-    height: 3250px;
+    height: 3370px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-doenças {
     margin-top: 20px;
-    height: 1400px;
+    height: 1520px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-vacinas {
     margin-top: 20px;
-    height: 1230px;
+    height: 1150px;
     background-color: #fbfbc6;
     cursor: default;
     overflow: hidden;

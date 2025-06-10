@@ -192,8 +192,8 @@ function ativarModoEscuro() {
   const petI = document.querySelector(".pet-flex");
   if (petI) petI.style.backgroundColor = "#212121";
 
-  const petT = document.querySelector(".pet-info-titulo");
-  if (petT) petT.style.color = "white";
+  const petT = document.querySelectorAll(".pet-titulo");
+  if (petT) petT.forEach((item) => (item.style.color = "white"));
 
   const petP = document.querySelectorAll(".pet-p");
   if (petP) petP.forEach((item) => (item.style.color = "white"));
@@ -222,8 +222,19 @@ function ativarModoEscuro() {
   const menu = document.querySelector(".menu-lateral");
   if (menu) menu.style.backgroundColor = "#212121";
 
-  const file = document.querySelector("#file");
-  if (file) file.src = "../../public/img/usuario-do-arquivo.png";
+  const menu2 = document.querySelector(".menu-lateral-fn");
+  if (menu2) menu2.style.backgroundColor = "#212121";
+
+  const files = document.querySelectorAll("#file");
+  files.forEach((file) => {
+    file.src = "../../public/img/usuario-do-arquivo.png";
+  });
+
+  const addproduto = document.querySelector("#addproduto");
+  if (addproduto) addproduto.src = "../../public/img/adicionar-produto.png"
+  
+  const produtoc = document.querySelector("#produtoc");
+  if (produtoc) produtoc.src = "../../public/img/produtos.png"
 
   const order = document.querySelector("#order");
   if (order) order.src = "../../public/img/historico-de-pedidos.png";
@@ -939,7 +950,6 @@ function ativarModoClaro() {
     petcomentario.forEach((item) => (item.style.color = "black"));
   }
   /*Fim Info Produtos */
-
 
   /* Inicio Tela Carrinho */
   const dadosC = document.querySelectorAll(".dados");

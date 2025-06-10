@@ -119,14 +119,14 @@ if ($result) {
         <ul>
           <li class="item-menu ativo" data-section="perfil-section">
             <a href="#perfil-section">
-              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário"></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/file-user.png" alt="usuário" id="file"></span>
               <span class="txt-link">Meus dados</span>
             </a>
           </li>
 
           <li class="item-menu" data-section="produtos-cadastrados">
             <a href="#produtos-cadastrados">
-              <span class="icon"><img class="icons-img" src="../../public/img/product.png" alt="produtos"></span>
+              <span class="icon"><img class="icons-img" src="../../public/img/product.png" alt="produtos" id="produtoc"></span>
               <span class="txt-link">Produtos cadastrados</span>
             </a>
           </li>
@@ -134,7 +134,7 @@ if ($result) {
           <li class="item-menu">
             <a href="../views/CadastroProduto.php">
               <span class="icon"><img class="icons-img" src="../../public/img/add-product (2).png"
-                  alt="cadastrar-produto"></span>
+                  alt="cadastrar-produto" id="addproduto"></span>
               <span class="txt-link">Cadastrar produtos</span>
             </a>
           </li>

@@ -62,6 +62,7 @@ section {
 .txt-dados {
     display: flex;
     justify-content: space-between;
+    margin-left: 40px;
     width: auto;
     gap: 155px;
     cursor: default;
@@ -152,6 +153,7 @@ section {
     display: flex;
     flex-direction: row;
     white-space: nowrap;
+    margin-left: 40px;
     gap: 185px;
     width: 570px;
 }
