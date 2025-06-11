@@ -364,6 +364,14 @@ function ativarModoEscuro() {
   function mudarBoxShadow(cor, produto) {
     produto.style.boxShadow = `0 3px 10px 10px ${cor}`;
   }
+
+  const pFirst = document.querySelectorAll(".produto p:first-of-type");   
+if (pFirst.length > 0) {
+  pFirst.forEach((item) => {
+    item.style.color = "white";
+  });
+}
+
   /* Fim Tela Produtos */
 
   /* Início Info Gatos */
@@ -503,6 +511,15 @@ function ativarModoEscuro() {
     petcomentario.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
     petcomentario.forEach((item) => (item.style.color = "white"));
   }
+
+  const quant = document.querySelector(".button-add");
+  if (quant) quant.style.backgroundColor = "#3f3e3e";
+
+  const quant1 = document.querySelector(".button-add2");
+  if (quant1) quant1.style.backgroundColor = "#3f3e3e";
+
+  const quant2 = document.querySelector(".input-add");
+  if (quant2) quant2.style.backgroundColor = "#3f3e3e";
   /*Fim Info Produtos */
 
   /* Inicio Cadastrar Produtos */

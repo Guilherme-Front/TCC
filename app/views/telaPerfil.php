@@ -147,7 +147,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
     <section>
 
       <!-- Seção de Perfil -->
-      <div class="perfil-section" id="perfil-section">
+      <div class="perfil-section" id="perfil-section">   
         <form id="form-perfil" action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
 
           <div class="img-txt">
