@@ -162,21 +162,21 @@ img.user-img{
 
 .pet-info-curiosidade {
     margin-top: 20px;
-    height: 1550px;
+    height: 1450px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-alimentação {
     margin-top: 20px;
-    height: 3370px;
+    height: 3250px;
     background-color: #fbfbc6;
     cursor: default;
 }
 
 .pet-info-doenças {
     margin-top: 20px;
-    height: 1520px;
+    height: 1400px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -452,7 +452,7 @@ strong {
 
 .pet-ham-curiosidade {
     margin-top: 20px;
-    height: 1320px;
+    height: 1150px;
     background-color: #fbfbc6;
     cursor: default;
 }
@@ -482,7 +482,7 @@ strong {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 80%;
+    max-width: 100%;
 }
 
 .image-ham {

@@ -271,7 +271,13 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       </div>
       <!-- Seção de Pedidos -->
       <div class="pedidos-section" id="pedidos-section" style="display:none;">
-        <?php include 'pedidos.php'; ?>
+        <div class="pedido-container">
+            <div class="produto">
+                <div class="img-produto">
+                  <img src="../../public" alt="">
+                </div>
+            </div>
+        </div>
       </div>
 
     </section>

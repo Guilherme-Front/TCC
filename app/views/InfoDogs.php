@@ -1,4 +1,8 @@
-<div?php session_start(); ?>
+<?php
+
+session_start();
+
+?>
 
     <!DOCTYPE html>
     <html lang="pt-br">
