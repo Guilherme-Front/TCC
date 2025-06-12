@@ -328,6 +328,11 @@ function ativarModoEscuro() {
 
   const MinhaC = document.querySelector(".minha-conta");
   if (MinhaC) MinhaC.style.color = "white";
+
+  const PC = document.querySelector(".titulo-categoria");
+  if (PC) PC.style.backgroundColor = "#3f3e3e";
+
+
   /* Fim Perfil */
 
   /* Início Tela Produtos */
