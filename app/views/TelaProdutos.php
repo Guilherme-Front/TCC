@@ -64,7 +64,7 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
         <?php if (isset($_SESSION['id_funcionario'])): ?>
 
           <a class="header-link-none" href="../views/telaFuncionario.php">
-            <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+            <img class="user-img" src="../../public/img/administrador.png" alt=""" alt="">
           </a>
 
         <?php elseif (isset($_SESSION['id_cliente'])): ?>

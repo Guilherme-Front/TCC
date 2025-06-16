@@ -24,13 +24,6 @@ if (!isset($_SESSION['id_cliente'])) {
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
     <title>Tela de Carrinho | Pet Insight</title>
-
-    <script>
-        const idCliente = <?= json_encode($_SESSION['id_cliente']) ?>;
-        const carrinhoKey = `carrinho_${idCliente}`;
-        const carrinhoVazioKey = `carrinhoVazio_${idCliente}`;
-    </script>
-
 </head>
 
 <body>
@@ -85,8 +78,7 @@ if (!isset($_SESSION['id_cliente'])) {
         </section>
     </main>
 
-    <script src="../../public/js/Carrinho.js"></script>
-    <script src="../../public/js/tema.js"></script>
+
 
     <script>
         // Variáveis globais
@@ -111,7 +103,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelectorAll('.pedido').forEach(pedido => {
                 let subtotal = parseFloat(
                     pedido.querySelector('.dados p:nth-child(2)')
-                        .innerText.replace('R$ ', '').replace(',', '.')
+                    .innerText.replace('R$ ', '').replace(',', '.')
                 );
                 total += subtotal;
             });
@@ -226,40 +218,40 @@ if (!isset($_SESSION['id_cliente'])) {
 
                     // Cria o HTML do produto
                     const pedidoHTML = `
-                <div class="pedido" data-produto-id="${produto.id}">
+                    <div class="pedido" data-produto-id="${produto.id}">
                     <div class="img-produto">
-                        <img src="${produto.imagem || '../../public/img/sem-imagem.jpg'}" alt="${produto.nome}">
+                    <img src="${produto.imagem || '../../public/img/sem-imagem.jpg'}" alt="${produto.nome}">
                     </div>
-
+                    
                     <div class="descricao-total">
-                        <div class="descricao">
-                            <h3>${produto.nome}</h3>
-                            <p class="${emEstoque ? 'em-estoque' : 'sem-estoque'}">${statusEstoque}</p>
+                    <div class="descricao">
+                    <h3>${produto.nome}</h3>
+                    <p class="${emEstoque ? 'em-estoque' : 'sem-estoque'}">${statusEstoque}</p>
                         </div>
-
+                        
                         <div class="informacoes">
-                            <div class="quantidade">
-                                <button class="button-add" onclick="alterarQuantidade(this, -1)">−</button>
-                                <input aria-label="inp" class="input-add quantidade-produto" type="text" 
-                                       value="${produto.quantidade}" readonly data-produto-id="${produto.id}">
-                                <button class="button-add2" onclick="alterarQuantidade(this, 1)">+</button>
-                            </div>
-
-                            <div class="dados">
-                                <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
-                                <p>R$ ${subtotal.toFixed(2).replace('.', ',')}</p>
-                            </div>
+                        <div class="quantidade">
+                        <button class="button-add" onclick="alterarQuantidade(this, -1)">−</button>
+                        <input aria-label="inp" class="input-add quantidade-produto" type="text" 
+                        value="${produto.quantidade}" readonly data-produto-id="${produto.id}">
+                        <button class="button-add2" onclick="alterarQuantidade(this, 1)">+</button>
                         </div>
-                    </div>
-
-                    <div class="button-excluir">
+                        
+                        <div class="dados">
+                        <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                        <p>R$ ${subtotal.toFixed(2).replace('.', ',')}</p>
+                        </div>
+                        </div>
+                        </div>
+                        
+                        <div class="button-excluir">
                         <button class="excluir" type="button" onclick="excluirPedido(this)" 
-                                data-produto-id="${produto.id}">
-                            <img src="../../public/img/x-button.png" alt="excluir">
+                        data-produto-id="${produto.id}">
+                        <img src="../../public/img/x-button.png" alt="excluir">
                         </button>
-                    </div>
-                </div>
-            `;
+                        </div>
+                        </div>
+                        `;
 
                     container.insertAdjacentHTML('beforeend', pedidoHTML);
                     algumProdutoAdicionado = true;
@@ -431,7 +423,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
 
             // Evento para finalizar compra
-            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function () {
+            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function() {
                 const estoqueOk = await verificarEstoqueAntesFinalizar();
 
                 if (estoqueOk) {
@@ -439,7 +431,24 @@ if (!isset($_SESSION['id_cliente'])) {
                 }
             });
         });
+
+        function adicionarAoCarrinho(produto) {
+            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+
+            // Verifica se o produto já está no carrinho
+            const itemExistente = carrinho.find(item => item.id === produto.id);
+
+            if (itemExistente) {
+                itemExistente.quantidade += produto.quantidade || 1;
+            } else {
+                carrinho.push(produto);
+            }
+
+            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+        }
     </script>
+    
+    <script src="../../public/js/tema.js"></script>
 </body>
 
 </html>

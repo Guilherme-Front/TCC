@@ -35,7 +35,7 @@ session_start();
                 <?php if (isset($_SESSION['id_funcionario'])): ?>
 
                     <a class="header-link-none" href="../views/telaFuncionario.php">
-                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                        <img class="user-img" src="../../public/img/administrador.png" alt=""" alt="">
                     </a>
 
                 <?php elseif (isset($_SESSION['id_cliente'])): ?>
@@ -84,9 +84,9 @@ session_start();
 
                     <div class="pet-paragrafo">
 
-                    <h3>Quantos anos em média vive um gato?</h3>
+                        <h3>Quantos anos em média vive um gato?</h3>
                         <p class="pet">
-                        <img class="icon-cat-black" src="../../public/img/gato-preto.png" alt="">
+                            <img class="icon-cat-black" src="../../public/img/gato-preto.png" alt="">
                         </p>
 
                         <p class="pet-p1">
@@ -99,6 +99,7 @@ session_start();
 
                         <img class="icon-cat" src="../../public/img/caixa-de-gato.png" alt="">
                         </p>
+
                         <p class="pet-p1">
                             A curiosidade sobre a natureza se trata de uma característica nata dos gatos. Adoram
                             explorar territórios, entrar em malas, sacolas, cheirar objetos e pessoas.</p>
@@ -119,7 +120,7 @@ session_start();
 
                         </p>
                         <p class="pet-p1">Os gatos são animais de laços e rotinas, e muitos desenvolvem forte apego com
-                            
+
                             ambiente em que vivem. Mudanças repentinas ou movimentos podem causar estresse nos bichanos,
                             fazendo com que eles levem algum tempo para se adaptar. Por isso, é importante oferecer um
                             local seguro e familiar visando promover o bem-estar emocional e físico do animal.</p>

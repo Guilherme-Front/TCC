@@ -291,6 +291,29 @@ input[readonly] {
     pointer-events: none;
 }
 
+/* Adicione ao seu CSS */
+.tema-escuro .pedido {
+    background-color: #3f3e3e;
+    /* outros estilos */
+}
+
+.tema-claro .pedido {
+    background-color: #ffffff;
+    /* outros estilos */
+}
+
+/* tema-escuro.css */
+.tema-escuro .input-add {
+    color: white !important;
+    background-color: #3f3e3e;
+}
+
+/* tema-claro.css */
+.tema-claro .input-add {
+    color: black !important;
+    background-color: white;
+}
+
 @media (max-width: 431px) {
     * {
         box-sizing: border-box;

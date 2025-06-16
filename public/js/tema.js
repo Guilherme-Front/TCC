@@ -231,10 +231,10 @@ function ativarModoEscuro() {
   });
 
   const addproduto = document.querySelector("#addproduto");
-  if (addproduto) addproduto.src = "../../public/img/adicionar-produto.png"
-  
+  if (addproduto) addproduto.src = "../../public/img/adicionar-produto.png";
+
   const produtoc = document.querySelector("#produtoc");
-  if (produtoc) produtoc.src = "../../public/img/produtos.png"
+  if (produtoc) produtoc.src = "../../public/img/produtos.png";
 
   const order = document.querySelector("#order");
   if (order) order.src = "../../public/img/historico-de-pedidos.png";
@@ -332,6 +332,8 @@ function ativarModoEscuro() {
   const PC = document.querySelector(".titulo-categoria");
   if (PC) PC.style.backgroundColor = "#3f3e3e";
 
+  const func = document.querySelector(".user-img");
+  if (func) func.src = "../../public/img/adm.png";
 
   /* Fim Perfil */
 
@@ -370,12 +372,12 @@ function ativarModoEscuro() {
     produto.style.boxShadow = `0 3px 10px 10px ${cor}`;
   }
 
-  const pFirst = document.querySelectorAll(".produto p:first-of-type");   
-if (pFirst.length > 0) {
-  pFirst.forEach((item) => {
-    item.style.color = "white";
-  });
-}
+  const pFirst = document.querySelectorAll(".produto p:first-of-type");
+  if (pFirst.length > 0) {
+    pFirst.forEach((item) => {
+      item.style.color = "white";
+    });
+  }
 
   /* Fim Tela Produtos */
 
@@ -525,6 +527,19 @@ if (pFirst.length > 0) {
 
   const quant2 = document.querySelector(".input-add");
   if (quant2) quant2.style.backgroundColor = "#3f3e3e";
+
+  const add = document.querySelector(".adicionar-comentario");
+  if (add) add.style.backgroundColor = "#3f3e3e";
+
+  const add2 = document.querySelectorAll(".comentario");
+  if (add2) add2.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
+
+  const txt = document.querySelectorAll(".data-comentario");
+  if (txt) txt.forEach((item) => (item.style.color = "white"));
+
+  const txt2 = document.querySelectorAll(".texto-comentario");
+  if (txt2) txt2.forEach((item) => (item.style.color = "white"));
+
   /*Fim Info Produtos */
 
   /* Inicio Cadastrar Produtos */
@@ -567,16 +582,13 @@ if (pFirst.length > 0) {
   /* Fim Tela Pedido */
 
   /* Inicio Tela Carrinho */
+  document.body.classList.add("tema-escuro");
 
   const dadosC = document.querySelectorAll(".dados");
   if (dadosC) dadosC.forEach((item) => (item.style.color = "white"));
 
   const totalP = document.querySelector(".total");
   if (totalP) totalP.style.backgroundColor = "#3f3e3e";
-
-  const pedidoC = document.querySelectorAll(".pedido");
-  if (pedidoC)
-    pedidoC.forEach((item) => (item.style.backgroundColor = "#3f3e3e"));
 
   const quantC = document.querySelectorAll(".button-add");
   if (quantC) quantC.forEach((item) => (item.style.color = "white"));
@@ -828,6 +840,13 @@ function ativarModoClaro() {
   function mudarBoxShadow(cor, produto) {
     produto.style.boxShadow = `0 3px 10px 10px ${cor}`;
   }
+
+  const pFirst = document.querySelectorAll(".produto p:first-of-type");
+  if (pFirst.length > 0) {
+    pFirst.forEach((item) => {
+      item.style.color = "black";
+    });
+  }
   /* Fim Tela Produtos */
 
   /* Início Info Gatos */
@@ -971,6 +990,36 @@ function ativarModoClaro() {
     petcomentario.forEach((item) => (item.style.backgroundColor = "#EFEFEF"));
     petcomentario.forEach((item) => (item.style.color = "black"));
   }
+
+  const quant = document.querySelector(".button-add");
+  if (quant) {
+    quant.style.backgroundColor = "#d3d3d3";
+    quant.style.color = "black";
+  }
+
+  const quant1 = document.querySelector(".button-add2");
+  if (quant1) {
+    quant1.style.backgroundColor = "#d3d3d3";
+    quant1.style.color = "black";
+  }
+
+  const quant2 = document.querySelector(".input-add");
+  if (quant2) {
+    quant2.style.backgroundColor = "#ebebeb";
+    quant2.style.color = "black";
+  }
+
+  const add = document.querySelector(".adicionar-comentario");
+  if (add) add.style.backgroundColor = "#f8f9fa";
+
+  const add2 = document.querySelectorAll(".comentario");
+  if (add2) add2.forEach((item) => (item.style.backgroundColor = "#fff"));
+
+  const txt = document.querySelectorAll(".data-comentario");
+  if (txt) txt.forEach((item) => (item.style.color = "#6c757d"));
+
+  const txt2 = document.querySelectorAll(".texto-comentario");
+  if (txt2) txt2.forEach((item) => (item.style.color = "#6c757d"));
   /*Fim Info Produtos */
 
   /* Inicio Tela Carrinho */
@@ -1018,4 +1067,8 @@ function ativarModoClaro() {
   const cuidadoP = document.querySelector(".cuidados-porquinho");
   if (cuidadoP) cuidadoP.style.backgroundColor = "#fafaa9";
   /* Fim Cuidados */
+
+  /* perfil */
+  const func = document.querySelector(".user-img");
+  if (func) func.src = "../../public/img/administrador.png";
 }

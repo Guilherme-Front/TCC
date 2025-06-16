@@ -35,7 +35,7 @@ session_start();
 
                     <!-- Funcionário logado - Mostrar perfil e área do funcionário -->
                     <a class="header-link-none" href="../views/telaFuncionario.php">
-                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                        <img class="user-img" src="../../public/img/administrador.png" alt=""" alt="">
                     </a>
 
                 <?php elseif (isset($_SESSION['id_cliente'])): ?>

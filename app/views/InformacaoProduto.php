@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                 <?php if (isset($_SESSION['id_funcionario'])): ?>
 
                     <a class="header-link-none" href="../views/telaFuncionario.php">
-                        <img class="user-img" src="../../public/img/engrenagem-do-usuario.png" alt="">
+                        <img class="user-img" src="../../public/img/administrador.png" alt="">
                     </a>
 
                 <?php elseif (isset($_SESSION['id_cliente'])): ?>
@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                     <?php foreach ($imagens as $index => $imagem):
                         $caminho_imagem = corrigirCaminhoImagem($imagem['nome_imagem']);
                         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . $caminho_imagem;
-                        ?>
+                    ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                             <?php if (file_exists($caminho_absoluto)): ?>
                                 <img src="<?= $caminho_imagem ?>" class="d-block w-100"
@@ -251,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
                         <?php elseif (isset($_SESSION['id_cliente'])): ?>
                             <!-- Botão para clientes logados (funcional) -->
-                            <button class="add-carrinho" onclick="adicionarAoCarrinho()">
+                            <button class="add-carrinho" id="btn-add-carrinho" onclick="adicionarAoCarrinho()">
                                 <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
                             </button>
                             <button class="button-comprar" onclick="comprarAgora()">Comprar</button>
@@ -414,6 +414,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                 }
 
                 if (result.success) {
+                    // Adicionar ao localStorage
+                    const carrinhoKey = `carrinho_${<?= $_SESSION['id_cliente'] ?? 0 ?>}`;
+                    let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+
+                    // Verificar se o produto já está no carrinho
+                    const index = carrinho.findIndex(item => item.id === result.produto.id);
+
+                    if (index !== -1) {
+                        // Atualizar quantidade se já existir
+                        carrinho[index].quantidade += parseInt(quantidade);
+                    } else {
+                        // Adicionar novo item
+                        carrinho.push(result.produto);
+                    }
+
+                    localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+
                     Toastify({
                         text: result.message || "Produto adicionado ao carrinho!",
                         duration: 3000,
@@ -452,7 +469,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                 }).showToast();
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">';
             }
         }
 
@@ -475,7 +491,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
         // Função para confirmar e excluir comentário
         document.querySelectorAll('.btn-excluir-comentario').forEach(btn => {
-            btn.addEventListener('click', function (e) {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const comentarioId = this.getAttribute('data-comentario-id');
                 const form = this.closest('form');
@@ -493,7 +509,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                 // Criar o Toastify
                 const toast = Toastify({
                     node: toastContent,
-                    duration: -1,  // -1 means the toast won't auto-close
+                    duration: -1, // -1 means the toast won't auto-close
                     gravity: "top",
                     position: "right",
                     style: {
@@ -503,7 +519,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                         border: '1px solid grey',
                         color: 'black'
                     },
-                    onClick: function () { } // Prevents closing when clicked
+                    onClick: function() {} // Prevents closing when clicked
                 });
 
                 // Show the toast
@@ -511,14 +527,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
                 // Adicionar eventos aos botões
                 const toastElement = toast.toastElement;
-                toastElement.querySelector('.toastify-confirm').addEventListener('click', function () {
+                toastElement.querySelector('.toastify-confirm').addEventListener('click', function() {
                     if (form) {
                         form.submit();
                     }
                     toast.hideToast();
                 });
 
-                toastElement.querySelector('.toastify-cancel').addEventListener('click', function () {
+                toastElement.querySelector('.toastify-cancel').addEventListener('click', function() {
                     toast.hideToast();
                 });
             });
