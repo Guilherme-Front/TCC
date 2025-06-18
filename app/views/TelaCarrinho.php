@@ -24,9 +24,12 @@ if (!isset($_SESSION['id_cliente'])) {
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
     <title>Tela de Carrinho | Pet Insight</title>
+    
 </head>
 
 <body>
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
     <header>
         <a href="../views/Index.php">
             <img class="logo" src="../../public/img/Pet insight.png" alt="logo"></a>

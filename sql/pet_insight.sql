@@ -293,6 +293,22 @@ CREATE TABLE comentarios (
     FOREIGN KEY (id_produto) REFERENCES produto(id_produto),
     FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
+
+CREATE TABLE pagamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mercadopago_id VARCHAR(255) NOT NULL,
+    external_reference VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    metodo_pagamento VARCHAR(100),
+    data_criacao DATETIME NOT NULL,
+    data_atualizacao DATETIME NOT NULL,
+    cliente_id INT NOT NULL,
+    pedido_id INT NOT NULL,
+    UNIQUE KEY (mercadopago_id),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+);
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
