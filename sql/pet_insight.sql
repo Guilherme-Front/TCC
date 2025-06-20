@@ -301,14 +301,17 @@ CREATE TABLE pagamentos (
     status VARCHAR(50) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     metodo_pagamento VARCHAR(100),
-    data_criacao DATETIME NOT NULL,
-    data_atualizacao DATETIME NOT NULL,
+    data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     cliente_id INT NOT NULL,
     pedido_id INT NOT NULL,
     UNIQUE KEY (mercadopago_id),
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id),
-    FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
-);
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
+    INDEX idx_status (status),
+    INDEX idx_cliente (cliente_id),
+    INDEX idx_pedido (pedido_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

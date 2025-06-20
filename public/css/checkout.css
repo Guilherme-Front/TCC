@@ -2,10 +2,41 @@
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.checkout-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.checkout-header h1 {
+    color: #2e7d32;
+    margin-bottom: 0.5rem;
+}
+
+.checkout-header p {
+    color: #6c757d;
+    font-size: 1.1rem;
 }
 
 .mp-button {
-    margin-top: 1rem;
+    margin: 2rem 0;
     text-align: center;
+}
+
+.checkout-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.checkout-footer img {
+    margin-top: 0.5rem;
+    max-width: 200px;
 }

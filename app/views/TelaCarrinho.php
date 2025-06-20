@@ -24,12 +24,12 @@ if (!isset($_SESSION['id_cliente'])) {
     <!-- Logo na aba do site  -->
     <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
     <title>Tela de Carrinho | Pet Insight</title>
-    
+
 </head>
 
 <body>
 
-<script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <header>
         <a href="../views/Index.php">
             <img class="logo" src="../../public/img/Pet insight.png" alt="logo"></a>
@@ -75,7 +75,9 @@ if (!isset($_SESSION['id_cliente'])) {
                 <a href="../views/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
                         produtos</button></a>
 
-                <button type="submit" class="finalizar-pedido">Finalizar compra</button>
+                <button type="button" class="finalizar-pedido" id="finalizar-compra">
+                    <i class="fas fa-credit-card"></i> Finalizar Compra
+                </button>
             </div>
 
         </section>
@@ -84,6 +86,59 @@ if (!isset($_SESSION['id_cliente'])) {
 
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const publicKey = 'APP_USR-a5a070ce-204d-4728-a137-917c5416df17';
+            const mp = new MercadoPago(publicKey, { locale: 'pt-BR' });
+
+            document.getElementById('finalizar-compra').addEventListener('click', async function () {
+                const button = this;
+                button.disabled = true;
+                button.textContent = 'Processando...';
+
+                try {
+                    // 1. Verificar se a resposta é JSON válido
+                    const response = await fetch('/PagamentoController/criarPreferencia', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json' // Garantir que queremos JSON
+                        },
+                        body: JSON.stringify({
+                            // Seus dados do pedido aqui
+                        })
+                    });
+
+                    // 2. Verificar se a resposta é JSON
+                    const contentType = response.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        const textResponse = await response.text();
+                        throw new Error(`Resposta inesperada: ${textResponse.substring(0, 100)}...`);
+                    }
+
+                    // 3. Processar a resposta JSON
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Erro ao criar pagamento');
+                    }
+
+                    // 4. Iniciar checkout
+                    mp.checkout({
+                        preference: { id: data.id },
+                        render: { container: '#finalizar-compra', label: 'Finalizar Compra' },
+                        autoOpen: true
+                    });
+
+                } catch (error) {
+                    console.error('Erro no checkout:', error);
+                    alert(`Erro: ${error.message}`);
+                    button.disabled = false;
+                    button.textContent = 'Finalizar Compra';
+                }
+            });
+        });
+
         // Variáveis globais
         const idCliente = <?= json_encode($_SESSION['id_cliente'] ?? null) ?>;
         const carrinhoKey = `carrinho_${idCliente}`;
@@ -106,7 +161,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelectorAll('.pedido').forEach(pedido => {
                 let subtotal = parseFloat(
                     pedido.querySelector('.dados p:nth-child(2)')
-                    .innerText.replace('R$ ', '').replace(',', '.')
+                        .innerText.replace('R$ ', '').replace(',', '.')
                 );
                 total += subtotal;
             });
@@ -426,7 +481,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
 
             // Evento para finalizar compra
-            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function() {
+            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function () {
                 const estoqueOk = await verificarEstoqueAntesFinalizar();
 
                 if (estoqueOk) {
@@ -450,7 +505,8 @@ if (!isset($_SESSION['id_cliente'])) {
             localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
         }
     </script>
-    
+
+
     <script src="../../public/js/tema.js"></script>
 </body>
 

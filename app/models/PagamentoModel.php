@@ -2,129 +2,106 @@
 require_once __DIR__ . '/../config/mercado_pago.php';
 
 class PagamentoModel {
-    private $db;
-    private $mpConfig;
+    private PDO $db;
+    private array $mpConfig;
 
-    public function __construct($db) {
+    public function __construct(PDO $db) {
         $this->db = $db;
         $this->mpConfig = include __DIR__ . '/../config/mercado_pago.php';
+        MercadoPago\SDK::setAccessToken($this->mpConfig['access_token']);
     }
 
-    /**
-     * Registra um novo pagamento no banco de dados
-     */
-    public function registrarPagamento($dadosPagamento) {
+    public function registrarPagamento(array $dados): bool {
         $query = "INSERT INTO pagamentos (
-            mercadopago_id,
-            external_reference,
-            status,
-            valor,
-            metodo_pagamento,
-            data_criacao,
-            data_atualizacao,
-            cliente_id,
-            pedido_id
-        ) VALUES (?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+            mercadopago_id, external_reference, status, valor,
+            metodo_pagamento, cliente_id, pedido_id
+        ) VALUES (:mp_id, :ext_ref, :status, :valor, :metodo, :cliente_id, :pedido_id)";
 
         $stmt = $this->db->prepare($query);
         return $stmt->execute([
-            $dadosPagamento['mercadopago_id'],
-            $dadosPagamento['external_reference'],
-            $dadosPagamento['status'],
-            $dadosPagamento['valor'],
-            $dadosPagamento['metodo_pagamento'],
-            $dadosPagamento['cliente_id'],
-            $dadosPagamento['pedido_id']
+            ':mp_id' => $dados['mercadopago_id'],
+            ':ext_ref' => $dados['external_reference'],
+            ':status' => $dados['status'],
+            ':valor' => $dados['valor'],
+            ':metodo' => $dados['metodo_pagamento'] ?? null,
+            ':cliente_id' => $dados['cliente_id'],
+            ':pedido_id' => $dados['pedido_id']
         ]);
     }
 
-    /**
-     * Atualiza o status de um pagamento
-     */
-    public function atualizarStatus($paymentId, $novoStatus) {
+    public function atualizarStatus(string $paymentId, string $status): bool {
         $query = "UPDATE pagamentos SET 
-            status = ?,
+            status = :status,
             data_atualizacao = NOW()
-            WHERE mercadopago_id = ?";
+            WHERE mercadopago_id = :mp_id";
 
         $stmt = $this->db->prepare($query);
-        return $stmt->execute([$novoStatus, $paymentId]);
+        return $stmt->execute([
+            ':status' => $status,
+            ':mp_id' => $paymentId
+        ]);
     }
 
-    /**
-     * Busca um pagamento pelo ID do Mercado Pago
-     */
-    public function buscarPorMpId($paymentId) {
-        $query = "SELECT * FROM pagamentos WHERE mercadopago_id = ?";
+    public function buscarPorId(int $id): ?array {
+        $query = "SELECT * FROM pagamentos WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$paymentId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    /**
-     * Cria uma preferência de pagamento no Mercado Pago
-     */
-    public function criarPreferencia($itens, $cliente, $pedidoId) {
-        MercadoPago\SDK::setAccessToken($this->mpConfig['access_token']);
+    public function buscarPorMpId(string $mpId): ?array {
+        $query = "SELECT * FROM pagamentos WHERE mercadopago_id = :mp_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([':mp_id' => $mpId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
 
+    public function criarPreferencia(array $itens, array $cliente, int $pedidoId): MercadoPago\Preference {
         $preference = new MercadoPago\Preference();
 
         // Configura itens
-        $mpItens = [];
-        foreach ($itens as $item) {
+        $mpItems = array_map(function($item) {
             $mpItem = new MercadoPago\Item();
-            $mpItem->title = $item['nome'];
-            $mpItem->quantity = $item['quantidade'];
-            $mpItem->unit_price = $item['preco'];
-            $mpItem->description = $item['descricao'] ?? '';
-            $mpItem->picture_url = $item['imagem'] ?? '';
-            $mpItens[] = $mpItem;
-        }
-        $preference->items = $mpItens;
+            $mpItem->title = substr($item['nome'], 0, 255);
+            $mpItem->quantity = (int)$item['quantidade'];
+            $mpItem->unit_price = (float)$item['preco'];
+            $mpItem->description = substr($item['descricao'] ?? '', 0, 255);
+            $mpItem->picture_url = filter_var($item['imagem'] ?? '', FILTER_VALIDATE_URL) ? $item['imagem'] : null;
+            return $mpItem;
+        }, $itens);
+
+        $preference->items = $mpItems;
 
         // Configura pagador
         $payer = new MercadoPago\Payer();
-        $payer->name = $cliente['nome'];
-        $payer->email = $cliente['email'];
+        $payer->name = substr($cliente['nome'], 0, 50);
+        $payer->surname = substr($cliente['sobrenome'] ?? '', 0, 50);
+        $payer->email = filter_var($cliente['email'], FILTER_VALIDATE_EMAIL);
         $payer->phone = [
-            "area_code" => substr($cliente['telefone'], 0, 2),
-            "number" => substr($cliente['telefone'], 2)
+            "area_code" => substr(preg_replace('/\D/', '', $cliente['telefone']), 0, 2),
+            "number" => substr(preg_replace('/\D/', '', $cliente['telefone']), 2)
         ];
         $preference->payer = $payer;
 
         // URLs de retorno
-        $preference->back_urls = [
-            "success" => "https://seusite.com/pagamento/sucesso",
-            "failure" => "https://seusite.com/pagamento/erro",
-            "pending" => "https://seusite.com/pagamento/pendente"
-        ];
-
+        $preference->back_urls = $this->mpConfig['back_urls'];
         $preference->auto_return = "approved";
-        $preference->notification_url = "https://seusite.com/api/notificacoes";
-        $preference->external_reference = $pedidoId;
+        $preference->notification_url = $this->mpConfig['notification_url'];
+        $preference->external_reference = (string)$pedidoId;
 
         $preference->save();
-
         return $preference;
     }
 
-    /**
-     * Processa notificação do Mercado Pago
-     */
-    public function processarNotificacao($topic, $id) {
-        MercadoPago\SDK::setAccessToken($this->mpConfig['access_token']);
-
-        if ($topic === 'payment') {
-            $payment = MercadoPago\Payment::find_by_id($id);
-            
-            // Atualiza no banco de dados
-            $this->atualizarStatus($payment->id, $payment->status);
-            
-            // Retorna dados atualizados
-            return $this->buscarPorMpId($payment->id);
+    public function processarNotificacao(string $topic, string $id): ?array {
+        if ($topic !== 'payment') {
+            return null;
         }
+
+        $payment = MercadoPago\Payment::find_by_id($id);
+        $this->atualizarStatus($payment->id, $payment->status);
         
-        return false;
+        return $this->buscarPorMpId($payment->id);
     }
 }
 ?>
