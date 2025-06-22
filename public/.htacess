@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+
+# Redireciona API
+RewriteRule ^api/pedidos/criar$ api/pedidos/criar.php [L]
+
+# Outras regras...

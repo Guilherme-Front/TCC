@@ -75,10 +75,14 @@ if (!isset($_SESSION['id_cliente'])) {
                 <a href="../views/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
                         produtos</button></a>
 
-                <button type="button" class="finalizar-pedido" id="finalizar-compra">
-                    <i class="fas fa-credit-card"></i> Finalizar Compra
+                <button id="finalizar-compra" class="button-comprar" onclick="comprarAgora()">
+                    <span id="btn-text">Finalizar Compra</span>
+                    <span id="btn-loading" style="display:none;">
+                        <i class="fa fa-spinner fa-spin"></i> Processando...
+                    </span>
                 </button>
             </div>
+
 
         </section>
     </main>
@@ -87,56 +91,78 @@ if (!isset($_SESSION['id_cliente'])) {
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const publicKey = 'APP_USR-a5a070ce-204d-4728-a137-917c5416df17';
-            const mp = new MercadoPago(publicKey, { locale: 'pt-BR' });
+        document.addEventListener('DOMContentLoaded', function () {
+            const finalizarBtn = document.getElementById('finalizar-compra');
 
-            document.getElementById('finalizar-compra').addEventListener('click', async function () {
-                const button = this;
-                button.disabled = true;
-                button.textContent = 'Processando...';
+            if (finalizarBtn) {
+                finalizarBtn.addEventListener('click', async function () {
+                    // 1. Desativar o botão e mostrar loading
+                    this.disabled = true;
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processando...';
 
-                try {
-                    // 1. Verificar se a resposta é JSON válido
-                    const response = await fetch('/PagamentoController/criarPreferencia', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json' // Garantir que queremos JSON
-                        },
-                        body: JSON.stringify({
-                            // Seus dados do pedido aqui
-                        })
-                    });
+                    try {
+                        // 2. Obter itens do carrinho (exemplo)
+                        const itensCarrinho = [];
+                        document.querySelectorAll('.item-carrinho').forEach(item => {
+                            itensCarrinho.push({
+                                id: item.dataset.produtoId,
+                                nome: item.querySelector('.nome-produto').textContent.trim(),
+                                preco: parseFloat(item.querySelector('.preco').textContent.replace('R$', '').replace(',', '.').trim()),
+                                quantidade: parseInt(item.querySelector('.quantidade').value)
+                            });
+                        });
 
-                    // 2. Verificar se a resposta é JSON
-                    const contentType = response.headers.get('content-type');
-                    if (!contentType || !contentType.includes('application/json')) {
-                        const textResponse = await response.text();
-                        throw new Error(`Resposta inesperada: ${textResponse.substring(0, 100)}...`);
+                        // 3. Enviar para o backend
+                        const response = await fetch('/api/pedidos/criar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({
+                                itens: itensCarrinho,
+                                cliente_id: document.body.dataset.clienteId // Exemplo: armazenado no data-attribute
+                            })
+                        });
+
+                        // 4. Verificar se a resposta é JSON
+                        const contentType = response.headers.get('content-type');
+                        if (!contentType || !contentType.includes('application/json')) {
+                            throw new Error('Resposta inválida do servidor');
+                        }
+
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || 'Erro ao processar pedido');
+                        }
+
+                        // Mock para desenvolvimento - remova na produção
+
+                        // 5. Redirecionar para checkout se sucesso
+                        window.location.href = `/checkout?pedido_id=${data.pedido_id}`;
+
+                    } catch (error) {
+                        console.error('Erro:', error);
+                        alert(`Erro ao finalizar compra: ${error.message}`);
+                    } finally {
+                        // 6. Reativar o botão
+                        finalizarBtn.disabled = false;
+                        finalizarBtn.innerHTML = originalText;
+
+
+                        if (window.location.hostname === 'localhost') {
+                            window.fetch = async () => ({
+                                ok: true,
+                                headers: new Headers({ 'Content-Type': 'application/json' }),
+                                json: () => ({ pedido_id: '123', status: 'success' })
+                            });
+                        }
+
                     }
-
-                    // 3. Processar a resposta JSON
-                    const data = await response.json();
-
-                    if (!response.ok) {
-                        throw new Error(data.message || 'Erro ao criar pagamento');
-                    }
-
-                    // 4. Iniciar checkout
-                    mp.checkout({
-                        preference: { id: data.id },
-                        render: { container: '#finalizar-compra', label: 'Finalizar Compra' },
-                        autoOpen: true
-                    });
-
-                } catch (error) {
-                    console.error('Erro no checkout:', error);
-                    alert(`Erro: ${error.message}`);
-                    button.disabled = false;
-                    button.textContent = 'Finalizar Compra';
-                }
-            });
+                });
+            }
         });
 
         // Variáveis globais
