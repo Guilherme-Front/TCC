@@ -7,11 +7,8 @@ session_start();
 require_once '../controllers/conn.php';
 $conn->set_charset("utf8mb4");
 
-// Verifica se há um filtro de categoria na URL
 $categoria_filtro = $_GET['categoria'] ?? null;
 
-// Modifica a query para filtrar por categoria se necessário
-// Modifica a query para filtrar por categoria se necessário
 $sql = "SELECT p.*, 
                (SELECT nome_imagem 
                 FROM imagem_produto 
@@ -19,7 +16,7 @@ $sql = "SELECT p.*,
                 LIMIT 1) AS nome_imagem 
         FROM produto p";
 
-// Se houver filtro de categoria e não for 'Todos', adiciona WHERE à query
+
 if ($categoria_filtro && $categoria_filtro !== 'Todos' && in_array($categoria_filtro, ['Rações', 'Aperitivos', 'Coleiras', 'Brinquedos', 'Higiene'])) {
   $stmt = $conn->prepare("$sql WHERE p.tipo = ?");
   $stmt->bind_param("s", $categoria_filtro);
@@ -40,14 +37,11 @@ $produtos = $result->fetch_all(MYSQLI_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tela Produtos | Pet Insight</title>
 
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel='stylesheet'
     href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css'>
   <link rel="stylesheet" href="../../public/css/styleProdutos.css?v=<?= time() ?>">
 
-  <!-- Logo na aba do site  -->
   <link rel="icon" type="image/x-icon" href="<?= $_SERVER['DOCUMENT_ROOT'] ?>/TCC/public/img/favicon-32x32.png">
 </head>
 

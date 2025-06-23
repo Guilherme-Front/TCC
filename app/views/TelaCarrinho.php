@@ -83,11 +83,8 @@ if (!isset($_SESSION['id_cliente'])) {
                 </button>
             </div>
 
-
         </section>
     </main>
-
-
 
     <script>
 

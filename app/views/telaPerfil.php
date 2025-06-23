@@ -147,7 +147,7 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
     <section>
 
       <!-- Seção de Perfil -->
-      <div class="perfil-section" id="perfil-section">   
+      <div class="perfil-section" id="perfil-section">
         <form id="form-perfil" action="../controllers/PerfilController.php" method="post" enctype="multipart/form-data">
 
           <div class="img-txt">
@@ -272,11 +272,11 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       <!-- Seção de Pedidos -->
       <div class="pedidos-section" id="pedidos-section" style="display:none;">
         <div class="pedido-container">
-            <div class="produto">
-                <div class="img-produto">
-                  <img src="../../public" alt="">
-                </div>
+          <div class="produto">
+            <div class="img-produto">
+              <img src="../../public" alt="">
             </div>
+          </div>
         </div>
       </div>
 
@@ -421,15 +421,17 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       }
 
       // Configurar menu lateral
-      document.querySelectorAll('.menu-lateral a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          resetarFormularios();
-          const secaoId = this.getAttribute('href').substring(1);
-          mostrarSecao(secaoId);
-          history.pushState(null, null, `#${secaoId}`);
+      function configurarMenuLateral() {
+        document.querySelectorAll('.menu-lateral a[href^="#"]').forEach(link => {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            resetarFormularios();
+            const secaoId = this.getAttribute('href').substring(1);
+            mostrarSecao(secaoId);
+            history.pushState(null, null, `#${secaoId}`);
+          });
         });
-      });
+      }
 
       // Verificar hash na URL
       function verificarHash() {
@@ -441,126 +443,133 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
         if (hash && secoesValidas.includes(hash)) {
           mostrarSecao(hash);
         } else {
+          // Mostrar a seção de perfil por padrão
           mostrarSecao('perfil-section');
+          // Atualizar a URL sem disparar o evento hashchange
+          history.replaceState(null, null, '#perfil-section');
         }
       }
 
       // Evento para alterar dados do perfil
-      if (btnAlterarDados) {
-        btnAlterarDados.addEventListener('click', function () {
-          armazenarValoresOriginais('perfil');
-          document.querySelectorAll('#perfil-section input').forEach(input => {
-            input.disabled = false;
-            input.classList.add('editando');
+      function configurarEventosPerfil() {
+        if (btnAlterarDados) {
+          btnAlterarDados.addEventListener('click', function () {
+            armazenarValoresOriginais('perfil');
+            document.querySelectorAll('#perfil-section input').forEach(input => {
+              input.disabled = false;
+              input.classList.add('editando');
+            });
+            this.style.display = 'none';
+            if (btnSalvarDados) btnSalvarDados.style.display = 'block';
+            if (btnEnviarFoto) btnEnviarFoto.style.display = 'inline-block';
           });
-          this.style.display = 'none';
-          if (btnSalvarDados) btnSalvarDados.style.display = 'block';
-          if (btnEnviarFoto) btnEnviarFoto.style.display = 'inline-block';
-        });
+        }
       }
 
       // Evento para alterar endereço
-      if (btnAlterarEndereco) {
-        btnAlterarEndereco.addEventListener('click', function () {
-          // Limpa erros anteriores ao começar nova edição
-          if (cepError) {
-            cepError.textContent = '';
-            cepError.style.display = 'none';
-          }
+      function configurarEventosEndereco() {
+        if (btnAlterarEndereco) {
+          btnAlterarEndereco.addEventListener('click', function () {
+            // Limpa erros anteriores ao começar nova edição
+            if (cepError) {
+              cepError.textContent = '';
+              cepError.style.display = 'none';
+            }
 
-          const cepGroup = document.querySelector('.cep-input-group');
-          if (cepGroup) {
-            cepGroup.classList.remove('has-error');
-          }
+            const cepGroup = document.querySelector('.cep-input-group');
+            if (cepGroup) {
+              cepGroup.classList.remove('has-error');
+            }
 
-          // Resetar estado de validação
-          cepValido = false;
+            // Resetar estado de validação
+            cepValido = false;
 
-          armazenarValoresOriginais('endereco');
-          const enderecoInputs = document.querySelectorAll('#endereco-section input');
+            armazenarValoresOriginais('endereco');
+            const enderecoInputs = document.querySelectorAll('#endereco-section input');
 
-          enderecoInputs.forEach(input => {
-            input.disabled = false;
-            input.classList.add('editando');
+            enderecoInputs.forEach(input => {
+              input.disabled = false;
+              input.classList.add('editando');
+            });
+
+            this.style.display = 'none';
+            if (btnSalvarEndereco) btnSalvarEndereco.style.display = 'block';
+
+            // Foca no primeiro campo (CEP)
+            if (cepInput) cepInput.focus();
           });
+        }
 
-          this.style.display = 'none';
-          if (btnSalvarEndereco) btnSalvarEndereco.style.display = 'block';
+        // Evento para salvar endereço (validação antes de enviar)
+        if (btnSalvarEndereco) {
+          btnSalvarEndereco.addEventListener('click', async function (e) {
+            e.preventDefault(); // Impede o envio padrão do formulário
 
-          // Foca no primeiro campo (CEP)
-          if (cepInput) cepInput.focus();
-        });
-      }
+            let formularioValido = true;
 
-      // Evento para salvar endereço (validação antes de enviar)
-      if (btnSalvarEndereco) {
-        btnSalvarEndereco.addEventListener('click', async function (e) {
-          e.preventDefault(); // Impede o envio padrão do formulário
+            // Validação do CEP (deve ter 8 dígitos e ser válido)
+            if (cepInput) {
+              const cepValue = cepInput.value.replace(/\D/g, '');
 
-          let formularioValido = true;
-
-          // Validação do CEP (deve ter 8 dígitos e ser válido)
-          if (cepInput) {
-            const cepValue = cepInput.value.replace(/\D/g, '');
-
-            if (cepValue.length !== 8) {
-              mostrarErroCEP('CEP deve conter 8 dígitos');
-              cepInput.focus();
-              formularioValido = false;
-              cepValido = false;
-            } else if (!cepValido) {
-              // Se o CEP tem 8 dígitos mas não foi validado ainda
-              const valido = await verificarCEP(cepValue);
-              if (!valido) {
-                mostrarErroCEP('CEP inválido ou não encontrado');
+              if (cepValue.length !== 8) {
+                mostrarErroCEP('CEP deve conter 8 dígitos');
+                cepInput.focus();
                 formularioValido = false;
                 cepValido = false;
-                return;
+              } else if (!cepValido) {
+                // Se o CEP tem 8 dígitos mas não foi validado ainda
+                const valido = await verificarCEP(cepValue);
+                if (!valido) {
+                  mostrarErroCEP('CEP inválido ou não encontrado');
+                  formularioValido = false;
+                  cepValido = false;
+                  return;
+                }
               }
             }
-          }
 
-          // Validação do número (deve ser numérico e entre 1-9999)
-          const numeroInput = document.getElementById('numero');
-          if (numeroInput) {
-            const numeroValue = parseInt(numeroInput.value);
+            // Validação do número (deve ser numérico e entre 1-9999)
+            const numeroInput = document.getElementById('numero');
+            if (numeroInput) {
+              const numeroValue = parseInt(numeroInput.value);
 
-            if (!numeroInput.value || isNaN(numeroValue) || numeroValue < 1 || numeroValue > 9999) {
-              alert('Número deve ser um valor entre 1 e 9999');
-              numeroInput.classList.add('campo-invalido');
-              numeroInput.focus();
-              formularioValido = false;
-            } else {
-              numeroInput.classList.remove('campo-invalido');
+              if (!numeroInput.value || isNaN(numeroValue) || numeroValue < 1 || numeroValue > 9999) {
+                alert('Número deve ser um valor entre 1 e 9999');
+                numeroInput.classList.add('campo-invalido');
+                numeroInput.focus();
+                formularioValido = false;
+              } else {
+                numeroInput.classList.remove('campo-invalido');
+              }
             }
-          }
 
-          // Validação dos campos obrigatórios
-          const camposObrigatorios = ['rua', 'bairro', 'cidade'];
-          let camposVazios = [];
+            // Validação dos campos obrigatórios
+            const camposObrigatorios = ['rua', 'bairro', 'cidade'];
+            let camposVazios = [];
 
-          camposObrigatorios.forEach(campo => {
-            const input = document.getElementById(campo);
-            if (input && !input.value.trim()) {
-              camposVazios.push(campo);
-              input.classList.add('campo-invalido');
-              formularioValido = false;
-            } else if (input) {
-              input.classList.remove('campo-invalido');
+            camposObrigatorios.forEach(campo => {
+              const input = document.getElementById(campo);
+              if (input && !input.value.trim()) {
+                camposVazios.push(campo);
+                input.classList.add('campo-invalido');
+                formularioValido = false;
+              } else if (input) {
+                input.classList.remove('campo-invalido');
+              }
+            });
+
+            if (camposVazios.length > 0) {
+              alert('Por favor, preencha todos os campos obrigatórios');
+              const primeiroCampo = document.getElementById(camposVazios[0]);
+              if (primeiroCampo) primeiroCampo.focus();
+            }
+
+            // Se tudo estiver válido, submete o formulário
+            if (formularioValido && cepValido) {
+              document.querySelector('#endereco-section form').submit();
             }
           });
-
-          if (camposVazios.length > 0) {
-            alert('Por favor, preencha todos os campos obrigatórios');
-            const primeiroCampo = document.getElementById(camposVazios[0]);
-            if (primeiroCampo) primeiroCampo.focus();
-          }
-
-          // Se tudo estiver válido, submete o formulário
-          if (formularioValido && cepValido) {
-            document.querySelector('#endereco-section form').submit();
-          }
-        });
+        }
       }
 
       // Função para verificar se o CEP é válido
@@ -636,122 +645,115 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
       }
 
       // Máscaras de entrada
-      const inputDataNasc = document.querySelector('input[name="data_nascimento"]');
-      if (inputDataNasc) {
-        inputDataNasc.addEventListener('input', function (e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
-          if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
-          e.target.value = value;
-        });
+      function configurarMascaras() {
+        const inputDataNasc = document.querySelector('input[name="data_nascimento"]');
+        if (inputDataNasc) {
+          inputDataNasc.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+            if (value.length > 5) value = value.substring(0, 5) + '/' + value.substring(5, 9);
+            e.target.value = value;
+          });
+        }
+
+        if (cepInput) {
+          cepInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 5) value = value.substring(0, 5) + '-' + value.substring(5, 8);
+            e.target.value = value;
+
+            // Limpa o estado de validação quando o usuário edita
+            cepValido = false;
+
+            // Busca automática quando tiver 8 dígitos (9 com hífen)
+            if (value.length === 9) {
+              buscarCEP(value);
+            }
+          });
+
+          cepInput.addEventListener('blur', function () {
+            if (!this.disabled && this.value.length === 9) {
+              buscarCEP(this.value);
+            }
+          });
+        }
+
+        const inputNumero = document.getElementById('numero');
+        if (inputNumero) {
+          inputNumero.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+          });
+
+          inputNumero.addEventListener('paste', function (e) {
+            e.preventDefault();
+            const textoColado = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
+            document.execCommand('insertText', false, textoColado);
+          });
+        }
       }
 
-      if (cepInput) {
-        cepInput.addEventListener('input', function (e) {
-          let value = e.target.value.replace(/\D/g, '');
-          if (value.length > 5) value = value.substring(0, 5) + '-' + value.substring(5, 8);
-          e.target.value = value;
+      // Configurar preview da foto
+      function configurarPreviewFoto() {
+        if (inputFoto) {
+          inputFoto.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
 
-          // Limpa o estado de validação quando o usuário edita
-          cepValido = false;
+            if (!file.type.match('image.*')) {
+              Toastify({
+                text: "Por favor, selecione um arquivo de imagem válido.",
+                duration: 3500,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                  background: "linear-gradient(to right, #cd1809, #a01006)",
+                  borderRadius: "4px",
+                  fontSize: "14px"
+                }
+              }).showToast();
+              return;
+            }
 
-          // Busca automática quando tiver 8 dígitos (9 com hífen)
-          if (value.length === 9) {
-            buscarCEP(value);
-          }
-        });
+            if (file.size > 2 * 1024 * 1024) {
+              Toastify({
+                text: "A imagem deve ter no máximo 2MB.",
+                duration: 3500,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                  background: "linear-gradient(to right, #cd1809, #a01006)",
+                  borderRadius: "4px",
+                  fontSize: "14px"
+                }
+              }).showToast();
+              return;
+            }
 
-        cepInput.addEventListener('blur', function () {
-          if (!this.disabled && this.value.length === 9) {
-            buscarCEP(this.value);
-          }
-        });
-      }
-
-      const inputNumero = document.getElementById('numero');
-      if (inputNumero) {
-        inputNumero.addEventListener('input', function (e) {
-          e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
-        });
-
-        inputNumero.addEventListener('paste', function (e) {
-          e.preventDefault();
-          const textoColado = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
-          document.execCommand('insertText', false, textoColado);
-        });
-      }
-
-      // Preview da foto
-      if (!file.type.match('image.*')) {
-        Toastify({
-          text: "Por favor, selecione um arquivo de imagem válido.",
-          duration: 3500,
-          close: true,
-          gravity: "top",
-          position: "right",
-          style: {
-            background: "linear-gradient(to right, #cd1809, #a01006)",
-            borderRadius: "4px",
-            fontSize: "14px"
-          }
-        }).showToast();
-        return;
-      }
-
-      if (file.size > 2 * 1024 * 1024) {
-        Toastify({
-          text: "A imagem deve ter no máximo 2MB.",
-          duration: 3500,
-          close: true,
-          gravity: "top",
-          position: "right",
-          style: {
-            background: "linear-gradient(to right, #cd1809, #a01006)",
-            borderRadius: "4px",
-            fontSize: "14px"
-          }
-        }).showToast();
-        return;
-      }
-
-
-      // Impedir envio do formulário de perfil se imagem for inválida
-      const formPerfil = document.getElementById('form-perfil');
-      if (!file.type.match('image.*')) {
-        Toastify({
-          text: "Por favor, selecione um arquivo de imagem válido.",
-          duration: 3500,
-          close: true,
-          gravity: "top",
-          position: "right",
-          style: {
-            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
-            borderRadius: "4px",
-            fontSize: "14px"
-          }
-        }).showToast();
-        return;
-      }
-
-      if (file.size > 2 * 1024 * 1024) {
-        Toastify({
-          text: "A imagem deve ter no máximo 2MB.",
-          duration: 3500,
-          close: true,
-          gravity: "top",
-          position: "right",
-          style: {
-            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
-            borderRadius: "4px",
-            fontSize: "14px"
-          }
-        }).showToast();
-        return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              if (previewFoto) {
+                previewFoto.src = e.target.result;
+              }
+            };
+            reader.readAsDataURL(file);
+          });
+        }
       }
 
       // Inicialização
+      function init() {
+        configurarMenuLateral();
+        configurarEventosPerfil();
+        configurarEventosEndereco();
+        configurarMascaras();
+        configurarPreviewFoto();
+        verificarHash();
+      }
+
       window.addEventListener('hashchange', verificarHash);
-      verificarHash();
+      init();
     });
   </script>
 

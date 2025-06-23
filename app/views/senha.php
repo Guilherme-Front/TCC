@@ -26,7 +26,6 @@ if (!isset($_SESSION['cadastro_temp'])) {
                 <div class="senha-border">
                     <h1 class="senha-titulo">Criar Senha</h1>
 
-                    <!-- Formulário para enviar a senha -->
                     <form id="formSenha" method="POST">
                         <div class="senha-input">
                             <label class="cadastro-label" for="senha">Senha</label>

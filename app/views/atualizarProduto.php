@@ -10,7 +10,6 @@ if (!$id_funcionario) {
     exit();
 }
 
-// --- PROCESSAMENTO DO FORMULÁRIO (POST) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Dados básicos
@@ -24,28 +23,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $desc_curta = trim($_POST['descricao_curta']);
         $desc_detalhada = trim($_POST['descricao']);
 
-        // Validações
         if (empty($nome) || empty($tipo) || empty($marca) || $preco <= 0) {
             throw new Exception("Preencha todos os campos obrigatórios!");
         }
 
-        // --- TRATAMENTO DAS IMAGENS ---
         $imagensSalvas = [];
-        $uploadDir = '../../public/uploads/produtos/';
+
+        // Atualiza ou cadastra produto
+        $conn->begin_transaction();
+
+        try {
+            if ($modo === 'edicao' && $id_produto) {
+                $stmt = $conn->prepare("UPDATE produto SET 
+                    nome_produto = ?, tipo = ?, marca = ?, valor = ?, quantidade = ?, 
+                    descricaoMenor = ?, descricaoMaior = ? 
+                    WHERE id_produto = ?");
+                $stmt->bind_param("sssdissi", $nome, $tipo, $marca, $preco, $estoque, $desc_curta, $desc_detalhada, $id_produto);
+                $stmt->execute();
+            } else {
+                $stmt = $conn->prepare("INSERT INTO produto 
+                    (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssdiss", $nome, $tipo, $marca, $preco, $estoque, $desc_curta, $desc_detalhada);
+                $stmt->execute();
+                $id_produto = $conn->insert_id;
+            }
+
+            $conn->commit();
+        } catch (Exception $e) {
+            $conn->rollback();
+            throw $e;
+        }
+
+        // Caminho da pasta específica do produto
+        $uploadDir = __DIR__ . '/../../public/uploads/imgProdutos/' . $id_produto . '/';
+
+        // Cria a pasta se não existir
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
 
         // 1. Imagens existentes (modo edição)
         if ($modo === 'edicao' && !empty($_POST['imagens_existentes'])) {
             $imagensRemovidas = json_decode($_POST['imagens_removidas'] ?? '[]', true);
 
-            // Primeiro: excluir fisicamente as imagens removidas
             foreach ($imagensRemovidas as $imagemRemovida) {
-                $caminhoCompleto = '../../public/' . $imagemRemovida;
+                $caminhoCompleto = __DIR__ . '/../../public/' . ltrim($imagemRemovida, '/');
                 if (file_exists($caminhoCompleto)) {
-                    unlink($caminhoCompleto); // Remove o arquivo fisicamente
+                    unlink($caminhoCompleto);
                 }
             }
 
-            // Depois: manter apenas as não removidas
             foreach ($_POST['imagens_existentes'] as $imagem) {
                 if (!in_array($imagem, $imagensRemovidas)) {
                     $imagensSalvas[] = $imagem;
@@ -55,54 +83,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 2. Novas imagens
         if (!empty($_FILES['novas_imagens']['name'][0])) {
+            $tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+            $maxFileSize = 2 * 1024 * 1024; // 2MB
+
             foreach ($_FILES['novas_imagens']['tmp_name'] as $key => $tmpName) {
-                $nomeArquivo = uniqid() . '_' . basename($_FILES['novas_imagens']['name'][$key]);
+                if ($_FILES['novas_imagens']['error'][$key] !== UPLOAD_ERR_OK) {
+                    throw new Exception("Erro no upload da imagem: " . $_FILES['novas_imagens']['name'][$key]);
+                }
+
+                if (!in_array($_FILES['novas_imagens']['type'][$key], $tiposPermitidos)) {
+                    throw new Exception("Tipo de arquivo não suportado: " . $_FILES['novas_imagens']['name'][$key]);
+                }
+
+                if ($_FILES['novas_imagens']['size'][$key] > $maxFileSize) {
+                    throw new Exception("Imagem muito grande (máx. 2MB): " . $_FILES['novas_imagens']['name'][$key]);
+                }
+
+                $extensao = pathinfo($_FILES['novas_imagens']['name'][$key], PATHINFO_EXTENSION);
+                $nomeArquivo = 'prod_' . uniqid() . '.' . $extensao;
                 $caminhoCompleto = $uploadDir . $nomeArquivo;
 
                 if (move_uploaded_file($tmpName, $caminhoCompleto)) {
-                    $imagensSalvas[] = 'uploads/produtos/' . $nomeArquivo;
+                    // Caminho relativo para o banco
+                    $imagensSalvas[] = 'uploads/imgProdutos/' . $id_produto . '/' . $nomeArquivo;
+                } else {
+                    throw new Exception("Falha ao salvar a imagem: " . $_FILES['novas_imagens']['name'][$key]);
                 }
             }
         }
 
-        // Valida se há pelo menos 1 imagem
+        // Limite de 3 imagens por produto
+        if (count($imagensSalvas) > 3) {
+            throw new Exception("Máximo de 3 imagens permitidas por produto.");
+        }
+
         if (empty($imagensSalvas)) {
             throw new Exception("É necessário pelo menos uma imagem!");
         }
 
-        // --- SALVAMENTO NO BANCO ---
+        // Salvar imagens no banco
         $conn->begin_transaction();
-
         try {
-            // 1. Atualiza/Cadastra o produto
-            if ($modo === 'edicao' && $id_produto) {
-                $stmt = $conn->prepare("UPDATE produto SET 
-                    nome_produto = ?, tipo = ?, marca = ?, valor = ?, quantidade = ?, 
-                    descricaoMenor = ?, descricaoMaior = ? 
-                    WHERE id_produto = ?");
-                $stmt->bind_param("sssdissi", $nome, $tipo, $marca, $preco, $estoque, $desc_curta, $desc_detalhada, $id_produto);
-            } else {
-                $stmt = $conn->prepare("INSERT INTO produto 
-                    (nome_produto, tipo, marca, valor, quantidade, descricaoMenor, descricaoMaior) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssdiss", $nome, $tipo, $marca, $preco, $estoque, $desc_curta, $desc_detalhada);
-            }
-            $stmt->execute();
-
-            // Obtém ID do produto (se for cadastro)
-            $id_produto = $modo === 'edicao' ? $id_produto : $conn->insert_id;
-
-            // 2. Remove imagens antigas (modo edição)
             if ($modo === 'edicao') {
                 $conn->query("DELETE FROM imagem_produto WHERE id_produto = $id_produto");
             }
 
-            // 3. Insere as novas imagens
             foreach ($imagensSalvas as $imagem) {
-                $conn->query("INSERT INTO imagem_produto (id_produto, nome_imagem) VALUES ($id_produto, '$imagem')");
+                $stmt = $conn->prepare("INSERT INTO imagem_produto (id_produto, nome_imagem) VALUES (?, ?)");
+                $stmt->bind_param("is", $id_produto, $imagem);
+                $stmt->execute();
             }
 
             $conn->commit();
+
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Produto ' . ($modo === 'edicao' ? 'alterado' : 'cadastrado') . ' com sucesso!'
@@ -113,12 +146,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw $e;
         }
     } catch (Exception $e) {
+        http_response_code(400);
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         exit();
     }
 }
 
-// --- CONTINUA COM O CÓDIGO ORIGINAL (GET) ---
+// --- Busca para edição ---
 $modoEdicao = isset($_GET['id']);
 $produto = null;
 $imagensProduto = [];
@@ -126,14 +160,12 @@ $imagensProduto = [];
 if ($modoEdicao) {
     $id_produto = $_GET['id'];
 
-    // Busca os dados do produto
     $stmt = $conn->prepare("SELECT * FROM produto WHERE id_produto = ?");
     $stmt->bind_param("i", $id_produto);
     $stmt->execute();
     $result = $stmt->get_result();
     $produto = $result->fetch_assoc();
 
-    // Busca as imagens do produto
     $stmt = $conn->prepare("SELECT nome_imagem FROM imagem_produto WHERE id_produto = ? ORDER BY id_imagens ASC");
     $stmt->bind_param("i", $id_produto);
     $stmt->execute();
@@ -143,6 +175,7 @@ if ($modoEdicao) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -265,11 +298,9 @@ if ($modoEdicao) {
     <script src="../../public/js/tema.js"></script>
 
     <script>
-        // Variáveis globais
         let imagensSelecionadas = []; // Novas imagens selecionadas
         let imagensRemovidas = [];    // Imagens existentes removidas
 
-        // Elementos DOM
         const inputPreco = document.getElementById('preco');
         const inputEstoque = document.getElementById('estoque');
         const fileInput = document.getElementById('fileInput');
@@ -319,7 +350,8 @@ if ($modoEdicao) {
             const imagensExistentes = Array.from(document.querySelectorAll('input[name="imagens_existentes[]"]'))
                 .filter(input => !imagensRemovidas.includes(input.value)).length;
 
-            const slotsDisponiveis = 3 - (imagensExistentes - imagensRemovidas.length + imagensSelecionadas.length);
+            const totalImagensAtuais = imagensExistentes + imagensSelecionadas.length;
+            const slotsDisponiveis = 3 - totalImagensAtuais;
 
             if (files.length > slotsDisponiveis) {
                 error(`Você só pode adicionar mais ${slotsDisponiveis} imagem(ns).`);
@@ -341,16 +373,16 @@ if ($modoEdicao) {
 
         // Atualizar visualização das imagens
         function atualizarPreview() {
-            // Mantém as imagens existentes (não removidas)
             const existingWrappers = Array.from(previewContainer.querySelectorAll('.preview-wrapper'))
-                .filter(wrapper => wrapper.querySelector('input[name="imagens_existentes[]"]'));
+                .filter(wrapper => {
+                    const input = wrapper.querySelector('input[name="imagens_existentes[]"]');
+                    return input && !imagensRemovidas.includes(input.value);
+                });
 
             previewContainer.innerHTML = '';
 
-            // Reexibir as imagens existentes
             existingWrappers.forEach(wrapper => previewContainer.appendChild(wrapper));
 
-            // Adicionar as novas imagens
             imagensSelecionadas.forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -401,20 +433,19 @@ if ($modoEdicao) {
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Validação básica (imagens)
-            const imagensExistentes = document.querySelectorAll('input[name="imagens_existentes[]"]').length;
-            const totalImagens = imagensExistentes - imagensRemovidas.length + imagensSelecionadas.length;
+            const imagensExistentes = Array.from(document.querySelectorAll('input[name="imagens_existentes[]"]'))
+                .filter(input => !imagensRemovidas.includes(input.value)).length;
+
+            const totalImagens = imagensExistentes + imagensSelecionadas.length;
 
             if (totalImagens === 0) {
                 error("Pelo menos uma imagem é obrigatória.");
                 return;
             }
 
-            // Cria um FormData para enviar arquivos via AJAX
             const formData = new FormData(form);
 
-            // Adiciona as novas imagens ao FormData
-            imagensSelecionadas.forEach((file, index) => {
+            imagensSelecionadas.forEach((file) => {
                 formData.append('novas_imagens[]', file);
             });
 
@@ -428,8 +459,6 @@ if ($modoEdicao) {
 
                 if (result.status === 'success') {
                     success(result.message);
-
-                    // Redireciona após 3 segundos (opcional)
                     setTimeout(() => {
                         window.location.href = '../views/telaFuncionario.php';
                     }, 3000);
@@ -440,6 +469,7 @@ if ($modoEdicao) {
                 error("Erro na requisição: " + err.message);
             }
         });
+
         // Função de notificação de erro
         function error(message) {
             Toastify({
@@ -469,8 +499,8 @@ if ($modoEdicao) {
                 stopOnFocus: true
             }).showToast();
         }
-
     </script>
+    
 </body>
 
 </html>
