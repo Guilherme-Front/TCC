@@ -75,24 +75,24 @@ if (!isset($_SESSION['id_cliente'])) {
                 <a href="../views/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
                         produtos</button></a>
 
-                <button id="finalizar-compra" class="button-comprar" onclick="comprarAgora()">
-                    <span id="btn-text">Finalizar Compra</span>
-                    <span id="btn-loading" style="display:none;">
-                        <i class="fa fa-spinner fa-spin"></i> Processando...
-                    </span>
-                </button>
+                <a href="https://mpago.la/1kJW3A2"><button id="finalizar-compra" class="button-comprar" onclick="comprarAgora()">
+                        <span id="btn-text">Finalizar Compra</span>
+                        <span id="btn-loading" style="display:none;">
+                            <i class="fa fa-spinner fa-spin"></i> Processando...
+                        </span>
+                    </button>
+                </a>
             </div>
 
         </section>
     </main>
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const finalizarBtn = document.getElementById('finalizar-compra');
 
             if (finalizarBtn) {
-                finalizarBtn.addEventListener('click', async function () {
+                finalizarBtn.addEventListener('click', async function() {
                     // 1. Desativar o botão e mostrar loading
                     this.disabled = true;
                     const originalText = this.innerHTML;
@@ -152,8 +152,13 @@ if (!isset($_SESSION['id_cliente'])) {
                         if (window.location.hostname === 'localhost') {
                             window.fetch = async () => ({
                                 ok: true,
-                                headers: new Headers({ 'Content-Type': 'application/json' }),
-                                json: () => ({ pedido_id: '123', status: 'success' })
+                                headers: new Headers({
+                                    'Content-Type': 'application/json'
+                                }),
+                                json: () => ({
+                                    pedido_id: '123',
+                                    status: 'success'
+                                })
                             });
                         }
 
@@ -184,7 +189,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelectorAll('.pedido').forEach(pedido => {
                 let subtotal = parseFloat(
                     pedido.querySelector('.dados p:nth-child(2)')
-                        .innerText.replace('R$ ', '').replace(',', '.')
+                    .innerText.replace('R$ ', '').replace(',', '.')
                 );
                 total += subtotal;
             });
@@ -504,7 +509,7 @@ if (!isset($_SESSION['id_cliente'])) {
             document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
 
             // Evento para finalizar compra
-            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function () {
+            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function() {
                 const estoqueOk = await verificarEstoqueAntesFinalizar();
 
                 if (estoqueOk) {
