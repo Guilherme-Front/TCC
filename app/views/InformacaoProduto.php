@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                     <?php foreach ($imagens as $index => $imagem):
                         $caminho_imagem = corrigirCaminhoImagem($imagem['nome_imagem']);
                         $caminho_absoluto = $_SERVER['DOCUMENT_ROOT'] . $caminho_imagem;
-                    ?>
+                        ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                             <?php if (file_exists($caminho_absoluto)): ?>
                                 <img src="<?= $caminho_imagem ?>" class="d-block w-100"
@@ -235,9 +235,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
                     <div class="compra-qtde">
                         <label class="qtde-label" for="quantidade">Quantidade</label>
-                        <button class="button-add" onclick="alterarQuantidade(-1)">−</button>
+                        <button class="button-add" onclick="alterarQuantidade(this, -1)">−</button>
                         <input class="input-add" disabled type="text" id="quantidade" value="1" readonly>
-                        <button class="button-add2" onclick="alterarQuantidade(1)">+</button>
+                        <button class="button-add2" onclick="alterarQuantidade(this, 1)">+</button>
                     </div>
 
                     <!-- No seu HTML, modifique a seção do botão de comprar -->
@@ -250,11 +250,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                             <button class="button-comprar" onclick="mostrarMensagemFuncionario()">Comprar</button>
 
                         <?php elseif (isset($_SESSION['id_cliente'])): ?>
-                            <!-- Botão para clientes logados (funcional) -->
+                            <!-- Botão para clientes logados -->
                             <button class="add-carrinho" id="btn-add-carrinho" onclick="adicionarAoCarrinho()">
                                 <img class="try-car" src="../../public/img/add-cart.png" alt="adicionar ao carrinho">
                             </button>
-                            <button class="button-comprar" onclick="comprarAgora()">Comprar</button>
+                            <button class="button-comprar" onclick="comprarAgora(this)">Comprar</button>
 
                         <?php else: ?>
                             <!-- Botão para visitantes (redireciona para login) -->
@@ -328,7 +328,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                                     <div>
                                         <p class="nome-usuario"><?= htmlspecialchars($comentario['nome']) ?></p>
                                         <p class="data-comentario">
-                                            <?= date('d/m/Y H:i', strtotime($comentario['data_comentario'])) ?></p>
+                                            <?= date('d/m/Y H:i', strtotime($comentario['data_comentario'])) ?>
+                                        </p>
                                     </div>
                                     <?php if (isset($_SESSION['id_cliente']) && $_SESSION['id_cliente'] == $comentario['id_cliente'] || isset($_SESSION['id_funcionario'])): ?>
                                         <form method="POST" class="form-excluir-comentario">
@@ -359,6 +360,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
     <script src="../../public/js/tema.js"></script>
 
     <script>
+
+        function alterarQuantidade(botao, incremento) {
+            // Encontra o container mais próximo da quantidade (pode ser um div, por exemplo)
+            const containerQtde = botao.closest('.compra-qtde');
+            if (!containerQtde) return;
+
+            const inputQtde = containerQtde.querySelector('input#quantidade');
+            if (!inputQtde) return;
+
+            let quantidadeAtual = parseInt(inputQtde.value) || 1;
+            let novaQuantidade = quantidadeAtual + incremento;
+            if (novaQuantidade < 1) novaQuantidade = 1;
+
+            inputQtde.value = novaQuantidade;
+        }
+
         // Função para mostrar mensagem para funcionários
         function mostrarMensagemFuncionario() {
             Toastify({
@@ -473,26 +490,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
             }
         }
 
-        // Função para compra direta
-        async function comprarAgora() {
-            const btn = document.getElementById('btn-comprar');
-            btn.disabled = true;
-            btn.textContent = 'Processando...';
-
+        async function comprarAgora(botao) {
             try {
+                botao.disabled = true;
+                botao.textContent = 'Processando...';
+
+                // Adiciona o produto ao carrinho (você pode precisar passar o id do produto ou outras infos)
                 await adicionarAoCarrinho();
-                window.location.href = '../views/telaCarrinho.php?checkout=true';
+
+                // Redireciona para a tela de pagamento (checkout)
+                window.location.href = '../views/telaPagamento.php'; // ajuste esse caminho
+
             } catch (error) {
-                console.error("Erro na compra:", error);
+                console.error('Erro ao comprar:', error);
+                alert('Não foi possível finalizar a compra. Tente novamente.');
             } finally {
-                btn.disabled = false;
-                btn.textContent = 'Comprar';
+                botao.disabled = false;
+                botao.textContent = 'Comprar';
             }
         }
 
+
         // Função para confirmar e excluir comentário
         document.querySelectorAll('.btn-excluir-comentario').forEach(btn => {
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 const comentarioId = this.getAttribute('data-comentario-id');
                 const form = this.closest('form');
@@ -520,7 +541,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
                         border: '1px solid grey',
                         color: 'black'
                     },
-                    onClick: function() {} // Prevents closing when clicked
+                    onClick: function () { } // Prevents closing when clicked
                 });
 
                 // Show the toast
@@ -528,14 +549,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
 
                 // Adicionar eventos aos botões
                 const toastElement = toast.toastElement;
-                toastElement.querySelector('.toastify-confirm').addEventListener('click', function() {
+                toastElement.querySelector('.toastify-confirm').addEventListener('click', function () {
                     if (form) {
                         form.submit();
                     }
                     toast.hideToast();
                 });
 
-                toastElement.querySelector('.toastify-cancel').addEventListener('click', function() {
+                toastElement.querySelector('.toastify-cancel').addEventListener('click', function () {
                     toast.hideToast();
                 });
             });

@@ -170,10 +170,8 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
             </div>
 
             <div class="flex-enviar">
-              <!-- Input de foto escondido inicialmente -->
               <input type="file" name="foto" id="foto" class="enviar-foto" hidden>
 
-              <!-- Botão de enviar foto -->
               <label for="foto" class="enviar-foto" id="btn-enviar-foto" style="display: none;">Enviar foto</label>
 
             </div>
@@ -269,17 +267,65 @@ if (!empty($cliente['datNasc']) && $cliente['datNasc'] !== '0000-00-00') {
           </div>
         </form>
       </div>
+
       <!-- Seção de Pedidos -->
       <div class="pedidos-section" id="pedidos-section" style="display:none;">
+
         <div class="pedido-container">
-          <div class="produto">
-            <div class="img-produto">
-              <img src="../../public" alt="">
+          <div class="pedido-card">
+            <div class="pedido-info">
+              <p class="pedido-id">Pedido #001</p>
+              <div class="pedido-detalhes">
+                <div class="img-produto">
+                  <img src="caminho/para/imagem.jpg" alt="Xícara Personalizada" class="pedido-img">
+                </div>
+                <div class="conteudo">
+                  <div class="pedido-descricao">
+                    <p class="produto-nome">Xícara Personalizada</p>
+                    <p><strong>Preço unitário:</strong> R$ 30,00</p>
+                    <p><strong>Quantidade: </strong> 1</p>
+                  </div>
+                  <div class="pedido-preco">
+                    <p><strong>Subtotal:</strong> R$ 35,00</p>
+                    <p><strong>Forma de pagamento:</strong> Débito</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pedido-situacao">
+              <p><strong>Situação:</strong> Em preparação</p>
             </div>
           </div>
         </div>
-      </div>
 
+        <div class="pedido-container">
+          <div class="pedido-card">
+            <div class="pedido-info">
+              <p class="pedido-id">Pedido #001</p>
+              <div class="pedido-detalhes">
+                <div class="img-produto">
+                  <img src="caminho/para/imagem.jpg" alt="Xícara Personalizada" class="pedido-img">
+                </div>
+                <div class="conteudo">
+                  <div class="pedido-descricao">
+                    <p class="produto-nome">Xícara Personalizada</p>
+                    <p><strong>Preço unitário:</strong> R$ 30,00</p>
+                    <p><strong>Quantidade: </strong> 1</p>
+                  </div>
+                  <div class="pedido-preco">
+                    <p><strong>Subtotal:</strong> R$ 35,00</p>
+                    <p><strong>Forma de pagamento:</strong> Débito</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pedido-situacao">
+              <p><strong>Situação:</strong> Em preparação</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   </main>
 

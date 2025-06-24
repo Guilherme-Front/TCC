@@ -68,7 +68,7 @@ section {
     cursor: default;
 }
 
-#mensagem-vazio{
+#mensagem-vazio {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,9 +114,9 @@ section {
     border: 1px solid rgb(231, 231, 231);
 }
 
-.img-produto {
+/* .img-produto {
     display: flex;
-    width: 210px;
+    width: 200px;
     justify-content: center;
     align-items: center;
     height: 180px;
@@ -124,8 +124,27 @@ section {
 
 .img-produto img {
     width: 130px;
+} */
+
+
+.img-produto {
+  width: 110px;      
+  height: 110px;     
+  overflow: hidden;        
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  padding-left: 30px;
+  margin-right: 60px;
 }
 
+.img-produto img {
+  width: 100%;        
+  height: 100%;         
+  object-fit: cover;    
+  display: block;
+}
 .descricao-total {
     flex-direction: row;
     display: flex;
@@ -139,7 +158,7 @@ section {
 }
 
 .descricao h3 {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
     margin-bottom: 30px;
 }
@@ -156,6 +175,12 @@ section {
     margin-left: 40px;
     gap: 185px;
     width: 570px;
+}
+
+.informacoes p {
+    width: 60px;
+    /* ou outro valor que distribua bem o espaço */
+    text-align: center;
 }
 
 .quantidade {
@@ -268,9 +293,10 @@ section {
     background-color: #4b4746;
 }
 
-.finalizar-pedido {
-    padding: 10px;
-    width: 150px;
+/* Estilo do botão (você pode usar diretamente no id) */
+#finalizar-compra {
+    padding: 8px;
+    width: 180px;
     font-size: 17px;
     border: none;
     cursor: pointer;
@@ -278,10 +304,35 @@ section {
     color: white;
     border-radius: 2px;
     transition: 0.8s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 10px;
+    font-weight: 400 !important;
 }
 
-.finalizar-pedido:hover {
+#finalizar-compra:hover:not(:disabled) {
     background-color: #8e3315;
+    border: none;
+}
+
+#finalizar-compra:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+#btn-text {
+    font-weight: 400;
+}
+
+#btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    gap: 5px;
+    font-weight: 400;
 }
 
 input[readonly] {
@@ -291,24 +342,19 @@ input[readonly] {
     pointer-events: none;
 }
 
-/* Adicione ao seu CSS */
 .tema-escuro .pedido {
     background-color: #3f3e3e;
-    /* outros estilos */
 }
 
 .tema-claro .pedido {
     background-color: #ffffff;
-    /* outros estilos */
 }
 
-/* tema-escuro.css */
 .tema-escuro .input-add {
     color: white !important;
     background-color: #3f3e3e;
 }
 
-/* tema-claro.css */
 .tema-claro .input-add {
     color: black !important;
     background-color: white;

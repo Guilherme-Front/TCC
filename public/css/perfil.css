@@ -427,19 +427,108 @@ a:active {
 
 /* Sessão de pedidos */
 
-.pedidos-section{
+.pedidos-section {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.pedido-card {
+    background-color: #e9e9e9;
+    padding: 20px;
+    margin-bottom: 5px;
+    border-radius: 2px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    padding-bottom: 10px;
+    height: 150px;
+}
+
+.pedido-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pedido-id {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.pedido-detalhes {
+    display: flex;
+    gap: 15px;
+}
+
+.conteudo {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.img-produto {
     background-color: grey;
+    height: 95px;
+    width: 120px;
+}
+
+.pedido-img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+}
+
+.pedido-descricao p {
+    margin: 2px 0;
+}
+
+.produto-nome {
+    font-weight: bold;
+}
+
+.pedido-preco {
+    min-width: 180px;
+}
+
+.pedido-preco p {
+    margin: 2px 0;
+}
+
+.pedido-situacao {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.pedido-situacao p{
+    background-color: #BD5532;
+    color: white;
+    border: none;
+    width: 205px;
+    padding: 5px;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+    text-align: center;
+    cursor: default;
+}
+
+.btn-acompanhar:hover {
+    background-color: #e67e22;
 }
 
 .pedido-container{
-    width: 600px;
-    height: 100px;
-    background-color: rgb(212, 212, 212);
+    margin-bottom: 15px; 
+}
+
+.pedido-descricao strong,
+.pedido-preco strong
+,.pedido-situacao p strong {
+    font-weight: 600;
 }
 
 /* Sessão de produtos cadastrados */
@@ -546,7 +635,7 @@ select {
     background-color: grey;
 }
 
-.txt-alterar{
+.txt-alterar {
     color: white;
     text-decoration: none;
 }
@@ -564,17 +653,19 @@ select {
 }
 
 /* Esconde as seções por padrão */
-section > div {
-  display: none;
+section>div {
+    display: none;
 }
 
 /* Depois que o JS carregar, adicionamos uma classe que permite controlar as seções */
-.js-enabled section > div {
-  display: none; /* mantém escondido */
+.js-enabled section>div {
+    display: none;
+    /* mantém escondido */
 }
 
-.js-enabled section > div.active {
-  display: block; /* só mostra a ativa */
+.js-enabled section>div.active {
+    display: block;
+    /* só mostra a ativa */
 }
 
 /* Estilos para o Toastify com botões */
