@@ -392,8 +392,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_comentario'])
         // Função principal para adicionar ao carrinho
         async function adicionarAoCarrinho() {
             const btn = document.getElementById('btn-add-carrinho');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processando...';
+
+            // btn.disabled = true;
+            // btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processando...';
 
             try {
                 const idProduto = <?= $id_produto ?>;

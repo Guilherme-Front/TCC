@@ -356,7 +356,8 @@ main {
 }
 
 .sobre {
-    width: 800px;
+    width: 100%;
+    padding-right: 30px;
 }
 
 .descricao-container p {
