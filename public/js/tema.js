@@ -332,7 +332,7 @@ function ativarModoEscuro() {
   const PC = document.querySelector(".titulo-categoria");
   if (PC) PC.style.backgroundColor = "#3f3e3e";
 
-  const func = document.querySelector(".user-img");
+  const func = document.querySelector(".user-imgF");
   if (func) func.src = "../../public/img/adm.png";
 
   /* Fim Perfil */
@@ -1049,6 +1049,9 @@ function ativarModoClaro() {
   /* quem somos */
   const quem = document.querySelector(".quem-somos");
   if (quem) quem.style.backgroundColor = "#fafaa9";
+
+  const quem3 = document.querySelector(".pet-titulo");
+  if (quem3) quem3.style.color = "black";
   /* fim quem somos */
 
   /* Inicio Cuidados */
@@ -1069,6 +1072,6 @@ function ativarModoClaro() {
   /* Fim Cuidados */
 
   /* perfil */
-  const func = document.querySelector(".user-img");
+  const func = document.querySelector(".user-imgF");
   if (func) func.src = "../../public/img/administrador.png";
 }

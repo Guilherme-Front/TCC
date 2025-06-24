@@ -34,12 +34,12 @@ session_start();
         <?php if (isset($_SESSION['id_funcionario'])): ?>
 
           <a class="header-link-none" href="../views/telaFuncionario.php">
-            <img class="user-img" src="../../public/img/administrador.png" alt=""" alt="">
+            <img class="user-imgF" src="../../public/img/administrador.png" alt=""" alt="">
           </a>
 
         <?php elseif (isset($_SESSION['id_cliente'])): ?>
           <!-- Cliente logado - Mostrar perfil e carrinho -->
-          <a class="header-link-none" href="../views/TelaPerfil.php">
+          <a class=" header-link-none" href="../views/TelaPerfil.php">
             <img class="user-img" src="../../public/img/user.png" alt="">
           </a>
 
@@ -111,102 +111,103 @@ session_start();
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
+      const contactForm = document.getElementById('contactForm');
 
-    if (contactForm) {
+      if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+          e.preventDefault();
 
-            // Mostrar loader
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
+          // Mostrar loader
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
 
-            // Coletar dados do formulário
-            const formData = new FormData(this);
+          // Coletar dados do formulário
+          const formData = new FormData(this);
 
-            // Enviar via AJAX
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
+          // Enviar via AJAX
+          fetch(this.action, {
+              method: 'POST',
+              body: formData
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
             })
             .then(data => {
-                // Resetar botão
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+              // Resetar botão
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
 
-                // Mostrar Toastify
-                Toastify({
-                    text: data.message,
-                    duration: 5000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    stopOnFocus: true,
-                    style: {
-                        background: data.success ? 
-                            "linear-gradient(to right, #00b09b, #96c93d)" : 
-                            "linear-gradient(to right, #cd1809, #a01006)",
-                        borderRadius: "4px",
-                        fontSize: "16px",
-                        padding: "12px 24px"
-                    }
-                }).showToast();
-
-                // Limpar formulário se sucesso
-                if (data.success) {
-                    contactForm.reset();
+              // Mostrar Toastify
+              Toastify({
+                text: data.message,
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                  background: data.success ?
+                    "linear-gradient(to right, #00b09b, #96c93d)" : "linear-gradient(to right, #cd1809, #a01006)",
+                  borderRadius: "4px",
+                  fontSize: "16px",
+                  padding: "12px 24px"
                 }
+              }).showToast();
+
+              // Limpar formulário se sucesso
+              if (data.success) {
+                contactForm.reset();
+              }
             })
             .catch(error => {
-                console.error('Error:', error);
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+              console.error('Error:', error);
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
 
-                Toastify({
-                    text: "Erro na conexão. Tente novamente.",
-                    duration: 5000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    style: {
-                        background: "linear-gradient(to right, #cd1809, #a01006)",
-                        borderRadius: "4px",
-                        fontSize: "16px",
-                        padding: "12px 24px"
-                    }
-                }).showToast();
+              Toastify({
+                text: "Erro na conexão. Tente novamente.",
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                style: {
+                  background: "linear-gradient(to right, #cd1809, #a01006)",
+                  borderRadius: "4px",
+                  fontSize: "16px",
+                  padding: "12px 24px"
+                }
+              }).showToast();
             });
         });
-    }
+      }
 
-    <?php if (isset($_SESSION['toast'])): ?>
+      <?php if (isset($_SESSION['toast'])): ?>
         Toastify({
-            text: "<?php echo $_SESSION['toast']['message']; ?>",
-            duration: 5000,
-            close: true,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "<?php echo $_SESSION['toast']['type'] === 'success' ? 
-                    'linear-gradient(to right, #00b09b, #96c93d)' : 
-                    'linear-gradient(to right, #cd1809, #a01006)' ?>",
-                borderRadius: "4px",
-                fontSize: "16px",
-                padding: "12px 24px"
-            },
-            stopOnFocus: true
+          text: "<?php echo $_SESSION['toast']['message']; ?>",
+          duration: 5000,
+          close: true,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: <?php
+                        echo ($_SESSION['toast']['type'] === 'success')
+                          ? "'linear-gradient(to right, #00b09b, #96c93d)'"
+                          : "'linear-gradient(to right, #cd1809, #a01006)'";
+                        ?>,
+            borderRadius: "4px",
+            fontSize: "16px",
+            padding: "12px 24px"
+          },
+          stopOnFocus: true
         }).showToast();
         <?php unset($_SESSION['toast']); ?>
-    <?php endif; ?>
-});
+      <?php endif; ?>
+    });
   </script>
 </body>
 

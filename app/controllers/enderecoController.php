@@ -4,27 +4,40 @@ require_once __DIR__ . '/../controllers/conn.php';
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['id_cliente'])) {
-    $_SESSION['toast'] = [
-        'message' => 'Você precisa estar logado para acessar esta página!',
-        'type' => 'error'
-    ];
+    echo "<script>
+        Toastify({
+            text: 'Você precisa estar logado para acessar esta página!',
+            duration: 3000,
+            close: true,
+            gravity: 'top',
+            position: 'right',
+            backgroundColor: '#ff4444',
+            stopOnFocus: true
+        }).showToast();
+    </script>";
     header('Location: ../views/Login.php');
     exit();
 }
 
 // Verifica o token CSRF
-if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    $_SESSION['toast'] = [
-        'message' => 'Token de segurança inválido!',
-        'type' => 'error'
-    ];
+if ((!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    echo "<script>
+        Toastify({
+            text: 'Token de segurança inválido!',
+            duration: 3000,
+            close: true,
+            gravity: 'top',
+            position: 'right',
+            backgroundColor: '#ff4444',
+            stopOnFocus: true
+        }).showToast();
+    </script>";
     header('Location: ../views/telaPerfil.php#endereco-section');
     exit();
 }
 
 // Função para limpar e validar dados
-function sanitizeInput($data)
-{
+function sanitizeInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -32,8 +45,7 @@ function sanitizeInput($data)
 }
 
 // Função para validar e formatar CEP
-function validarCEP($cep)
-{
+function validarCEP($cep) {
     // Remove todos os caracteres não numéricos
     $cep = preg_replace('/[^0-9]/', '', $cep);
 
@@ -107,11 +119,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Se houver erros, retorna para a página com mensagens
     if (!empty($erros)) {
-        $_SESSION['toast'] = [
-            'message' => implode(' • ', $erros), // Usa bullet points para separar os erros
-            'type' => 'error'
-        ];
         $_SESSION['dados_endereco'] = $_POST; // Mantém os dados digitados
+        
+        // Prepara o script Toastify com todos os erros
+        $errorMessages = implode('\\n', $erros);
+        echo "<script>
+            Toastify({
+                text: 'Erros encontrados:\\n{$errorMessages}',
+                duration: 5000,
+                close: true,
+                gravity: 'top',
+                position: 'right',
+                backgroundColor: '#ff4444',
+                stopOnFocus: true
+            }).showToast();
+        </script>";
+        
         header('Location: ../views/telaPerfil.php#endereco-section');
         exit();
     }
@@ -150,18 +173,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($stmt->execute()) {
-            $_SESSION['toast'] = [
-                'message' => 'Endereço ' . $acao . ' com sucesso! 🎉',
-                'type' => 'success'
-            ];
+            echo "<script>
+                Toastify({
+                    text: 'Endereço {$acao} com sucesso! 🎉',
+                    duration: 3000,
+                    close: true,
+                    gravity: 'top',
+                    position: 'right',
+                    backgroundColor: '#4CAF50',
+                    stopOnFocus: true
+                }).showToast();
+            </script>";
         } else {
             throw new Exception('Erro ao salvar endereço no banco de dados.');
         }
     } catch (Exception $e) {
-        $_SESSION['toast'] = [
-            'message' => 'Erro: ' . $e->getMessage(),
-            'type' => 'error'
-        ];
+        echo "<script>
+            Toastify({
+                text: 'Erro: {$e->getMessage()}',
+                duration: 3000,
+                close: true,
+                gravity: 'top',
+                position: 'right',
+                backgroundColor: '#ff4444',
+                stopOnFocus: true
+            }).showToast();
+        </script>";
     } finally {
         if (isset($stmt)) {
             $stmt->close();
@@ -172,16 +209,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: ../views/telaPerfil.php#endereco-section');
     exit();
 } else {
-    $_SESSION['toast'] = [
-        'message' => 'Método de requisição inválido!',
-        'type' => 'error'
-    ];
+    echo "<script>
+        Toastify({
+            text: 'Método de requisição inválido!',
+            duration: 3000,
+            close: true,
+            gravity: 'top',
+            position: 'right',
+            backgroundColor: '#ff4444',
+            stopOnFocus: true
+        }).showToast();
+    </script>";
     header('Location: ../views/telaPerfil.php');
     exit();
 }
 
-function buscarEnderecoPorCEP($cep)
-{
+function buscarEnderecoPorCEP($cep) {
     $url = "https://viacep.com.br/ws/{$cep}/json/";
 
     $ch = curl_init();
