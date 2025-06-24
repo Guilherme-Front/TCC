@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+section{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.container {
+    max-width: 1200px;
+    min-width: 1200px;
+    height: 200px;
+    margin: 20px auto;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+
+.payment-section {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+h2,
+h3 {
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.payment-option {
+    border: 1px solid #FFA500;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    background-color: #fff8e1;
+}
+
+.voltar-text{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.botao-voltar {
+    width: 25px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    filter: brightness(0.4);
+    margin-bottom: 15px;
+}
+
+.payment-option.selected {
+    border: 2px solid #FFA500;
+    background-color: #fff3cd;
+}
+
+.form-section {
+    display: none;
+    margin-top: 10px;
+}
+
+.form-section.active {
+    display: block;
+}
+
+.form-section input {
+    width: 765px;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.btn {
+    background-color: #BD5532;
+    color: white;
+    padding: 10px;
+    width: 130px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: .8s;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: #8e3315;
+}
+
+.resumo {
+    flex: 0.4;
+    min-width: 250px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.resumo p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.total {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 16px;
+}
