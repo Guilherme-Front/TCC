@@ -45,9 +45,11 @@ try {
 
     // 3. Definir caminho da imagem (verifique se o caminho está correto conforme sua estrutura)
     // Altere para caminho absoluto ou URL completa
+    $base_url = 'http://' . $_SERVER['HTTP_HOST'];
+
     $imagem_path = $imagem
-        ? '/public/uploads/imgProdutos/' . $id_produto . '/' . basename($imagem['nome_imagem'])
-        : '/public/img/sem-imagem.jpg';
+        ? $base_url . '/TCC/uploads/imgProdutos/' . $id_produto . '/' . basename($imagem['nome_imagem'])
+        : $base_url . '/TCC/img/sem-imagem.jpg';
 
     // 4. Retornar os dados do produto
     echo json_encode([
