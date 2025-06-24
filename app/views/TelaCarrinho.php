@@ -1,536 +1,225 @@
-<?php
-
-session_start();
-
-
-// Verifica se o usuário está autenticado
-if (!isset($_SESSION['id_cliente'])) {
-
-    // Usuário não está autenticado, redireciona para o login
-    header('Location: ../views/Login.php');
-    exit;
-}
-
-?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/css/carrinho.css?v=<?= time() ?>">
+  <meta charset="UTF-8">
+  <title>Forma de Pagamento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
 
-    <!-- Logo na aba do site  -->
-    <link rel="icon" type="image/x-icon" href="../../public/img/favicon-32x32.png">
-    <title>Tela de Carrinho | Pet Insight</title>
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
+    .payment-section {
+      flex: 1;
+      min-width: 300px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    h2, h3 {
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    .payment-option {
+      border: 1px solid #FFA500;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      background-color: #fff8e1;
+    }
+
+    .payment-option.selected {
+      border: 2px solid #FFA500;
+      background-color: #fff3cd;
+    }
+
+    .form-section {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    .form-section input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn {
+      background-color: #FFA500;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #e69500;
+    }
+
+    .resumo {
+      flex: 0.4;
+      min-width: 250px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      height: fit-content;
+    }
+
+    .resumo p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    .total {
+      font-weight: bold;
+      color: #28a745;
+      font-size: 16px;
+    }
+  </style>
 </head>
-
 <body>
 
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
-    <header>
-        <a href="../views/Index.php">
-            <img class="logo" src="../../public/img/Pet insight.png" alt="logo"></a>
-        <a href="../views/telaPerfil.php">
-            <img class="user" src="../../public/img/user.png" alt="usuário">
-        </a>
-    </header>
-
-    <main>
-        <section>
-            <div class="txt-carrinho">
-                <h1>Carrinho de compras</h1>
-                <img class="carrinhoC" src="../../public/img/carrinho.png" alt="">
-            </div>
-
-            <div class="todos">
-                <div class="txt-descricao">
-                    <p>Descrição</p>
-                </div>
-
-                <div class="txt-dados">
-                    <p class="txt-quantidade">Quantidade</p>
-                    <p>Preço unitário</p>
-                    <p>Subtotal</p>
-                </div>
-            </div>
-
-            <p id="mensagem-vazio" style="display: none; text-align: center; font-size: 18px; margin-top: 20px;">
-                Carrinho vazio
-            </p>
-
-            <div class="pedido-container">
-                <!--  -->
-            </div>
-
-            <div class="cart-actions">
-                <button class="button-limpar" type="button" onclick="limparCarrinho()">Limpar carrinho</button>
-
-                <p class="total"><strong>Total:</strong> R$ 199,99</p>
-            </div>
-
-            <div class="cart-actions">
-                <a href="../views/TelaProdutos.php"><button aria-label="botao" class="fechar-tela">Escolher mais
-                        produtos</button></a>
-
-                <button id="finalizar-compra" class="button-comprar" onclick="comprarAgora()">
-                    <span id="btn-text">Finalizar Compra</span>
-                    <span id="btn-loading" style="display:none;">
-                        <i class="fa fa-spinner fa-spin"></i> Processando...
-                    </span>
-                </button>
-            </div>
-
-        </section>
-    </main>
-
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const finalizarBtn = document.getElementById('finalizar-compra');
-
-            if (finalizarBtn) {
-                finalizarBtn.addEventListener('click', async function () {
-                    // 1. Desativar o botão e mostrar loading
-                    this.disabled = true;
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processando...';
-
-                    try {
-                        // 2. Obter itens do carrinho (exemplo)
-                        const itensCarrinho = [];
-                        document.querySelectorAll('.item-carrinho').forEach(item => {
-                            itensCarrinho.push({
-                                id: item.dataset.produtoId,
-                                nome: item.querySelector('.nome-produto').textContent.trim(),
-                                preco: parseFloat(item.querySelector('.preco').textContent.replace('R$', '').replace(',', '.').trim()),
-                                quantidade: parseInt(item.querySelector('.quantidade').value)
-                            });
-                        });
-
-                        // 3. Enviar para o backend
-                        const response = await fetch('/api/pedidos/criar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Requested-With': 'XMLHttpRequest'
-                            },
-                            body: JSON.stringify({
-                                itens: itensCarrinho,
-                                cliente_id: document.body.dataset.clienteId // Exemplo: armazenado no data-attribute
-                            })
-                        });
-
-                        // 4. Verificar se a resposta é JSON
-                        const contentType = response.headers.get('content-type');
-                        if (!contentType || !contentType.includes('application/json')) {
-                            throw new Error('Resposta inválida do servidor');
-                        }
-
-                        const data = await response.json();
-
-                        if (!response.ok) {
-                            throw new Error(data.message || 'Erro ao processar pedido');
-                        }
-
-                        // Mock para desenvolvimento - remova na produção
-
-                        // 5. Redirecionar para checkout se sucesso
-                        window.location.href = `/checkout?pedido_id=${data.pedido_id}`;
-
-                    } catch (error) {
-                        console.error('Erro:', error);
-                        alert(`Erro ao finalizar compra: ${error.message}`);
-                    } finally {
-                        // 6. Reativar o botão
-                        finalizarBtn.disabled = false;
-                        finalizarBtn.innerHTML = originalText;
-
-
-                        if (window.location.hostname === 'localhost') {
-                            window.fetch = async () => ({
-                                ok: true,
-                                headers: new Headers({ 'Content-Type': 'application/json' }),
-                                json: () => ({ pedido_id: '123', status: 'success' })
-                            });
-                        }
-
-                    }
-                });
-            }
-        });
-
-        // Variáveis globais
-        const idCliente = <?= json_encode($_SESSION['id_cliente'] ?? null) ?>;
-        const carrinhoKey = `carrinho_${idCliente}`;
-        const carrinhoVazioKey = `carrinhoVazio_${idCliente}`;
-
-        // Função para atualizar o subtotal de um item
-        function atualizarSubtotal(pedido) {
-            let precoUnitarioTexto = pedido.querySelector('.dados p:nth-child(1)').innerText;
-            let precoUnitario = parseFloat(precoUnitarioTexto.replace('R$ ', '').replace(',', '.'));
-
-            let quantidade = parseInt(pedido.querySelector('.quantidade-produto').value);
-            let novoSubtotal = precoUnitario * quantidade;
-
-            pedido.querySelector('.dados p:nth-child(2)').innerText = `R$ ${novoSubtotal.toFixed(2).replace('.', ',')}`;
-        }
-
-        // Função para atualizar o total do carrinho
-        function atualizarTotalCarrinho() {
-            let total = 0;
-            document.querySelectorAll('.pedido').forEach(pedido => {
-                let subtotal = parseFloat(
-                    pedido.querySelector('.dados p:nth-child(2)')
-                        .innerText.replace('R$ ', '').replace(',', '.')
-                );
-                total += subtotal;
-            });
-
-            document.querySelector('.total').innerHTML = `<strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}`;
-        }
-
-        // Função para verificar se o carrinho está vazio
-        function verificarCarrinhoVazio() {
-            const container = document.querySelector('.pedido-container');
-            const mensagemVazio = document.getElementById('mensagem-vazio');
-            const txtDescricao = document.querySelector('.todos');
-            const botaoLimpar = document.querySelector('.button-limpar');
-            const total = document.querySelector('.total');
-            const botaoFinalizar = document.querySelector('.finalizar-pedido');
-
-            if (container.children.length === 0) {
-                txtDescricao.style.display = 'none';
-                mensagemVazio.style.display = 'block';
-                if (botaoLimpar) botaoLimpar.style.display = 'none';
-                if (total) total.style.display = 'none';
-                if (botaoFinalizar) botaoFinalizar.style.display = 'none';
-                localStorage.setItem(carrinhoVazioKey, 'true');
-            } else {
-                txtDescricao.style.display = 'flex';
-                mensagemVazio.style.display = 'none';
-                if (botaoLimpar) botaoLimpar.style.display = 'inline-block';
-                if (total) total.style.display = 'block';
-                if (botaoFinalizar) botaoFinalizar.style.display = 'inline-block';
-                localStorage.removeItem(carrinhoVazioKey);
-            }
-        }
-
-        // Função para carregar os itens do carrinho
-        async function carregarCarrinho() {
-            const container = document.querySelector('.pedido-container');
-            const mensagemVazio = document.getElementById('mensagem-vazio');
-            const txtDescricao = document.querySelector('.todos');
-
-            // Debug: Verifica dados iniciais
-            console.log('ID Cliente:', idCliente);
-            console.log('Chave do carrinho:', carrinhoKey);
-
-            let carrinho = [];
-            try {
-                const carrinhoData = localStorage.getItem(carrinhoKey);
-                console.log('Dados brutos do carrinho:', carrinhoData); // Debug
-
-                carrinho = carrinhoData ? JSON.parse(carrinhoData) : [];
-                console.log('Carrinho parseado:', carrinho); // Debug
-
-                if (!Array.isArray(carrinho)) {
-                    console.error('Dados do carrinho não são um array, resetando...');
-                    carrinho = [];
-                    localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-                }
-            } catch (e) {
-                console.error('Erro ao parsear carrinho:', e);
-                carrinho = [];
-                localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-            }
-
-            if (carrinho.length === 0) {
-                container.innerHTML = '';
-                verificarCarrinhoVazio();
-                return;
-            }
-
-            // Limpa o container antes de adicionar os itens
-            container.innerHTML = '';
-
-            // Flag para controlar se algum produto foi adicionado com sucesso
-            let algumProdutoAdicionado = false;
-
-            // Processa cada produto do carrinho
-            for (const produto of carrinho) {
-                try {
-                    // Verifica se o produto tem estrutura mínima válida
-                    if (!produto.id || !produto.nome || !produto.preco || !produto.quantidade) {
-                        console.error('Produto inválido no carrinho:', produto);
-                        continue;
-                    }
-
-                    // Tenta verificar o estoque (mas não bloqueia a exibição se falhar)
-                    let emEstoque = true;
-                    let statusEstoque = 'Em estoque';
-
-                    try {
-                        const response = await fetch('../controllers/verificaEstoque.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `id_produto=${produto.id}&quantidade=${produto.quantidade}`
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            emEstoque = data.disponivel || false;
-                            const estoqueAtual = data.estoque || 0;
-                            statusEstoque = emEstoque ? 'Em estoque' : `Estoque insuficiente (${estoqueAtual} disponíveis)`;
-                        } else {
-                            console.error('Erro na resposta da API de estoque:', response.status);
-                        }
-                    } catch (err) {
-                        console.error('Erro ao verificar estoque, exibindo produto mesmo assim:', err);
-                        statusEstoque = 'Estoque não verificado';
-                    }
-
-                    // Calcula o subtotal
-                    const subtotal = produto.preco * produto.quantidade;
-
-                    // Cria o HTML do produto
-                    const pedidoHTML = `
-                    <div class="pedido" data-produto-id="${produto.id}">
-                    <div class="img-produto">
-                    <img src="${produto.imagem || '../../public/img/sem-imagem.jpg'}" alt="${produto.nome}">
-                    </div>
-                    
-                    <div class="descricao-total">
-                    <div class="descricao">
-                    <h3>${produto.nome}</h3>
-                    <p class="${emEstoque ? 'em-estoque' : 'sem-estoque'}">${statusEstoque}</p>
-                        </div>
-                        
-                        <div class="informacoes">
-                        <div class="quantidade">
-                        <button class="button-add" onclick="alterarQuantidade(this, -1)">−</button>
-                        <input aria-label="inp" class="input-add quantidade-produto" type="text" 
-                        value="${produto.quantidade}" readonly data-produto-id="${produto.id}">
-                        <button class="button-add2" onclick="alterarQuantidade(this, 1)">+</button>
-                        </div>
-                        
-                        <div class="dados">
-                        <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
-                        <p>R$ ${subtotal.toFixed(2).replace('.', ',')}</p>
-                        </div>
-                        </div>
-                        </div>
-                        
-                        <div class="button-excluir">
-                        <button class="excluir" type="button" onclick="excluirPedido(this)" 
-                        data-produto-id="${produto.id}">
-                        <img src="../../public/img/x-button.png" alt="excluir">
-                        </button>
-                        </div>
-                        </div>
-                        `;
-
-                    container.insertAdjacentHTML('beforeend', pedidoHTML);
-                    algumProdutoAdicionado = true;
-
-                } catch (err) {
-                    console.error('Erro ao processar produto:', produto, err);
-                }
-            }
-
-            // Atualiza totais e verifica se o carrinho está vazio
-            atualizarTotalCarrinho();
-            verificarCarrinhoVazio();
-
-            // Se nenhum produto foi adicionado (todos inválidos), mostra carrinho vazio
-            if (!algumProdutoAdicionado) {
-                container.innerHTML = '';
-                localStorage.setItem(carrinhoKey, JSON.stringify([]));
-                verificarCarrinhoVazio();
-            }
-        }
-
-        // Função para alterar a quantidade de um produto
-        async function alterarQuantidade(botao, valor) {
-            const pedido = botao.closest('.pedido');
-            const input = pedido.querySelector('.quantidade-produto');
-            const produtoId = parseInt(input.getAttribute('data-produto-id'));
-            const quantidadeAtual = parseInt(input.value);
-            const novaQuantidade = quantidadeAtual + valor;
-
-            if (novaQuantidade < 1) {
-                return;
-            }
-
-            try {
-                // Verificar estoque antes de atualizar
-                const response = await fetch('../controllers/verificaEstoque.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `id_produto=${produtoId}&quantidade=${novaQuantidade}`
-                });
-
-                const data = await response.json();
-
-                if (data.erro) {
-                    error(data.erro, "linear-gradient(to right, #cd1809, #a01006)");
-                    return;
-                }
-
-                if (!data.disponivel) {
-                    error(`Quantidade indisponível em estoque. Máximo: ${data.estoque}`,
-                        "linear-gradient(to right, #cd1809, #a01006)");
-                    return;
-                }
-
-                // Atualizar a quantidade
-                input.value = novaQuantidade;
-
-                // Atualizar no localStorage
-                const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-                const produtoIndex = carrinho.findIndex(p => p.id === produtoId);
-
-                if (produtoIndex !== -1) {
-                    carrinho[produtoIndex].quantidade = novaQuantidade;
-                    localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-                }
-
-                atualizarSubtotal(pedido);
-                atualizarTotalCarrinho();
-
-            } catch (err) {
-                console.error('Erro ao verificar estoque:', err);
-                error("Erro ao atualizar quantidade", "linear-gradient(to right, #cd1809, #a01006)");
-            }
-        }
-
-        // Função para excluir um produto do carrinho
-        function excluirPedido(botao) {
-            const produtoId = parseInt(botao.getAttribute('data-produto-id'));
-            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-
-            // Filtrar para remover o produto
-            carrinho = carrinho.filter(produto => produto.id !== produtoId);
-
-            // Atualizar localStorage
-            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-
-            // Remover visualmente
-            const pedido = botao.closest('.pedido');
-            pedido.remove();
-
-            atualizarTotalCarrinho();
-            verificarCarrinhoVazio();
-
-            if (carrinho.length === 0) {
-                localStorage.setItem(carrinhoVazioKey, 'true');
-            }
-        }
-
-        // Função para limpar todo o carrinho
-        function limparCarrinho() {
-            localStorage.removeItem(carrinhoKey);
-            localStorage.setItem(carrinhoVazioKey, 'true');
-
-            const container = document.querySelector('.pedido-container');
-            container.innerHTML = '';
-            atualizarTotalCarrinho();
-            verificarCarrinhoVazio();
-        }
-
-        // Função para verificar estoque antes de finalizar a compra
-        async function verificarEstoqueAntesFinalizar() {
-            const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-
-            if (carrinho.length === 0) {
-                error("Seu carrinho está vazio!", "linear-gradient(to right, #cd1809, #a01006)");
-                return false;
-            }
-
-            try {
-                // Verificar estoque para todos os itens
-                for (const item of carrinho) {
-                    const response = await fetch('../controllers/verificaEstoque.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `id_produto=${item.id}&quantidade=${item.quantidade}`
-                    });
-
-                    const data = await response.json();
-
-                    if (!data.disponivel) {
-                        error(`O produto "${item.nome}" não tem estoque suficiente. Máximo disponível: ${data.estoque}`,
-                            "linear-gradient(to right, #cd1809, #a01006)");
-                        return false;
-                    }
-                }
-                return true;
-            } catch (err) {
-                console.error('Erro ao verificar estoque:', err);
-                error("Erro ao verificar disponibilidade dos produtos", "linear-gradient(to right, #cd1809, #a01006)");
-                return false;
-            }
-        }
-
-        // Função para exibir mensagens de erro
-        function error(message, color) {
-            Toastify({
-                text: message,
-                duration: 3500,
-                close: true,
-                gravity: "top",
-                position: "right",
-                stopOnFocus: true,
-                style: {
-                    background: color,
-                },
-            }).showToast();
-        }
-
-        // Inicialização quando o DOM estiver carregado
-        document.addEventListener('DOMContentLoaded', () => {
-            // Carregar carrinho
-            carregarCarrinho();
-
-            // Evento para limpar carrinho
-            document.querySelector('.button-limpar')?.addEventListener('click', limparCarrinho);
-
-            // Evento para finalizar compra
-            document.querySelector('.finalizar-pedido')?.addEventListener('click', async function () {
-                const estoqueOk = await verificarEstoqueAntesFinalizar();
-
-                if (estoqueOk) {
-                    window.location.href = '../views/TelaCheckout.php';
-                }
-            });
-        });
-
-        function adicionarAoCarrinho(produto) {
-            let carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
-
-            // Verifica se o produto já está no carrinho
-            const itemExistente = carrinho.find(item => item.id === produto.id);
-
-            if (itemExistente) {
-                itemExistente.quantidade += produto.quantidade || 1;
-            } else {
-                carrinho.push(produto);
-            }
-
-            localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
-        }
-    </script>
-
-
-    <script src="../../public/js/tema.js"></script>
+<div class="container">
+  <!-- Seção de pagamento -->
+  <div class="payment-section">
+    <h2>Forma de Pagamento</h2>
+
+    <div class="payment-option" onclick="selectPayment('pix')">
+      <strong>PIX</strong><br>
+      <small>Até 5% de desconto • Aprovação imediata</small>
+    </div>
+
+    <div class="payment-option" onclick="selectPayment('credit')">
+      <strong>Cartão de Crédito</strong><br>
+      <small>Parcele em até 3x sem juros</small>
+    </div>
+
+    <!-- Formulário PIX -->
+    <div id="pix" class="form-section">
+      <h3>Pagamento via PIX</h3>
+      <p>Você receberá um QR Code após finalizar o pedido.</p>
+    </div>
+
+    <!-- Formulário Cartão de Crédito -->
+    <div id="credit" class="form-section">
+      <h3>Pagamento com Cartão</h3>
+      <input type="text" placeholder="Número do cartão" required>
+      <input type="text" placeholder="Nome impresso no cartão" required>
+      <input type="text" placeholder="Validade (MM/AA)" required>
+      <input type="text" placeholder="Código de segurança (CVV)" required>
+      <input type="text" placeholder="CPF/CNPJ do titular" required>
+    </div>
+
+  </div>
+
+  <!-- Resumo do Pedido -->
+  <div class="resumo">
+    <h3>Resumo do Pedido</h3>
+    <p>Valor dos Produtos: <strong id="valor-produtos">R$ 0,00</strong></p>
+    <p id="desconto-section" style="display:none;">Descontos: <span id="desconto" style="color:green;">- R$ 0,00</span></p>
+    <p>Frete: <strong>R$ 0,00</strong></p>
+    <p class="total">Total a Pagar: <span id="valor-total">R$ 0,00</span></p>
+    <button class="btn" onclick="finalizarPagamento()">Continuar</button>
+  </div>
+  
+</div>
+
+<script>
+  let selectedPayment = '';
+
+  function selectPayment(method) {
+    selectedPayment = method;
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('.form-section').forEach(form => form.classList.remove('active'));
+    document.getElementById(method).classList.add('active');
+    event.currentTarget.classList.add('selected');
+  }
+
+  function carregarResumo() {
+    let total = localStorage.getItem('valorTotalCompra') || "0.00";
+    total = parseFloat(total);
+
+    document.getElementById('valor-produtos').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+    // Exemplo: Aplicando 5% de desconto se for PIX (simulando lógica futura)
+    let desconto = 0;
+    if (selectedPayment === 'pix') {
+      desconto = total * 0.05;
+      document.getElementById('desconto-section').style.display = 'block';
+      document.getElementById('desconto').innerText = `- R$ ${desconto.toFixed(2).replace('.', ',')}`;
+    } else {
+      document.getElementById('desconto-section').style.display = 'none';
+    }
+
+    const totalFinal = total - desconto;
+
+    document.getElementById('valor-total').innerText = `R$ ${totalFinal.toFixed(2).replace('.', ',')}`;
+  }
+
+  async function finalizarPagamento() {
+    if (!selectedPayment) {
+      alert('Por favor, selecione uma forma de pagamento.');
+      return;
+    }
+
+    // Se for PIX, apenas exibe uma simulação de sucesso
+    if (selectedPayment === 'pix') {
+      alert('Pedido finalizado com sucesso via PIX! (Aqui você pode gerar o QR code)');
+    }
+
+    // Se for Cartão, valide os campos (exemplo simples)
+    if (selectedPayment === 'credit') {
+      const inputs = document.querySelectorAll('#credit input');
+      let preenchido = true;
+
+      inputs.forEach(input => {
+        if (input.value.trim() === '') preenchido = false;
+      });
+
+      if (!preenchido) {
+        alert('Por favor, preencha todos os dados do cartão.');
+        return;
+      }
+
+      alert('Pagamento com cartão processado com sucesso! (Aqui você pode integrar com API de pagamento)');
+    }
+
+    // Aqui você pode redirecionar para uma página de "Pedido Realizado"
+    // window.location.href = 'pedidoRealizado.php';
+  }
+
+  // Atualiza resumo sempre que um método de pagamento for selecionado
+  document.querySelectorAll('.payment-option').forEach(opt => {
+    opt.addEventListener('click', carregarResumo);
+  });
+
+  // Carrega o valor inicial ao abrir a página
+  document.addEventListener('DOMContentLoaded', carregarResumo);
+</script>
+
 </body>
-
 </html>
