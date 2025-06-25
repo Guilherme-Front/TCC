@@ -104,8 +104,7 @@ if (!isset($_SESSION['id_cliente'])) {
         });
 
         function comprarAgora() {
-            
-            window.location.href = '../views/telaPagamento.php'; 
+            window.location.href = '../views/telaPagamento.php'; // Ajuste o caminho conforme a estrutura do seu projeto
         }
 
 
