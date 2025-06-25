@@ -1,29 +1,45 @@
 <?php
-require __DIR__ . '/../config/mercado_pago_config.php';
 
-$token = $_POST['token'] ?? '';
-$valorTotal = floatval($_POST['total'] ?? 0);
-$parcelas = intval($_POST['parcelas'] ?? 1);
-$email = $_POST['email'] ?? '';
+require '../../vendor/autoload.php';
 
-if (!$token || $valorTotal <= 0 || !$email) {
-    echo json_encode(['erro' => 'Dados inválidos']);
+MercadoPago\SDK::setAccessToken('TEST-2868464185741237-062316-2874c46d11bdf215e6314aa63b0c920b-1173760382'); // Substitua pela sua chave secreta real
+
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['erro' => 'Requisição inválida']);
     exit;
 }
 
-$payment = new MercadoPago\Payment();
-$payment->transaction_amount = $valorTotal;
-$payment->token = $token;
-$payment->installments = $parcelas;
-$payment->payment_method_id = "visa"; // Ou dinâmico dependendo do cartão
-$payment->payer = array(
-    "email" => $email
-);
+$token = $_POST['token'] ?? null;
+$total = $_POST['total'] ?? null;
+$installments = $_POST['installments'] ?? 1;
+$payment_method_id = $_POST['payment_method_id'] ?? null;
 
-$payment->save();
+if (!$token || !$total || !$payment_method_id) {
+    echo json_encode(['erro' => 'Dados incompletos']);
+    exit;
+}
 
-if ($payment->status == "approved") {
-    echo json_encode(['status' => 'sucesso', 'id_pagamento' => $payment->id]);
-} else {
-    echo json_encode(['erro' => 'Falha no pagamento', 'status' => $payment->status]);
+try {
+    $payment = new MercadoPago\Payment();
+    $payment->transaction_amount = (float)$total;
+    $payment->token = $token;
+    $payment->description = "Compra no Pet Insight";
+    $payment->installments = (int)$installments;
+    $payment->payment_method_id = $payment_method_id;
+    $payment->payer = array(
+        "email" => "comprador@email.com" // Substituir por e-mail real se desejar
+    );
+
+    $payment->save();
+
+    echo json_encode([
+        'status' => $payment->status,
+        'status_detail' => $payment->status_detail,
+        'id' => $payment->id
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode(['erro' => 'Erro ao processar pagamento: ' . $e->getMessage()]);
 }

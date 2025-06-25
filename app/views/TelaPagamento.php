@@ -1,6 +1,6 @@
 <?php
 
-session_start()
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ session_start()
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../../public/css/pagamento.css?v=<?= time() ?>">
   <title>Forma de Pagamento</title>
-
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 
 <body>
@@ -44,13 +44,22 @@ session_start()
 
         <!-- Formulário Cartão de Crédito -->
         <div id="credit" class="form-section">
-          <h3>Pagamento com Cartão</h3>
-          <input type="text" placeholder="Número do cartão" required>
-          <input type="text" placeholder="Nome impresso no cartão" required>
-          <input type="text" placeholder="Validade (MM/AA)" required>
-          <input type="text" placeholder="Código de segurança (CVV)" required>
-          <input type="text" placeholder="CPF/CNPJ do titular" required>
-        </div>
+  <h3>Pagamento com Cartão</h3>
+  <form id="form-checkout">
+    <input type="text" id="cardNumber" placeholder="Número do cartão" />
+    <input type="text" id="cardholderName" placeholder="Nome impresso no cartão" />
+    <input type="text" id="expirationDate" placeholder="Validade (MM/AA)" />
+    <input type="text" id="securityCode" placeholder="CVV" />
+    <input type="text" id="docNumber" placeholder="CPF do titular" />
+
+    <input type="hidden" id="paymentMethodId" name="paymentMethodId" />
+    
+    <label for="installments">Parcelamento:</label>
+    <select id="installments" name="installments">
+      <option value="">Selecione...</option>
+    </select>
+  </form>
+</div>
 
       </div>
 
@@ -70,6 +79,8 @@ session_start()
   </section>
 
 <script>
+  const mp = new MercadoPago("TEST-97003615-4325-4af4-a575-72490bb84ec4");
+
   let selectedPayment = '';
 
   function selectPayment(method) {
@@ -81,66 +92,122 @@ session_start()
   }
 
   function carregarResumo() {
-  const carrinhoKey = `carrinho_${<?= $_SESSION['id_cliente'] ?? 0 ?>}`;
-  const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
+    const carrinhoKey = `carrinho_${<?= $_SESSION['id_cliente'] ?? 0 ?>}`;
+    const carrinho = JSON.parse(localStorage.getItem(carrinhoKey)) || [];
 
-  let valorTotalProdutos = 0;
-  const resumoContainer = document.getElementById('resumo-produtos');
-  if (resumoContainer) resumoContainer.innerHTML = '';
+    let valorTotalProdutos = 0;
+    carrinho.forEach(produto => {
+      const subtotal = produto.preco * produto.quantidade;
+      valorTotalProdutos += subtotal;
+    });
 
-  carrinho.forEach(produto => {
-    const subtotal = produto.preco * produto.quantidade;
-    valorTotalProdutos += subtotal;
+    document.getElementById('valor-produtos').innerText = `R$ ${valorTotalProdutos.toFixed(2).replace('.', ',')}`;
+    document.getElementById('valor-total').innerText = `R$ ${valorTotalProdutos.toFixed(2).replace('.', ',')}`;
+  }
 
-    if (resumoContainer) {
-      const p = document.createElement('p');
-      p.innerText = `${produto.nome} x${produto.quantidade} - R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-      resumoContainer.appendChild(p);
+  async function obterParcelas(bin, amount) {
+    try {
+      const response = await mp.getInstallments({ amount, bin });
+      const payerCosts = response[0].payer_costs;
+
+      const select = document.getElementById('installments');
+      select.innerHTML = '';
+
+      payerCosts.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option.installments;
+        opt.textContent = `${option.installments}x de R$ ${option.installment_amount.toFixed(2)} (${option.recommended_message})`;
+        select.appendChild(opt);
+      });
+    } catch (err) {
+      console.error('Erro ao obter parcelas:', err);
+    }
+  }
+
+  document.getElementById('cardNumber').addEventListener('keyup', async function () {
+    const number = this.value.replace(/\s/g, '');
+    if (number.length >= 6) {
+      const bin = number.substring(0, 6);
+      const totalText = document.getElementById('valor-total').innerText.replace('R$ ', '').replace('.', '').replace(',', '.');
+      const amount = parseFloat(totalText) || 0;
+      try {
+        const res = await mp.getPaymentMethod({ bin });
+        document.getElementById('paymentMethodId').value = res.results[0].id;
+        obterParcelas(bin, amount);
+      } catch (err) {
+        console.warn('Erro ao identificar cartão:', err);
+      }
     }
   });
-
-  document.getElementById('valor-produtos').innerText = `R$ ${valorTotalProdutos.toFixed(2).replace('.', ',')}`;
-  }
 
   async function finalizarPagamento() {
     if (!selectedPayment) {
-      alert('Por favor, selecione uma forma de pagamento.');
+      alert('Selecione uma forma de pagamento');
       return;
     }
 
-    // Se for PIX, apenas exibe uma simulação de sucesso
+    const totalText = document.getElementById('valor-total').innerText.replace('R$ ', '').replace('.', '').replace(',', '.');
+    const total = parseFloat(totalText) || 0;
+
     if (selectedPayment === 'pix') {
-      alert('Pedido finalizado com sucesso via PIX! (Aqui você pode gerar o QR code)');
-    }
-
-    // Se for Cartão, valide os campos (exemplo simples)
-    if (selectedPayment === 'credit') {
-      const inputs = document.querySelectorAll('#credit input');
-      let preenchido = true;
-
-      inputs.forEach(input => {
-        if (input.value.trim() === '') preenchido = false;
+      const response = await fetch('../controllers/pagamentoPix.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `total=${total}`
       });
-
-      if (!preenchido) {
-        alert('Por favor, preencha todos os dados do cartão.');
-        return;
+      const data = await response.json();
+      if (data.qr_code_base64) {
+        const janela = window.open();
+        janela.document.write(`<h2>Escaneie o QR Code</h2><img src="data:image/png;base64,${data.qr_code_base64}" />`);
+      } else {
+        alert('Erro ao gerar QR Code: ' + (data.erro || 'desconhecido'));
       }
-
-      alert('Pagamento com cartão processado com sucesso! (Aqui você pode integrar com API de pagamento)');
     }
 
-    // window.location.href = 'pedidoRealizado.php';
+    if (selectedPayment === 'credit') {
+      const cardData = {
+        cardNumber: document.getElementById('cardNumber').value,
+        cardholderName: document.getElementById('cardholderName').value,
+        expirationDate: document.getElementById('expirationDate').value,
+        securityCode: document.getElementById('securityCode').value,
+        identification: {
+          type: 'CPF',
+          number: document.getElementById('docNumber').value
+        }
+      };
+
+      try {
+        const tokenResult = await mp.createCardToken(cardData);
+        const token = tokenResult.id;
+        const paymentMethodId = document.getElementById('paymentMethodId').value;
+        const installments = document.getElementById('installments').value;
+
+        const response = await fetch('../controllers/pagamentoCartao.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            total,
+            token,
+            payment_method_id: paymentMethodId,
+            parcelas: installments
+          })
+        });
+
+        const data = await response.json();
+        if (data.status === 'sucesso') {
+          alert('Pagamento aprovado! ID: ' + data.id_pagamento);
+        } else {
+          alert('Falha no pagamento: ' + (data.erro || 'Erro desconhecido'));
+        }
+      } catch (err) {
+        console.error('Erro ao tokenizar ou pagar:', err);
+        alert('Erro ao processar pagamento com cartão.');
+      }
+    }
   }
 
-  // Atualiza resumo sempre que um método de pagamento for selecionado
-  document.querySelectorAll('.payment-option').forEach(opt => {
-    opt.addEventListener('click', carregarResumo);
-  });
-
-  // Carrega o valor inicial ao abrir a página
   document.addEventListener('DOMContentLoaded', carregarResumo);
-</script>
+  </script>
 
 </body>
 </html>
