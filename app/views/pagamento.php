@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Forma de Pagamento</title>
+  <!-- Adicionando Toastify CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -140,7 +142,7 @@
       <p>Você receberá um QR Code após finalizar o pedido.</p>
       <div id="qr-code-container"></div>
     </div>
-
+    
     <div id="credit" class="form-section">
       <h3>Pagamento com Cartão</h3>
       <input type="text" id="numero-cartao" placeholder="Número do cartão" required>
@@ -165,14 +167,17 @@
     <h3>Resumo do Pedido</h3>
     <p>Valor dos Produtos: <strong id="valor-produtos">R$ 0,00</strong></p>
     <p id="desconto-section" style="display:none;">Descontos: <span id="desconto" style="color:green;">- R$ 0,00</span></p>
-    <p>Frete: <strong>R$ 0,00</strong></p>
     <p class="total">Total a Pagar: <span id="valor-total">R$ 0,00</span></p>
     <button class="btn" onclick="finalizarPagamento()">Continuar</button>
+
+
 
     <div id="message"></div>
   </div>
 </div>
 
+<!-- Adicionando Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
   let selectedPayment = '';
 
@@ -219,7 +224,7 @@
     clearQRCode();
 
     if (!selectedPayment) {
-      alert('Por favor, selecione uma forma de pagamento.');
+      showToast('Por favor, selecione uma forma de pagamento.', true);
       return;
     }
 
@@ -246,11 +251,14 @@
           document.getElementById('message').innerText = 'PIX gerado com sucesso! Use o QR Code para pagar.';
         } else if(data.erro) {
           document.getElementById('message').innerText = 'Erro: ' + data.erro;
+          showToast('Erro ao gerar PIX: ' + data.erro, true);
         } else {
           document.getElementById('message').innerText = 'Erro desconhecido ao gerar PIX.';
+          showToast('Erro desconhecido ao gerar PIX.', true);
         }
       } catch (error) {
         document.getElementById('message').innerText = 'Erro na comunicação com o servidor.';
+        showToast('Erro na comunicação com o servidor.', true);
         console.error(error);
       }
     }
@@ -265,7 +273,7 @@
       const parcelas = document.getElementById('parcelas').value;
 
       if (!numero || !nome || !validade || !cvv || !cpf || !parcelas) {
-        alert('Por favor, preencha todos os campos do cartão.');
+        showToast('Por favor, preencha todos os campos do cartão.', true);
         return;
       }
 
@@ -288,13 +296,17 @@
 
         if (data.status === 'sucesso') {
           document.getElementById('message').innerText = 'Pagamento aprovado! ID: ' + data.id_pagamento;
+          showToast('Pagamento aprovado com sucesso!');
         } else if (data.erro) {
           document.getElementById('message').innerText = 'Erro: ' + data.erro;
+          showToast('Erro no pagamento: ' + data.erro, true);
         } else {
           document.getElementById('message').innerText = 'Pagamento não aprovado.';
+          showToast('Pagamento não aprovado.', true);
         }
       } catch (error) {
         document.getElementById('message').innerText = 'Erro na comunicação com o servidor.';
+        showToast('Erro na comunicação com o servidor.', true);
         console.error(error);
       }
     }
@@ -303,6 +315,63 @@
   document.addEventListener('DOMContentLoaded', () => {
     carregarResumo();
   });
+
+  function showToast(message, isError = false) {
+    Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: isError ? "#ff4444" : "#4CAF50",
+            'border-radius': '4px',
+            'box-shadow': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
+        }
+    }).showToast();
+}
+
+function showRedirectToast(message, target) {
+    const toast = Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            'border-radius': '4px',
+            'box-shadow': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
+        },
+        onClick: function() {
+            window.location.href = target;
+        }
+    });
+    
+    toast.showToast();
+    
+    setTimeout(() => {
+        window.location.href = target;
+    }, 3000);
+}
+
+function showErrorToast(message) {
+    Toastify({
+        text: message,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: "#ff4444",
+            'border-radius': '4px',
+            'box-shadow': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
+        }
+    }).showToast();
+}
 </script>
 
 </body>
